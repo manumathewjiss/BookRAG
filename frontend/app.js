@@ -213,7 +213,25 @@ function addMessageToChat(type, content, metadata = null) {
         
         let citationHtml = '';
         if (metadata && metadata.citation) {
-            citationHtml = `<div class="message-citation"><i class="ph ph-scroll"></i> ${escapeHtml(metadata.citation)}</div>`;
+            const hasShloka = metadata.shloka && metadata.shloka.trim();
+            const hasTranslation = metadata.translation && metadata.translation.trim();
+            
+            if (hasShloka || hasTranslation) {
+                citationHtml = `
+                    <div class="citation-block">
+                        <div class="citation-toggle" onclick="toggleCitation(this)">
+                            <i class="ph ph-scroll"></i> ${escapeHtml(metadata.citation)}
+                            <i class="ph ph-caret-down citation-caret"></i>
+                        </div>
+                        <div class="citation-content" style="display: none;">
+                            ${hasShloka ? `<div class="shloka-text">${escapeHtml(metadata.shloka)}</div>` : ''}
+                            ${hasTranslation ? `<div class="translation-text">${escapeHtml(metadata.translation)}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            } else {
+                citationHtml = `<div class="message-citation"><i class="ph ph-scroll"></i> ${escapeHtml(metadata.citation)}</div>`;
+            }
         }
         
         messageDiv.innerHTML = `
@@ -247,9 +265,24 @@ function toggleSources(element) {
     const sourcesContent = element.nextElementSibling;
     const isHidden = sourcesContent.style.display === 'none';
     sourcesContent.style.display = isHidden ? 'block' : 'none';
-    element.textContent = isHidden 
-        ? `📚 Hide Sources` 
-        : `📚 View Sources (${sourcesContent.querySelectorAll('.source-item').length})`;
+    const count = sourcesContent.querySelectorAll('.source-item').length;
+    element.innerHTML = isHidden 
+        ? `<i class="ph ph-books"></i> Hide Sources` 
+        : `<i class="ph ph-books"></i> View Sources (${count})`;
+}
+
+function toggleCitation(element) {
+    const citationContent = element.nextElementSibling;
+    const caret = element.querySelector('.citation-caret');
+    const isHidden = citationContent.style.display === 'none';
+    
+    citationContent.style.display = isHidden ? 'block' : 'none';
+    
+    if (caret) {
+        caret.className = isHidden 
+            ? 'ph ph-caret-up citation-caret'
+            : 'ph ph-caret-down citation-caret';
+    }
 }
 
 function formatResponse(text) {
