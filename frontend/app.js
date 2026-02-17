@@ -1,6 +1,6 @@
 // ========================================================================
 // SANSKRITY - Frontend JavaScript
-// Handles tabs, chat UI, file uploads, context management, and STT
+// ChatGPT-inspired UI with Phosphor Icons
 // ========================================================================
 
 const API_BASE = '';  // Same origin
@@ -12,6 +12,7 @@ const API_BASE = '';  // Same origin
 let isRecording = false;
 let recognition = null;
 let chatHistory = [];
+let sidebarOpen = true;
 
 // ========================================================================
 // INITIALIZATION
@@ -23,6 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loadContextList();
     initializeSpeechRecognition();
     autoResizeTextarea();
+    
+    // Check mobile view
+    if (window.innerWidth <= 768) {
+        sidebarOpen = false;
+        document.getElementById('sidebar').classList.remove('open');
+    }
 });
 
 // ========================================================================
@@ -30,23 +37,80 @@ document.addEventListener('DOMContentLoaded', () => {
 // ========================================================================
 
 function initializeTabs() {
-    const tabButtons = document.querySelectorAll('.tab-btn');
+    const navItems = document.querySelectorAll('.nav-item');
     
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tabId = btn.dataset.tab;
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const tabId = item.dataset.tab;
             
-            // Update button states
-            tabButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            // Update nav items
+            navItems.forEach(n => n.classList.remove('active'));
+            item.classList.add('active');
             
             // Update tab content
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
             document.getElementById(`${tabId}-tab`).classList.add('active');
+            
+            // Close sidebar on mobile after selection
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
         });
     });
+}
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebarOpen = !sidebarOpen;
+    
+    if (window.innerWidth <= 768) {
+        sidebar.classList.toggle('open', sidebarOpen);
+    } else {
+        sidebar.classList.toggle('collapsed', !sidebarOpen);
+    }
+}
+
+function newChat() {
+    const chatMessages = document.getElementById('chatMessages');
+    chatHistory = [];
+    
+    // Restore welcome screen
+    chatMessages.innerHTML = `
+        <div class="welcome-screen">
+            <div class="welcome-logo">
+                <span class="om-symbol">ॐ</span>
+            </div>
+            <h2>How can I help you today?</h2>
+            <p class="welcome-subtitle">Ask me about Sanskrit scriptures, Ramayana, Mahabharata, or dharmic teachings</p>
+            
+            <div class="suggestion-grid">
+                <button class="suggestion-card" onclick="setQuery('What is dharma according to Ramayana?')">
+                    <i class="ph ph-book-open-text"></i>
+                    <span>What is dharma according to Ramayana?</span>
+                </button>
+                <button class="suggestion-card" onclick="setQuery('Explain the concept of karma')">
+                    <i class="ph ph-infinity"></i>
+                    <span>Explain the concept of karma</span>
+                </button>
+                <button class="suggestion-card" onclick="setQuery('What did Lord Rama teach about duty?')">
+                    <i class="ph ph-crown"></i>
+                    <span>What did Lord Rama teach about duty?</span>
+                </button>
+                <button class="suggestion-card" onclick="setQuery('Summarize the Bhagavad Gita teachings')">
+                    <i class="ph ph-scroll"></i>
+                    <span>Summarize the Bhagavad Gita teachings</span>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // Switch to chat tab
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelector('.nav-item[data-tab="chat"]').classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('chat-tab').classList.add('active');
 }
 
 // ========================================================================
@@ -111,10 +175,10 @@ function setQuery(query) {
 function addMessageToChat(type, content, metadata = null) {
     const chatMessages = document.getElementById('chatMessages');
     
-    // Remove welcome message if present
-    const welcomeMsg = chatMessages.querySelector('.welcome-message');
-    if (welcomeMsg) {
-        welcomeMsg.remove();
+    // Remove welcome screen if present
+    const welcomeScreen = chatMessages.querySelector('.welcome-screen');
+    if (welcomeScreen) {
+        welcomeScreen.remove();
     }
     
     const messageDiv = document.createElement('div');
@@ -122,10 +186,10 @@ function addMessageToChat(type, content, metadata = null) {
     
     if (type === 'user') {
         messageDiv.innerHTML = `
+            <div class="message-avatar"><i class="ph ph-user"></i></div>
             <div class="message-content">
                 <div class="message-text">${escapeHtml(content)}</div>
             </div>
-            <div class="message-avatar">👤</div>
         `;
     } else if (type === 'assistant') {
         let sourcesHtml = '';
@@ -133,7 +197,7 @@ function addMessageToChat(type, content, metadata = null) {
             sourcesHtml = `
                 <div class="message-sources">
                     <div class="sources-toggle" onclick="toggleSources(this)">
-                        📚 View Sources (${metadata.scripture_context.length})
+                        <i class="ph ph-books"></i> View Sources (${metadata.scripture_context.length})
                     </div>
                     <div class="sources-content" style="display: none;">
                         ${metadata.scripture_context.map(s => `
@@ -149,11 +213,11 @@ function addMessageToChat(type, content, metadata = null) {
         
         let citationHtml = '';
         if (metadata && metadata.citation) {
-            citationHtml = `<div class="message-citation">📜 ${escapeHtml(metadata.citation)}</div>`;
+            citationHtml = `<div class="message-citation"><i class="ph ph-scroll"></i> ${escapeHtml(metadata.citation)}</div>`;
         }
         
         messageDiv.innerHTML = `
-            <div class="message-avatar">🙏</div>
+            <div class="message-avatar"><i class="ph ph-sparkle"></i></div>
             <div class="message-content">
                 ${citationHtml}
                 <div class="message-text">${formatResponse(content)}</div>
@@ -162,7 +226,7 @@ function addMessageToChat(type, content, metadata = null) {
         `;
     } else if (type === 'loading') {
         messageDiv.innerHTML = `
-            <div class="message-avatar">🙏</div>
+            <div class="message-avatar"><i class="ph ph-sparkle"></i></div>
             <div class="message-content">
                 <div class="typing-indicator">
                     <span></span>
@@ -358,12 +422,20 @@ function renderContextList(contexts) {
     const container = document.getElementById('contextList');
 
     if (!contexts || contexts.length === 0) {
-        container.innerHTML = '<p class="text-center" style="color: var(--text-tertiary);">No context uploaded yet</p>';
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="ph ph-folder-notch-open"></i>
+                <span>No contexts uploaded yet</span>
+            </div>
+        `;
         return;
     }
 
     container.innerHTML = contexts.map(ctx => `
         <div class="context-item">
+            <div class="context-icon">
+                <i class="ph ph-file-text"></i>
+            </div>
             <div class="context-info">
                 <div class="context-filename">${escapeHtml(ctx.filename)}</div>
                 <div class="context-meta">
@@ -371,7 +443,7 @@ function renderContextList(contexts) {
                 </div>
             </div>
             <button class="context-delete" onclick="deleteContext('${escapeHtml(ctx.filename)}')" title="Delete">
-                🗑️
+                <i class="ph ph-trash"></i>
             </button>
         </div>
     `).join('');
@@ -565,9 +637,21 @@ async function handleQuery() {
 
 function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.className = `toast ${type}`;
-    toast.classList.add('show');
+    const iconEl = toast.querySelector('.toast-icon');
+    const msgEl = toast.querySelector('.toast-message');
+    
+    // Set icon based on type
+    if (iconEl) {
+        iconEl.className = `toast-icon ph ${type === 'error' ? 'ph-x-circle' : 'ph-check-circle'}`;
+    }
+    
+    if (msgEl) {
+        msgEl.textContent = message;
+    } else {
+        toast.textContent = message;
+    }
+    
+    toast.className = `toast ${type} show`;
 
     setTimeout(() => {
         toast.classList.remove('show');
