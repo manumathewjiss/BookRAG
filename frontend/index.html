@@ -17,108 +17,116 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <h1 class="logo">
-                <span class="logo-icon">ॐ</span>
-                Sanskrity
-            </h1>
-            <p class="tagline">AI-Powered Sanskrit Scripture Assistant</p>
+        <div class="container header-content">
+            <div class="logo-section">
+                <h1 class="logo">
+                    <span class="logo-icon">ॐ</span>
+                    Sanskrity
+                </h1>
+                <p class="tagline">AI-Powered Sanskrit Scripture Assistant</p>
+            </div>
+            
+            <!-- Tab Navigation -->
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="chat">
+                    <span class="tab-icon">💬</span>
+                    Chat
+                </button>
+                <button class="tab-btn" data-tab="upload">
+                    <span class="tab-icon">📁</span>
+                    Upload Context
+                </button>
+            </nav>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="container main-grid">
-        <!-- Left Panel: Context Management -->
-        <section class="panel context-panel">
-            <h2 class="panel-title">
-                <span class="icon">📚</span>
-                Context Library
-            </h2>
-            
-            <!-- File Upload Area -->
-            <div class="upload-section">
-                <div class="upload-area" id="uploadArea">
-                    <div class="upload-icon">☁️</div>
-                    <p class="upload-text">Drag & drop files here</p>
-                    <p class="upload-hint">or click to browse</p>
-                    <p class="upload-types">PDF, DOCX, TXT (max 10MB)</p>
-                    <input type="file" id="fileInput" accept=".pdf,.docx,.txt" hidden>
-                </div>
-                <div class="upload-progress" id="uploadProgress" style="display: none;">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
+    <main class="container">
+        <!-- Chat Tab -->
+        <section class="tab-content active" id="chat-tab">
+            <div class="chat-container">
+                <!-- Chat Messages Area -->
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-message">
+                        <div class="welcome-icon">🙏</div>
+                        <h2>Welcome to Sanskrity</h2>
+                        <p>Ask me anything about Sanskrit scriptures, Ramayana, Mahabharata, Bhagavad Gita, or any dharmic teaching.</p>
+                        <div class="example-queries">
+                            <p class="example-label">Try asking:</p>
+                            <button class="example-btn" onclick="setQuery('What is dharma according to Ramayana?')">What is dharma according to Ramayana?</button>
+                            <button class="example-btn" onclick="setQuery('Explain the concept of karma')">Explain the concept of karma</button>
+                            <button class="example-btn" onclick="setQuery('What did Lord Rama teach about duty?')">What did Lord Rama teach about duty?</button>
+                        </div>
                     </div>
-                    <p id="uploadStatus">Processing...</p>
                 </div>
-            </div>
-            
-            <!-- Text Context Input -->
-            <div class="text-input-section">
-                <h3 class="section-subtitle">Or add text directly</h3>
-                <input type="text" id="textTitle" placeholder="Title (optional)" class="input">
-                <textarea id="textContent" placeholder="Paste your context here..." class="textarea"></textarea>
-                <button id="addTextBtn" class="btn btn-secondary">
-                    <span class="btn-icon">➕</span>
-                    Add Context
-                </button>
-            </div>
-            
-            <!-- Context List -->
-            <div class="context-list-section">
-                <h3 class="section-subtitle">Uploaded Contexts</h3>
-                <div id="contextList" class="context-list">
-                    <!-- Populated by JavaScript -->
+                
+                <!-- Chat Input -->
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <textarea 
+                            id="queryInput" 
+                            placeholder="Ask about dharma, karma, yoga, or any Sanskrit teaching..."
+                            class="chat-input"
+                            rows="1"
+                        ></textarea>
+                        <button id="voiceBtn" class="voice-btn" title="Voice input">
+                            <span class="mic-icon">🎤</span>
+                        </button>
+                        <button id="submitBtn" class="send-btn" title="Send message">
+                            <span>➤</span>
+                        </button>
+                    </div>
+                    <p class="input-hint">Press Ctrl+Enter to send</p>
                 </div>
             </div>
         </section>
 
-        <!-- Right Panel: Query Interface -->
-        <section class="panel query-panel">
-            <h2 class="panel-title">
-                <span class="icon">💬</span>
-                Ask a Question
-            </h2>
-            
-            <!-- Query Input -->
-            <div class="query-input-section">
-                <div class="input-wrapper">
-                    <textarea 
-                        id="queryInput" 
-                        placeholder="Ask about dharma, karma, yoga, or any Sanskrit teaching..."
-                        class="query-textarea"
-                        rows="4"
-                    ></textarea>
-                    <button id="voiceBtn" class="voice-btn" title="Voice input">
-                        <span class="mic-icon">🎤</span>
-                    </button>
-                </div>
-                <button id="submitBtn" class="btn btn-primary">
-                    <span class="btn-icon">🔍</span>
-                    Submit Query
-                </button>
-            </div>
-            
-            <!-- Response Area -->
-            <div id="responseSection" class="response-section" style="display: none;">
-                <h3 class="section-subtitle">Answer</h3>
-                <div id="answerContent" class="answer-content"></div>
-                
-                <!-- Sources -->
-                <div class="sources-section">
-                    <h4 class="sources-title">Scripture Sources</h4>
-                    <div id="scriptureSources" class="sources-list"></div>
+        <!-- Upload Tab -->
+        <section class="tab-content" id="upload-tab">
+            <div class="upload-container">
+                <div class="panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📚</span>
+                        Context Library
+                    </h2>
+                    <p class="panel-description">Upload additional documents to enhance the AI's knowledge with your own texts.</p>
                     
-                    <div id="userSourcesSection" style="display: none;">
-                        <h4 class="sources-title">User Context Sources</h4>
-                        <div id="userSources" class="sources-list"></div>
+                    <!-- File Upload Area -->
+                    <div class="upload-section">
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">☁️</div>
+                            <p class="upload-text">Drag & drop files here</p>
+                            <p class="upload-hint">or click to browse</p>
+                            <p class="upload-types">PDF, DOCX, TXT (max 10MB)</p>
+                            <input type="file" id="fileInput" accept=".pdf,.docx,.txt" hidden>
+                        </div>
+                        <div class="upload-progress" id="uploadProgress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <p id="uploadStatus">Processing...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Text Context Input -->
+                    <div class="text-input-section">
+                        <h3 class="section-subtitle">Or add text directly</h3>
+                        <input type="text" id="textTitle" placeholder="Title (optional)" class="input">
+                        <textarea id="textContent" placeholder="Paste your context here..." class="textarea"></textarea>
+                        <button id="addTextBtn" class="btn btn-secondary">
+                            <span class="btn-icon">➕</span>
+                            Add Context
+                        </button>
+                    </div>
+                    
+                    <!-- Context List -->
+                    <div class="context-list-section">
+                        <h3 class="section-subtitle">Uploaded Contexts</h3>
+                        <div id="contextList" class="context-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Loading State -->
-            <div id="loadingState" class="loading-state" style="display: none;">
-                <div class="spinner"></div>
-                <p>Searching scriptures and generating answer...</p>
             </div>
         </section>
     </main>

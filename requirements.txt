@@ -42,15 +42,18 @@ flake8>=6.0.0
 mypy>=1.0.0
 
 # Web Server & API
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-python-multipart==0.0.6
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
 
-# MongoDB (async + vector search)
-motor==3.3.2
-pymongo[srv]==4.6.1
+# MongoDB (async + vector search) - OPTIONAL for local mode
+motor>=3.3.2
+pymongo[srv]>=4.6.1
 
 # Document Processing
-PyPDF2==3.0.1
-python-docx==1.1.0
-aiofiles==23.2.1
+PyPDF2>=3.0.1
+python-docx>=1.1.0
+aiofiles>=23.2.1
+
+# HuggingFace Embeddings
+huggingface_hub>=0.20.0

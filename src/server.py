@@ -1,6 +1,6 @@
 """
-FastAPI server for Sanskrity RAG system with context management.
-Provides REST API endpoints for file uploads, context management, and enhanced RAG queries.
+FastAPI server for Sanskrity RAG system - FULLY LOCAL version.
+No external database dependencies. Uses in-memory storage for user contexts.
 """
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Form
@@ -8,23 +8,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 import os
+import io
 from pathlib import Path
+from datetime import datetime
+import PyPDF2
+from docx import Document
 
 from config import Config
 from logger import get_logger
-from database import get_database
-from context_manager import (
-    process_file_upload,
-    store_user_context,
-    list_user_contexts,
-    delete_user_context, 
-    get_embedding_model
-)
-# from mongodb_vector_store import search_scripture, search_user_context  # Replaced by local FAISS
-from models import setup_local_llm
-from rag_chain import create_qa_prompt, initialize_vector_store, get_retriever
+from models import setup_local_llm, load_embedding_model
+from rag_chain import initialize_vector_store, get_retriever
 from data_loader import load_and_chunk_itihasa_data
 
 logger = get_logger(__name__)
@@ -32,27 +27,107 @@ logger = get_logger(__name__)
 # Initialize FastAPI app
 app = FastAPI(
     title="Sanskrity RAG API",
-    description="Sanskrit Scripture RAG system with context management",
-    version="1.0.0"
+    description="Sanskrit Scripture RAG system - Fully Local",
+    version="2.0.0"
 )
 
 # CORS middleware for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify exact origins
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ============================================================================
+# IN-MEMORY STORAGE FOR USER CONTEXTS
+# ============================================================================
+
+class LocalContextStore:
+    """In-memory storage for user-uploaded contexts."""
+    
+    def __init__(self):
+        self.contexts: Dict[str, Dict[str, Any]] = {}  # filename -> context data
+        self.chunks: List[Dict[str, Any]] = []  # All chunks with embeddings
+    
+    def add_context(self, filename: str, file_type: str, chunks: List[str], 
+                    embeddings: List[List[float]]) -> Dict[str, Any]:
+        """Store a new context with chunks and embeddings."""
+        context_data = {
+            "filename": filename,
+            "file_type": file_type,
+            "upload_date": datetime.utcnow().isoformat(),
+            "chunk_count": len(chunks),
+        }
+        self.contexts[filename] = context_data
+        
+        # Store chunks with embeddings
+        for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
+            self.chunks.append({
+                "filename": filename,
+                "file_type": file_type,
+                "chunk_index": i,
+                "text": chunk,
+                "embedding": embedding
+            })
+        
+        return context_data
+    
+    def list_contexts(self) -> List[Dict[str, Any]]:
+        """List all stored contexts."""
+        return list(self.contexts.values())
+    
+    def delete_context(self, filename: str) -> int:
+        """Delete a context and its chunks."""
+        if filename not in self.contexts:
+            return 0
+        
+        # Count and remove chunks
+        original_count = len(self.chunks)
+        self.chunks = [c for c in self.chunks if c["filename"] != filename]
+        deleted_count = original_count - len(self.chunks)
+        
+        # Remove context
+        del self.contexts[filename]
+        
+        return deleted_count
+    
+    def search(self, query_embedding: List[float], k: int = 3) -> List[Dict[str, Any]]:
+        """Search for similar chunks using cosine similarity."""
+        import numpy as np
+        
+        if not self.chunks:
+            return []
+        
+        query_vec = np.array(query_embedding)
+        
+        results = []
+        for chunk in self.chunks:
+            chunk_vec = np.array(chunk["embedding"])
+            # Cosine similarity
+            similarity = np.dot(query_vec, chunk_vec) / (
+                np.linalg.norm(query_vec) * np.linalg.norm(chunk_vec) + 1e-8
+            )
+            results.append({
+                "text": chunk["text"],
+                "filename": chunk["filename"],
+                "score": float(similarity)
+            })
+        
+        # Sort by similarity and return top k
+        results.sort(key=lambda x: x["score"], reverse=True)
+        return results[:k]
+
+
 # Global state
-db = None
+context_store = LocalContextStore()
 llm = None
 embedding_model = None
-retriever = None  # Local FAISS retriever
+retriever = None
 
 
-# Pydantic models for request/response
+# Pydantic models
 class TextContextRequest(BaseModel):
     text: str
     title: str = "Untitled"
@@ -73,45 +148,113 @@ class QueryResponse(BaseModel):
     processing_time_ms: float
 
 
+# ============================================================================
+# TEXT PROCESSING HELPERS
+# ============================================================================
+
+def extract_text_from_pdf(file_bytes: bytes) -> str:
+    """Extract text from PDF file bytes."""
+    try:
+        pdf_file = io.BytesIO(file_bytes)
+        pdf_reader = PyPDF2.PdfReader(pdf_file)
+        
+        text_parts = []
+        for page in pdf_reader.pages:
+            text = page.extract_text()
+            if text and text.strip():
+                text_parts.append(text)
+        
+        return "\n\n".join(text_parts)
+    except Exception as e:
+        logger.error(f"Failed to extract text from PDF: {e}")
+        raise
+
+
+def extract_text_from_docx(file_bytes: bytes) -> str:
+    """Extract text from DOCX file bytes."""
+    try:
+        docx_file = io.BytesIO(file_bytes)
+        doc = Document(docx_file)
+        
+        text_parts = []
+        for paragraph in doc.paragraphs:
+            text = paragraph.text.strip()
+            if text:
+                text_parts.append(text)
+        
+        return "\n\n".join(text_parts)
+    except Exception as e:
+        logger.error(f"Failed to extract text from DOCX: {e}")
+        raise
+
+
+def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> List[str]:
+    """Split text into overlapping chunks."""
+    if len(text) <= chunk_size:
+        return [text]
+    
+    chunks = []
+    start = 0
+    
+    while start < len(text):
+        end = start + chunk_size
+        chunk = text[start:end]
+        
+        # Try to break at sentence boundary
+        if end < len(text):
+            last_period = chunk.rfind('. ')
+            last_newline = chunk.rfind('\n')
+            break_point = max(last_period, last_newline)
+            
+            if break_point > chunk_size // 2:
+                chunk = chunk[:break_point + 1]
+                end = start + len(chunk)
+        
+        chunks.append(chunk.strip())
+        start = end - overlap
+        
+        if start <= end - chunk_size:
+            start = end
+    
+    return chunks
+
+
+# ============================================================================
+# STARTUP / SHUTDOWN
+# ============================================================================
+
 @app.on_event("startup")
 async def startup_event():
-    """Initialize database and models on startup."""
-    global db, llm, embedding_model, retriever
+    """Initialize models on startup."""
+    global llm, embedding_model, retriever
     
     logger.info("=" * 70)
-    logger.info("STARTING SANSKRITY RAG SERVER")
+    logger.info("STARTING SANSKRITY RAG SERVER (LOCAL MODE)")
     logger.info("=" * 70)
     
     try:
-        # Connect to MongoDB (for user context storage only)
-        logger.info("Connecting to MongoDB Atlas...")
-        db = await get_database()
-        logger.info("✓ MongoDB connected")
-        
         # Load embedding model
         logger.info("Loading embedding model...")
-        embedding_model = get_embedding_model()
+        embedding_model = load_embedding_model(Config.EMBEDDINGS_MODEL)
         logger.info("✓ Embedding model loaded")
 
         # Initialize Local FAISS Vector Store
         logger.info("Initializing Local FAISS Vector Store...")
-        # Check if index exists or load from CSV
         if not os.path.exists(Config.FAISS_INDEX_PATH):
             logger.info(f"Index not found at {Config.FAISS_INDEX_PATH}. Loading CSV data...")
             chunks = load_and_chunk_itihasa_data(Config.DATA_PATH)
             vector_store = initialize_vector_store(chunks)
         else:
             logger.info(f"Loading existing index from {Config.FAISS_INDEX_PATH}...")
-            vector_store = initialize_vector_store()  # Will load from disk
+            vector_store = initialize_vector_store()
             
         if vector_store:
             retriever = get_retriever(vector_store)
             logger.info("✓ Local FAISS Retriever initialized")
         else:
             logger.error("Failed to initialize FAISS Vector Store")
-
         
-        # Load LLM (optional - can be loaded on first query if slow)
+        # Load LLM
         logger.info("Loading LLM...")
         llm = setup_local_llm()
         logger.info("✓ LLM loaded")
@@ -128,10 +271,7 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     """Cleanup on shutdown."""
-    global db
-    if db:
-        await db.close()
-        logger.info("Database connection closed")
+    logger.info("Server shutting down...")
 
 
 # ============================================================================
@@ -157,7 +297,7 @@ async def serve_frontend():
         """
 
 
-# Mount static files for CSS and JS
+# Mount static files
 frontend_dir = Path(__file__).parent.parent / "frontend"
 if frontend_dir.exists():
     app.mount("/static", StaticFiles(directory=str(frontend_dir)), name="static")
@@ -169,12 +309,7 @@ if frontend_dir.exists():
 
 @app.post("/api/context/upload")
 async def upload_context_file(file: UploadFile = File(...)):
-    """
-    Upload a PDF, DOCX, or TXT file and convert to vectors.
-    
-    The file is processed immediately and NOT stored.
-    Only text chunks and embeddings are saved to MongoDB.
-    """
+    """Upload a PDF, DOCX, or TXT file and store locally."""
     try:
         # Validate file type
         file_ext = file.filename.split('.')[-1].lower()
@@ -197,15 +332,35 @@ async def upload_context_file(file: UploadFile = File(...)):
         
         logger.info(f"Received file upload: {file.filename} ({file_ext}, {file_size_mb:.2f}MB)")
         
-        # Process and store
-        result = await process_file_upload(db, file_bytes, file.filename, file_ext)
+        # Extract text
+        if file_ext == "pdf":
+            text = extract_text_from_pdf(file_bytes)
+        elif file_ext == "docx":
+            text = extract_text_from_docx(file_bytes)
+        elif file_ext == "txt":
+            text = file_bytes.decode('utf-8')
+        else:
+            raise HTTPException(status_code=400, detail=f"Unsupported file type: {file_ext}")
+        
+        if not text or len(text.strip()) < 10:
+            raise HTTPException(status_code=400, detail="Extracted text is too short or empty")
+        
+        # Chunk and embed
+        chunks = chunk_text(text)
+        embeddings = embedding_model.embed_documents(chunks)
+        
+        # Store locally
+        result = context_store.add_context(file.filename, file_ext, chunks, embeddings)
         
         return {
             "success": True,
-            "message": f"File processed successfully",
-            **result
+            "message": "File processed successfully",
+            "chunks_stored": result["chunk_count"],
+            "filename": result["filename"]
         }
     
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"File upload failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -213,9 +368,7 @@ async def upload_context_file(file: UploadFile = File(...)):
 
 @app.post("/api/context/text")
 async def add_text_context(request: TextContextRequest):
-    """
-    Add text context directly (no file upload).
-    """
+    """Add text context directly."""
     try:
         if not request.text or len(request.text.strip()) < 10:
             raise HTTPException(
@@ -225,20 +378,22 @@ async def add_text_context(request: TextContextRequest):
         
         logger.info(f"Received text context: {request.title} ({len(request.text)} chars)")
         
-        # Store text context
-        result = await store_user_context(
-            db,
-            request.text,
-            f"{request.title}.txt",
-            "text"
-        )
+        # Chunk and embed
+        chunks = chunk_text(request.text)
+        embeddings = embedding_model.embed_documents(chunks)
+        
+        # Store locally
+        filename = f"{request.title}.txt"
+        result = context_store.add_context(filename, "text", chunks, embeddings)
         
         return {
             "success": True,
             "message": "Text context stored successfully",
-            **result
+            "chunks_stored": result["chunk_count"]
         }
     
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Text context storage failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -246,17 +401,14 @@ async def add_text_context(request: TextContextRequest):
 
 @app.get("/api/context/list")
 async def get_context_list():
-    """
-    Get list of all uploaded context files.
-    """
+    """Get list of all uploaded context files."""
     try:
-        contexts = await list_user_contexts(db)
+        contexts = context_store.list_contexts()
         return {
             "success": True,
             "contexts": contexts,
             "total": len(contexts)
         }
-    
     except Exception as e:
         logger.error(f"Failed to list contexts: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -264,11 +416,9 @@ async def get_context_list():
 
 @app.delete("/api/context/{filename}")
 async def delete_context(filename: str):
-    """
-    Delete all chunks associated with a filename.
-    """
+    """Delete all chunks associated with a filename."""
     try:
-        deleted_count = await delete_user_context(db, filename)
+        deleted_count = context_store.delete_context(filename)
         
         if deleted_count == 0:
             raise HTTPException(status_code=404, detail="Context not found")
@@ -292,16 +442,7 @@ async def delete_context(filename: str):
 
 @app.post("/api/query", response_model=QueryResponse)
 async def process_query(request: QueryRequest):
-    """
-    Process a RAG query with enhanced context from both scripture and user uploads.
-    
-    Flow:
-    1. Create query embedding
-    2. Search scripture vectors
-    3. Search user context vectors
-    4. Combine contexts
-    5. Send to LLM for final response
-    """
+    """Process a RAG query with scripture and user context."""
     import time
     start_time = time.time()
     
@@ -314,12 +455,12 @@ async def process_query(request: QueryRequest):
         
         logger.info(f"Processing query: {request.query}")
         
-        # 1. Search Local FAISS Index (replaces scripture_vectors search)
+        # 1. Search Local FAISS Index (scripture)
+        scripture_docs = []
         if retriever:
             scripture_docs = retriever.invoke(request.query)
         else:
             logger.warning("Local retriever not initialized!")
-            scripture_docs = []
             
         scripture_context_list = []
         for doc in scripture_docs:
@@ -331,10 +472,10 @@ async def process_query(request: QueryRequest):
                 "book": meta.get("book", ""),
                 "chapter": meta.get("chapter", ""),
                 "shloka_num": meta.get("shloka_num", ""),
-                "score": 0.0  # FAISS via retriever doesn't return score easily
+                "score": 0.0
             })
         
-        # Extract top scripture details for the boxes
+        # Extract top scripture details
         top_shloka = None
         top_citation = None
         top_translation = None
@@ -342,39 +483,23 @@ async def process_query(request: QueryRequest):
         if scripture_context_list:
             top_result = scripture_context_list[0]
             top_shloka = top_result["text"]
-            
-            # Construct meaningful citation
             book = top_result.get('book', 'Scripture')
             chapter = top_result.get('chapter', '?')
             shloka = top_result.get('shloka_num', '?')
             top_citation = f"{book} {chapter}.{shloka}"
-            
             top_translation = top_result.get("english_text")
-            
-            # VERBOSE LOGGING
-            logger.info("--- TOP RAG RESULT ---")
-            logger.info(f"CITATION: {top_citation}")
-            logger.info(f"SHLOKA: {top_shloka[:50]}...")
-            logger.info(f"TRANSLATION: {top_translation[:50]}...")
-            logger.info("----------------------")
         
-        # 3. Search user context vectors (DISABLED FOR LOCAL MODE)
-        # user_results = await search_user_context(db, query_embedding)
-        user_context_list = [] 
-        # [
-        #     {
-        #         "text": text,
-        #         "filename": metadata.get("original_filename", "Unknown"),
-        #         "score": score
-        #     }
-        #     for text, metadata, score in user_results
-        # ]
+        # 2. Search user context (local in-memory)
+        user_context_list = []
+        if context_store.chunks:
+            query_embedding = embedding_model.embed_query(request.query)
+            user_results = context_store.search(query_embedding, k=3)
+            user_context_list = user_results
         
-        # 4. Combine contexts for LLM
+        # 3. Build prompt
         scripture_text = "\n\n".join([r["text"] for r in scripture_context_list])
         user_text = "\n\n".join([r["text"] for r in user_context_list])
         
-        # Build prompt - ask for summary/explanation
         if user_text:
             prompt_text = f"""### Human:
 You are a Sanskrit scripture scholar.
@@ -409,18 +534,16 @@ Provide the response in English.
 ### Assistant:
 """
         
-        logger.info(f"Prompt sent to LLM:\n{prompt_text}")
+        logger.info(f"Prompt sent to LLM:\n{prompt_text[:500]}...")
 
-        # 5. Generate LLM response
+        # 4. Generate LLM response
         logger.info("Generating LLM summary...")
         answer = llm.invoke(prompt_text)
         
-        # Clean up answer
         if isinstance(answer, dict):
             answer = answer.get('text', str(answer))
         answer = answer.strip()
         
-        # Log the generated answer
         logger.info(f"LLM Generated Summary: {answer[:100]}...")
         
         processing_time = (time.time() - start_time) * 1000
@@ -429,10 +552,10 @@ Provide the response in English.
         
         return QueryResponse(
             query=request.query,
-            answer=answer,  # This is the Summary Box
-            shloka=top_shloka,    # Box 1
-            citation=top_citation, # Box 1 side
-            translation=top_translation, # Box 2
+            answer=answer,
+            shloka=top_shloka,
+            citation=top_citation,
+            translation=top_translation,
             scripture_context=scripture_context_list,
             user_context=user_context_list,
             processing_time_ms=processing_time
@@ -454,9 +577,11 @@ async def health_check():
     """Health check endpoint."""
     return {
         "status": "healthy",
-        "database": "connected" if db and db.client else "disconnected",
+        "mode": "local",
         "llm": "loaded" if llm else "not loaded",
-        "embedding_model": "loaded" if embedding_model else "not loaded"
+        "embedding_model": "loaded" if embedding_model else "not loaded",
+        "retriever": "ready" if retriever else "not ready",
+        "user_contexts": len(context_store.contexts)
     }
 
 
@@ -471,6 +596,6 @@ if __name__ == "__main__":
         "server:app",
         host=Config.SERVER_HOST,
         port=Config.SERVER_PORT,
-        reload=True,  # Auto-reload on code changes
+        reload=True,
         log_level="info"
     )

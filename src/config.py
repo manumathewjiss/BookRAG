@@ -40,11 +40,9 @@ class Config:
     # EMBEDDING MODEL SETTINGS
     # =========================================================================
     # Embedding model for semantic search
-    # Using smaller model for short texts (<100 chars) to save storage
-    # 384 dims vs 1024 dims = 70% space savings with minimal quality loss
+    # Using multilingual model for Sanskrit/English texts
     EMBEDDINGS_MODEL = 'intfloat/multilingual-e5-large'  # 1024 dimensions
-    # Alternative: 'intfloat/multilingual-e5-base' for multilingual (768 dims)
-    # Previous: 'intfloat/multilingual-e5-large' (1024 dims - too large for short texts)
+    # Alternative: 'sentence-transformers/all-MiniLM-L6-v2' (384 dims - smaller)
     EMBEDDINGS_BATCH_SIZE = 32
     
     # =========================================================================
@@ -122,7 +120,7 @@ class Config:
     USER_CONTEXT_COLLECTION = 'user_context_vectors'
     
     # Vector search configuration
-    VECTOR_DIMENSION = 384  # all-MiniLM-L6-v2 dimension (was 1024)
+    VECTOR_DIMENSION = 1024  # multilingual-e5-large dimension
     VECTOR_SIMILARITY_METRIC = 'cosine'
     
     # =========================================================================

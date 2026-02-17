@@ -1,6 +1,6 @@
 // ========================================================================
 // SANSKRITY - Frontend JavaScript
-// Handles file uploads, context management, STT, and query processing
+// Handles tabs, chat UI, file uploads, context management, and STT
 // ========================================================================
 
 const API_BASE = '';  // Same origin
@@ -11,16 +11,43 @@ const API_BASE = '';  // Same origin
 
 let isRecording = false;
 let recognition = null;
+let chatHistory = [];
 
 // ========================================================================
 // INITIALIZATION
 // ========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+    initializeTabs();
     initializeEventListeners();
     loadContextList();
     initializeSpeechRecognition();
+    autoResizeTextarea();
 });
+
+// ========================================================================
+// TAB NAVIGATION
+// ========================================================================
+
+function initializeTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.dataset.tab;
+            
+            // Update button states
+            tabButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabId}-tab`).classList.add('active');
+        });
+    });
+}
 
 // ========================================================================
 // EVENT LISTENERS
@@ -44,14 +71,135 @@ function initializeEventListeners() {
 
     // Query submission
     document.getElementById('submitBtn').addEventListener('click', handleQuery);
-    document.getElementById('queryInput').addEventListener('keydown', (e) => {
+    
+    const queryInput = document.getElementById('queryInput');
+    queryInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            handleQuery();
+        }
+        // Enter without shift for single-line submit
+        if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey) {
+            e.preventDefault();
             handleQuery();
         }
     });
+    
+    // Auto-resize textarea
+    queryInput.addEventListener('input', autoResizeTextarea);
 
     // Voice input
     document.getElementById('voiceBtn').addEventListener('click', toggleVoiceInput);
+}
+
+function autoResizeTextarea() {
+    const textarea = document.getElementById('queryInput');
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
+}
+
+// ========================================================================
+// CHAT FUNCTIONS
+// ========================================================================
+
+function setQuery(query) {
+    document.getElementById('queryInput').value = query;
+    autoResizeTextarea();
+    document.getElementById('queryInput').focus();
+}
+
+function addMessageToChat(type, content, metadata = null) {
+    const chatMessages = document.getElementById('chatMessages');
+    
+    // Remove welcome message if present
+    const welcomeMsg = chatMessages.querySelector('.welcome-message');
+    if (welcomeMsg) {
+        welcomeMsg.remove();
+    }
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${type}`;
+    
+    if (type === 'user') {
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <div class="message-text">${escapeHtml(content)}</div>
+            </div>
+            <div class="message-avatar">👤</div>
+        `;
+    } else if (type === 'assistant') {
+        let sourcesHtml = '';
+        if (metadata && metadata.scripture_context && metadata.scripture_context.length > 0) {
+            sourcesHtml = `
+                <div class="message-sources">
+                    <div class="sources-toggle" onclick="toggleSources(this)">
+                        📚 View Sources (${metadata.scripture_context.length})
+                    </div>
+                    <div class="sources-content" style="display: none;">
+                        ${metadata.scripture_context.map(s => `
+                            <div class="source-item">
+                                <div class="source-text">${escapeHtml(s.text.substring(0, 200))}...</div>
+                                <div class="source-ref">${s.book || ''} ${s.chapter || ''}.${s.shloka_num || ''}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        let citationHtml = '';
+        if (metadata && metadata.citation) {
+            citationHtml = `<div class="message-citation">📜 ${escapeHtml(metadata.citation)}</div>`;
+        }
+        
+        messageDiv.innerHTML = `
+            <div class="message-avatar">🙏</div>
+            <div class="message-content">
+                ${citationHtml}
+                <div class="message-text">${formatResponse(content)}</div>
+                ${sourcesHtml}
+            </div>
+        `;
+    } else if (type === 'loading') {
+        messageDiv.innerHTML = `
+            <div class="message-avatar">🙏</div>
+            <div class="message-content">
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        `;
+    }
+    
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    return messageDiv;
+}
+
+function toggleSources(element) {
+    const sourcesContent = element.nextElementSibling;
+    const isHidden = sourcesContent.style.display === 'none';
+    sourcesContent.style.display = isHidden ? 'block' : 'none';
+    element.textContent = isHidden 
+        ? `📚 Hide Sources` 
+        : `📚 View Sources (${sourcesContent.querySelectorAll('.source-item').length})`;
+}
+
+function formatResponse(text) {
+    // Convert line breaks to <br> and preserve paragraphs
+    return escapeHtml(text)
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+}
+
+function removeLoadingMessage() {
+    const loadingMsg = document.querySelector('.chat-message.loading');
+    if (loadingMsg) {
+        loadingMsg.remove();
+    }
 }
 
 // ========================================================================
@@ -219,7 +367,7 @@ function renderContextList(contexts) {
             <div class="context-info">
                 <div class="context-filename">${escapeHtml(ctx.filename)}</div>
                 <div class="context-meta">
-                    ${ctx.file_type.toUpperCase()} • ${ctx.chunk_count} chunks
+                    ${(ctx.file_type || 'text').toUpperCase()} • ${ctx.chunk_count} chunks
                 </div>
             </div>
             <button class="context-delete" onclick="deleteContext('${escapeHtml(ctx.filename)}')" title="Delete">
@@ -284,6 +432,7 @@ function initializeSpeechRecognition() {
             .join('');
 
         document.getElementById('queryInput').value = transcript;
+        autoResizeTextarea();
     };
 
     recognition.onerror = (event) => {
@@ -317,16 +466,23 @@ function toggleVoiceInput() {
 // ========================================================================
 
 async function handleQuery() {
-    const query = document.getElementById('queryInput').value.trim();
+    const queryInput = document.getElementById('queryInput');
+    const query = queryInput.value.trim();
 
     if (!query || query.length < 3) {
         showToast('Please enter a question (at least 3 characters).', 'error');
         return;
     }
 
-    // Show loading state
-    showLoading(true);
-    hideResponse();
+    // Add user message to chat
+    addMessageToChat('user', query);
+    
+    // Clear input
+    queryInput.value = '';
+    autoResizeTextarea();
+    
+    // Show loading
+    addMessageToChat('loading', '');
 
     try {
         const response = await fetch(`${API_BASE}/api/query`, {
@@ -339,67 +495,25 @@ async function handleQuery() {
 
         const data = await response.json();
 
+        // Remove loading message
+        removeLoadingMessage();
+
         if (response.ok) {
-            displayResponse(data);
-            showToast(`✓ Query processed in ${data.processing_time_ms.toFixed(0)}ms`, 'success');
+            addMessageToChat('assistant', data.answer, {
+                scripture_context: data.scripture_context,
+                citation: data.citation,
+                shloka: data.shloka,
+                translation: data.translation
+            });
         } else {
             throw new Error(data.detail || 'Query failed');
         }
     } catch (error) {
         console.error('Query error:', error);
+        removeLoadingMessage();
+        addMessageToChat('assistant', `Sorry, an error occurred: ${error.message}`);
         showToast(`Error: ${error.message}`, 'error');
-    } finally {
-        showLoading(false);
     }
-}
-
-function showLoading(show) {
-    document.getElementById('loadingState').style.display = show ? 'block' : 'none';
-}
-
-function hideResponse() {
-    document.getElementById('responseSection').style.display = 'none';
-}
-
-function displayResponse(data) {
-    // Show response section
-    const responseSection = document.getElementById('responseSection');
-    responseSection.style.display = 'block';
-
-    // Display answer
-    document.getElementById('answerContent').textContent = data.answer;
-
-    // Display scripture sources
-    const scriptureContainer = document.getElementById('scriptureSources');
-    if (data.scripture_context && data.scripture_context.length > 0) {
-        scriptureContainer.innerHTML = data.scripture_context.map(source => `
-            <div class="source-item">
-                <div class="source-text">${escapeHtml(source.text.substring(0, 150))}...</div>
-                <div class="source-ref">${escapeHtml(source.source)} (relevance: ${(source.score * 100).toFixed(1)}%)</div>
-            </div>
-        `).join('');
-    } else {
-        scriptureContainer.innerHTML = '<p class="text-center" style="color: var(--text-tertiary);">No sources found</p>';
-    }
-
-    // Display user context sources
-    const userSourcesSection = document.getElementById('userSourcesSection');
-    const userContainer = document.getElementById('userSources');
-
-    if (data.user_context && data.user_context.length > 0) {
-        userSourcesSection.style.display = 'block';
-        userContainer.innerHTML = data.user_context.map(source => `
-            <div class="source-item">
-                <div class="source-text">${escapeHtml(source.text.substring(0, 150))}...</div>
-                <div class="source-ref">${escapeHtml(source.filename)} (relevance: ${(source.score * 100).toFixed(1)}%)</div>
-            </div>
-        `).join('');
-    } else {
-        userSourcesSection.style.display = 'none';
-    }
-
-    // Scroll to response
-    responseSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 // ========================================================================
@@ -418,6 +532,7 @@ function showToast(message, type = 'success') {
 }
 
 function escapeHtml(text) {
+    if (!text) return '';
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
