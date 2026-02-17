@@ -57,3 +57,6 @@ aiofiles>=23.2.1
 
 # HuggingFace Embeddings
 huggingface_hub>=0.20.0
+
+# Speech Recognition
+openai-whisper>=20231117

@@ -11,10 +11,12 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 import os
 import io
+import tempfile
 from pathlib import Path
 from datetime import datetime
 import PyPDF2
 from docx import Document
+import whisper
 
 from config import Config
 from logger import get_logger
@@ -125,6 +127,7 @@ context_store = LocalContextStore()
 llm = None
 embedding_model = None
 retriever = None
+whisper_model = None
 
 
 # Pydantic models
@@ -226,13 +229,18 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> List[str]
 @app.on_event("startup")
 async def startup_event():
     """Initialize models on startup."""
-    global llm, embedding_model, retriever
+    global llm, embedding_model, retriever, whisper_model
     
     logger.info("=" * 70)
     logger.info("STARTING SANSKRITY RAG SERVER (LOCAL MODE)")
     logger.info("=" * 70)
     
     try:
+        # Load Whisper model for STT
+        logger.info("Loading Whisper STT model (tiny)...")
+        whisper_model = whisper.load_model("tiny")
+        logger.info("✓ Whisper STT model loaded")
+        
         # Load embedding model
         logger.info("Loading embedding model...")
         embedding_model = load_embedding_model(Config.EMBEDDINGS_MODEL)
@@ -581,8 +589,59 @@ async def health_check():
         "llm": "loaded" if llm else "not loaded",
         "embedding_model": "loaded" if embedding_model else "not loaded",
         "retriever": "ready" if retriever else "not ready",
+        "whisper": "loaded" if whisper_model else "not loaded",
         "user_contexts": len(context_store.contexts)
     }
+
+
+# ============================================================================
+# SPEECH-TO-TEXT ENDPOINT
+# ============================================================================
+
+@app.post("/api/stt")
+async def speech_to_text(audio: UploadFile = File(...)):
+    """
+    Transcribe audio to text using Whisper.
+    Accepts WAV, MP3, WEBM, OGG audio files.
+    """
+    try:
+        if whisper_model is None:
+            raise HTTPException(status_code=503, detail="Whisper model not loaded")
+        
+        # Read audio file
+        audio_bytes = await audio.read()
+        
+        # Get file extension
+        ext = audio.filename.split('.')[-1].lower() if audio.filename else 'webm'
+        if ext not in ['wav', 'mp3', 'webm', 'ogg', 'm4a', 'flac']:
+            ext = 'webm'  # Default for browser recordings
+        
+        # Save to temp file (Whisper needs file path)
+        with tempfile.NamedTemporaryFile(suffix=f'.{ext}', delete=False) as tmp:
+            tmp.write(audio_bytes)
+            tmp_path = tmp.name
+        
+        try:
+            # Transcribe
+            logger.info(f"Transcribing audio ({len(audio_bytes)} bytes)...")
+            result = whisper_model.transcribe(tmp_path, language='en')
+            text = result.get('text', '').strip()
+            logger.info(f"Transcription: {text[:100]}...")
+            
+            return {
+                "success": True,
+                "text": text,
+                "language": result.get('language', 'en')
+            }
+        finally:
+            # Cleanup temp file
+            os.unlink(tmp_path)
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"STT failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # ============================================================================
