@@ -42,7 +42,7 @@ class Config:
     # Embedding model for semantic search
     # Using smaller model for short texts (<100 chars) to save storage
     # 384 dims vs 1024 dims = 70% space savings with minimal quality loss
-    EMBEDDINGS_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'  # 384 dimensions
+    EMBEDDINGS_MODEL = 'intfloat/multilingual-e5-large'  # 1024 dimensions
     # Alternative: 'intfloat/multilingual-e5-base' for multilingual (768 dims)
     # Previous: 'intfloat/multilingual-e5-large' (1024 dims - too large for short texts)
     EMBEDDINGS_BATCH_SIZE = 32
