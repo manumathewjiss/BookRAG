@@ -114,7 +114,7 @@ class Config:
     # =============================================================================
     # MongoDB Atlas Configuration
     # =============================================================================
-    MONGODB_URL = os.getenv('MONGODB_URL', 'mongodb+srv://vyshakh6547:pl7opHDlzK38POrp@sansai.dyvgksv.mongodb.net/')
+    MONGODB_URL = os.getenv('MONGODB_URL')
     MONGODB_DB_NAME = 'sanskrity'
     SCRIPTURE_COLLECTION = 'scripture_vectors'
     USER_CONTEXT_COLLECTION = 'user_context_vectors'
