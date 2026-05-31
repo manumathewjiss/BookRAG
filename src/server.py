@@ -23,6 +23,7 @@ from logger import get_logger
 from models import setup_local_llm, load_embedding_model
 from rag_chain import initialize_vector_store, get_retriever
 from data_loader import load_and_chunk_itihasa_data
+from utils import keep_sanskrit_english_chars, assert_english_or_sanskrit_only
 
 logger = get_logger(__name__)
 
@@ -460,7 +461,12 @@ async def process_query(request: QueryRequest):
                 status_code=400,
                 detail="Query is too short (minimum 3 characters)"
             )
-        
+
+        try:
+            assert_english_or_sanskrit_only(request.query)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+
         logger.info(f"Processing query: {request.query}")
         
         # 1. Search Local FAISS Index (scripture)
@@ -496,6 +502,8 @@ async def process_query(request: QueryRequest):
             shloka = top_result.get('shloka_num', '?')
             top_citation = f"{book} {chapter}.{shloka}"
             top_translation = top_result.get("english_text")
+            if top_translation:
+                top_translation = keep_sanskrit_english_chars(top_translation)
         
         # 2. Search user context (local in-memory)
         user_context_list = []

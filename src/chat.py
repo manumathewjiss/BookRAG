@@ -16,7 +16,7 @@ from rag_chain import (
     rerank_documents,
 )
 from config import Config
-from utils import validate_query, truncate_text
+from utils import validate_query, truncate_text, keep_sanskrit_english_chars
 
 logger = get_logger(__name__)
 
@@ -174,6 +174,9 @@ def sanitize_response_v2(text: str, max_chars: int = None, preserve_sanskrit_blo
     if preserve_sanskrit_blocks and sanskrit_blocks:
         for k, v in sanskrit_blocks.items():
             text = text.replace(k, v)
+
+    # Remove any remaining non-English / non-Sanskrit characters
+    text = keep_sanskrit_english_chars(text)
 
     return text
 

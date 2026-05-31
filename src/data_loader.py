@@ -9,7 +9,7 @@ from typing import List, Optional, Tuple
 from langchain_core.documents import Document
 
 from logger import get_logger
-from utils import clean_text
+from utils import clean_text, keep_sanskrit_english_chars
 
 logger = get_logger(__name__)
 
@@ -129,6 +129,7 @@ def load_and_chunk_itihasa_data(
                 # Clean text
                 sanskrit_text = clean_text(sanskrit_text)
                 english_text = clean_text(english_text)
+                english_text = keep_sanskrit_english_chars(english_text)
                 
                 # Create metadata
                 metadata = {

@@ -4,7 +4,7 @@ Handles FAISS vector store initialization and document retrieval.
 """
 
 import os
-from typing import List, Optional, Tuple, Dict
+from typing import Dict, List, Optional, Tuple
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from langchain_core.prompts import PromptTemplate
@@ -16,6 +16,31 @@ from models import load_embedding_model
 from utils import ensure_directory
 
 logger = get_logger(__name__)
+
+# Embedding cache: text -> vector. Shloka content is static so vectors never expire.
+_emb_cache: Dict[str, List[float]] = {}
+
+
+def _embed_with_cache(emb, texts: List[str]) -> List[List[float]]:
+    """Embed texts, returning cached vectors for any previously seen content."""
+    results: List[Optional[List[float]]] = [None] * len(texts)
+    miss_texts: List[str] = []
+    miss_indices: List[int] = []
+
+    for i, t in enumerate(texts):
+        if t in _emb_cache:
+            results[i] = _emb_cache[t]
+        else:
+            miss_texts.append(t)
+            miss_indices.append(i)
+
+    if miss_texts:
+        new_vecs = emb.embed_documents(miss_texts)
+        for idx, vec in zip(miss_indices, new_vecs):
+            _emb_cache[texts[idx]] = vec
+            results[idx] = vec
+
+    return results  # type: ignore[return-value]
 
 
 # ============================================================================
@@ -399,70 +424,87 @@ def get_document_statistics(vector_store: FAISS) -> dict:
 
 def rerank_documents(query: str, retrieved_docs: List[Document]) -> List[Document]:
     """
-    Re-rank retrieved documents by computing embedding similarity to the query.
+    Re-rank shlokas using TextRank-weighted relevance scoring.
 
-    Args:
-        query: The original user query string
-        retrieved_docs: List of Document objects returned by the retriever
+    Adapted from the TextRank-weighted semantic similarity reward used in
+    GRPO fine-tuning for legal document summarization (Prasad et al., AAAI):
 
-    Returns:
-        List[Document]: Reordered list of documents (highest similarity first)
+        score_i = query_sim_i * pagerank_i
+
+    where pagerank_i is derived from a PageRank (TextRank) pass over the
+    pairwise cosine-similarity graph built from all retrieved shlokas.
+    Shlokas that are both query-relevant AND semantically central to the
+    retrieved set are ranked highest.
     """
     if not retrieved_docs:
         logger.debug("No documents to rerank")
         return []
 
     try:
+        import numpy as np
         from utils import is_sanskrit
-        emb = load_embedding_model()
 
-        # Detect query language
+        emb = load_embedding_model()
         query_is_sanskrit = is_sanskrit(query)
         logger.debug(f"Query language: {'Sanskrit' if query_is_sanskrit else 'English'}")
 
-        # Prepare texts to embed based on query language
+        # Choose embedding text based on query language
         texts = []
         for doc in retrieved_docs:
-            meta = doc.metadata or {}
             if query_is_sanskrit:
-                # For Sanskrit queries, compare against Sanskrit text only
                 texts.append(doc.page_content or "")
             else:
-                # For English queries, compare against English translation only
-                english = meta.get("english_text", "")
-                texts.append(english)
+                texts.append(doc.metadata.get("english_text", "") or doc.page_content or "")
 
-        # Embed query and documents
-        q_vecs = emb.embed_documents([query])
-        q_vec = q_vecs[0]
-        doc_vecs = emb.embed_documents(texts)
+        # Query is never cached (changes every call); doc texts are.
+        doc_vecs_list = _embed_with_cache(emb, texts)
+        query_vecs_list = emb.embed_documents([query])
+        all_vecs = np.array([query_vecs_list[0]] + doc_vecs_list, dtype=np.float32)
+        q_vec = all_vecs[0]
+        doc_vecs = all_vecs[1:]
 
-        # cosine similarity helper
-        def cosine(a, b):
-            from math import sqrt
-            dot = sum(x * y for x, y in zip(a, b))
-            na = sqrt(sum(x * x for x in a))
-            nb = sqrt(sum(y * y for y in b))
-            if na == 0 or nb == 0:
-                return 0.0
-            return dot / (na * nb)
+        # L2-normalize for cosine via dot product
+        def _norm(mat):
+            norms = np.linalg.norm(mat, axis=-1, keepdims=True)
+            norms = np.where(norms == 0, 1.0, norms)
+            return mat / norms
 
-        scores = [cosine(q_vec, dv) for dv in doc_vecs]
+        q_norm = _norm(q_vec.reshape(1, -1))[0]
+        doc_norms = _norm(doc_vecs)
 
-        # attach scores and sort
-        scored = list(zip(retrieved_docs, scores))
-        scored.sort(key=lambda x: x[1], reverse=True)
+        # --- TextRank: PageRank over shloka similarity graph ---
+        n = len(retrieved_docs)
+        sim_matrix = doc_norms @ doc_norms.T          # (N, N) cosine similarities
+        np.fill_diagonal(sim_matrix, 0.0)             # no self-loops
+        row_sums = sim_matrix.sum(axis=1, keepdims=True)
+        row_sums = np.where(row_sums == 0, 1.0, row_sums)
+        transition = sim_matrix / row_sums             # row-stochastic
 
-        reranked = [doc for doc, score in scored]
-        logger.debug(f"Reranked {len(reranked)} documents; top score: {scored[0][1]:.4f}")
-        
-        # Debug: show top 3 scores
-        for i, (doc, score) in enumerate(scored[:3]):
-            citation = f"{doc.metadata.get('book')} {doc.metadata.get('chapter')}.{doc.metadata.get('shloka_num')}"
-            logger.debug(f"  Rank #{i+1}: {citation} - similarity: {score:.4f}")
-        
+        # Power iteration (damping d=0.85, 50 steps is sufficient for N<=20)
+        pr = np.ones(n, dtype=np.float32) / n
+        d = 0.85
+        for _ in range(50):
+            pr = (1.0 - d) / n + d * (transition.T @ pr)
+
+        # --- Query-shloka cosine similarity ---
+        query_sims = doc_norms @ q_norm               # (N,)
+
+        # --- Combined score ---
+        combined = query_sims * pr
+
+        order = np.argsort(combined)[::-1]
+        reranked = [retrieved_docs[i] for i in order]
+
+        for rank, i in enumerate(order[:3]):
+            doc = retrieved_docs[i]
+            cit = f"{doc.metadata.get('book')} {doc.metadata.get('chapter')}.{doc.metadata.get('shloka_num')}"
+            logger.debug(
+                f"  TextRank Rank #{rank+1}: {cit} "
+                f"(q_sim={query_sims[i]:.4f}, pr={pr[i]:.4f}, combined={combined[i]:.4f})"
+            )
+
         return reranked
 
     except Exception as e:
-        logger.warning(f"Reranking failed: {e}; returning original order")
+        logger.warning(f"TextRank reranking failed: {e}; returning original order")
         return retrieved_docs

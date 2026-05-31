@@ -4,6 +4,7 @@ Includes transliteration, path validation, and helper functions.
 """
 
 import os
+import re
 import torch
 from typing import Optional
 from pathlib import Path
@@ -237,29 +238,73 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 
+def keep_sanskrit_english_chars(text: str) -> str:
+    """
+    Keep only Sanskrit (Devanagari) and English/Latin characters.
+
+    This removes characters from other scripts such as Cyrillic, Arabic,
+    Greek, CJK, Hebrew, and other non-Latin/Devanagari blocks.
+    """
+    if not isinstance(text, str):
+        return ""
+
+    allowed_pattern = re.compile(
+        r"[^\u0009\u000A\u000D\u0020-\u007E\u00A0-\u00FF\u0100-\u017F\u0180-\u024F"
+        r"\u1E00-\u1EFF\u0300-\u036F\u0900-\u097F\u1CD0-\u1CFF\uA8E0-\uA8FF\u2000-\u206F]"
+    )
+
+    text = allowed_pattern.sub("", text)
+    return " ".join(text.split()).strip()
+
+
+def assert_english_or_sanskrit_only(text: str, threshold: float = 0.15) -> None:
+    """
+    Raise ValueError if more than `threshold` fraction of non-whitespace characters
+    are not English/Latin or Sanskrit/Devanagari script.
+
+    Uses keep_sanskrit_english_chars as the canonical allowed-set definition so
+    the input gate and output sanitizer share exactly the same character policy.
+    """
+    stripped_original = text.replace(" ", "")
+    if not stripped_original:
+        return
+
+    cleaned = keep_sanskrit_english_chars(text).replace(" ", "")
+    removed = len(stripped_original) - len(cleaned)
+    ratio = removed / len(stripped_original)
+
+    if ratio > threshold:
+        raise ValueError(
+            f"Query must be in English or Sanskrit (Devanagari) only. "
+            f"{ratio:.0%} of characters are in unsupported scripts."
+        )
+
+
 def validate_query(query: str, max_length: int = 1000) -> bool:
     """
     Validate user query for safety and length.
-    
+
     Args:
         query: User query
         max_length: Maximum allowed length
-    
+
     Returns:
         bool: True if valid
-    
+
     Raises:
         ValueError: If query is invalid
     """
     if not query or not isinstance(query, str):
         raise ValueError("Query must be a non-empty string")
-    
+
     if len(query) > max_length:
         raise ValueError(f"Query exceeds maximum length of {max_length}")
-    
+
     if not query.strip():
         raise ValueError("Query cannot be only whitespace")
-    
+
+    assert_english_or_sanskrit_only(query)
+
     return True
 
 
