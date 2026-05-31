@@ -78,7 +78,7 @@ sanskrity/
 
 **Start the interactive chat assistant**:
 ```bash
-python src/main.py
+python src/server.py
 ```
 
 This will:
@@ -86,7 +86,7 @@ This will:
 2. Load Sanskrit scripture data
 3. Initialize the FAISS vector store
 4. Load the fine-tuned Qwen model
-5. Start the interactive chat interface
+5. Start the server
 
 ## 📚 Module Documentation
 
@@ -236,6 +236,7 @@ Orchestrates the full application flow:
 ```bash
 python src/main.py
 ```
+Allows to test quickly in a CLI Chat interface
 
 ## 🧪 Testing
 
