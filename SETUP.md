@@ -1,260 +1,171 @@
-# Sanskrity Web Frontend Setup Guide
-
-## 🚀 Quick Start
-
-This guide will help you set up and run the Sanskrity RAG system with the new web frontend.
+# Sanskrity Setup Guide
 
 ## Prerequisites
 
 - Python 3.8+
-- MongoDB Atlas account (connection string provided in config)
-- 10GB+ disk space
-- 8GB+ RAM (for LLM)
-- CUDA-capable GPU (recommended)
+- 10 GB+ disk space (model weights)
+- 8 GB+ RAM
+- CUDA-capable GPU (recommended — CPU works but is slow)
 
-## Installation Steps
+## Installation
 
-### 1. Install Dependencies
+### 1. Install dependencies
 
 ```bash
-cd /home/vyshakh/Documents/Sanskrity
 pip install -r requirements.txt
 ```
 
-New dependencies added:
-- `fastapi` - Web server framework
-- `uvicorn` - ASGI server  
-- `motor` - Async MongoDB driver
-- `pymongo[srv]` - MongoDB driver with Atlas support
-- `PyPDF2` - PDF processing
-- `python-docx` - DOCX processing
-- `python-multipart` - File upload support
-- `aiofiles` - Async file operations
+### 2. Configure environment
 
-### 2. Configure MongoDB Atlas Vector Search Index
+Create a `.env` file in the project root (already gitignored):
 
-**IMPORTANT**: You must create vector search indexes in MongoDB Atlas UI before running the migration.
-
-1. Go to MongoDB Atlas → Database → Search
-2. Create a new `Search Index` with type **"Vector Search"**
-3. Select database: `sanskrity`, collection: `scripture_vectors`
-4. Use this configuration:
-
-```json
-{
-  "fields": [
-    {
-      "type": "vector",
-      "path": "embedding",
-      "numDimensions": 1024,
-      "similarity": "cosine"
-    }
-  ]
-}
+```
+MONGODB_URL=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/
 ```
 
-5. Name it: `scripture_vectors_vector_index`
-6. Repeat for `user_context_vectors` collection with the same config
-7. Name it: `user_context_vectors_vector_index`
+> MongoDB is optional. The server runs fully locally without it. Only needed if you use the legacy MongoDB migration scripts.
 
-### 3. Migrate Scripture Data to MongoDB
-
-Run the migration script to populate the `scripture_vectors` collection:
+### 3. Start the server
 
 ```bash
-cd /home/vyshakh/Documents/Sanskrity
-python src/migrate_to_mongodb.py
-```
-
-This will:
-- Load data from `res/combined.csv`
-- Generate embeddings using `multilingual-e5-large`
-- Store ~1000s of vector documents in MongoDB
-- Display stats and index configuration
-
-**Note**: This may take 10-30 minutes depending on your data size.
-
-### 4. Test Vector Search (Optional)
-
-After migration, test the vector search:
-
-```bash
-python src/migrate_to_mongodb.py test
-```
-
-This will run a sample query to verify everything works.
-
-### 5. Start the Web Server
-
-```bash
-cd /home/vyshakh/Documents/Sanskrity
 python src/server.py
 ```
 
-The server will:
-- Connect to MongoDB Atlas
-- Load the embedding model
-- Load the LLM (this may take a few minutes)
-- Start the web server on `http://localhost:8000`
+On first run with no existing FAISS index the server will:
+1. Load Whisper STT model (`tiny`)
+2. Load the embedding model (`multilingual-e5-large`, 1024-dim)
+3. Build the FAISS index from `res/combined.csv` — **this only happens once**, the index is saved to `sanskrit_faiss_index_itihasa/`
+4. Load the LLM (Qwen fine-tuned with LoRA, 4-bit quantized)
+5. Start on `http://localhost:8000`
 
-You should see:
-```
-✓ SERVER READY ON http://0.0.0.0:8000
-```
+Subsequent starts skip step 3 and load the saved index directly.
 
-### 6. Access the Web Interface
+### 4. Open the interface
 
-Open your browser and go to:
 ```
 http://localhost:8000
 ```
 
-## Features
+API docs: `http://localhost:8000/docs`
 
-### Context Management
-- **Upload Files**: Drag-and-drop or click to upload PDF, DOCX, or TXT files
-- **Add Text**: Paste text directly into the context input
-- **View Contexts**: See all uploaded contexts with chunk counts
-- **Delete Contexts**: Remove contexts you no longer need
+---
 
-### Query Interface
-- **Text Input**: Type your question in the query box
-- **Voice Input (STT)**: Click the microphone button to speak your question
-- **Enhanced Responses**: Get answers enriched with both scripture and your custom context
-- **Source Citations**: See which scriptures and user contexts were used
+## Development (auto-reload)
 
-### Speech-to-Text (STT)
-- Uses browser's Web Speech API (no backend needed)
-- Click the microphone button to start
-- Speaks your question aloud
-- Real-time transcription
-- Works in Chrome, Edge, Safari
-
-## API Endpoints
-
-The server provides these REST API endpoints:
-
-- `GET /` - Frontend HTML
-- `GET /health` - Health check
-- `POST /api/context/upload` - Upload file (PDF, DOCX, TXT)
-- `POST /api/context/text` - Add text context
-- `GET /api/context/list` - List all contexts
-- `DELETE /api/context/{filename}` - Delete context
-- `POST /api/query` - Process RAG query
-
-API documentation: `http://localhost:8000/docs`
-
-## Architecture
-
-### Backend Flow
-```
-User Query
-  ↓
-1. Create query embedding
-  ↓
-2. Vector search in scripture_vectors (MongoDB)
-  ↓
-3. Vector search in user_context_vectors (MongoDB)
-  ↓
-4. Combine contexts
-  ↓
-5. Send to LLM
-  ↓
-6. Return answer with citations
-```
-
-### Data Storage
-- **MongoDB Database**: `sanskrity`
-- **Collections**:
-  - `scripture_vectors`: Scripture data with embeddings
-  - `user_context_vectors`: User-uploaded context with embeddings
-- **No file storage**: PDFs and DOCX files are processed and discarded immediately
-- **Vector dimensions**: 1024 (multilingual-e5-large)
-
-## Troubleshooting
-
-### MongoDB Connection Issues
-- Check your MongoDB Atlas connection string in `src/config.py`
-- Ensure your IP is whitelisted in MongoDB Atlas
-- Verify network connectivity
-
-### Vector Search Not Working
-- Ensure you created the vector search indexes in Atlas
-- Index names must match: `scripture_vectors_vector_index` and `user_context_vectors_vector_index`
-- Wait a few minutes after creating indexes (they need to build)
-
-### LLM Loading Slowly
-- First load takes time (downloading model weights)
-- Subsequent starts are faster
-- Consider using a smaller model for faster loading
-
-### File Upload Issues
-- Max file size: 10MB
-- Supported: PDF, DOCX, TXT only
-- Check browser console for errors
-
-### Speech Recognition Not Working
-- STT only works in HTTPS or localhost
-- Requires microphone permissions
-- Supported browsers: Chrome, Edge, Safari
-- Not supported: Firefox (yet)
-
-## Development
-
-### Auto-reload Mode
 ```bash
 uvicorn src.server:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### View Logs
-Logs are written to `logs/sanskrit_rag.log`
+---
 
-### Configuration
-Edit `src/config.py` to change:
-- MongoDB connection
-- File size limits
-- Chunk sizes
-- Retrieval parameters
-- Server port
+## Architecture
 
-## Production Deployment
+```
+User Query (text or voice)
+  ↓
+[EN/Sanskrit script filter — rejects unsupported scripts]
+  ↓
+FAISS semantic search (local index, multilingual-e5-large embeddings)
+  ↓
+TextRank-weighted reranker
+  (PageRank over shloka similarity graph × query cosine similarity)
+  ↓
+User context search (in-memory cosine similarity)
+  ↓
+LLM prompt (Qwen fine-tuned, 4-bit quantized)
+  ↓
+Response sanitizer (EN/Sanskrit output filter, repetition collapse, truncation)
+  ↓
+Answer + citation (book, chapter, shloka)
+```
 
-For production deployment:
-1. Set environment variables for sensitive data
-2. Use a production ASGI server (gunicorn + uvicorn)
-3. Set up HTTPS (required for STT)
-4. Configure CORS for your domain
-5. Enable authentication/authorization
-6. Set up monitoring and logging
+### Storage
+| Data | Where |
+|---|---|
+| Scripture vectors | `sanskrit_faiss_index_itihasa/` (local FAISS, persistent) |
+| User-uploaded context | In-memory (`LocalContextStore`, cleared on restart) |
+| Logs | `logs/sanskrit_rag.log` |
+| Uploaded files | Processed in memory, not saved to disk |
+
+---
+
+## API Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/` | Frontend |
+| `GET` | `/health` | Model/index status |
+| `POST` | `/api/query` | RAG query |
+| `POST` | `/api/context/upload` | Upload PDF / DOCX / TXT |
+| `POST` | `/api/context/text` | Add text context directly |
+| `GET` | `/api/context/list` | List uploaded contexts |
+| `DELETE` | `/api/context/{filename}` | Remove a context |
+| `POST` | `/api/stt` | Transcribe audio (Whisper) |
+
+---
+
+## Query Rules
+
+- Queries must be in **English or Sanskrit (Devanagari) only**
+- Other scripts (Arabic, Cyrillic, CJK, etc.) are rejected with HTTP 400
+- Minimum query length: 3 characters
+- Maximum query length: 1000 characters
+
+---
+
+## Configuration (`src/config.py`)
+
+| Setting | Default | Description |
+|---|---|---|
+| `EMBEDDINGS_MODEL` | `intfloat/multilingual-e5-large` | 1024-dim embedding model |
+| `RETRIEVER_K` | `5` | Shlokas retrieved per query |
+| `ENABLE_RERANKING` | `True` | TextRank-weighted reranking |
+| `MAX_TOKENS` | `256` | LLM max output tokens |
+| `TEMPERATURE` | `0.02` | LLM temperature |
+| `REPETITION_PENALTY` | `1.2` | Repetition penalty |
+| `MAX_FILE_SIZE_MB` | `10` | Upload size limit |
+| `SERVER_PORT` | `8000` | Web server port |
+
+---
 
 ## File Structure
 
 ```
-Sanskrity/
+sanskrity/
 ├── src/
-│   ├── server.py                 # FastAPI server
-│   ├── database.py               # MongoDB connection
-│   ├── mongodb_vector_store.py   # Vector search operations
-│   ├── context_manager.py        # File processing
-│   ├── migrate_to_mongodb.py     # Migration script
-│   ├── config.py                 # Configuration
-│   └── [other existing files]
+│   ├── server.py              # FastAPI server (fully local)
+│   ├── rag_chain.py           # FAISS + TextRank reranker
+│   ├── chat.py                # CLI interface
+│   ├── models.py              # LLM + embedding model loading
+│   ├── data_loader.py         # CSV → LangChain Documents
+│   ├── utils.py               # Filters, transliteration, validation
+│   ├── config.py              # All settings
+│   └── logger.py
 ├── frontend/
-│   ├── index.html               # Main HTML page
-│   ├── styles.css               # Premium CSS
-│   └── app.js                   # JavaScript logic
-├── requirements.txt             # Python dependencies
-└── README.md                    # This file
+│   ├── index.html
+│   ├── styles.css
+│   └── app.js
+├── res/
+│   └── combined.csv           # Scripture data (Sanskrit + English)
+├── sanskrit_faiss_index_itihasa/  # Built on first run
+├── logs/
+├── .env                       # MongoDB URL (gitignored)
+├── CHANGELOG.md
+└── requirements.txt
 ```
 
-## Support
+---
 
-For issues or questions:
-1. Check the logs in `logs/sanskrit_rag.log`
-2. Verify MongoDB Atlas connection and indexes
-3. Test with the migration script first
-4. Check browser console for frontend errors
+## Troubleshooting
 
-## License
+**LLM loads slowly on first run** — model weights are downloaded and quantized. Subsequent starts are faster.
 
-[Your license here]
+**FAISS index missing** — delete the `sanskrit_faiss_index_itihasa/` folder and restart; it will rebuild from `res/combined.csv`.
+
+**STT not working** — Whisper STT runs on the backend. Send audio to `POST /api/stt`. Requires microphone permissions in the browser. Works on HTTPS or localhost.
+
+**Query rejected (400)** — Check that the query is in English or Devanagari. Other scripts are blocked by the input filter.
+
+**File upload fails** — Max 10 MB. Supported formats: PDF, DOCX, TXT only.
+
+**Out of GPU memory** — Reduce `MAX_TOKENS` or `RETRIEVER_K` in `config.py`, or switch to CPU (`device_map="cpu"`).
