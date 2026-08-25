@@ -26,12 +26,20 @@ class Config:
     # Project root directory (can be overridden via environment variable)
     PROJECT_DIR = os.environ.get('SANSKRIT_PROJECT_DIR', os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     
+    # Partial local demo: SANSKRITY_DEMO=1 (no CUDA / no Qwen weights)
+    DEMO_MODE = os.environ.get("SANSKRITY_DEMO", "").strip().lower() in {"1", "true", "yes"}
+
     # Data paths
     DATA_PATH = os.path.join(PROJECT_DIR, "res/combined.csv")
     ADAPTER_PATH = os.path.join(PROJECT_DIR, "qwen-finetuned")
     BASE_MODEL = "qwen"
     FAISS_INDEX_PATH = os.path.join(PROJECT_DIR, "sanskrit_faiss_index_itihasa")
     LOG_FILE = os.path.join(PROJECT_DIR, "logs/sanskrit_rag.log")
+
+    if DEMO_MODE:
+        DATA_PATH = os.path.join(PROJECT_DIR, "res/combined_demo.csv")
+        FAISS_INDEX_PATH = os.path.join(PROJECT_DIR, "sanskrit_faiss_index_demo")
+        BASE_MODEL = "distilgpt2"
     
     # Create log directory if it doesn't exist
     os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
@@ -44,6 +52,8 @@ class Config:
     EMBEDDINGS_MODEL = 'intfloat/multilingual-e5-large'  # 1024 dimensions
     # Alternative: 'sentence-transformers/all-MiniLM-L6-v2' (384 dims - smaller)
     EMBEDDINGS_BATCH_SIZE = 32
+    if DEMO_MODE:
+        EMBEDDINGS_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
     
     # =========================================================================
     # LLM PARAMETERS
@@ -102,6 +112,9 @@ class Config:
     LOAD_IN_4BIT = True
     DEVICE_MAP = "auto"
     USE_GRADIENT_CHECKPOINTING = True
+    if DEMO_MODE:
+        USE_4BIT_QUANTIZATION = False
+        LOAD_IN_4BIT = False
     
     # =========================================================================
     # CHAT INTERFACE SETTINGS

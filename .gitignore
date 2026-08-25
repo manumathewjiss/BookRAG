@@ -15,5 +15,8 @@ qwen-sanskrit-explainer/
 qwen/
 sanskrit_faiss_index_itihasa/
 sanskrit_faiss_index_minillm/
+sanskrit_faiss_index_demo/
+faiss_index_itihasa_english_only/
+res/combined_demo.csv
 res/index.bin
 Shlokvaani/

@@ -75,9 +75,18 @@ def setup_local_llm(
     
     # Check CUDA availability
     check_cuda_availability()
-    
-    # Get quantization config
-    bnb_config = Config.get_bnb_config()
+
+    if getattr(Config, "DEMO_MODE", False):
+        use_adapter = False
+        logger.info("Demo mode: skipping LoRA adapter and 4-bit quantization")
+
+    use_quant = Config.USE_4BIT_QUANTIZATION and Config.is_cuda_available()
+    load_kwargs = {
+        "device_map": "auto",
+        "trust_remote_code": True,
+    }
+    if use_quant:
+        load_kwargs["quantization_config"] = Config.get_bnb_config()
     
     tokenizer = None
     model = None
@@ -99,9 +108,7 @@ def setup_local_llm(
         logger.info(f"Loading base model: {base_model_name}...")
         base_model = AutoModelForCausalLM.from_pretrained(
             base_model_name,
-            quantization_config=bnb_config,
-            device_map="auto",
-            trust_remote_code=True
+            **load_kwargs
         )
         
         # Load adapter if requested

@@ -1,0 +1,53 @@
+{
+  "limitation": "LIMITATION: This is a translation-retrieval proxy, not an evaluation of real user questions. Each query is the English `en` field; the gold document is the Sanskrit `sn` from the SAME CSV row. Success means FAISS recovered the paired verse from its translation, not that answers to open questions are correct.",
+  "gold_id_field": "row_index",
+  "embeddings_model": "intfloat/multilingual-e5-large",
+  "faiss_index_path": "/Users/manumathewjiss/Documents/Pramod Gupta Project/sanskrit_faiss_index_itihasa",
+  "production_retriever_k": 5,
+  "eval_k": 10,
+  "distance": "L2 / Euclidean (lower is closer). NOT cosine similarity.",
+  "prefixes": "none",
+  "normalization": false,
+  "document_page_content": "Sanskrit sn only",
+  "sample_path": "/Users/manumathewjiss/Documents/Pramod Gupta Project/eval/data/faiss_baseline_sample.json",
+  "sample_n": 500,
+  "book_counts": {
+    "ramayana": 104,
+    "mahabharata": 396
+  },
+  "index_rebuilt_this_run": false,
+  "elapsed_sec": 47.317023038864136,
+  "overall": {
+    "n": 500,
+    "recall_at_1": 0.268,
+    "recall_at_5": 0.378,
+    "recall_at_10": 0.434,
+    "mrr": 0.31760000000000005,
+    "found_in_top_k": 217,
+    "missing_in_top_k": 283,
+    "mean_rank_when_found": 2.345622119815668
+  },
+  "by_book": {
+    "ramayana": {
+      "n": 104,
+      "recall_at_1": 0.34615384615384615,
+      "recall_at_5": 0.4230769230769231,
+      "recall_at_10": 0.47115384615384615,
+      "mrr": 0.38366529304029307,
+      "found_in_top_k": 49,
+      "missing_in_top_k": 55,
+      "mean_rank_when_found": 1.9591836734693877
+    },
+    "mahabharata": {
+      "n": 396,
+      "recall_at_1": 0.2474747474747475,
+      "recall_at_5": 0.3661616161616162,
+      "recall_at_10": 0.42424242424242425,
+      "mrr": 0.30024951899951896,
+      "found_in_top_k": 168,
+      "missing_in_top_k": 228,
+      "mean_rank_when_found": 2.4583333333333335
+    }
+  },
+  "created_utc": "2026-08-24T18:06:57.395381+00:00"
+}

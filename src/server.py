@@ -16,7 +16,10 @@ from pathlib import Path
 from datetime import datetime
 import PyPDF2
 from docx import Document
-import whisper
+try:
+    import whisper
+except ImportError:
+    whisper = None
 
 from config import Config
 from logger import get_logger
@@ -129,6 +132,9 @@ llm = None
 embedding_model = None
 retriever = None
 whisper_model = None
+demo_vectorizer = None
+demo_matrix = None
+demo_rows: List[Dict[str, Any]] = []
 
 
 # Pydantic models
@@ -230,17 +236,69 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> List[str]
 @app.on_event("startup")
 async def startup_event():
     """Initialize models on startup."""
-    global llm, embedding_model, retriever, whisper_model
+    global llm, embedding_model, retriever, whisper_model, demo_vectorizer, demo_matrix, demo_rows
     
     logger.info("=" * 70)
     logger.info("STARTING SANSKRITY RAG SERVER (LOCAL MODE)")
     logger.info("=" * 70)
     
     try:
-        # Load Whisper model for STT
-        logger.info("Loading Whisper STT model (tiny)...")
-        whisper_model = whisper.load_model("tiny")
-        logger.info("✓ Whisper STT model loaded")
+        # --------------------------------------------------------------------
+        # DEMO MODE: offline retrieval-only (no HuggingFace downloads)
+        # --------------------------------------------------------------------
+        if Config.DEMO_MODE:
+            logger.info("DEMO_MODE enabled: starting offline retrieval-only server.")
+
+            import pandas as pd
+            from sklearn.feature_extraction.text import TfidfVectorizer
+            from sklearn.metrics.pairwise import cosine_similarity
+
+            df = pd.read_csv(Config.DATA_PATH)
+            # Ensure required columns exist (repo uses: book, chapter, shloka, sn, en)
+            for col in ["sn", "en", "book", "chapter", "shloka"]:
+                if col not in df.columns:
+                    raise RuntimeError(f"DEMO_MODE requires column '{col}' in {Config.DATA_PATH}")
+
+            df["sn"] = df["sn"].fillna("").astype(str)
+            df["en"] = df["en"].fillna("").astype(str)
+            df["book"] = df["book"].fillna("").astype(str)
+            df["chapter"] = df["chapter"].fillna("").astype(str)
+            df["shloka"] = df["shloka"].fillna("").astype(str)
+
+            demo_rows = df.to_dict(orient="records")
+            demo_texts = [(r["sn"] + " " + r["en"]).strip() for r in demo_rows]
+
+            # Character n-grams work better across mixed scripts/transliterations.
+            demo_vectorizer = TfidfVectorizer(
+                analyzer="char_wb",
+                ngram_range=(3, 5),
+                min_df=1,
+            )
+            demo_matrix = demo_vectorizer.fit_transform(demo_texts)
+
+            # Offline demo: no LLM explanation, no uploads (no embeddings).
+            llm = None
+            embedding_model = None
+            retriever = None
+            whisper_model = None
+
+            logger.info("✓ DEMO retrieval index built (TF-IDF over demo CSV).")
+            logger.info(f"✓ SERVER READY ON http://{Config.SERVER_HOST}:{Config.SERVER_PORT}")
+            logger.info("=" * 70)
+            return
+
+        # Load Whisper model for STT (optional — missing on some Mac setups)
+        if whisper is None:
+            logger.warning("openai-whisper is not installed; voice input disabled")
+            whisper_model = None
+        else:
+            try:
+                logger.info("Loading Whisper STT model (tiny)...")
+                whisper_model = whisper.load_model("tiny")
+                logger.info("✓ Whisper STT model loaded")
+            except Exception as whisper_error:
+                logger.warning(f"Whisper skipped: {whisper_error}")
+                whisper_model = None
         
         # Load embedding model
         logger.info("Loading embedding model...")
@@ -320,6 +378,9 @@ if frontend_dir.exists():
 async def upload_context_file(file: UploadFile = File(...)):
     """Upload a PDF, DOCX, or TXT file and store locally."""
     try:
+        if Config.DEMO_MODE:
+            raise HTTPException(status_code=503, detail="Context uploads disabled in demo mode")
+
         # Validate file type
         file_ext = file.filename.split('.')[-1].lower()
         if file_ext not in Config.ALLOWED_EXTENSIONS:
@@ -379,6 +440,9 @@ async def upload_context_file(file: UploadFile = File(...)):
 async def add_text_context(request: TextContextRequest):
     """Add text context directly."""
     try:
+        if Config.DEMO_MODE:
+            raise HTTPException(status_code=503, detail="Context uploads disabled in demo mode")
+
         if not request.text or len(request.text.strip()) < 10:
             raise HTTPException(
                 status_code=400,
@@ -468,6 +532,64 @@ async def process_query(request: QueryRequest):
             raise HTTPException(status_code=400, detail=str(e))
 
         logger.info(f"Processing query: {request.query}")
+
+        # --------------------------------------------------------------------
+        # DEMO MODE: return retrieval results only (no LLM)
+        # --------------------------------------------------------------------
+        if Config.DEMO_MODE:
+            import numpy as np
+            from sklearn.metrics.pairwise import cosine_similarity
+
+            if demo_vectorizer is None or demo_matrix is None or not demo_rows:
+                raise HTTPException(status_code=500, detail="Demo index is not initialized")
+
+            q_vec = demo_vectorizer.transform([request.query])
+            sims = cosine_similarity(q_vec, demo_matrix).flatten()
+
+            top_k = max(1, int(Config.RETRIEVER_K))
+            top_idx = np.argsort(sims)[::-1][:top_k]
+
+            scripture_context_list: List[dict] = []
+            top_shloka = None
+            top_citation = None
+            top_translation = None
+
+            for rank_i, idx in enumerate(top_idx):
+                row = demo_rows[int(idx)]
+                book = row.get("book", "")
+                chapter = row.get("chapter", "")
+                shloka_num = row.get("shloka", "")
+                sn = row.get("sn", "")
+                en = row.get("en", "")
+
+                scripture_context_list.append({
+                    "text": sn,
+                    "source": "Demo CSV",
+                    "english_text": en,
+                    "book": book,
+                    "chapter": chapter,
+                    "shloka_num": shloka_num,
+                    "score": float(sims[int(idx)]),
+                })
+
+                if rank_i == 0:
+                    top_shloka = sn
+                    top_citation = f"{book} {chapter}.{shloka_num}"
+                    top_translation = keep_sanskrit_english_chars(en) if en else None
+
+            processing_time = (time.time() - start_time) * 1000
+            logger.info(f"DEMO query processed in {processing_time:.2f}ms")
+
+            return QueryResponse(
+                query=request.query,
+                answer="Demo mode: the server returned the closest retrieved verses and their English translations. Install the HuggingFace models for full LLM explanations.",
+                shloka=top_shloka,
+                citation=top_citation,
+                translation=top_translation,
+                scripture_context=scripture_context_list,
+                user_context=[],
+                processing_time_ms=processing_time,
+            )
         
         # 1. Search Local FAISS Index (scripture)
         scripture_docs = []
