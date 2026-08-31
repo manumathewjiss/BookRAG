@@ -1,0 +1,6534 @@
+{
+  "summary": {
+    "experiment": "realistic_eval_100_sanskrit_english_e5_prefixed_norm",
+    "interpretation": "Official multilingual-e5-large retrieval recipe on the same Skt+Eng documents and frozen 100 questions: query:/passage: prefixes, normalize_embeddings=True, FAISS IndexFlatIP. Bundled recipe test, not a single-variable ablation.",
+    "page_content_format": "cleaned_sn + '\\n\\n' + cleaned_en",
+    "one_vector_per_row": true,
+    "frozen_path": "/Users/manumathewjiss/Documents/Pramod Gupta Project/eval/data/realistic_eval_100_frozen.json",
+    "index_path": "/Users/manumathewjiss/Documents/Pramod Gupta Project/sanskrit_english_e5_prefixed_norm_faiss_index_itihasa",
+    "index_ntotal": 93030,
+    "index_rebuilt_this_run": true,
+    "protected_indexes_unchanged": true,
+    "embeddings_model": "intfloat/multilingual-e5-large",
+    "prefixes": "query: on questions; passage: on documents (encode-time only)",
+    "normalization": true,
+    "normalization_impl": "HuggingFaceEmbeddings encode_kwargs normalize_embeddings=True",
+    "faiss_normalize_L2": false,
+    "distance": "IndexFlatIP / MAX_INNER_PRODUCT (higher is closer). Unit vectors so IP = cosine.",
+    "eval_k": 10,
+    "n": 100,
+    "sanskrit_only": {
+      "recall_at_1": 0.01,
+      "recall_at_5": 0.05,
+      "recall_at_10": 0.08,
+      "mrr": 0.0292
+    },
+    "english_only": {
+      "recall_at_1": 0.29,
+      "recall_at_5": 0.4,
+      "recall_at_10": 0.47,
+      "mrr": 0.3421
+    },
+    "sanskrit_english_no_prefix_l2": {
+      "recall_at_1": 0.29,
+      "recall_at_5": 0.4,
+      "recall_at_10": 0.48,
+      "mrr": 0.3382
+    },
+    "sanskrit_english_e5_prefixed_norm": {
+      "n": 100,
+      "recall_at_1": 0.29,
+      "recall_at_5": 0.42,
+      "recall_at_10": 0.49,
+      "mrr": 0.3420357142857143,
+      "found_in_top_k": 49,
+      "missing_in_top_k": 51,
+      "mean_rank_when_found": 2.6530612244897958
+    },
+    "difference_e5_minus_prev_combined": {
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.019999999999999962,
+      "recall_at_10": 0.010000000000000009,
+      "mrr": 0.0038357142857142756
+    },
+    "e5_n_top1": 29,
+    "e5_n_top5": 42,
+    "e5_n_top10": 49,
+    "found_by_both_prev_and_e5": [
+      "r100_006",
+      "r100_012",
+      "r100_014",
+      "r100_016",
+      "r100_017",
+      "r100_020",
+      "r100_022",
+      "r100_024",
+      "r100_027",
+      "r100_033",
+      "r100_034",
+      "r100_036",
+      "r100_038",
+      "r100_039",
+      "r100_040",
+      "r100_041",
+      "r100_042",
+      "r100_046",
+      "r100_052",
+      "r100_053",
+      "r100_055",
+      "r100_056",
+      "r100_057",
+      "r100_059",
+      "r100_064",
+      "r100_065",
+      "r100_067",
+      "r100_068",
+      "r100_069",
+      "r100_070",
+      "r100_071",
+      "r100_073",
+      "r100_077",
+      "r100_079",
+      "r100_080",
+      "r100_081",
+      "r100_083",
+      "r100_084",
+      "r100_086",
+      "r100_087",
+      "r100_089",
+      "r100_092",
+      "r100_096",
+      "r100_098",
+      "r100_099"
+    ],
+    "prev_only_successes": [
+      "r100_013",
+      "r100_061",
+      "r100_097"
+    ],
+    "e5_only_successes": [],
+    "neither_successes": [],
+    "by_book": {
+      "mahabharata": {
+        "n": 80,
+        "recall_at_1": 0.2875,
+        "recall_at_5": 0.425,
+        "recall_at_10": 0.5,
+        "mrr": 0.33848214285714284,
+        "found_in_top_k": 40,
+        "missing_in_top_k": 40,
+        "mean_rank_when_found": 2.8
+      },
+      "ramayana": {
+        "n": 20,
+        "recall_at_1": 0.3,
+        "recall_at_5": 0.4,
+        "recall_at_10": 0.45,
+        "mrr": 0.35625,
+        "found_in_top_k": 9,
+        "missing_in_top_k": 11,
+        "mean_rank_when_found": 2.0
+      }
+    },
+    "by_category": {
+      "advice_teaching": {
+        "n": 12,
+        "recall_at_1": 0.3333333333333333,
+        "recall_at_5": 0.4166666666666667,
+        "recall_at_10": 0.5,
+        "mrr": 0.3660714285714286,
+        "found_in_top_k": 6,
+        "missing_in_top_k": 6,
+        "mean_rank_when_found": 2.5
+      },
+      "character_action": {
+        "n": 8,
+        "recall_at_1": 0.25,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.5,
+        "mrr": 0.375,
+        "found_in_top_k": 4,
+        "missing_in_top_k": 4,
+        "mean_rank_when_found": 1.5
+      },
+      "event": {
+        "n": 35,
+        "recall_at_1": 0.17142857142857143,
+        "recall_at_5": 0.2571428571428571,
+        "recall_at_10": 0.3142857142857143,
+        "mrr": 0.20479591836734692,
+        "found_in_top_k": 11,
+        "missing_in_top_k": 24,
+        "mean_rank_when_found": 3.0
+      },
+      "factual": {
+        "n": 17,
+        "recall_at_1": 0.35294117647058826,
+        "recall_at_5": 0.5882352941176471,
+        "recall_at_10": 0.7058823529411765,
+        "mrr": 0.43676470588235294,
+        "found_in_top_k": 12,
+        "missing_in_top_k": 5,
+        "mean_rank_when_found": 3.25
+      },
+      "location": {
+        "n": 8,
+        "recall_at_1": 0.375,
+        "recall_at_5": 0.375,
+        "recall_at_10": 0.625,
+        "mrr": 0.40848214285714285,
+        "found_in_top_k": 5,
+        "missing_in_top_k": 3,
+        "mean_rank_when_found": 3.6
+      },
+      "philosophical": {
+        "n": 11,
+        "recall_at_1": 0.5454545454545454,
+        "recall_at_5": 0.6363636363636364,
+        "recall_at_10": 0.6363636363636364,
+        "mrr": 0.5681818181818182,
+        "found_in_top_k": 7,
+        "missing_in_top_k": 4,
+        "mean_rank_when_found": 1.4285714285714286
+      },
+      "reason": {
+        "n": 9,
+        "recall_at_1": 0.2222222222222222,
+        "recall_at_5": 0.4444444444444444,
+        "recall_at_10": 0.4444444444444444,
+        "mrr": 0.30000000000000004,
+        "found_in_top_k": 4,
+        "missing_in_top_k": 5,
+        "mean_rank_when_found": 2.25
+      }
+    },
+    "elapsed_sec": 10.824702978134155,
+    "per_question": [
+      {
+        "question_id": "r100_001",
+        "question": "Where did Rama, Sita, and Lakshmana settle after they continued their exile journey on foot?",
+        "book": "ramayana",
+        "question_category": "location",
+        "gold_row_indices": [
+          3653,
+          3654,
+          3656
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          3297,
+          5579,
+          5559,
+          5522,
+          38289,
+          37731,
+          4573,
+          3436,
+          9185,
+          25
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_002",
+        "question": "When Rama was leaving for exile, how long did he tell his father it would be before they saw each other again?",
+        "book": "ramayana",
+        "question_category": "factual",
+        "gold_row_indices": [
+          2983
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          4017,
+          16363,
+          2523,
+          4152,
+          46942,
+          10761,
+          16379,
+          38277,
+          1910,
+          2368
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_003",
+        "question": "How did the elders in the assembly react when Yudhishthira staked Draupadi in the dice game?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          28526,
+          28527,
+          28528
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          28592,
+          61061,
+          41091,
+          67112,
+          91481,
+          28342,
+          28548,
+          91782,
+          28727,
+          43512
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_004",
+        "question": "After Arjuna broke the brothers' household rule, how long did he go to live in the forest?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          26053
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": 8,
+        "e5_prefixed_top10_row_index": [
+          19678,
+          30708,
+          26048,
+          29794,
+          21409,
+          30558,
+          39144,
+          26053,
+          69919,
+          30340
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_005",
+        "question": "Where was Duryodhana hiding after the Kurukshetra battle?",
+        "book": "mahabharata",
+        "question_category": "location",
+        "gold_row_indices": [
+          66920,
+          66917,
+          66921
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": 7,
+        "e5_prefixed_top10_row_index": [
+          57326,
+          45836,
+          66423,
+          65771,
+          58275,
+          66923,
+          66917,
+          66915,
+          19549,
+          68198
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_006",
+        "question": "When Draupadi was being comforted after the dice-game insult, who did her brother say would kill Drona, Bhishma, Duryodhana, and Karna?",
+        "book": "mahabharata",
+        "question_category": "character_action",
+        "gold_row_indices": [
+          29524
+        ],
+        "prev_skt_eng_first_relevant_rank": 2,
+        "e5_prefixed_first_relevant_rank": 2,
+        "e5_prefixed_top10_row_index": [
+          61359,
+          29524,
+          64998,
+          64380,
+          40784,
+          28869,
+          44913,
+          43085,
+          30264,
+          58352
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_007",
+        "question": "According to Vidura, why was Duryodhana unwilling to make peace when Krishna came as an envoy?",
+        "book": "mahabharata",
+        "question_category": "reason",
+        "gold_row_indices": [
+          44030,
+          44031,
+          44033
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          43857,
+          43967,
+          43966,
+          57326,
+          30204,
+          19704,
+          64998,
+          24345,
+          69537,
+          28336
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_008",
+        "question": "In the teaching about Death, what is said to happen to people after the body is destroyed?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          78148,
+          78149
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          90143,
+          22546,
+          76962,
+          36059,
+          69248,
+          22539,
+          76025,
+          70225,
+          81014,
+          76031
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_009",
+        "question": "If a king is weaker than a neighbor, how does Bhishma say he may still attack that stronger kingdom?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          72175
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          72988,
+          74113,
+          72944,
+          27152,
+          72174,
+          68142,
+          74119,
+          72796,
+          26808,
+          51459
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_010",
+        "question": "When Bhishma defends giving Krishna the highest honor, what does he say about Krishna's place in the universe?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          27829,
+          27826,
+          27828
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          27811,
+          27770,
+          76650,
+          82770,
+          27831,
+          27943,
+          43503,
+          62220,
+          27785,
+          27444
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_011",
+        "question": "Which female demon did Vishvamitra tell Rama was terrorizing the region they were about to pass through?",
+        "book": "ramayana",
+        "question_category": "character_action",
+        "gold_row_indices": [
+          640
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          7090,
+          17310,
+          15964,
+          17432,
+          33758,
+          37805,
+          5906,
+          67732,
+          17315,
+          19091
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_012",
+        "question": "While Vasistha stood with the Brahmanas before Dasaratha, what immediate order did he ask the king to give concerning Rama?",
+        "book": "ramayana",
+        "question_category": "event",
+        "gold_row_indices": [
+          2326
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          2326,
+          2347,
+          582,
+          4982,
+          92692,
+          27,
+          583,
+          357,
+          83467,
+          22649
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_013",
+        "question": "When Rama entered to see Dasaratha about the coronation, whom did he find sitting with his father, and how did the king look?",
+        "book": "ramayana",
+        "question_category": "event",
+        "gold_row_indices": [
+          2410
+        ],
+        "prev_skt_eng_first_relevant_rank": 6,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          1572,
+          1916,
+          1910,
+          1766,
+          5401,
+          4109,
+          1894,
+          18397,
+          16167,
+          36731
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_014",
+        "question": "On the day people had dressed for Rama's installation, what did those present notice about Rama's face?",
+        "book": "ramayana",
+        "question_category": "factual",
+        "gold_row_indices": [
+          2481
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          2481,
+          83523,
+          1910,
+          18105,
+          1985,
+          19078,
+          1990,
+          1824,
+          4978,
+          18397
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_015",
+        "question": "When Rama was getting Sita onto the river raft, what belongings did he place beside her?",
+        "book": "ramayana",
+        "question_category": "event",
+        "gold_row_indices": [
+          3628
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": 2,
+        "e5_prefixed_top10_row_index": [
+          2888,
+          3628,
+          16525,
+          5418,
+          18088,
+          37851,
+          5894,
+          9912,
+          13162,
+          3627
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_016",
+        "question": "After leaving his counselors behind, whom did Bharata go to visit, following the family priest?",
+        "book": "ramayana",
+        "question_category": "character_action",
+        "gold_row_indices": [
+          4557
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 2,
+        "e5_prefixed_top10_row_index": [
+          5255,
+          4557,
+          5008,
+          4109,
+          5283,
+          4556,
+          4403,
+          21390,
+          4123,
+          4220
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_017",
+        "question": "After Sita was abducted, at which lake did Rama begin to lament while walking with Lakshmana?",
+        "book": "ramayana",
+        "question_category": "location",
+        "gold_row_indices": [
+          7394
+        ],
+        "prev_skt_eng_first_relevant_rank": 6,
+        "e5_prefixed_first_relevant_rank": 8,
+        "e5_prefixed_top10_row_index": [
+          37840,
+          65,
+          7089,
+          7091,
+          7385,
+          18088,
+          37941,
+          7394,
+          11646,
+          24
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_018",
+        "question": "In Sugriva's search orders, where were the monkeys told to look together for Rama's wife?",
+        "book": "ramayana",
+        "question_category": "event",
+        "gold_row_indices": [
+          8823
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          11120,
+          16330,
+          16287,
+          11894,
+          8805,
+          33761,
+          38003,
+          37966,
+          38302,
+          37997
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_019",
+        "question": "During the search for Sita, what does this counsel say happens to people who keep acting, compared with people who give in to grief?",
+        "book": "ramayana",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          9048
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          7082,
+          9046,
+          11512,
+          76240,
+          56958,
+          15875,
+          61074,
+          71104,
+          75251,
+          9128
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_020",
+        "question": "What object, stored in its case, did Janaka's counselors bring when they approached the king?",
+        "book": "ramayana",
+        "question_category": "factual",
+        "gold_row_indices": [
+          1554
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          1554,
+          1614,
+          1218,
+          8574,
+          32730,
+          7480,
+          266,
+          80368,
+          70407,
+          1551
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_021",
+        "question": "When Sita was heard weeping in the forest, whom did the young rishis go to tell?",
+        "book": "ramayana",
+        "question_category": "event",
+        "gold_row_indices": [
+          18189
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          2730,
+          67788,
+          36451,
+          39684,
+          6685,
+          11641,
+          35805,
+          7089,
+          86217,
+          33422
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_022",
+        "question": "In this teaching spoken to Rama, whose life is called happy, and whose life unhappy?",
+        "book": "ramayana",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          5017
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          5017,
+          2272,
+          2054,
+          6371,
+          70574,
+          10646,
+          4839,
+          1084,
+          11882,
+          3451
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_023",
+        "question": "What two things did Sugriva promise Rama he would regain after seeing Rama's grief?",
+        "book": "ramayana",
+        "question_category": "event",
+        "gold_row_indices": [
+          7761
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          11759,
+          12890,
+          8327,
+          8544,
+          8130,
+          88350,
+          10584,
+          7579,
+          8764,
+          8334
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_024",
+        "question": "Where did Janaka say his brother Kusadhvaja ruled, and what river washed that city?",
+        "book": "ramayana",
+        "question_category": "location",
+        "gold_row_indices": [
+          1604
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          1604,
+          67216,
+          1655,
+          67479,
+          19091,
+          17279,
+          33179,
+          27305,
+          90874,
+          63534
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_025",
+        "question": "According to Sugriva, why was extra help unnecessary for Rama in battle?",
+        "book": "ramayana",
+        "question_category": "reason",
+        "gold_row_indices": [
+          8701
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          7579,
+          10770,
+          7942,
+          56106,
+          7254,
+          8544,
+          8707,
+          6557,
+          12890,
+          12932
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_026",
+        "question": "When the rest of the monkeys had lost heart at the ocean, whom did the speaker urge not to ignore their despair?",
+        "book": "ramayana",
+        "question_category": "event",
+        "gold_row_indices": [
+          9401
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          9192,
+          9949,
+          17806,
+          9323,
+          9072,
+          11332,
+          12414,
+          9327,
+          9136,
+          11902
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_027",
+        "question": "After leaving the northern direction, toward which quarter did the great muni go to perform severe austerities?",
+        "book": "ramayana",
+        "question_category": "location",
+        "gold_row_indices": [
+          1499
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          1499,
+          1356,
+          1420,
+          81130,
+          1348,
+          1418,
+          67413,
+          44194,
+          32913,
+          1472
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_028",
+        "question": "According to Jabali's argument to Rama, should a wise person form lasting attachment to family and household?",
+        "book": "ramayana",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          5099
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          79503,
+          1862,
+          6679,
+          75693,
+          88051,
+          3256,
+          75727,
+          81039,
+          44802,
+          85364
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_029",
+        "question": "Which of Shantanu and Satyavati's sons inherited the throne after the other was slain by Gandharvas before adulthood?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          22706
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          57723,
+          23571,
+          65307,
+          41112,
+          47679,
+          48896,
+          41633,
+          61140,
+          47704,
+          68336
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_030",
+        "question": "How did Duryodhana propose to buy Drupada's court away from Yudhishthira's side?",
+        "book": "mahabharata",
+        "question_category": "character_action",
+        "gold_row_indices": [
+          25741
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          29210,
+          58331,
+          58275,
+          57326,
+          23877,
+          25723,
+          19841,
+          28567,
+          62093,
+          30197
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_031",
+        "question": "After Krishna had spoken as a friend seeking peace, what did Bhishma tell Duryodhana not to follow instead?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          44857
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          43966,
+          64998,
+          69182,
+          40455,
+          52251,
+          44953,
+          41611,
+          57326,
+          46498,
+          28730
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_032",
+        "question": "According to Kunti, what livelihood belongs to each of the four social orders?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          45154
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          71972,
+          72031,
+          71964,
+          77851,
+          71958,
+          79520,
+          5064,
+          71519,
+          72833,
+          77860
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_033",
+        "question": "According to the snake who spoke with Bhima, what three kinds of rebirth can a person's own acts produce?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          34870
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          34870,
+          28761,
+          92904,
+          8698,
+          33276,
+          19769,
+          34796,
+          84585,
+          48020,
+          21312
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_034",
+        "question": "In Sanatsujata's teaching, what is named as one kind of death, what as another, and what is identified with immortality?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          42527
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          42527,
+          42512,
+          42523,
+          42539,
+          42524,
+          79864,
+          80320,
+          89300,
+          26919,
+          76962
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_035",
+        "question": "In Krishna's battlefield teaching to Arjuna, what kind of person is said to attain peace?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          48051
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          40809,
+          51523,
+          64947,
+          61726,
+          63620,
+          19821,
+          45011,
+          19835,
+          52363,
+          59960
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_036",
+        "question": "Before the war, what did Bhishma tell the Pandavas he would still give them, and what did he say he would not do for their side?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          51530
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 5,
+        "e5_prefixed_top10_row_index": [
+          51589,
+          52300,
+          44170,
+          42875,
+          51530,
+          51068,
+          56737,
+          41105,
+          41079,
+          37100
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_037",
+        "question": "After Bhishma had spoken to Duryodhana from the bed of arrows, what did he then do despite his wounds?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          52268
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          40873,
+          57795,
+          40837,
+          19819,
+          40858,
+          40878,
+          63818,
+          49350,
+          57326,
+          53314
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_038",
+        "question": "After Bhishma, Drona, Karna, Jayadratha, Duryodhana's brothers, and Lakshmana had fallen, what question did Kripa raise about continuing?",
+        "book": "mahabharata",
+        "question_category": "reason",
+        "gold_row_indices": [
+          65605
+        ],
+        "prev_skt_eng_first_relevant_rank": 9,
+        "e5_prefixed_first_relevant_rank": 5,
+        "e5_prefixed_top10_row_index": [
+          43040,
+          49699,
+          44913,
+          90526,
+          65605,
+          64779,
+          47685,
+          61359,
+          66145,
+          40440
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_039",
+        "question": "When Yudhishthira was leaving for the forest after the dice game, which elders did he formally bid farewell to first?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          28889
+        ],
+        "prev_skt_eng_first_relevant_rank": 8,
+        "e5_prefixed_first_relevant_rank": 7,
+        "e5_prefixed_top10_row_index": [
+          91769,
+          41613,
+          68364,
+          30735,
+          41070,
+          91998,
+          28889,
+          19724,
+          92699,
+          32482
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_040",
+        "question": "What long-sought purpose did Kirmira say had brought him roaming armed across the world?",
+        "book": "mahabharata",
+        "question_category": "character_action",
+        "gold_row_indices": [
+          29369
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          29369,
+          67420,
+          30739,
+          69951,
+          23736,
+          84126,
+          29365,
+          38849,
+          29401,
+          80740
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_041",
+        "question": "During the fight at Saubha, what did Krishna say he started doing with his arrows to the enemies of the gods?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          29736
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          29736,
+          61632,
+          55796,
+          53980,
+          63534,
+          64985,
+          61644,
+          63559,
+          66246,
+          65172
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_042",
+        "question": "What gift from Airavata's pair of bells did Indra present to Skanda?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          36581
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          36581,
+          59707,
+          19780,
+          26653,
+          38639,
+          24867,
+          36473,
+          26466,
+          36503,
+          67590
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_043",
+        "question": "When Kunti invoked Surya, what did she keep gazing at without growing tired of its beauty?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          38758
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          23159,
+          26702,
+          25422,
+          24941,
+          17952,
+          25632,
+          9845,
+          35814,
+          20741,
+          24996
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_044",
+        "question": "In Virata's court, what physical insult did Draupadi say the suta's son had given her?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          39535
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          41258,
+          57262,
+          28566,
+          28732,
+          28567,
+          23818,
+          65196,
+          28568,
+          28619,
+          52552
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_045",
+        "question": "Where in Virata's palace did Draupadi find Bhima waiting?",
+        "book": "mahabharata",
+        "question_category": "location",
+        "gold_row_indices": [
+          39839
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          39569,
+          19784,
+          29484,
+          39570,
+          52069,
+          19778,
+          65938,
+          19787,
+          50086,
+          41065
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_046",
+        "question": "Just before Kurukshetra, why did the earth become crowded with kings?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          41154
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          41154,
+          73921,
+          47244,
+          91749,
+          47447,
+          8778,
+          27018,
+          91697,
+          21577,
+          71846
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_047",
+        "question": "Instead of fighting, what did Krishna propose the visiting kings do together before returning to their own countries?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          44152
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          54782,
+          28044,
+          63138,
+          89323,
+          91697,
+          47284,
+          19795,
+          25343,
+          90272,
+          26318
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_048",
+        "question": "What amazed Dhritarashtra about his own heart after he heard that Bhishma had been slain?",
+        "book": "mahabharata",
+        "question_category": "reason",
+        "gold_row_indices": [
+          47715
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          61243,
+          61071,
+          52310,
+          91481,
+          61123,
+          69460,
+          50494,
+          52307,
+          61359,
+          23650
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_049",
+        "question": "On that morning of battle, which Kaurava leaders did Shikhandin attack with Virata, and which leaders did Arjuna attack?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          49930
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          51743,
+          62610,
+          63563,
+          43031,
+          52069,
+          52010,
+          51937,
+          62961,
+          39964,
+          58182
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_050",
+        "question": "After Arjuna slew Bhagadatta, what did he then do to the rest of the Kaurava warriors?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          53471
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          62610,
+          66737,
+          40719,
+          53719,
+          61781,
+          61700,
+          55805,
+          61687,
+          66895,
+          64701
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_051",
+        "question": "After Arjuna challenged Ashvatthaman, what did Krishna do with Arjuna?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          61605
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          19885,
+          61600,
+          53400,
+          63559,
+          19795,
+          61700,
+          63965,
+          19802,
+          49008,
+          64865
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_052",
+        "question": "After Duryodhana had fallen, what mistake did the speaker say Yudhishthira had made about deciding the war?",
+        "book": "mahabharata",
+        "question_category": "reason",
+        "gold_row_indices": [
+          68145
+        ],
+        "prev_skt_eng_first_relevant_rank": 4,
+        "e5_prefixed_first_relevant_rank": 2,
+        "e5_prefixed_top10_row_index": [
+          57326,
+          68145,
+          66898,
+          66562,
+          42726,
+          61297,
+          41079,
+          19841,
+          60150,
+          67075
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_053",
+        "question": "Why was Dhritarashtra told not to grieve for the slain Kuru heroes?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          69345
+        ],
+        "prev_skt_eng_first_relevant_rank": 3,
+        "e5_prefixed_first_relevant_rank": 7,
+        "e5_prefixed_top10_row_index": [
+          28999,
+          62169,
+          28583,
+          61073,
+          52315,
+          88999,
+          69345,
+          42751,
+          69424,
+          29028
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_054",
+        "question": "After Yudhishthira had won the kingdom by Kshatriya duty, why did Arjuna ask him not to keep grieving?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          70460
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          91102,
+          45579,
+          38961,
+          90791,
+          92116,
+          51456,
+          24875,
+          68343,
+          91822,
+          54217
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_055",
+        "question": "According to this teaching on enmity, why is it unsafe to rely on an old enemy's friendly words?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          74469
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          74469,
+          73256,
+          74407,
+          74468,
+          73260,
+          74457,
+          12236,
+          74430,
+          12793,
+          41696
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_056",
+        "question": "According to this teaching, what food do sages who live by penance refuse?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          87154
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 4,
+        "e5_prefixed_top10_row_index": [
+          75200,
+          86166,
+          72512,
+          87154,
+          77050,
+          48528,
+          87375,
+          77048,
+          88016,
+          75197
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_057",
+        "question": "According to Vidura, which four religious practices meant to take away fear instead cause fear if they are performed wrongly?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          42018
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          42018,
+          22552,
+          23116,
+          75403,
+          42243,
+          29967,
+          71028,
+          75402,
+          23090,
+          69245
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_058",
+        "question": "After Vyasa spoke to him, what did Dhritarashtra tell Yudhishthira about his own grief?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          92302
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          59852,
+          71109,
+          69374,
+          39581,
+          68343,
+          61243,
+          68237,
+          30742,
+          38961,
+          54107
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_059",
+        "question": "When Vyasa arrived at the snake sacrifice, what kind of seat did the king offer him?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          21361
+        ],
+        "prev_skt_eng_first_relevant_rank": 6,
+        "e5_prefixed_first_relevant_rank": 5,
+        "e5_prefixed_top10_row_index": [
+          92109,
+          21191,
+          54932,
+          1610,
+          21361,
+          29249,
+          44115,
+          87329,
+          92108,
+          38397
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_060",
+        "question": "In the Shishupala episode, how did some of the assembled warriors describe Bhishma after he had spoken?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          27978
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          47674,
+          22930,
+          40876,
+          27977,
+          27836,
+          23780,
+          57729,
+          46275,
+          40812,
+          27922
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_061",
+        "question": "After the dice-game injuries, why did the speaker say the Pandavas would not forgive the Kauravas?",
+        "book": "mahabharata",
+        "question_category": "reason",
+        "gold_row_indices": [
+          28801
+        ],
+        "prev_skt_eng_first_relevant_rank": 9,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          61061,
+          21376,
+          44906,
+          30737,
+          58192,
+          65207,
+          46044,
+          64128,
+          63281,
+          28095
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_062",
+        "question": "If Nala did not want to play dice, what alternative contest did Pushkara propose to settle their quarrel?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          31560
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          31568,
+          30955,
+          30952,
+          30982,
+          30972,
+          31558,
+          31562,
+          65207,
+          30953,
+          64965
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_063",
+        "question": "In this description, to which two Vrishni heroes is Arjuna said to be equal?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          33490
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          56136,
+          63005,
+          41657,
+          61599,
+          66406,
+          43090,
+          64862,
+          51513,
+          41784,
+          92041
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_064",
+        "question": "Besides restoring Indradyumna to heaven, whom did Markandeya say Krishna had rescued from hell?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          35635
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          35635,
+          38897,
+          35747,
+          67522,
+          35636,
+          38898,
+          65087,
+          19770,
+          32182,
+          26437
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_065",
+        "question": "Whom did Brihadashva install on the throne when the time came?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          35783
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          35783,
+          27439,
+          42799,
+          21491,
+          28017,
+          86419,
+          24757,
+          24797,
+          75904,
+          30949
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_066",
+        "question": "After Dharma spoke at the lake, what happened to him, and what happened to the Pandava brothers?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          39106
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          66952,
+          67985,
+          88628,
+          37230,
+          37218,
+          90524,
+          19550,
+          27446,
+          90521,
+          58877
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_067",
+        "question": "In the story of Indra's defeat, whom was the lady told to choose as husband instead of Indra, and why?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          41391
+        ],
+        "prev_skt_eng_first_relevant_rank": 5,
+        "e5_prefixed_first_relevant_rank": 4,
+        "e5_prefixed_top10_row_index": [
+          82744,
+          19491,
+          32724,
+          41391,
+          89286,
+          22908,
+          26450,
+          19797,
+          17648,
+          78909
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_068",
+        "question": "In this address, what role is Agni said to play inside every creature regarding right and wrong?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          20144
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          20144,
+          1445,
+          81592,
+          26603,
+          33294,
+          85863,
+          20180,
+          22509,
+          81589,
+          80178
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_069",
+        "question": "With which companions did Balarama enter the Pandava camp?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          45975
+        ],
+        "prev_skt_eng_first_relevant_rank": 5,
+        "e5_prefixed_first_relevant_rank": 5,
+        "e5_prefixed_top10_row_index": [
+          68394,
+          33640,
+          27446,
+          66927,
+          45975,
+          34928,
+          26178,
+          68873,
+          68309,
+          25509
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_070",
+        "question": "According to this Gita teaching, what is said of a person without egoism whose mind is unsullied, even if he kills many people?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          48559
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          48559,
+          85493,
+          35014,
+          68959,
+          11071,
+          80958,
+          64081,
+          77661,
+          64078,
+          88173
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_071",
+        "question": "According to Sanjaya, what was Bhishma trying to protect by fighting so hard that morning?",
+        "book": "mahabharata",
+        "question_category": "reason",
+        "gold_row_indices": [
+          49872
+        ],
+        "prev_skt_eng_first_relevant_rank": 3,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          49872,
+          50578,
+          49008,
+          51904,
+          49898,
+          56982,
+          51882,
+          48960,
+          40858,
+          47747
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_072",
+        "question": "What reminder is given here about Karna's earlier defeat, along with the Kaurava army, during the year the Pandavas spent in disguise?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          58601
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          65630,
+          64532,
+          90497,
+          62152,
+          63623,
+          65906,
+          60903,
+          49682,
+          50639,
+          19509
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_073",
+        "question": "In the Galava story, what son did Madhavi bear to Vishvamitra?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          44697
+        ],
+        "prev_skt_eng_first_relevant_rank": 2,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          44697,
+          44656,
+          22734,
+          44436,
+          44571,
+          1244,
+          71444,
+          83414,
+          44586,
+          44435
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_074",
+        "question": "How did Jarasandha say he was willing to fight Krishna, Bhima, and Arjuna?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          27366
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          27287,
+          27379,
+          27373,
+          27401,
+          27399,
+          43668,
+          27902,
+          27151,
+          27378,
+          27116
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_075",
+        "question": "In Karna's description of the coming war as a sacrifice, what role did he assign to Ghatotkacha, and at what time?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          45454
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          59762,
+          59701,
+          19540,
+          59363,
+          59494,
+          59864,
+          59509,
+          24535,
+          62511,
+          59467
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_076",
+        "question": "When Satyavan collapsed, what did Savitri begin to calculate, and whose earlier warning did she remember?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          38452
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          28345,
+          38423,
+          78666,
+          92441,
+          90557,
+          57731,
+          38557,
+          52158,
+          84439,
+          62382
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_077",
+        "question": "According to this rebuke of Arjuna, what would happen if boasting were enough to make a person succeed?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          46151
+        ],
+        "prev_skt_eng_first_relevant_rank": 2,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          46151,
+          46187,
+          46150,
+          40851,
+          41764,
+          46186,
+          44188,
+          58603,
+          64947,
+          30579
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_078",
+        "question": "After Yudhishthira killed Shalya, to what old victory was the army's praise of him compared?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          66277
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          19797,
+          66211,
+          65775,
+          65717,
+          66370,
+          65913,
+          24012,
+          66248,
+          63884,
+          66138
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_079",
+        "question": "Who did Yudhishthira say could endure the Brahmastras of Drona and Karna, when even Indra could not?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          68327
+        ],
+        "prev_skt_eng_first_relevant_rank": 2,
+        "e5_prefixed_first_relevant_rank": 2,
+        "e5_prefixed_top10_row_index": [
+          40930,
+          68327,
+          58618,
+          57154,
+          53681,
+          90548,
+          66335,
+          61268,
+          44842,
+          69706
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_080",
+        "question": "According to Arjuna, when Duryodhana sees Dhrishtadyumna seated among the Srinjayas, what will Duryodhana do?",
+        "book": "mahabharata",
+        "question_category": "reason",
+        "gold_row_indices": [
+          42765
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          42765,
+          58932,
+          64224,
+          55731,
+          23877,
+          57130,
+          28173,
+          57326,
+          61326,
+          53795
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_081",
+        "question": "According to the wise, what happens even to sinful people who bathe at Prithudaka?",
+        "book": "mahabharata",
+        "question_category": "advice_teaching",
+        "gold_row_indices": [
+          31869
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          31869,
+          83758,
+          31727,
+          31824,
+          83747,
+          31830,
+          31877,
+          83774,
+          32014,
+          32097
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_082",
+        "question": "When Jayadratha fled after seizing Draupadi, how did Bhima catch him?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          37562
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          19778,
+          53875,
+          50179,
+          19537,
+          24055,
+          65520,
+          63818,
+          51852,
+          37575,
+          64781
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_083",
+        "question": "What three hardships did Baka say even the deathless still have to endure?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          35523
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          35523,
+          35510,
+          35521,
+          41589,
+          35511,
+          35508,
+          29365,
+          87018,
+          89187,
+          19694
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_084",
+        "question": "What did Sharmishtha ask king Yayati to do so that she could become a mother?",
+        "book": "mahabharata",
+        "question_category": "character_action",
+        "gold_row_indices": [
+          22368
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          22368,
+          22319,
+          18362,
+          22607,
+          22412,
+          22390,
+          22306,
+          22406,
+          22354,
+          22360
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_085",
+        "question": "When Arjuna came forward, what made the Kaurava side freeze with fear?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          49899
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          65097,
+          40865,
+          65255,
+          64860,
+          65380,
+          58182,
+          40887,
+          49502,
+          63714,
+          54678
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_086",
+        "question": "After Rahu's head was cut off, what enmity began, and what does that head still do to the sun and moon?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          20403
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          20403,
+          10425,
+          88638,
+          20502,
+          45499,
+          15796,
+          1312,
+          12697,
+          20503,
+          61777
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_087",
+        "question": "What fate did Kashyapa say was coming that very day for king Parikshit?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          20954
+        ],
+        "prev_skt_eng_first_relevant_rank": 5,
+        "e5_prefixed_first_relevant_rank": 8,
+        "e5_prefixed_top10_row_index": [
+          21152,
+          20904,
+          92691,
+          21321,
+          35443,
+          69099,
+          90623,
+          20954,
+          21178,
+          21111
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_088",
+        "question": "What did Shiva tell Drupada his child would first be, and what would that child later become?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          47033
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": 10,
+        "e5_prefixed_top10_row_index": [
+          21576,
+          47028,
+          25727,
+          24745,
+          47180,
+          24797,
+          47021,
+          25838,
+          26288,
+          47033
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_089",
+        "question": "What future was predicted for the son Shakuntala would bear to Dushyanta?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          22009
+        ],
+        "prev_skt_eng_first_relevant_rank": 5,
+        "e5_prefixed_first_relevant_rank": 4,
+        "e5_prefixed_top10_row_index": [
+          22630,
+          22685,
+          22115,
+          22009,
+          22015,
+          22126,
+          70732,
+          22686,
+          88222,
+          19683
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_090",
+        "question": "What did Bhima promise Hidimba's sister he would do to the rakshasa while she watched?",
+        "book": "mahabharata",
+        "question_category": "character_action",
+        "gold_row_indices": [
+          24436
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          24412,
+          24521,
+          21395,
+          24503,
+          24449,
+          24519,
+          24723,
+          34197,
+          33996,
+          34016
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_091",
+        "question": "What did Dhritarashtra tell Duryodhana about revealing his thoughts to Vidura?",
+        "book": "mahabharata",
+        "question_category": "character_action",
+        "gold_row_indices": [
+          25737
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          28192,
+          23644,
+          45684,
+          45068,
+          92067,
+          29262,
+          44873,
+          43857,
+          29229,
+          28336
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_092",
+        "question": "In the Naga house, what rite did Arjuna perform at the fire, and how did Agni respond?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          26063
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          26063,
+          26064,
+          36341,
+          74694,
+          36333,
+          86479,
+          43231,
+          36406,
+          36259,
+          91818
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_093",
+        "question": "When Agni asked Arjuna for help burning the Khandava forest, what problem did Arjuna say he had with his bow?",
+        "book": "mahabharata",
+        "question_category": "reason",
+        "gold_row_indices": [
+          26393
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          92629,
+          40244,
+          65035,
+          57852,
+          90883,
+          52120,
+          26409,
+          45998,
+          52568,
+          54678
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_094",
+        "question": "When the Khandava forest was burning, how did the young Sharangaka birds hope to reach the higher worlds?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          26588
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          26524,
+          26335,
+          26589,
+          92395,
+          26377,
+          26422,
+          26376,
+          36920,
+          34069,
+          26555
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_095",
+        "question": "Where did Krishna say he found Shalva standing with the Saubha car?",
+        "book": "mahabharata",
+        "question_category": "location",
+        "gold_row_indices": [
+          29690
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          34933,
+          29776,
+          29596,
+          29689,
+          62557,
+          71119,
+          29597,
+          29756,
+          29557,
+          52778
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_096",
+        "question": "When Bhima urged action in the forest, what did Yudhishthira say about controlling the mind and about what had already happened?",
+        "book": "mahabharata",
+        "question_category": "philosophical",
+        "gold_row_indices": [
+          30196
+        ],
+        "prev_skt_eng_first_relevant_rank": 7,
+        "e5_prefixed_first_relevant_rank": 4,
+        "e5_prefixed_top10_row_index": [
+          87317,
+          24676,
+          24361,
+          30196,
+          77752,
+          32929,
+          77065,
+          85314,
+          28730,
+          27544
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_097",
+        "question": "After Pushkara cheated Nala at dice, where did Nala go to live, and who went with him?",
+        "book": "mahabharata",
+        "question_category": "event",
+        "gold_row_indices": [
+          30788
+        ],
+        "prev_skt_eng_first_relevant_rank": 9,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          30952,
+          30981,
+          31568,
+          30972,
+          30955,
+          30982,
+          65207,
+          30957,
+          63187,
+          30954
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": false
+      },
+      {
+        "question_id": "r100_098",
+        "question": "In this prophecy of a coming age, how many suns are said to appear, and what then happens on every side?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          35393
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          35393,
+          46854,
+          81499,
+          49434,
+          77552,
+          21407,
+          29175,
+          60307,
+          81727,
+          80161
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_099",
+        "question": "When the ocean rose around them, which island did the snakes reach together with their mother?",
+        "book": "mahabharata",
+        "question_category": "location",
+        "gold_row_indices": [
+          20536
+        ],
+        "prev_skt_eng_first_relevant_rank": 1,
+        "e5_prefixed_first_relevant_rank": 1,
+        "e5_prefixed_top10_row_index": [
+          20536,
+          32629,
+          91019,
+          11881,
+          41443,
+          21202,
+          32511,
+          17956,
+          21047,
+          11371
+        ],
+        "prev_skt_eng_success": true,
+        "e5_prefixed_success": true
+      },
+      {
+        "question_id": "r100_100",
+        "question": "Who served as the Hota priest at Janamejaya's snake sacrifice, and from which lineage did he come?",
+        "book": "mahabharata",
+        "question_category": "factual",
+        "gold_row_indices": [
+          21207
+        ],
+        "prev_skt_eng_first_relevant_rank": null,
+        "e5_prefixed_first_relevant_rank": null,
+        "e5_prefixed_top10_row_index": [
+          21351,
+          19379,
+          21253,
+          81681,
+          21195,
+          20262,
+          21203,
+          21344,
+          21249,
+          67525
+        ],
+        "prev_skt_eng_success": null,
+        "e5_prefixed_success": false
+      }
+    ],
+    "created_utc": "2026-08-27T21:12:09.471377+00:00"
+  },
+  "combined_rows": [
+    {
+      "question_id": "r100_001",
+      "question": "Where did Rama, Sita, and Lakshmana settle after they continued their exile journey on foot?",
+      "book": "ramayana",
+      "question_category": "location",
+      "primary_row_index": 3653,
+      "gold_row_indices": [
+        3653,
+        3654,
+        3656
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        3297,
+        5579,
+        5559,
+        5522,
+        38289,
+        37731,
+        4573,
+        3436,
+        9185,
+        25
+      ],
+      "top10_inner_product": [
+        0.8258503675460815,
+        0.8228239417076111,
+        0.8181700110435486,
+        0.8158174157142639,
+        0.8145357370376587,
+        0.813355565071106,
+        0.8127230405807495,
+        0.8114557266235352,
+        0.8107314109802246,
+        0.8105961084365845
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_002",
+      "question": "When Rama was leaving for exile, how long did he tell his father it would be before they saw each other again?",
+      "book": "ramayana",
+      "question_category": "factual",
+      "primary_row_index": 2983,
+      "gold_row_indices": [
+        2983
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        4017,
+        16363,
+        2523,
+        4152,
+        46942,
+        10761,
+        16379,
+        38277,
+        1910,
+        2368
+      ],
+      "top10_inner_product": [
+        0.8305248618125916,
+        0.8290865421295166,
+        0.8288288116455078,
+        0.8284125924110413,
+        0.8261792659759521,
+        0.8251378536224365,
+        0.8240935802459717,
+        0.8235315084457397,
+        0.8229730129241943,
+        0.8214635252952576
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_003",
+      "question": "How did the elders in the assembly react when Yudhishthira staked Draupadi in the dice game?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 28526,
+      "gold_row_indices": [
+        28526,
+        28527,
+        28528
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        28592,
+        61061,
+        41091,
+        67112,
+        91481,
+        28342,
+        28548,
+        91782,
+        28727,
+        43512
+      ],
+      "top10_inner_product": [
+        0.8696821331977844,
+        0.8531595468521118,
+        0.8507418632507324,
+        0.8478226661682129,
+        0.8460525274276733,
+        0.8397155404090881,
+        0.8383358120918274,
+        0.838245153427124,
+        0.8377962708473206,
+        0.8377765417098999
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_004",
+      "question": "After Arjuna broke the brothers' household rule, how long did he go to live in the forest?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 26053,
+      "gold_row_indices": [
+        26053
+      ],
+      "first_relevant_rank": 8,
+      "top10_row_index": [
+        19678,
+        30708,
+        26048,
+        29794,
+        21409,
+        30558,
+        39144,
+        26053,
+        69919,
+        30340
+      ],
+      "top10_inner_product": [
+        0.8400811553001404,
+        0.839690625667572,
+        0.8329622745513916,
+        0.8327057361602783,
+        0.8319263458251953,
+        0.8264333009719849,
+        0.8246917724609375,
+        0.8238582611083984,
+        0.8231155872344971,
+        0.8230832815170288
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_005",
+      "question": "Where was Duryodhana hiding after the Kurukshetra battle?",
+      "book": "mahabharata",
+      "question_category": "location",
+      "primary_row_index": 66920,
+      "gold_row_indices": [
+        66920,
+        66917,
+        66921
+      ],
+      "first_relevant_rank": 7,
+      "top10_row_index": [
+        57326,
+        45836,
+        66423,
+        65771,
+        58275,
+        66923,
+        66917,
+        66915,
+        19549,
+        68198
+      ],
+      "top10_inner_product": [
+        0.8323097229003906,
+        0.8312511444091797,
+        0.8239871263504028,
+        0.8234802484512329,
+        0.8232346177101135,
+        0.8225557804107666,
+        0.8222972750663757,
+        0.8216962814331055,
+        0.8215851783752441,
+        0.8208605647087097
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_006",
+      "question": "When Draupadi was being comforted after the dice-game insult, who did her brother say would kill Drona, Bhishma, Duryodhana, and Karna?",
+      "book": "mahabharata",
+      "question_category": "character_action",
+      "primary_row_index": 29524,
+      "gold_row_indices": [
+        29524
+      ],
+      "first_relevant_rank": 2,
+      "top10_row_index": [
+        61359,
+        29524,
+        64998,
+        64380,
+        40784,
+        28869,
+        44913,
+        43085,
+        30264,
+        58352
+      ],
+      "top10_inner_product": [
+        0.8523412942886353,
+        0.8506882786750793,
+        0.8405323624610901,
+        0.8381770849227905,
+        0.8371977806091309,
+        0.837075412273407,
+        0.8352842330932617,
+        0.8349548578262329,
+        0.8348178863525391,
+        0.8347418308258057
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_007",
+      "question": "According to Vidura, why was Duryodhana unwilling to make peace when Krishna came as an envoy?",
+      "book": "mahabharata",
+      "question_category": "reason",
+      "primary_row_index": 44030,
+      "gold_row_indices": [
+        44030,
+        44031,
+        44033
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        43857,
+        43967,
+        43966,
+        57326,
+        30204,
+        19704,
+        64998,
+        24345,
+        69537,
+        28336
+      ],
+      "top10_inner_product": [
+        0.8379663228988647,
+        0.8370101451873779,
+        0.8330861330032349,
+        0.8317177891731262,
+        0.831575870513916,
+        0.8315575122833252,
+        0.8307666182518005,
+        0.8296424150466919,
+        0.829458475112915,
+        0.8289198875427246
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_008",
+      "question": "In the teaching about Death, what is said to happen to people after the body is destroyed?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 78148,
+      "gold_row_indices": [
+        78148,
+        78149
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        90143,
+        22546,
+        76962,
+        36059,
+        69248,
+        22539,
+        76025,
+        70225,
+        81014,
+        76031
+      ],
+      "top10_inner_product": [
+        0.8542945981025696,
+        0.8528796434402466,
+        0.8484506011009216,
+        0.8471540212631226,
+        0.8469325304031372,
+        0.8464629650115967,
+        0.8447482585906982,
+        0.8410158157348633,
+        0.8408123254776001,
+        0.8402149677276611
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_009",
+      "question": "If a king is weaker than a neighbor, how does Bhishma say he may still attack that stronger kingdom?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 72175,
+      "gold_row_indices": [
+        72175
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        72988,
+        74113,
+        72944,
+        27152,
+        72174,
+        68142,
+        74119,
+        72796,
+        26808,
+        51459
+      ],
+      "top10_inner_product": [
+        0.8767458200454712,
+        0.8738182783126831,
+        0.8672314882278442,
+        0.8613383173942566,
+        0.8607120513916016,
+        0.860135555267334,
+        0.859421968460083,
+        0.8590829968452454,
+        0.858849048614502,
+        0.8566857576370239
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_010",
+      "question": "When Bhishma defends giving Krishna the highest honor, what does he say about Krishna's place in the universe?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 27829,
+      "gold_row_indices": [
+        27829,
+        27826,
+        27828
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        27811,
+        27770,
+        76650,
+        82770,
+        27831,
+        27943,
+        43503,
+        62220,
+        27785,
+        27444
+      ],
+      "top10_inner_product": [
+        0.8559716939926147,
+        0.8540041446685791,
+        0.8504674434661865,
+        0.8473314642906189,
+        0.845356285572052,
+        0.8434305191040039,
+        0.8419349193572998,
+        0.8404532074928284,
+        0.840394139289856,
+        0.8403310179710388
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_011",
+      "question": "Which female demon did Vishvamitra tell Rama was terrorizing the region they were about to pass through?",
+      "book": "ramayana",
+      "question_category": "character_action",
+      "primary_row_index": 640,
+      "gold_row_indices": [
+        640
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        7090,
+        17310,
+        15964,
+        17432,
+        33758,
+        37805,
+        5906,
+        67732,
+        17315,
+        19091
+      ],
+      "top10_inner_product": [
+        0.8198884129524231,
+        0.8176906108856201,
+        0.8146930932998657,
+        0.8128763437271118,
+        0.8100845813751221,
+        0.8087635040283203,
+        0.808573842048645,
+        0.8083082437515259,
+        0.8081325888633728,
+        0.8079932332038879
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_012",
+      "question": "While Vasistha stood with the Brahmanas before Dasaratha, what immediate order did he ask the king to give concerning Rama?",
+      "book": "ramayana",
+      "question_category": "event",
+      "primary_row_index": 2326,
+      "gold_row_indices": [
+        2326
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        2326,
+        2347,
+        582,
+        4982,
+        92692,
+        27,
+        583,
+        357,
+        83467,
+        22649
+      ],
+      "top10_inner_product": [
+        0.8570722341537476,
+        0.8437495231628418,
+        0.8436864614486694,
+        0.840890645980835,
+        0.8364036679267883,
+        0.8333147764205933,
+        0.8314352035522461,
+        0.8299133777618408,
+        0.8283021450042725,
+        0.8279708623886108
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_013",
+      "question": "When Rama entered to see Dasaratha about the coronation, whom did he find sitting with his father, and how did the king look?",
+      "book": "ramayana",
+      "question_category": "event",
+      "primary_row_index": 2410,
+      "gold_row_indices": [
+        2410
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        1572,
+        1916,
+        1910,
+        1766,
+        5401,
+        4109,
+        1894,
+        18397,
+        16167,
+        36731
+      ],
+      "top10_inner_product": [
+        0.8612674474716187,
+        0.8607990741729736,
+        0.8591688871383667,
+        0.8585332632064819,
+        0.8564196825027466,
+        0.8557330369949341,
+        0.8552844524383545,
+        0.8551118969917297,
+        0.8549090623855591,
+        0.8546568751335144
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_014",
+      "question": "On the day people had dressed for Rama's installation, what did those present notice about Rama's face?",
+      "book": "ramayana",
+      "question_category": "factual",
+      "primary_row_index": 2481,
+      "gold_row_indices": [
+        2481
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        2481,
+        83523,
+        1910,
+        18105,
+        1985,
+        19078,
+        1990,
+        1824,
+        4978,
+        18397
+      ],
+      "top10_inner_product": [
+        0.8493151664733887,
+        0.8287850618362427,
+        0.8273845911026001,
+        0.8272131085395813,
+        0.823239803314209,
+        0.8228181600570679,
+        0.8222368955612183,
+        0.8209251761436462,
+        0.8197301030158997,
+        0.8186016082763672
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_015",
+      "question": "When Rama was getting Sita onto the river raft, what belongings did he place beside her?",
+      "book": "ramayana",
+      "question_category": "event",
+      "primary_row_index": 3628,
+      "gold_row_indices": [
+        3628
+      ],
+      "first_relevant_rank": 2,
+      "top10_row_index": [
+        2888,
+        3628,
+        16525,
+        5418,
+        18088,
+        37851,
+        5894,
+        9912,
+        13162,
+        3627
+      ],
+      "top10_inner_product": [
+        0.8328659534454346,
+        0.8299499750137329,
+        0.8287026882171631,
+        0.8286122679710388,
+        0.8277329802513123,
+        0.82741379737854,
+        0.8272272944450378,
+        0.8267061710357666,
+        0.8265261650085449,
+        0.8263152837753296
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_016",
+      "question": "After leaving his counselors behind, whom did Bharata go to visit, following the family priest?",
+      "book": "ramayana",
+      "question_category": "character_action",
+      "primary_row_index": 4557,
+      "gold_row_indices": [
+        4557
+      ],
+      "first_relevant_rank": 2,
+      "top10_row_index": [
+        5255,
+        4557,
+        5008,
+        4109,
+        5283,
+        4556,
+        4403,
+        21390,
+        4123,
+        4220
+      ],
+      "top10_inner_product": [
+        0.8320278525352478,
+        0.8310822248458862,
+        0.8224301934242249,
+        0.8218653202056885,
+        0.8169379234313965,
+        0.8124042749404907,
+        0.8122568130493164,
+        0.8116604089736938,
+        0.8093902468681335,
+        0.8071250319480896
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_017",
+      "question": "After Sita was abducted, at which lake did Rama begin to lament while walking with Lakshmana?",
+      "book": "ramayana",
+      "question_category": "location",
+      "primary_row_index": 7394,
+      "gold_row_indices": [
+        7394
+      ],
+      "first_relevant_rank": 8,
+      "top10_row_index": [
+        37840,
+        65,
+        7089,
+        7091,
+        7385,
+        18088,
+        37941,
+        7394,
+        11646,
+        24
+      ],
+      "top10_inner_product": [
+        0.8492717146873474,
+        0.8339860439300537,
+        0.8284594416618347,
+        0.8273909091949463,
+        0.8223989009857178,
+        0.8219141364097595,
+        0.8201000690460205,
+        0.8187946081161499,
+        0.8186615109443665,
+        0.818495512008667
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_018",
+      "question": "In Sugriva's search orders, where were the monkeys told to look together for Rama's wife?",
+      "book": "ramayana",
+      "question_category": "event",
+      "primary_row_index": 8823,
+      "gold_row_indices": [
+        8823
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        11120,
+        16330,
+        16287,
+        11894,
+        8805,
+        33761,
+        38003,
+        37966,
+        38302,
+        37997
+      ],
+      "top10_inner_product": [
+        0.8422843813896179,
+        0.839562177658081,
+        0.839562177658081,
+        0.8348186612129211,
+        0.8345844149589539,
+        0.8342152833938599,
+        0.8328341245651245,
+        0.8320570588111877,
+        0.8319027423858643,
+        0.8312910199165344
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_019",
+      "question": "During the search for Sita, what does this counsel say happens to people who keep acting, compared with people who give in to grief?",
+      "book": "ramayana",
+      "question_category": "advice_teaching",
+      "primary_row_index": 9048,
+      "gold_row_indices": [
+        9048
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        7082,
+        9046,
+        11512,
+        76240,
+        56958,
+        15875,
+        61074,
+        71104,
+        75251,
+        9128
+      ],
+      "top10_inner_product": [
+        0.8292447328567505,
+        0.8153136968612671,
+        0.809810996055603,
+        0.8061338663101196,
+        0.804108202457428,
+        0.8037322163581848,
+        0.8024371266365051,
+        0.7996300458908081,
+        0.7991040945053101,
+        0.7984365820884705
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_020",
+      "question": "What object, stored in its case, did Janaka's counselors bring when they approached the king?",
+      "book": "ramayana",
+      "question_category": "factual",
+      "primary_row_index": 1554,
+      "gold_row_indices": [
+        1554
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        1554,
+        1614,
+        1218,
+        8574,
+        32730,
+        7480,
+        266,
+        80368,
+        70407,
+        1551
+      ],
+      "top10_inner_product": [
+        0.8607383370399475,
+        0.8307127356529236,
+        0.8259986639022827,
+        0.8205119371414185,
+        0.8163015246391296,
+        0.8162516951560974,
+        0.8154483437538147,
+        0.8140283823013306,
+        0.8134596347808838,
+        0.8134127855300903
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_021",
+      "question": "When Sita was heard weeping in the forest, whom did the young rishis go to tell?",
+      "book": "ramayana",
+      "question_category": "event",
+      "primary_row_index": 18189,
+      "gold_row_indices": [
+        18189
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        2730,
+        67788,
+        36451,
+        39684,
+        6685,
+        11641,
+        35805,
+        7089,
+        86217,
+        33422
+      ],
+      "top10_inner_product": [
+        0.8312598466873169,
+        0.8256842494010925,
+        0.8235633373260498,
+        0.8207845687866211,
+        0.8185626268386841,
+        0.8182758092880249,
+        0.8174044489860535,
+        0.81723952293396,
+        0.816769003868103,
+        0.8154224157333374
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_022",
+      "question": "In this teaching spoken to Rama, whose life is called happy, and whose life unhappy?",
+      "book": "ramayana",
+      "question_category": "philosophical",
+      "primary_row_index": 5017,
+      "gold_row_indices": [
+        5017
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        5017,
+        2272,
+        2054,
+        6371,
+        70574,
+        10646,
+        4839,
+        1084,
+        11882,
+        3451
+      ],
+      "top10_inner_product": [
+        0.8724439740180969,
+        0.8439974188804626,
+        0.8437134027481079,
+        0.8360369801521301,
+        0.8342143297195435,
+        0.8336094617843628,
+        0.8334265351295471,
+        0.8299036622047424,
+        0.8298422694206238,
+        0.828462541103363
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_023",
+      "question": "What two things did Sugriva promise Rama he would regain after seeing Rama's grief?",
+      "book": "ramayana",
+      "question_category": "event",
+      "primary_row_index": 7761,
+      "gold_row_indices": [
+        7761
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        11759,
+        12890,
+        8327,
+        8544,
+        8130,
+        88350,
+        10584,
+        7579,
+        8764,
+        8334
+      ],
+      "top10_inner_product": [
+        0.8449493646621704,
+        0.8391380906105042,
+        0.8334915637969971,
+        0.8319687247276306,
+        0.8318111300468445,
+        0.8316465020179749,
+        0.8304640054702759,
+        0.8297394514083862,
+        0.8295621275901794,
+        0.8282292485237122
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_024",
+      "question": "Where did Janaka say his brother Kusadhvaja ruled, and what river washed that city?",
+      "book": "ramayana",
+      "question_category": "location",
+      "primary_row_index": 1604,
+      "gold_row_indices": [
+        1604
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        1604,
+        67216,
+        1655,
+        67479,
+        19091,
+        17279,
+        33179,
+        27305,
+        90874,
+        63534
+      ],
+      "top10_inner_product": [
+        0.8373171091079712,
+        0.8120205402374268,
+        0.8105893135070801,
+        0.8066732883453369,
+        0.8065028190612793,
+        0.8062676191329956,
+        0.8062092661857605,
+        0.8050101399421692,
+        0.8049235939979553,
+        0.8031349778175354
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_025",
+      "question": "According to Sugriva, why was extra help unnecessary for Rama in battle?",
+      "book": "ramayana",
+      "question_category": "reason",
+      "primary_row_index": 8701,
+      "gold_row_indices": [
+        8701
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        7579,
+        10770,
+        7942,
+        56106,
+        7254,
+        8544,
+        8707,
+        6557,
+        12890,
+        12932
+      ],
+      "top10_inner_product": [
+        0.8330956697463989,
+        0.8306360244750977,
+        0.8306002020835876,
+        0.8204418420791626,
+        0.8203681707382202,
+        0.8174595832824707,
+        0.8171002268791199,
+        0.8166358470916748,
+        0.8158425688743591,
+        0.8152031898498535
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_026",
+      "question": "When the rest of the monkeys had lost heart at the ocean, whom did the speaker urge not to ignore their despair?",
+      "book": "ramayana",
+      "question_category": "event",
+      "primary_row_index": 9401,
+      "gold_row_indices": [
+        9401
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        9192,
+        9949,
+        17806,
+        9323,
+        9072,
+        11332,
+        12414,
+        9327,
+        9136,
+        11902
+      ],
+      "top10_inner_product": [
+        0.8316219449043274,
+        0.8172382116317749,
+        0.8149245977401733,
+        0.8145138025283813,
+        0.8138028979301453,
+        0.8132914900779724,
+        0.8125495910644531,
+        0.8113993406295776,
+        0.8104549646377563,
+        0.8094414472579956
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_027",
+      "question": "After leaving the northern direction, toward which quarter did the great muni go to perform severe austerities?",
+      "book": "ramayana",
+      "question_category": "location",
+      "primary_row_index": 1499,
+      "gold_row_indices": [
+        1499
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        1499,
+        1356,
+        1420,
+        81130,
+        1348,
+        1418,
+        67413,
+        44194,
+        32913,
+        1472
+      ],
+      "top10_inner_product": [
+        0.8527987599372864,
+        0.8204532861709595,
+        0.8092084527015686,
+        0.8029588460922241,
+        0.7998248338699341,
+        0.7997860908508301,
+        0.7957121729850769,
+        0.7907550930976868,
+        0.7897546291351318,
+        0.7869910597801208
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_028",
+      "question": "According to Jabali's argument to Rama, should a wise person form lasting attachment to family and household?",
+      "book": "ramayana",
+      "question_category": "philosophical",
+      "primary_row_index": 5099,
+      "gold_row_indices": [
+        5099
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        79503,
+        1862,
+        6679,
+        75693,
+        88051,
+        3256,
+        75727,
+        81039,
+        44802,
+        85364
+      ],
+      "top10_inner_product": [
+        0.8154399394989014,
+        0.815249502658844,
+        0.8148669600486755,
+        0.8144592046737671,
+        0.8105562925338745,
+        0.8087257146835327,
+        0.8085395097732544,
+        0.8084738850593567,
+        0.8079435229301453,
+        0.8071438074111938
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_029",
+      "question": "Which of Shantanu and Satyavati's sons inherited the throne after the other was slain by Gandharvas before adulthood?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 22706,
+      "gold_row_indices": [
+        22706
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        57723,
+        23571,
+        65307,
+        41112,
+        47679,
+        48896,
+        41633,
+        61140,
+        47704,
+        68336
+      ],
+      "top10_inner_product": [
+        0.8157926201820374,
+        0.8157278299331665,
+        0.8148111701011658,
+        0.8148071765899658,
+        0.8146243691444397,
+        0.8140909075737,
+        0.8132818341255188,
+        0.8119232654571533,
+        0.8116147518157959,
+        0.8115571737289429
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_030",
+      "question": "How did Duryodhana propose to buy Drupada's court away from Yudhishthira's side?",
+      "book": "mahabharata",
+      "question_category": "character_action",
+      "primary_row_index": 25741,
+      "gold_row_indices": [
+        25741
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        29210,
+        58331,
+        58275,
+        57326,
+        23877,
+        25723,
+        19841,
+        28567,
+        62093,
+        30197
+      ],
+      "top10_inner_product": [
+        0.81635582447052,
+        0.815598726272583,
+        0.8149001598358154,
+        0.8148476481437683,
+        0.8114806413650513,
+        0.8104364275932312,
+        0.8093979358673096,
+        0.8089845776557922,
+        0.8088234663009644,
+        0.8087618947029114
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_031",
+      "question": "After Krishna had spoken as a friend seeking peace, what did Bhishma tell Duryodhana not to follow instead?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 44857,
+      "gold_row_indices": [
+        44857
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        43966,
+        64998,
+        69182,
+        40455,
+        52251,
+        44953,
+        41611,
+        57326,
+        46498,
+        28730
+      ],
+      "top10_inner_product": [
+        0.8389856815338135,
+        0.8372439742088318,
+        0.8342400789260864,
+        0.8323321342468262,
+        0.8322269320487976,
+        0.8255026936531067,
+        0.8246363997459412,
+        0.8237016201019287,
+        0.8229220509529114,
+        0.8213142156600952
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_032",
+      "question": "According to Kunti, what livelihood belongs to each of the four social orders?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 45154,
+      "gold_row_indices": [
+        45154
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        71972,
+        72031,
+        71964,
+        77851,
+        71958,
+        79520,
+        5064,
+        71519,
+        72833,
+        77860
+      ],
+      "top10_inner_product": [
+        0.8160668611526489,
+        0.8151575326919556,
+        0.8114758729934692,
+        0.8042410612106323,
+        0.8037436008453369,
+        0.8008629083633423,
+        0.8002660274505615,
+        0.7999299168586731,
+        0.7998384833335876,
+        0.7990256547927856
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_033",
+      "question": "According to the snake who spoke with Bhima, what three kinds of rebirth can a person's own acts produce?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 34870,
+      "gold_row_indices": [
+        34870
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        34870,
+        28761,
+        92904,
+        8698,
+        33276,
+        19769,
+        34796,
+        84585,
+        48020,
+        21312
+      ],
+      "top10_inner_product": [
+        0.8452648520469666,
+        0.832964301109314,
+        0.823460042476654,
+        0.8230578899383545,
+        0.8224579095840454,
+        0.8217340111732483,
+        0.821221649646759,
+        0.8206487894058228,
+        0.8200344443321228,
+        0.8188090324401855
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_034",
+      "question": "In Sanatsujata's teaching, what is named as one kind of death, what as another, and what is identified with immortality?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 42527,
+      "gold_row_indices": [
+        42527
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        42527,
+        42512,
+        42523,
+        42539,
+        42524,
+        79864,
+        80320,
+        89300,
+        26919,
+        76962
+      ],
+      "top10_inner_product": [
+        0.8080956935882568,
+        0.805687665939331,
+        0.8055104613304138,
+        0.8033329248428345,
+        0.8023028373718262,
+        0.8001380562782288,
+        0.799190878868103,
+        0.7984457612037659,
+        0.7963142991065979,
+        0.7951048016548157
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_035",
+      "question": "In Krishna's battlefield teaching to Arjuna, what kind of person is said to attain peace?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 48051,
+      "gold_row_indices": [
+        48051
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        40809,
+        51523,
+        64947,
+        61726,
+        63620,
+        19821,
+        45011,
+        19835,
+        52363,
+        59960
+      ],
+      "top10_inner_product": [
+        0.8225832581520081,
+        0.8223387002944946,
+        0.8206828832626343,
+        0.8198520541191101,
+        0.8196489810943604,
+        0.8194809556007385,
+        0.8194371461868286,
+        0.8193250894546509,
+        0.8189519047737122,
+        0.8189055323600769
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_036",
+      "question": "Before the war, what did Bhishma tell the Pandavas he would still give them, and what did he say he would not do for their side?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 51530,
+      "gold_row_indices": [
+        51530
+      ],
+      "first_relevant_rank": 5,
+      "top10_row_index": [
+        51589,
+        52300,
+        44170,
+        42875,
+        51530,
+        51068,
+        56737,
+        41105,
+        41079,
+        37100
+      ],
+      "top10_inner_product": [
+        0.8503491282463074,
+        0.848580002784729,
+        0.8485422134399414,
+        0.8481610417366028,
+        0.8476993441581726,
+        0.8465455770492554,
+        0.846518874168396,
+        0.8453413844108582,
+        0.8451587557792664,
+        0.8448172807693481
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_037",
+      "question": "After Bhishma had spoken to Duryodhana from the bed of arrows, what did he then do despite his wounds?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 52268,
+      "gold_row_indices": [
+        52268
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        40873,
+        57795,
+        40837,
+        19819,
+        40858,
+        40878,
+        63818,
+        49350,
+        57326,
+        53314
+      ],
+      "top10_inner_product": [
+        0.8497622013092041,
+        0.8464521169662476,
+        0.8443865180015564,
+        0.8439637422561646,
+        0.8432292938232422,
+        0.8430112600326538,
+        0.8413127064704895,
+        0.838215708732605,
+        0.8382152915000916,
+        0.8378442525863647
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_038",
+      "question": "After Bhishma, Drona, Karna, Jayadratha, Duryodhana's brothers, and Lakshmana had fallen, what question did Kripa raise about continuing?",
+      "book": "mahabharata",
+      "question_category": "reason",
+      "primary_row_index": 65605,
+      "gold_row_indices": [
+        65605
+      ],
+      "first_relevant_rank": 5,
+      "top10_row_index": [
+        43040,
+        49699,
+        44913,
+        90526,
+        65605,
+        64779,
+        47685,
+        61359,
+        66145,
+        40440
+      ],
+      "top10_inner_product": [
+        0.8372882604598999,
+        0.8328276872634888,
+        0.8314938545227051,
+        0.8295543193817139,
+        0.8293177485466003,
+        0.8277760744094849,
+        0.8270007371902466,
+        0.8268035650253296,
+        0.8264713287353516,
+        0.8261677026748657
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_039",
+      "question": "When Yudhishthira was leaving for the forest after the dice game, which elders did he formally bid farewell to first?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 28889,
+      "gold_row_indices": [
+        28889
+      ],
+      "first_relevant_rank": 7,
+      "top10_row_index": [
+        91769,
+        41613,
+        68364,
+        30735,
+        41070,
+        91998,
+        28889,
+        19724,
+        92699,
+        32482
+      ],
+      "top10_inner_product": [
+        0.8278190493583679,
+        0.826599657535553,
+        0.8254212141036987,
+        0.8244791030883789,
+        0.8243733644485474,
+        0.8210293054580688,
+        0.8195489048957825,
+        0.8189080953598022,
+        0.8181906342506409,
+        0.8165267705917358
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_040",
+      "question": "What long-sought purpose did Kirmira say had brought him roaming armed across the world?",
+      "book": "mahabharata",
+      "question_category": "character_action",
+      "primary_row_index": 29369,
+      "gold_row_indices": [
+        29369
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        29369,
+        67420,
+        30739,
+        69951,
+        23736,
+        84126,
+        29365,
+        38849,
+        29401,
+        80740
+      ],
+      "top10_inner_product": [
+        0.8214571475982666,
+        0.7938022017478943,
+        0.7932552695274353,
+        0.7923968434333801,
+        0.7915831804275513,
+        0.7898256778717041,
+        0.7874353528022766,
+        0.7869923710823059,
+        0.7869333624839783,
+        0.7866055369377136
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_041",
+      "question": "During the fight at Saubha, what did Krishna say he started doing with his arrows to the enemies of the gods?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 29736,
+      "gold_row_indices": [
+        29736
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        29736,
+        61632,
+        55796,
+        53980,
+        63534,
+        64985,
+        61644,
+        63559,
+        66246,
+        65172
+      ],
+      "top10_inner_product": [
+        0.8537174463272095,
+        0.8499084711074829,
+        0.842504620552063,
+        0.8421316742897034,
+        0.8406177759170532,
+        0.8400176763534546,
+        0.8397643566131592,
+        0.8395281434059143,
+        0.8394848704338074,
+        0.8393166065216064
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_042",
+      "question": "What gift from Airavata's pair of bells did Indra present to Skanda?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 36581,
+      "gold_row_indices": [
+        36581
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        36581,
+        59707,
+        19780,
+        26653,
+        38639,
+        24867,
+        36473,
+        26466,
+        36503,
+        67590
+      ],
+      "top10_inner_product": [
+        0.8363068103790283,
+        0.8201267123222351,
+        0.8175754547119141,
+        0.8137877583503723,
+        0.8133463263511658,
+        0.8131799697875977,
+        0.8110426068305969,
+        0.8102367520332336,
+        0.8094108700752258,
+        0.8092169761657715
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_043",
+      "question": "When Kunti invoked Surya, what did she keep gazing at without growing tired of its beauty?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 38758,
+      "gold_row_indices": [
+        38758
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        23159,
+        26702,
+        25422,
+        24941,
+        17952,
+        25632,
+        9845,
+        35814,
+        20741,
+        24996
+      ],
+      "top10_inner_product": [
+        0.8143321871757507,
+        0.8142414689064026,
+        0.8139986395835876,
+        0.8137091994285583,
+        0.8128290176391602,
+        0.8077456951141357,
+        0.8075900077819824,
+        0.8069045543670654,
+        0.8065988421440125,
+        0.8055413365364075
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_044",
+      "question": "In Virata's court, what physical insult did Draupadi say the suta's son had given her?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 39535,
+      "gold_row_indices": [
+        39535
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        41258,
+        57262,
+        28566,
+        28732,
+        28567,
+        23818,
+        65196,
+        28568,
+        28619,
+        52552
+      ],
+      "top10_inner_product": [
+        0.8209397792816162,
+        0.8205993175506592,
+        0.8196832537651062,
+        0.8192657232284546,
+        0.8175607919692993,
+        0.8146277666091919,
+        0.8133905529975891,
+        0.8126325011253357,
+        0.8125810623168945,
+        0.8123631477355957
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_045",
+      "question": "Where in Virata's palace did Draupadi find Bhima waiting?",
+      "book": "mahabharata",
+      "question_category": "location",
+      "primary_row_index": 39839,
+      "gold_row_indices": [
+        39839
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        39569,
+        19784,
+        29484,
+        39570,
+        52069,
+        19778,
+        65938,
+        19787,
+        50086,
+        41065
+      ],
+      "top10_inner_product": [
+        0.8225224614143372,
+        0.8217921257019043,
+        0.819831371307373,
+        0.8194189071655273,
+        0.8172757029533386,
+        0.817264974117279,
+        0.8163061738014221,
+        0.8141821622848511,
+        0.8139679431915283,
+        0.8136926293373108
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_046",
+      "question": "Just before Kurukshetra, why did the earth become crowded with kings?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 41154,
+      "gold_row_indices": [
+        41154
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        41154,
+        73921,
+        47244,
+        91749,
+        47447,
+        8778,
+        27018,
+        91697,
+        21577,
+        71846
+      ],
+      "top10_inner_product": [
+        0.8670613169670105,
+        0.8585021495819092,
+        0.8571879863739014,
+        0.8570888042449951,
+        0.8556764721870422,
+        0.8534696102142334,
+        0.8521161079406738,
+        0.8519480228424072,
+        0.8514671921730042,
+        0.8509994149208069
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_047",
+      "question": "Instead of fighting, what did Krishna propose the visiting kings do together before returning to their own countries?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 44152,
+      "gold_row_indices": [
+        44152
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        54782,
+        28044,
+        63138,
+        89323,
+        91697,
+        47284,
+        19795,
+        25343,
+        90272,
+        26318
+      ],
+      "top10_inner_product": [
+        0.8201419115066528,
+        0.8155097961425781,
+        0.8127528429031372,
+        0.8101571798324585,
+        0.8101420402526855,
+        0.8094452023506165,
+        0.8094236850738525,
+        0.8087525367736816,
+        0.808310866355896,
+        0.8078702688217163
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_048",
+      "question": "What amazed Dhritarashtra about his own heart after he heard that Bhishma had been slain?",
+      "book": "mahabharata",
+      "question_category": "reason",
+      "primary_row_index": 47715,
+      "gold_row_indices": [
+        47715
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        61243,
+        61071,
+        52310,
+        91481,
+        61123,
+        69460,
+        50494,
+        52307,
+        61359,
+        23650
+      ],
+      "top10_inner_product": [
+        0.8553552031517029,
+        0.8448501825332642,
+        0.8439736366271973,
+        0.8387634754180908,
+        0.8347357511520386,
+        0.8337699174880981,
+        0.8331403136253357,
+        0.8298524618148804,
+        0.8294669389724731,
+        0.8291842937469482
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_049",
+      "question": "On that morning of battle, which Kaurava leaders did Shikhandin attack with Virata, and which leaders did Arjuna attack?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 49930,
+      "gold_row_indices": [
+        49930
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        51743,
+        62610,
+        63563,
+        43031,
+        52069,
+        52010,
+        51937,
+        62961,
+        39964,
+        58182
+      ],
+      "top10_inner_product": [
+        0.8580367565155029,
+        0.8515976071357727,
+        0.84156334400177,
+        0.8408829569816589,
+        0.8401966691017151,
+        0.8373039364814758,
+        0.8368985652923584,
+        0.835112452507019,
+        0.8342298269271851,
+        0.8341668844223022
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_050",
+      "question": "After Arjuna slew Bhagadatta, what did he then do to the rest of the Kaurava warriors?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 53471,
+      "gold_row_indices": [
+        53471
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        62610,
+        66737,
+        40719,
+        53719,
+        61781,
+        61700,
+        55805,
+        61687,
+        66895,
+        64701
+      ],
+      "top10_inner_product": [
+        0.8501976132392883,
+        0.8410924077033997,
+        0.8392536640167236,
+        0.8391131162643433,
+        0.8387042284011841,
+        0.8387027978897095,
+        0.8377567529678345,
+        0.8350490927696228,
+        0.8339496850967407,
+        0.8330339789390564
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_051",
+      "question": "After Arjuna challenged Ashvatthaman, what did Krishna do with Arjuna?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 61605,
+      "gold_row_indices": [
+        61605
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        19885,
+        61600,
+        53400,
+        63559,
+        19795,
+        61700,
+        63965,
+        19802,
+        49008,
+        64865
+      ],
+      "top10_inner_product": [
+        0.84332275390625,
+        0.840212345123291,
+        0.8389168977737427,
+        0.8389074802398682,
+        0.8377443552017212,
+        0.8371860384941101,
+        0.8365394473075867,
+        0.8340161442756653,
+        0.8339575529098511,
+        0.8339271545410156
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_052",
+      "question": "After Duryodhana had fallen, what mistake did the speaker say Yudhishthira had made about deciding the war?",
+      "book": "mahabharata",
+      "question_category": "reason",
+      "primary_row_index": 68145,
+      "gold_row_indices": [
+        68145
+      ],
+      "first_relevant_rank": 2,
+      "top10_row_index": [
+        57326,
+        68145,
+        66898,
+        66562,
+        42726,
+        61297,
+        41079,
+        19841,
+        60150,
+        67075
+      ],
+      "top10_inner_product": [
+        0.8292976021766663,
+        0.8246850967407227,
+        0.818229079246521,
+        0.8179993629455566,
+        0.8153728246688843,
+        0.8150839805603027,
+        0.8136047124862671,
+        0.8131808042526245,
+        0.8125903606414795,
+        0.8119058609008789
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_053",
+      "question": "Why was Dhritarashtra told not to grieve for the slain Kuru heroes?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 69345,
+      "gold_row_indices": [
+        69345
+      ],
+      "first_relevant_rank": 7,
+      "top10_row_index": [
+        28999,
+        62169,
+        28583,
+        61073,
+        52315,
+        88999,
+        69345,
+        42751,
+        69424,
+        29028
+      ],
+      "top10_inner_product": [
+        0.8359323143959045,
+        0.8352549076080322,
+        0.8340365886688232,
+        0.8337403535842896,
+        0.8310231566429138,
+        0.8286162614822388,
+        0.8285688757896423,
+        0.8279961347579956,
+        0.8271352052688599,
+        0.8262794017791748
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_054",
+      "question": "After Yudhishthira had won the kingdom by Kshatriya duty, why did Arjuna ask him not to keep grieving?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 70460,
+      "gold_row_indices": [
+        70460
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        91102,
+        45579,
+        38961,
+        90791,
+        92116,
+        51456,
+        24875,
+        68343,
+        91822,
+        54217
+      ],
+      "top10_inner_product": [
+        0.8685460686683655,
+        0.8521540760993958,
+        0.8508233428001404,
+        0.850197434425354,
+        0.8476980328559875,
+        0.8473873138427734,
+        0.8471664190292358,
+        0.8469467163085938,
+        0.8461053967475891,
+        0.8459489345550537
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_055",
+      "question": "According to this teaching on enmity, why is it unsafe to rely on an old enemy's friendly words?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 74469,
+      "gold_row_indices": [
+        74469
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        74469,
+        73256,
+        74407,
+        74468,
+        73260,
+        74457,
+        12236,
+        74430,
+        12793,
+        41696
+      ],
+      "top10_inner_product": [
+        0.8567601442337036,
+        0.8403612375259399,
+        0.8397983312606812,
+        0.838800311088562,
+        0.8385812044143677,
+        0.8382765054702759,
+        0.8380008339881897,
+        0.8377297520637512,
+        0.8354230523109436,
+        0.8349606990814209
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_056",
+      "question": "According to this teaching, what food do sages who live by penance refuse?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 87154,
+      "gold_row_indices": [
+        87154
+      ],
+      "first_relevant_rank": 4,
+      "top10_row_index": [
+        75200,
+        86166,
+        72512,
+        87154,
+        77050,
+        48528,
+        87375,
+        77048,
+        88016,
+        75197
+      ],
+      "top10_inner_product": [
+        0.836698055267334,
+        0.832171618938446,
+        0.8314890265464783,
+        0.8309161067008972,
+        0.820631742477417,
+        0.8203608989715576,
+        0.8184270262718201,
+        0.8182106614112854,
+        0.8174498081207275,
+        0.8171880841255188
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_057",
+      "question": "According to Vidura, which four religious practices meant to take away fear instead cause fear if they are performed wrongly?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 42018,
+      "gold_row_indices": [
+        42018
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        42018,
+        22552,
+        23116,
+        75403,
+        42243,
+        29967,
+        71028,
+        75402,
+        23090,
+        69245
+      ],
+      "top10_inner_product": [
+        0.828741192817688,
+        0.8251215219497681,
+        0.8144160509109497,
+        0.8088022470474243,
+        0.8006764054298401,
+        0.80007004737854,
+        0.7995573282241821,
+        0.7982352375984192,
+        0.7975876331329346,
+        0.7951337099075317
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_058",
+      "question": "After Vyasa spoke to him, what did Dhritarashtra tell Yudhishthira about his own grief?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 92302,
+      "gold_row_indices": [
+        92302
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        59852,
+        71109,
+        69374,
+        39581,
+        68343,
+        61243,
+        68237,
+        30742,
+        38961,
+        54107
+      ],
+      "top10_inner_product": [
+        0.8535946607589722,
+        0.8532190322875977,
+        0.8485205173492432,
+        0.8475633859634399,
+        0.8446698784828186,
+        0.8443872332572937,
+        0.8427941799163818,
+        0.8426844477653503,
+        0.8414883613586426,
+        0.8407952189445496
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_059",
+      "question": "When Vyasa arrived at the snake sacrifice, what kind of seat did the king offer him?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 21361,
+      "gold_row_indices": [
+        21361
+      ],
+      "first_relevant_rank": 5,
+      "top10_row_index": [
+        92109,
+        21191,
+        54932,
+        1610,
+        21361,
+        29249,
+        44115,
+        87329,
+        92108,
+        38397
+      ],
+      "top10_inner_product": [
+        0.8583657145500183,
+        0.8413021564483643,
+        0.8363191485404968,
+        0.836303174495697,
+        0.8359290957450867,
+        0.8354297876358032,
+        0.8342997431755066,
+        0.8334962129592896,
+        0.832897961139679,
+        0.8327991962432861
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_060",
+      "question": "In the Shishupala episode, how did some of the assembled warriors describe Bhishma after he had spoken?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 27978,
+      "gold_row_indices": [
+        27978
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        47674,
+        22930,
+        40876,
+        27977,
+        27836,
+        23780,
+        57729,
+        46275,
+        40812,
+        27922
+      ],
+      "top10_inner_product": [
+        0.8517422676086426,
+        0.8506390452384949,
+        0.8489494323730469,
+        0.8456467390060425,
+        0.8433263301849365,
+        0.8412005305290222,
+        0.8404750823974609,
+        0.8399404287338257,
+        0.839889407157898,
+        0.839128851890564
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_061",
+      "question": "After the dice-game injuries, why did the speaker say the Pandavas would not forgive the Kauravas?",
+      "book": "mahabharata",
+      "question_category": "reason",
+      "primary_row_index": 28801,
+      "gold_row_indices": [
+        28801
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        61061,
+        21376,
+        44906,
+        30737,
+        58192,
+        65207,
+        46044,
+        64128,
+        63281,
+        28095
+      ],
+      "top10_inner_product": [
+        0.8595306277275085,
+        0.8525502681732178,
+        0.8506902456283569,
+        0.844443142414093,
+        0.8441253900527954,
+        0.8438568115234375,
+        0.8437991142272949,
+        0.8417004942893982,
+        0.839324951171875,
+        0.8392572402954102
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_062",
+      "question": "If Nala did not want to play dice, what alternative contest did Pushkara propose to settle their quarrel?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 31560,
+      "gold_row_indices": [
+        31560
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        31568,
+        30955,
+        30952,
+        30982,
+        30972,
+        31558,
+        31562,
+        65207,
+        30953,
+        64965
+      ],
+      "top10_inner_product": [
+        0.8282784223556519,
+        0.822023332118988,
+        0.8149346113204956,
+        0.8146857023239136,
+        0.8145912885665894,
+        0.803138792514801,
+        0.8021923303604126,
+        0.8011046648025513,
+        0.800401508808136,
+        0.7947568893432617
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_063",
+      "question": "In this description, to which two Vrishni heroes is Arjuna said to be equal?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 33490,
+      "gold_row_indices": [
+        33490
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        56136,
+        63005,
+        41657,
+        61599,
+        66406,
+        43090,
+        64862,
+        51513,
+        41784,
+        92041
+      ],
+      "top10_inner_product": [
+        0.8538966178894043,
+        0.8418293595314026,
+        0.8415716886520386,
+        0.8341183662414551,
+        0.8322381973266602,
+        0.8286511898040771,
+        0.8246584534645081,
+        0.8244501352310181,
+        0.8229421973228455,
+        0.8217645287513733
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_064",
+      "question": "Besides restoring Indradyumna to heaven, whom did Markandeya say Krishna had rescued from hell?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 35635,
+      "gold_row_indices": [
+        35635
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        35635,
+        38897,
+        35747,
+        67522,
+        35636,
+        38898,
+        65087,
+        19770,
+        32182,
+        26437
+      ],
+      "top10_inner_product": [
+        0.84940505027771,
+        0.8301787972450256,
+        0.8284214735031128,
+        0.8187335729598999,
+        0.8181698322296143,
+        0.8083583116531372,
+        0.8081090450286865,
+        0.8079020977020264,
+        0.8063712120056152,
+        0.8063473105430603
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_065",
+      "question": "Whom did Brihadashva install on the throne when the time came?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 35783,
+      "gold_row_indices": [
+        35783
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        35783,
+        27439,
+        42799,
+        21491,
+        28017,
+        86419,
+        24757,
+        24797,
+        75904,
+        30949
+      ],
+      "top10_inner_product": [
+        0.8360015153884888,
+        0.833452582359314,
+        0.8245806097984314,
+        0.8180698156356812,
+        0.816380500793457,
+        0.8158459663391113,
+        0.8157709240913391,
+        0.8150995969772339,
+        0.814731776714325,
+        0.813339352607727
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_066",
+      "question": "After Dharma spoke at the lake, what happened to him, and what happened to the Pandava brothers?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 39106,
+      "gold_row_indices": [
+        39106
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        66952,
+        67985,
+        88628,
+        37230,
+        37218,
+        90524,
+        19550,
+        27446,
+        90521,
+        58877
+      ],
+      "top10_inner_product": [
+        0.8597064018249512,
+        0.8574643135070801,
+        0.8543559312820435,
+        0.8524103164672852,
+        0.8520886301994324,
+        0.8517359495162964,
+        0.8516806364059448,
+        0.8516759276390076,
+        0.85103440284729,
+        0.8501629829406738
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_067",
+      "question": "In the story of Indra's defeat, whom was the lady told to choose as husband instead of Indra, and why?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 41391,
+      "gold_row_indices": [
+        41391
+      ],
+      "first_relevant_rank": 4,
+      "top10_row_index": [
+        82744,
+        19491,
+        32724,
+        41391,
+        89286,
+        22908,
+        26450,
+        19797,
+        17648,
+        78909
+      ],
+      "top10_inner_product": [
+        0.8474905490875244,
+        0.84593665599823,
+        0.8445478677749634,
+        0.8436935544013977,
+        0.8415613770484924,
+        0.8409516215324402,
+        0.8399425148963928,
+        0.839561939239502,
+        0.8394878506660461,
+        0.8394292593002319
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_068",
+      "question": "In this address, what role is Agni said to play inside every creature regarding right and wrong?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 20144,
+      "gold_row_indices": [
+        20144
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        20144,
+        1445,
+        81592,
+        26603,
+        33294,
+        85863,
+        20180,
+        22509,
+        81589,
+        80178
+      ],
+      "top10_inner_product": [
+        0.8590718507766724,
+        0.8334180116653442,
+        0.8303199410438538,
+        0.8299548625946045,
+        0.8299130201339722,
+        0.8297334909439087,
+        0.829731822013855,
+        0.8273173570632935,
+        0.8271774053573608,
+        0.8266741633415222
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_069",
+      "question": "With which companions did Balarama enter the Pandava camp?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 45975,
+      "gold_row_indices": [
+        45975
+      ],
+      "first_relevant_rank": 5,
+      "top10_row_index": [
+        68394,
+        33640,
+        27446,
+        66927,
+        45975,
+        34928,
+        26178,
+        68873,
+        68309,
+        25509
+      ],
+      "top10_inner_product": [
+        0.8219276666641235,
+        0.8146046996116638,
+        0.8133808970451355,
+        0.8132047057151794,
+        0.8116915822029114,
+        0.8111684918403625,
+        0.8109213709831238,
+        0.8101764917373657,
+        0.8100157380104065,
+        0.8092697858810425
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_070",
+      "question": "According to this Gita teaching, what is said of a person without egoism whose mind is unsullied, even if he kills many people?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 48559,
+      "gold_row_indices": [
+        48559
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        48559,
+        85493,
+        35014,
+        68959,
+        11071,
+        80958,
+        64081,
+        77661,
+        64078,
+        88173
+      ],
+      "top10_inner_product": [
+        0.8492025136947632,
+        0.8328229188919067,
+        0.8284837007522583,
+        0.826394259929657,
+        0.8254752159118652,
+        0.8252279758453369,
+        0.8251942992210388,
+        0.823912501335144,
+        0.8234487771987915,
+        0.8232294917106628
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_071",
+      "question": "According to Sanjaya, what was Bhishma trying to protect by fighting so hard that morning?",
+      "book": "mahabharata",
+      "question_category": "reason",
+      "primary_row_index": 49872,
+      "gold_row_indices": [
+        49872
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        49872,
+        50578,
+        49008,
+        51904,
+        49898,
+        56982,
+        51882,
+        48960,
+        40858,
+        47747
+      ],
+      "top10_inner_product": [
+        0.8502458930015564,
+        0.8483889102935791,
+        0.8477778434753418,
+        0.8462406396865845,
+        0.8429452776908875,
+        0.8427948951721191,
+        0.8419462442398071,
+        0.8418489694595337,
+        0.8407602310180664,
+        0.8385955095291138
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_072",
+      "question": "What reminder is given here about Karna's earlier defeat, along with the Kaurava army, during the year the Pandavas spent in disguise?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 58601,
+      "gold_row_indices": [
+        58601
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        65630,
+        64532,
+        90497,
+        62152,
+        63623,
+        65906,
+        60903,
+        49682,
+        50639,
+        19509
+      ],
+      "top10_inner_product": [
+        0.8371591567993164,
+        0.8299845457077026,
+        0.8256896734237671,
+        0.8253401517868042,
+        0.8250370025634766,
+        0.8249876499176025,
+        0.8247406482696533,
+        0.8246701955795288,
+        0.8245629072189331,
+        0.8239647150039673
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_073",
+      "question": "In the Galava story, what son did Madhavi bear to Vishvamitra?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 44697,
+      "gold_row_indices": [
+        44697
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        44697,
+        44656,
+        22734,
+        44436,
+        44571,
+        1244,
+        71444,
+        83414,
+        44586,
+        44435
+      ],
+      "top10_inner_product": [
+        0.833203911781311,
+        0.8328223824501038,
+        0.8226245641708374,
+        0.8225024342536926,
+        0.82159823179245,
+        0.8193067908287048,
+        0.8185465335845947,
+        0.8178085684776306,
+        0.8136874437332153,
+        0.812414288520813
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_074",
+      "question": "How did Jarasandha say he was willing to fight Krishna, Bhima, and Arjuna?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 27366,
+      "gold_row_indices": [
+        27366
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        27287,
+        27379,
+        27373,
+        27401,
+        27399,
+        43668,
+        27902,
+        27151,
+        27378,
+        27116
+      ],
+      "top10_inner_product": [
+        0.8643938899040222,
+        0.852066159248352,
+        0.8478173613548279,
+        0.8477729558944702,
+        0.8476603031158447,
+        0.847551167011261,
+        0.8466172218322754,
+        0.8446226716041565,
+        0.8441291451454163,
+        0.8438853025436401
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_075",
+      "question": "In Karna's description of the coming war as a sacrifice, what role did he assign to Ghatotkacha, and at what time?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 45454,
+      "gold_row_indices": [
+        45454
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        59762,
+        59701,
+        19540,
+        59363,
+        59494,
+        59864,
+        59509,
+        24535,
+        62511,
+        59467
+      ],
+      "top10_inner_product": [
+        0.8411526083946228,
+        0.838362455368042,
+        0.8327623605728149,
+        0.8316781520843506,
+        0.8313955664634705,
+        0.8305454850196838,
+        0.8292739987373352,
+        0.8275958299636841,
+        0.8271582126617432,
+        0.8267491459846497
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_076",
+      "question": "When Satyavan collapsed, what did Savitri begin to calculate, and whose earlier warning did she remember?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 38452,
+      "gold_row_indices": [
+        38452
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        28345,
+        38423,
+        78666,
+        92441,
+        90557,
+        57731,
+        38557,
+        52158,
+        84439,
+        62382
+      ],
+      "top10_inner_product": [
+        0.8172603845596313,
+        0.8140924572944641,
+        0.8104498982429504,
+        0.8083959221839905,
+        0.8077625632286072,
+        0.8073933124542236,
+        0.8071084022521973,
+        0.8057042956352234,
+        0.8050888180732727,
+        0.8047511577606201
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_077",
+      "question": "According to this rebuke of Arjuna, what would happen if boasting were enough to make a person succeed?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 46151,
+      "gold_row_indices": [
+        46151
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        46151,
+        46187,
+        46150,
+        40851,
+        41764,
+        46186,
+        44188,
+        58603,
+        64947,
+        30579
+      ],
+      "top10_inner_product": [
+        0.852905809879303,
+        0.8522064685821533,
+        0.8449994325637817,
+        0.8408414721488953,
+        0.8370915055274963,
+        0.8338401317596436,
+        0.8312763571739197,
+        0.8308432102203369,
+        0.8308104276657104,
+        0.8303112387657166
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_078",
+      "question": "After Yudhishthira killed Shalya, to what old victory was the army's praise of him compared?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 66277,
+      "gold_row_indices": [
+        66277
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        19797,
+        66211,
+        65775,
+        65717,
+        66370,
+        65913,
+        24012,
+        66248,
+        63884,
+        66138
+      ],
+      "top10_inner_product": [
+        0.8486905694007874,
+        0.8384953737258911,
+        0.8364018201828003,
+        0.8341002464294434,
+        0.8340433835983276,
+        0.8322010040283203,
+        0.8320820331573486,
+        0.8311845660209656,
+        0.8309756517410278,
+        0.8308127522468567
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_079",
+      "question": "Who did Yudhishthira say could endure the Brahmastras of Drona and Karna, when even Indra could not?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 68327,
+      "gold_row_indices": [
+        68327
+      ],
+      "first_relevant_rank": 2,
+      "top10_row_index": [
+        40930,
+        68327,
+        58618,
+        57154,
+        53681,
+        90548,
+        66335,
+        61268,
+        44842,
+        69706
+      ],
+      "top10_inner_product": [
+        0.8510376214981079,
+        0.841843843460083,
+        0.8414649963378906,
+        0.8407631516456604,
+        0.8378862142562866,
+        0.8378151655197144,
+        0.8315691351890564,
+        0.8306101560592651,
+        0.8302258849143982,
+        0.8298922181129456
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_080",
+      "question": "According to Arjuna, when Duryodhana sees Dhrishtadyumna seated among the Srinjayas, what will Duryodhana do?",
+      "book": "mahabharata",
+      "question_category": "reason",
+      "primary_row_index": 42765,
+      "gold_row_indices": [
+        42765
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        42765,
+        58932,
+        64224,
+        55731,
+        23877,
+        57130,
+        28173,
+        57326,
+        61326,
+        53795
+      ],
+      "top10_inner_product": [
+        0.8478032350540161,
+        0.835686206817627,
+        0.8325376510620117,
+        0.8310708999633789,
+        0.8305354118347168,
+        0.8303999304771423,
+        0.8302920460700989,
+        0.8284348845481873,
+        0.8283712863922119,
+        0.8283647894859314
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_081",
+      "question": "According to the wise, what happens even to sinful people who bathe at Prithudaka?",
+      "book": "mahabharata",
+      "question_category": "advice_teaching",
+      "primary_row_index": 31869,
+      "gold_row_indices": [
+        31869
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        31869,
+        83758,
+        31727,
+        31824,
+        83747,
+        31830,
+        31877,
+        83774,
+        32014,
+        32097
+      ],
+      "top10_inner_product": [
+        0.8695417642593384,
+        0.8398593068122864,
+        0.836894154548645,
+        0.8315625786781311,
+        0.831015408039093,
+        0.830824077129364,
+        0.8305655717849731,
+        0.8283940553665161,
+        0.8281851410865784,
+        0.8273199200630188
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_082",
+      "question": "When Jayadratha fled after seizing Draupadi, how did Bhima catch him?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 37562,
+      "gold_row_indices": [
+        37562
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        19778,
+        53875,
+        50179,
+        19537,
+        24055,
+        65520,
+        63818,
+        51852,
+        37575,
+        64781
+      ],
+      "top10_inner_product": [
+        0.8605695962905884,
+        0.8520928621292114,
+        0.8424071073532104,
+        0.8311404585838318,
+        0.8309963941574097,
+        0.8307065367698669,
+        0.8304246664047241,
+        0.8300617337226868,
+        0.8287755846977234,
+        0.8276751041412354
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_083",
+      "question": "What three hardships did Baka say even the deathless still have to endure?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 35523,
+      "gold_row_indices": [
+        35523
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        35523,
+        35510,
+        35521,
+        41589,
+        35511,
+        35508,
+        29365,
+        87018,
+        89187,
+        19694
+      ],
+      "top10_inner_product": [
+        0.8190757632255554,
+        0.7963765859603882,
+        0.7961635589599609,
+        0.7868207693099976,
+        0.7868151664733887,
+        0.7810899019241333,
+        0.7791504859924316,
+        0.7785418033599854,
+        0.7782162427902222,
+        0.775905191898346
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_084",
+      "question": "What did Sharmishtha ask king Yayati to do so that she could become a mother?",
+      "book": "mahabharata",
+      "question_category": "character_action",
+      "primary_row_index": 22368,
+      "gold_row_indices": [
+        22368
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        22368,
+        22319,
+        18362,
+        22607,
+        22412,
+        22390,
+        22306,
+        22406,
+        22354,
+        22360
+      ],
+      "top10_inner_product": [
+        0.838827908039093,
+        0.8350686430931091,
+        0.83055579662323,
+        0.827454686164856,
+        0.8209760189056396,
+        0.8200739622116089,
+        0.8191236257553101,
+        0.818700909614563,
+        0.8184915781021118,
+        0.8180268406867981
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_085",
+      "question": "When Arjuna came forward, what made the Kaurava side freeze with fear?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 49899,
+      "gold_row_indices": [
+        49899
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        65097,
+        40865,
+        65255,
+        64860,
+        65380,
+        58182,
+        40887,
+        49502,
+        63714,
+        54678
+      ],
+      "top10_inner_product": [
+        0.8491495251655579,
+        0.848336935043335,
+        0.8478752374649048,
+        0.8477659225463867,
+        0.8473483324050903,
+        0.8453350067138672,
+        0.8444330096244812,
+        0.8444087505340576,
+        0.8441065549850464,
+        0.8426454067230225
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_086",
+      "question": "After Rahu's head was cut off, what enmity began, and what does that head still do to the sun and moon?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 20403,
+      "gold_row_indices": [
+        20403
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        20403,
+        10425,
+        88638,
+        20502,
+        45499,
+        15796,
+        1312,
+        12697,
+        20503,
+        61777
+      ],
+      "top10_inner_product": [
+        0.8699318766593933,
+        0.8582897186279297,
+        0.8535675406455994,
+        0.8463751673698425,
+        0.8384090065956116,
+        0.8382860422134399,
+        0.8357419967651367,
+        0.8332754373550415,
+        0.8325271606445312,
+        0.8313389420509338
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_087",
+      "question": "What fate did Kashyapa say was coming that very day for king Parikshit?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 20954,
+      "gold_row_indices": [
+        20954
+      ],
+      "first_relevant_rank": 8,
+      "top10_row_index": [
+        21152,
+        20904,
+        92691,
+        21321,
+        35443,
+        69099,
+        90623,
+        20954,
+        21178,
+        21111
+      ],
+      "top10_inner_product": [
+        0.8631473779678345,
+        0.8267553448677063,
+        0.8247103691101074,
+        0.822114109992981,
+        0.8217604160308838,
+        0.8214439749717712,
+        0.8207383155822754,
+        0.8202390074729919,
+        0.8191758394241333,
+        0.8188963532447815
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_088",
+      "question": "What did Shiva tell Drupada his child would first be, and what would that child later become?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 47033,
+      "gold_row_indices": [
+        47033
+      ],
+      "first_relevant_rank": 10,
+      "top10_row_index": [
+        21576,
+        47028,
+        25727,
+        24745,
+        47180,
+        24797,
+        47021,
+        25838,
+        26288,
+        47033
+      ],
+      "top10_inner_product": [
+        0.8323442339897156,
+        0.8258988857269287,
+        0.824020504951477,
+        0.8195492625236511,
+        0.8194195628166199,
+        0.8183122873306274,
+        0.8176397681236267,
+        0.8176181316375732,
+        0.8168851733207703,
+        0.8162776231765747
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_089",
+      "question": "What future was predicted for the son Shakuntala would bear to Dushyanta?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 22009,
+      "gold_row_indices": [
+        22009
+      ],
+      "first_relevant_rank": 4,
+      "top10_row_index": [
+        22630,
+        22685,
+        22115,
+        22009,
+        22015,
+        22126,
+        70732,
+        22686,
+        88222,
+        19683
+      ],
+      "top10_inner_product": [
+        0.8447110056877136,
+        0.8403174877166748,
+        0.8397787809371948,
+        0.8394495844841003,
+        0.8358298540115356,
+        0.8339306116104126,
+        0.8332520723342896,
+        0.8304697275161743,
+        0.8254457116127014,
+        0.8201330900192261
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_090",
+      "question": "What did Bhima promise Hidimba's sister he would do to the rakshasa while she watched?",
+      "book": "mahabharata",
+      "question_category": "character_action",
+      "primary_row_index": 24436,
+      "gold_row_indices": [
+        24436
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        24412,
+        24521,
+        21395,
+        24503,
+        24449,
+        24519,
+        24723,
+        34197,
+        33996,
+        34016
+      ],
+      "top10_inner_product": [
+        0.8513244986534119,
+        0.8476795554161072,
+        0.8474518656730652,
+        0.8447709679603577,
+        0.8431373834609985,
+        0.8421921730041504,
+        0.8414283394813538,
+        0.8406322002410889,
+        0.8388350009918213,
+        0.8369635343551636
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_091",
+      "question": "What did Dhritarashtra tell Duryodhana about revealing his thoughts to Vidura?",
+      "book": "mahabharata",
+      "question_category": "character_action",
+      "primary_row_index": 25737,
+      "gold_row_indices": [
+        25737
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        28192,
+        23644,
+        45684,
+        45068,
+        92067,
+        29262,
+        44873,
+        43857,
+        29229,
+        28336
+      ],
+      "top10_inner_product": [
+        0.8509556651115417,
+        0.8472963571548462,
+        0.847159743309021,
+        0.8441982269287109,
+        0.8439937233924866,
+        0.8412950038909912,
+        0.8403913378715515,
+        0.8386963605880737,
+        0.8386757373809814,
+        0.8380786180496216
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_092",
+      "question": "In the Naga house, what rite did Arjuna perform at the fire, and how did Agni respond?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 26063,
+      "gold_row_indices": [
+        26063
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        26063,
+        26064,
+        36341,
+        74694,
+        36333,
+        86479,
+        43231,
+        36406,
+        36259,
+        91818
+      ],
+      "top10_inner_product": [
+        0.8693839311599731,
+        0.8570306301116943,
+        0.8531187176704407,
+        0.8518854379653931,
+        0.8414725065231323,
+        0.8408752679824829,
+        0.8406815528869629,
+        0.8406658172607422,
+        0.8401893377304077,
+        0.8387181162834167
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_093",
+      "question": "When Agni asked Arjuna for help burning the Khandava forest, what problem did Arjuna say he had with his bow?",
+      "book": "mahabharata",
+      "question_category": "reason",
+      "primary_row_index": 26393,
+      "gold_row_indices": [
+        26393
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        92629,
+        40244,
+        65035,
+        57852,
+        90883,
+        52120,
+        26409,
+        45998,
+        52568,
+        54678
+      ],
+      "top10_inner_product": [
+        0.8647933006286621,
+        0.8540129661560059,
+        0.8508716225624084,
+        0.8497141599655151,
+        0.849481999874115,
+        0.8492937684059143,
+        0.8486811518669128,
+        0.8478952646255493,
+        0.8475578427314758,
+        0.8466464281082153
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_094",
+      "question": "When the Khandava forest was burning, how did the young Sharangaka birds hope to reach the higher worlds?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 26588,
+      "gold_row_indices": [
+        26588
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        26524,
+        26335,
+        26589,
+        92395,
+        26377,
+        26422,
+        26376,
+        36920,
+        34069,
+        26555
+      ],
+      "top10_inner_product": [
+        0.8360358476638794,
+        0.8350244760513306,
+        0.8348150849342346,
+        0.8341408967971802,
+        0.8313401341438293,
+        0.8311294317245483,
+        0.8307609558105469,
+        0.8304504752159119,
+        0.8302064538002014,
+        0.8297302722930908
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_095",
+      "question": "Where did Krishna say he found Shalva standing with the Saubha car?",
+      "book": "mahabharata",
+      "question_category": "location",
+      "primary_row_index": 29690,
+      "gold_row_indices": [
+        29690
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        34933,
+        29776,
+        29596,
+        29689,
+        62557,
+        71119,
+        29597,
+        29756,
+        29557,
+        52778
+      ],
+      "top10_inner_product": [
+        0.8383632302284241,
+        0.8345949053764343,
+        0.832955002784729,
+        0.8305309414863586,
+        0.8272688984870911,
+        0.8268458843231201,
+        0.8266036510467529,
+        0.8258451819419861,
+        0.8247730731964111,
+        0.8245659470558167
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_096",
+      "question": "When Bhima urged action in the forest, what did Yudhishthira say about controlling the mind and about what had already happened?",
+      "book": "mahabharata",
+      "question_category": "philosophical",
+      "primary_row_index": 30196,
+      "gold_row_indices": [
+        30196
+      ],
+      "first_relevant_rank": 4,
+      "top10_row_index": [
+        87317,
+        24676,
+        24361,
+        30196,
+        77752,
+        32929,
+        77065,
+        85314,
+        28730,
+        27544
+      ],
+      "top10_inner_product": [
+        0.8419793248176575,
+        0.8385719656944275,
+        0.8368849754333496,
+        0.8366860151290894,
+        0.8360742330551147,
+        0.8342041373252869,
+        0.8331120014190674,
+        0.8324258923530579,
+        0.8304536938667297,
+        0.8303887844085693
+      ],
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_097",
+      "question": "After Pushkara cheated Nala at dice, where did Nala go to live, and who went with him?",
+      "book": "mahabharata",
+      "question_category": "event",
+      "primary_row_index": 30788,
+      "gold_row_indices": [
+        30788
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        30952,
+        30981,
+        31568,
+        30972,
+        30955,
+        30982,
+        65207,
+        30957,
+        63187,
+        30954
+      ],
+      "top10_inner_product": [
+        0.8460083603858948,
+        0.835076630115509,
+        0.8301042914390564,
+        0.8269062042236328,
+        0.8247702717781067,
+        0.8194539546966553,
+        0.8179845809936523,
+        0.8157389163970947,
+        0.8155662417411804,
+        0.8153674602508545
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    },
+    {
+      "question_id": "r100_098",
+      "question": "In this prophecy of a coming age, how many suns are said to appear, and what then happens on every side?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 35393,
+      "gold_row_indices": [
+        35393
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        35393,
+        46854,
+        81499,
+        49434,
+        77552,
+        21407,
+        29175,
+        60307,
+        81727,
+        80161
+      ],
+      "top10_inner_product": [
+        0.8371459245681763,
+        0.8212201595306396,
+        0.8207496404647827,
+        0.8205551505088806,
+        0.8193937540054321,
+        0.8181163668632507,
+        0.8177464008331299,
+        0.8176523447036743,
+        0.8171858787536621,
+        0.8170928359031677
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_099",
+      "question": "When the ocean rose around them, which island did the snakes reach together with their mother?",
+      "book": "mahabharata",
+      "question_category": "location",
+      "primary_row_index": 20536,
+      "gold_row_indices": [
+        20536
+      ],
+      "first_relevant_rank": 1,
+      "top10_row_index": [
+        20536,
+        32629,
+        91019,
+        11881,
+        41443,
+        21202,
+        32511,
+        17956,
+        21047,
+        11371
+      ],
+      "top10_inner_product": [
+        0.8473389148712158,
+        0.80370032787323,
+        0.8004931807518005,
+        0.8002015948295593,
+        0.7999365329742432,
+        0.7983828186988831,
+        0.7973642349243164,
+        0.795809268951416,
+        0.79521644115448,
+        0.7950010299682617
+      ],
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true
+    },
+    {
+      "question_id": "r100_100",
+      "question": "Who served as the Hota priest at Janamejaya's snake sacrifice, and from which lineage did he come?",
+      "book": "mahabharata",
+      "question_category": "factual",
+      "primary_row_index": 21207,
+      "gold_row_indices": [
+        21207
+      ],
+      "first_relevant_rank": null,
+      "top10_row_index": [
+        21351,
+        19379,
+        21253,
+        81681,
+        21195,
+        20262,
+        21203,
+        21344,
+        21249,
+        67525
+      ],
+      "top10_inner_product": [
+        0.8273116946220398,
+        0.8221118450164795,
+        0.8126542568206787,
+        0.8110145330429077,
+        0.8101195693016052,
+        0.8097454309463501,
+        0.8079149723052979,
+        0.8078244924545288,
+        0.8076003789901733,
+        0.8069728016853333
+      ],
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "name": "manual_validation_10_questions",
+  "purpose": "Small human-readable retrieval check for manager review. NOT a replacement for the frozen 100-question Recall/MRR benchmark. Questions and gold labels were frozen BEFORE retrieval.",
+  "frozen": true,
+  "n": 10,
+  "corpus": "/Users/manumathewjiss/Documents/Pramod Gupta Project/res/combined.csv",
+  "gold_id_field": "row_index",
+  "created_utc": "2026-08-28T04:24:21.826809+00:00",
+  "label_correction": {
+    "date_utc": "2026-08-27",
+    "reason": "Objective CSV labeling error, not a retrieval-driven relabel. gold_row_index was assigned from the previous combined.csv row (editor/file line number treated as if it were pandas row_index). gold_row_index is 0-based DictReader index; file_line = row_index + 2.",
+    "changes": [
+      {
+        "question_id": "mv10_03",
+        "old_gold_row_index": 18,
+        "corrected_gold_row_index": 19,
+        "csv_proof": "Row 18 is Dasaratha wishing to install Rama. Row 19 names Kaikeyi asking for Rama's exile and Bharata's installation."
+      },
+      {
+        "question_id": "mv10_04",
+        "old_gold_row_index": 19,
+        "corrected_gold_row_index": 20,
+        "csv_proof": "Row 19 is Kaikeyi's two boons. Row 20 says Dasaratha, bound by duty from his promise, banished Rama."
+      }
+    ],
+    "other_eight_questions": "verified against combined.csv; no gold_row_index change"
+  },
+  "validation_errors": [],
+  "questions": [
+    {
+      "question_id": "mv10_01",
+      "question": "Which sage did Valmiki ask about a man of outstanding virtue?",
+      "expected_answer": "Narada",
+      "gold_row_index": 0,
+      "book": "ramayana",
+      "chapter": "1",
+      "shloka": "1",
+      "gold_sanskrit": "ॐ तपः स्वाध्यायनिरतं तपस्वी वाग्विदां वरम्। नारदं परिपप्रच्छ वाल्मीकिर्मुनिपुङ्गवम्॥",
+      "gold_english": "The ascetic Vālmīki asked Nārada, the best of sages and foremost of those conversant with words, ever engaged in austerities and Vedic studies.",
+      "short_reason_why_this_is_gold": "This opening verse names Valmiki asking Narada; the next verses are Valmiki's questions, not the addressee.",
+      "category": "person"
+    },
+    {
+      "question_id": "mv10_02",
+      "question": "After meeting the Nishada king Guha, where did Rama dismiss his charioteer?",
+      "expected_answer": "On the banks of the Ganges at Srigaverapura",
+      "gold_row_index": 24,
+      "book": "ramayana",
+      "chapter": "1",
+      "shloka": "25",
+      "gold_sanskrit": "शृङ्गवेरपुरे सुतं गङ्गाकूले व्यसर्जयत्। गुहमासाद्य धर्मात्मा निषादाधिपतिं प्रियम्॥ गुहेन सहितो रामो लक्ष्मणेन च सीतया।",
+      "gold_english": "Rāma met with the virtuous and beloved king of the Nişādas; and then in company with Guha, Laksmana, and Sita, Rama dismissed his charioteer on the banks of the Ganges at Srigaverapura.",
+      "short_reason_why_this_is_gold": "This verse uniquely names Srigaverapura on the Ganges as the place where Rama, with Guha, Lakshmana, and Sita, dismissed the charioteer.",
+      "category": "place"
+    },
+    {
+      "question_id": "mv10_03",
+      "question": "When Kaikeyi claimed the two boons she had been promised, what two things did she ask for?",
+      "expected_answer": "The exile of Rama and the installation of Bharata",
+      "gold_row_index": 19,
+      "book": "ramayana",
+      "chapter": "1",
+      "shloka": "20",
+      "gold_sanskrit": "तस्याभिषेकसम्भारान्दृष्ट्वा भार्याऽथ कैकयी॥ पूर्वं दत्तवरा देवी वरमेनमयाचत। विवासं च रामस्य भरतस्याभिषेचनम्॥",
+      "gold_english": "Beholding the provisions of the installation, that lady the king's consort, Kaikeyī, who had previously been promised two boons, even asked him for those viz., the exile of Ráma, and the installation of Bharata.",
+      "short_reason_why_this_is_gold": "This verse states Kaikeyi asked for those two boons: Rama's exile and Bharata's installation.",
+      "category": "event"
+    },
+    {
+      "question_id": "mv10_04",
+      "question": "Why did king Dasaratha banish his son Rama?",
+      "expected_answer": "Because he was bound by duty to keep his promise",
+      "gold_row_index": 20,
+      "book": "ramayana",
+      "chapter": "1",
+      "shloka": "21",
+      "gold_sanskrit": "स सत्यवचनात् राजा धर्मपाशेन संयतः। विवासयामास सुतं रामं दशरथः प्रियम्॥",
+      "gold_english": "Bound by the ties of duty in consequence of his promise, king Dasaratha banished his favourite son Rāma.",
+      "short_reason_why_this_is_gold": "This verse says Dasaratha banished Rama because he was bound by duty in consequence of his promise.",
+      "category": "reason"
+    },
+    {
+      "question_id": "mv10_05",
+      "question": "After Dasaratha died, did Bharata accept the throne when Vasistha and the other Brahmanas pressed him to rule?",
+      "expected_answer": "No. He refused the kingdom and went to the forest to seek Rama.",
+      "gold_row_index": 27,
+      "book": "ramayana",
+      "chapter": "1",
+      "shloka": "28",
+      "gold_sanskrit": "गते तु तस्मिन् भरतो वसिष्ठप्रमुखैर्द्विजैः॥ नियुज्यमानो राज्याय नैच्छद् राज्यं महाबलः। स जगाम वनं वीरो रामपादप्रसादकः॥",
+      "gold_english": "When king Dasaratha had passed away heaven, the mighty Bharata, although pressed by the Brāhmaṇas headed by Vasiştha, to rule the kingdom, did not wish for dominion. And that hero went the forest, with the view of propitiating Rāma.",
+      "short_reason_why_this_is_gold": "This verse says Bharata, though pressed by Brahmanas headed by Vasistha, did not wish for dominion and went to the forest to propitiate Rama.",
+      "category": "character"
+    },
+    {
+      "question_id": "mv10_06",
+      "question": "When the Ocean appeared and advised them, who built the causeway across the sea?",
+      "expected_answer": "Nala",
+      "gold_row_index": 64,
+      "book": "ramayana",
+      "chapter": "1",
+      "shloka": "65",
+      "gold_sanskrit": "दर्शयामास चात्मानं समुद्रः सरितां पतिः। समुद्रवचनाच्चैव नलं सेतुमकारयत्॥",
+      "gold_english": "Then that lord of rivers, the Ocean, showed himself. And agreeably to the advice of the Ocean, Nala constructed a bridge (over the water.)",
+      "short_reason_why_this_is_gold": "This verse says that, agreeably to the Ocean's advice, Nala constructed the bridge. Other verses mention monkeys or Rama in related scenes but do not give this Ocean-advice + Nala pairing.",
+      "category": "factual"
+    },
+    {
+      "question_id": "mv10_07",
+      "question": "Who lured Rama far from the ashram by taking the form of a golden deer?",
+      "expected_answer": "Marica",
+      "gold_row_index": 6935,
+      "book": "ramayana",
+      "chapter": "57",
+      "shloka": "6",
+      "gold_sanskrit": "राक्षसैः सहितैनूनं सीताया ईप्सितो वधः। काञ्चनश्च मृगो भूत्वा व्यपनीयाश्रमात् तु माम्॥ दूरं नीत्वाथ मारीचो राक्षसोऽभूच्छराहतः। हा लक्ष्मण हतोऽस्मीति यद्वाक्यं व्याजहार ह॥",
+      "gold_english": "Surely, the Rākṣasas in a body are desirous of slaying Sitä. Becoming a golden deer, Mārica, having allured me far, transformed himself into a Rākşasa, as soon as he had been struck with my shafts; and exclaimed, 'Ah! Laksmana, slain am I.'",
+      "short_reason_why_this_is_gold": "Rama states that Marica became a golden deer, allured him far, then turned back into a rakshasa when struck.",
+      "category": "event"
+    },
+    {
+      "question_id": "mv10_08",
+      "question": "What did Ekalavya cut off and give to Drona as the teacher's fee?",
+      "expected_answer": "His right thumb",
+      "gold_row_index": 23857,
+      "book": "mahabharata",
+      "chapter": "132",
+      "shloka": "50",
+      "gold_sanskrit": "एकलव्यस्तु तच्छ्रुत्वा वचो द्रोणस्य दारुणम्। प्रतिज्ञामात्मनो रक्षन् सत्ये च नियतः सदा।५७॥ तथैव हृष्टवदनस्तथैवादीनमानसः। छित्त्वाविचार्य तं प्रादाद् द्रोणायाङ्गुष्ठमात्मनः॥",
+      "gold_english": "Ekalavya ever devoted to truth and desirous of keeping his promise, hearing the fearful words of Drona, at once cut off his right thumb with a cheerful face and unruffled heart and gave it to Drona.",
+      "short_reason_why_this_is_gold": "This verse says Ekalavya cut off his right thumb and gave it to Drona after Drona demanded it.",
+      "category": "factual"
+    },
+    {
+      "question_id": "mv10_09",
+      "question": "How far did Hanuman say he leaped across the ocean to carry out Rama's work?",
+      "expected_answer": "One hundred yojanas",
+      "gold_row_index": 33766,
+      "book": "mahabharata",
+      "chapter": "148",
+      "shloka": "6",
+      "gold_sanskrit": "ततोऽहं कार्यसिद्ध्यर्थं रामस्याक्लिष्टकर्मणः। शतयोजनविस्तीर्णमर्णवं सहसाऽऽप्लुतः॥",
+      "gold_english": "Thereupon to accomplish the work of Rama of stainless deeds, I suddenly leaped over the ocean extending one hundred yojanas.",
+      "short_reason_why_this_is_gold": "Hanuman, speaking to Bhima, says he suddenly leaped over the ocean extending one hundred yojanas to accomplish Rama's work.",
+      "category": "factual"
+    },
+    {
+      "question_id": "mv10_10",
+      "question": "In Krishna's teaching to Arjuna, what does he say a person should be concerned with, and never with?",
+      "expected_answer": "Concerned only with actions, never with their fruits",
+      "gold_row_index": 48027,
+      "book": "mahabharata",
+      "chapter": "26",
+      "shloka": "46",
+      "gold_sanskrit": "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+      "gold_english": "Your concern is only with actions, never with their fruits. Let not the fruits of actions be your motive. (at the same time) let not your inclination be towards action.",
+      "short_reason_why_this_is_gold": "This Gita verse states: your concern is only with actions, never with their fruits. Nearby verses discuss related ideas but this is the direct statement of that rule.",
+      "category": "teaching"
+    }
+  ],
+  "scientific_rule": "Do not change a question or its gold after seeing retrieval results. If a question looks ambiguous after retrieval, FLAG it for human review. Exception: correct an objective combined.csv labeling/data-generation error when the frozen gold row clearly does not support the predefined expected answer."
+}
