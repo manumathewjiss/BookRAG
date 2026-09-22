@@ -1,0 +1,75 @@
+{
+  "status": "generation_smoke_test",
+  "not_a_retrieval_benchmark": true,
+  "retriever": "plain_e5_top5",
+  "questions": [
+    {
+      "id": "smoke_001",
+      "source_eval_id": "gita_eval_001",
+      "category": "citation_lookup",
+      "question": "What does Bhagavad Gita 2.47 say?"
+    },
+    {
+      "id": "smoke_002",
+      "source_eval_id": "gita_eval_002",
+      "category": "citation_lookup",
+      "question": "According to Bhagavad Gita 18.66, what does Krishna tell Arjuna to surrender, and what does He promise?"
+    },
+    {
+      "id": "smoke_003",
+      "source_eval_id": "gita_eval_008",
+      "category": "factual",
+      "question": "If a person offers Krishna something as simple as a leaf or a little water, but with love, does the Gita say He accepts it?"
+    },
+    {
+      "id": "smoke_004",
+      "source_eval_id": "gita_holdout_016",
+      "category": "factual",
+      "question": "What three things does the Gita call gates leading to hell, which a sane person should give up?"
+    },
+    {
+      "id": "smoke_005",
+      "source_eval_id": "gita_eval_014",
+      "category": "conceptual",
+      "question": "In what way can a person’s own mind be their friend, and in what way can it be their enemy?"
+    },
+    {
+      "id": "smoke_006",
+      "source_eval_id": "gita_holdout_024",
+      "category": "conceptual",
+      "question": "Can everyday acts like eating, giving, or performing austerity be turned into worship, according to the Gita?"
+    },
+    {
+      "id": "smoke_007",
+      "source_eval_id": "gita_eval_021",
+      "category": "purport",
+      "question": "Does the commentary on the ‘king of education’ verse say that even a person without high birth or schooling can become enlightened by serving devotees? What example does it give?"
+    },
+    {
+      "id": "smoke_008",
+      "source_eval_id": "gita_holdout_028",
+      "category": "purport",
+      "question": "What example does the commentary give of a king whose last thought was an animal, and what body did he get next?"
+    },
+    {
+      "id": "smoke_009",
+      "source_eval_id": "gita_eval_026",
+      "category": "terminology",
+      "question": "When this Gita defines karma next to Brahman and the self, what kind of action is karma said to be?"
+    },
+    {
+      "id": "smoke_010",
+      "source_eval_id": "gita_holdout_033",
+      "category": "terminology",
+      "question": "How does this Gita distinguish sannyasa, the renounced order, from tyaga, renunciation?"
+    }
+  ],
+  "insufficient_context_control": {
+    "id": "smoke_control_insufficient",
+    "label": "INSUFFICIENT-CONTEXT CONTROL",
+    "source_eval_id": "gita_eval_001",
+    "question": "What does Bhagavad Gita 2.47 say?",
+    "note": "Same question as smoke_001, but context is replaced with unrelated retrieved-looking chunks. Not used for retrieval metrics.",
+    "forced_chunk_ids": ["1.46#translation", "16.21#translation", "11.3#translation"]
+  }
+}

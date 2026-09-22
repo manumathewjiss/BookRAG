@@ -1,0 +1,27 @@
+{
+  "name": "e5_same_source_section_preference",
+  "status": "frozen_before_scoring",
+  "candidate_depth": 50,
+  "purport_phrases": [
+    "purport",
+    "commentary",
+    "prabhupada"
+  ],
+  "translation_phrases": [
+    "translation",
+    "the verse",
+    "this verse",
+    "that verse"
+  ],
+  "translation_also_if": "question contains a dotted chapter.verse token matching \\b\\d{1,2}\\.\\d{1,3}\\b",
+  "not_used_as_translation_cues": [
+    "what does ... say",
+    "what does Krishna say",
+    "what does the Gita say",
+    "according to the Gita"
+  ],
+  "precedence": "If any purport cue matches, intent=purport even if translation cues also match (commentary request is more specific).",
+  "neutral": "If neither purport nor translation cues match, keep raw E5 order.",
+  "rerank": "Sources keep the order of their first E5 hit. Within a source, the requested section's chunks (still in E5 order) are placed before the other section's chunks. Neutral: no change.",
+  "safety": "Section preference cannot promote a chunk whose source never appeared in E5 Top 50. Rank-40 unrelated translations cannot outrank E5 rank 1."
+}
