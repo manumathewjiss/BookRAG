@@ -1,0 +1,36 @@
+{
+  "stage": "bge_m3_dense_embed",
+  "embedding_model": "BAAI/bge-m3",
+  "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+  "input_prefix": "",
+  "input_format": "raw chunk_text (BGE-M3 dense docs do not require passage:/query: prefixes)",
+  "modes_used": [
+    "dense"
+  ],
+  "modes_not_used": [
+    "sparse",
+    "colbert",
+    "bm25",
+    "rerank"
+  ],
+  "device": "cpu",
+  "batch_size": 8,
+  "normalization": "L2 (SentenceTransformer normalize_embeddings=True)",
+  "embedding_dimension": 1024,
+  "chunks_artifact": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/thinkpython_stage1_chunks.json",
+  "chunks_sha256": "6be6f01668eddf3f104196fae4c827f74420b1ac56b4557e6c1eb086e6fbd72e",
+  "book_id": "thinkpython",
+  "total_chunks_received": 443,
+  "total_bge_m3_embeddings": 443,
+  "e5_embedding_row_count_unchanged": 443,
+  "storage_table": "chunk_embeddings_bge_m3",
+  "e5_storage_column": "chunks.embedding",
+  "git_head": "c462224e43ec21e970cf8cb495e1b180a1d13864",
+  "embed_seconds": 129.119,
+  "n_embeddings": 443,
+  "minimum_vector_norm": 0.9999998211860657,
+  "average_vector_norm": 1.0,
+  "maximum_vector_norm": 1.000000238418579,
+  "normalized_vector_check": "pass",
+  "warnings": []
+}

@@ -1,0 +1,440 @@
+{
+  "experiment": "qwen3_reranker_0_6b_local_pool_cutoff_timing",
+  "model": "Qwen/Qwen3-Reranker-0.6B",
+  "device": "mps",
+  "dtype": "float16",
+  "batch_size": 2,
+  "cutoff": 20,
+  "sample_question_ids": [
+    "thinkpython:tp2_001",
+    "thinkpython:tp2_030",
+    "arthashastra:arth_001",
+    "arthashastra:arth_017",
+    "bhagavad_gita:bg_010",
+    "bhagavad_gita:bg_025"
+  ],
+  "sample_selection_rule": "two Think Python, two Arthashastra, plus Gita bg_010 and bg_025",
+  "cutoff_seconds": {
+    "n": 6,
+    "mean": 7.051,
+    "median": 8.716,
+    "min": 3.567,
+    "max": 9.594
+  },
+  "full_union_seconds": {
+    "n": 6,
+    "mean": 14.449,
+    "median": 16.273,
+    "min": 3.59,
+    "max": 27.617
+  },
+  "slowest_cutoff": "bg_025",
+  "slowest_full": "bg_025",
+  "all_cutoff_top10_agreed_with_simulation": true,
+  "all_full_top10_agreed_with_simulation": true,
+  "peak_rss_gib": 2.154,
+  "questions": [
+    {
+      "id": "tp2_001",
+      "book_id": "thinkpython",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "n_union": 43,
+      "cutoff": 20,
+      "cutoff_run": {
+        "n_passages": 20,
+        "seconds": 8.983,
+        "live_top10": [
+          66,
+          65,
+          78,
+          0,
+          333,
+          67,
+          5,
+          1,
+          348,
+          3
+        ],
+        "saved_score_sim_top10": [
+          66,
+          65,
+          78,
+          0,
+          333,
+          67,
+          5,
+          1,
+          348,
+          3
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "full_run": {
+        "n_passages": 43,
+        "seconds": 16.273,
+        "live_top10": [
+          66,
+          65,
+          78,
+          0,
+          333,
+          67,
+          5,
+          1,
+          348,
+          274
+        ],
+        "saved_score_sim_top10": [
+          66,
+          65,
+          78,
+          0,
+          333,
+          67,
+          5,
+          1,
+          348,
+          274
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "seconds_per_passage_cutoff": 0.4492,
+      "seconds_per_passage_full": 0.3784
+    },
+    {
+      "id": "tp2_030",
+      "book_id": "thinkpython",
+      "question": "What is a callback in the Tkinter chapter, and how does event-driven programming determine the flow of execution?",
+      "n_union": 40,
+      "cutoff": 20,
+      "cutoff_run": {
+        "n_passages": 20,
+        "seconds": 7.871,
+        "live_top10": [
+          393,
+          378,
+          388,
+          394,
+          376,
+          392,
+          384,
+          59,
+          375,
+          377
+        ],
+        "saved_score_sim_top10": [
+          393,
+          378,
+          388,
+          394,
+          376,
+          392,
+          384,
+          59,
+          375,
+          377
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "full_run": {
+        "n_passages": 40,
+        "seconds": 15.693,
+        "live_top10": [
+          393,
+          378,
+          388,
+          394,
+          376,
+          392,
+          384,
+          59,
+          114,
+          375
+        ],
+        "saved_score_sim_top10": [
+          393,
+          378,
+          388,
+          394,
+          376,
+          392,
+          384,
+          59,
+          114,
+          375
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "seconds_per_passage_cutoff": 0.3936,
+      "seconds_per_passage_full": 0.3923
+    },
+    {
+      "id": "arth_001",
+      "book_id": "arthashastra",
+      "question": "According to the key points, what is the king's core duty regarding his subjects, and what does that duty lead to?",
+      "n_union": 10,
+      "cutoff": 20,
+      "cutoff_run": {
+        "n_passages": 10,
+        "seconds": 3.567,
+        "live_top10": [
+          0,
+          6,
+          8,
+          9,
+          5,
+          3,
+          2,
+          7,
+          1,
+          4
+        ],
+        "saved_score_sim_top10": [
+          0,
+          6,
+          8,
+          9,
+          5,
+          3,
+          2,
+          7,
+          1,
+          4
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "full_run": {
+        "n_passages": 10,
+        "seconds": 3.592,
+        "live_top10": [
+          0,
+          6,
+          8,
+          9,
+          5,
+          3,
+          2,
+          7,
+          1,
+          4
+        ],
+        "saved_score_sim_top10": [
+          0,
+          6,
+          8,
+          9,
+          5,
+          3,
+          2,
+          7,
+          1,
+          4
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "seconds_per_passage_cutoff": 0.3567,
+      "seconds_per_passage_full": 0.3592
+    },
+    {
+      "id": "arth_017",
+      "book_id": "arthashastra",
+      "question": "What happens to wages if a worker's output falls short in quantity or quality?",
+      "n_union": 10,
+      "cutoff": 20,
+      "cutoff_run": {
+        "n_passages": 10,
+        "seconds": 3.577,
+        "live_top10": [
+          4,
+          1,
+          2,
+          3,
+          5,
+          6,
+          0,
+          8,
+          9,
+          7
+        ],
+        "saved_score_sim_top10": [
+          4,
+          1,
+          2,
+          3,
+          5,
+          6,
+          0,
+          8,
+          9,
+          7
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "full_run": {
+        "n_passages": 10,
+        "seconds": 3.59,
+        "live_top10": [
+          4,
+          1,
+          2,
+          3,
+          5,
+          6,
+          0,
+          8,
+          9,
+          7
+        ],
+        "saved_score_sim_top10": [
+          4,
+          1,
+          2,
+          3,
+          5,
+          6,
+          0,
+          8,
+          9,
+          7
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "seconds_per_passage_cutoff": 0.3577,
+      "seconds_per_passage_full": 0.359
+    },
+    {
+      "id": "bg_010",
+      "book_id": "bhagavad_gita",
+      "question": "According to the purport, why had Krishna agreed to be Arjuna's charioteer?",
+      "n_union": 48,
+      "cutoff": 20,
+      "cutoff_run": {
+        "n_passages": 20,
+        "seconds": 8.716,
+        "live_top10": [
+          111,
+          117,
+          1721,
+          110,
+          115,
+          112,
+          108,
+          151,
+          334,
+          97
+        ],
+        "saved_score_sim_top10": [
+          111,
+          117,
+          1721,
+          110,
+          115,
+          112,
+          108,
+          151,
+          334,
+          97
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "full_run": {
+        "n_passages": 48,
+        "seconds": 19.927,
+        "live_top10": [
+          111,
+          117,
+          1721,
+          110,
+          181,
+          115,
+          112,
+          1142,
+          108,
+          151
+        ],
+        "saved_score_sim_top10": [
+          111,
+          117,
+          1721,
+          110,
+          181,
+          115,
+          112,
+          1142,
+          108,
+          151
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "seconds_per_passage_cutoff": 0.4358,
+      "seconds_per_passage_full": 0.4151
+    },
+    {
+      "id": "bg_025",
+      "book_id": "bhagavad_gita",
+      "question": "What does the translation say Krishna is as time, and who does it say will be slain on the battlefield?",
+      "n_union": 56,
+      "cutoff": 20,
+      "cutoff_run": {
+        "n_passages": 20,
+        "seconds": 9.594,
+        "live_top10": [
+          1167,
+          253,
+          251,
+          1168,
+          210,
+          126,
+          150,
+          1169,
+          209,
+          132
+        ],
+        "saved_score_sim_top10": [
+          1167,
+          253,
+          251,
+          1168,
+          210,
+          126,
+          150,
+          1169,
+          209,
+          132
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "full_run": {
+        "n_passages": 56,
+        "seconds": 27.617,
+        "live_top10": [
+          1167,
+          253,
+          251,
+          1168,
+          210,
+          126,
+          246,
+          1336,
+          150,
+          1169
+        ],
+        "saved_score_sim_top10": [
+          1167,
+          253,
+          251,
+          1168,
+          210,
+          126,
+          246,
+          1336,
+          150,
+          1169
+        ],
+        "top10_agrees_with_saved_score_simulation": true
+      },
+      "seconds_per_passage_cutoff": 0.4797,
+      "seconds_per_passage_full": 0.4932
+    }
+  ]
+}

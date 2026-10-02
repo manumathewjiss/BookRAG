@@ -1,0 +1,33 @@
+{
+  "stage": "bge_m3_hybrid_sparse_embed",
+  "embedding_model": "BAAI/bge-m3",
+  "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+  "input_format": "raw chunk_text (BGE-M3 sparse docs: no passage:/query: prefixes)",
+  "sparse_formula": "ReLU(sparse_linear(last_hidden_state)); max weight per token id; drop cls/eos/pad/unk",
+  "modes_used": [
+    "sparse"
+  ],
+  "modes_not_used": [
+    "colbert",
+    "bm25",
+    "rerank",
+    "new_dense_model"
+  ],
+  "dense_vectors": "reused from chunk_embeddings_bge_m3; not rewritten",
+  "storage_table": "chunk_sparse_weights_bge_m3_hybrid",
+  "max_length": 512,
+  "batch_size": 4,
+  "device": "cpu",
+  "chunks_artifact": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/thinkpython_stage1_chunks.json",
+  "chunks_sha256": "6be6f01668eddf3f104196fae4c827f74420b1ac56b4557e6c1eb086e6fbd72e",
+  "book_id": "thinkpython",
+  "total_chunks_received": 443,
+  "total_sparse_rows": 443,
+  "empty_sparse_vectors": 0,
+  "mean_nonzero_tokens": 90.23024830699774,
+  "e5_embedding_row_count_unchanged": 443,
+  "bge_m3_dense_row_count_unchanged": 443,
+  "git_head": "c462224e43ec21e970cf8cb495e1b180a1d13864",
+  "encode_seconds": 183.304,
+  "warnings": []
+}

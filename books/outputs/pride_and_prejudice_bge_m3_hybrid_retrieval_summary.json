@@ -1,0 +1,72 @@
+{
+  "embedding_model": "BAAI/bge-m3",
+  "model_revision": null,
+  "embedding_family": "bge_m3_hybrid",
+  "input_format": "raw question text; dense from SentenceTransformer; sparse from BGE-M3 sparse_linear",
+  "fusion": {
+    "method": "reciprocal_rank_fusion",
+    "rrf_k": 60,
+    "formula": "1/(rrf_k + rank) summed over dense and sparse lists",
+    "candidate_k_per_retriever": 30,
+    "final_k": 20
+  },
+  "modes_used": [
+    "dense",
+    "sparse",
+    "rrf"
+  ],
+  "modes_not_used": [
+    "colbert",
+    "bm25",
+    "rerank",
+    "llm"
+  ],
+  "book_filter": "pride_and_prejudice",
+  "n_e5_embeddings": 480,
+  "n_bge_m3_dense_embeddings": 480,
+  "n_bge_m3_hybrid_sparse_rows": 480,
+  "hybrid": {
+    "n_questions": 30,
+    "recall_hit@1": 0.6333333333333333,
+    "recall_hit@5": 0.7333333333333333,
+    "recall_hit@10": 0.8,
+    "mrr@10": 0.6880952380952381,
+    "n_misses_top10": 3
+  },
+  "dense_pool30_top10": {
+    "n_questions": 30,
+    "recall_hit@1": 0.6333333333333333,
+    "recall_hit@5": 0.8333333333333334,
+    "recall_hit@10": 0.9,
+    "mrr@10": 0.7339285714285714,
+    "n_misses_top10": 3
+  },
+  "sparse_top10": {
+    "n_questions": 30,
+    "recall_hit@1": 0.5333333333333333,
+    "recall_hit@5": 0.7,
+    "recall_hit@10": 0.7666666666666667,
+    "mrr@10": 0.6083333333333333,
+    "n_misses_top10": 4
+  },
+  "processing_time_seconds": 10.045,
+  "dense_query_embed_seconds": 7.474,
+  "sparse_query_embed_seconds": 2.237,
+  "dense_search_seconds": 0.276,
+  "sparse_search_seconds": 0.018,
+  "fusion_seconds": 0.001,
+  "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+  "chunks_sha256": "e6aa2ad5ce095680573ed420db7111cf41bf807cebb99ebce8650830240d11c8",
+  "git_head": "c462224e43ec21e970cf8cb495e1b180a1d13864",
+  "results_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/pride_and_prejudice_bge_m3_hybrid_retrieval_results.json",
+  "dense_pool_results_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/pride_and_prejudice_bge_m3_dense_pool30_top10_results.json",
+  "warnings": [],
+  "errors": [],
+  "generation": "not implemented",
+  "recall_hit@1": 0.6333333333333333,
+  "recall_hit@5": 0.7333333333333333,
+  "recall_hit@10": 0.8,
+  "mrr@10": 0.6880952380952381,
+  "n_misses_top10": 3,
+  "n_evaluation_questions": 30
+}

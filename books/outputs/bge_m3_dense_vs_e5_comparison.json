@@ -1,0 +1,5920 @@
+{
+  "experiment": "e5_vs_bge_m3_dense_same_chunks_same_30q",
+  "books": [
+    {
+      "book_id": "thinkpython",
+      "n_questions": 30,
+      "e5": {
+        "hit@1": 0.7666666666666667,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr@10": 0.8594444444444445,
+        "n_misses_top10": 0,
+        "eval_seconds": 9.331
+      },
+      "bge_m3_dense": {
+        "hit@1": 0.8666666666666667,
+        "hit@5": 0.9666666666666667,
+        "hit@10": 0.9666666666666667,
+        "mrr@10": 0.9166666666666666,
+        "n_misses_top10": 1,
+        "eval_seconds": 3.548,
+        "query_embed_seconds": 3.321,
+        "search_seconds": 0.219,
+        "model_revision": "5617a9f61b028005a4858fdac845db406aefb181"
+      },
+      "n_improved": 5,
+      "n_worsened": 2,
+      "n_unchanged": 23,
+      "gita_e5_top10_misses": [],
+      "questions": [
+        {
+          "id": "tp2_001",
+          "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+          "gold_chunk_indexes": [
+            66
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 66,
+              "page": 23,
+              "similarity": 0.8776615262031555
+            },
+            {
+              "chunk_index": 78,
+              "page": 29,
+              "similarity": 0.8376054763793945
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.8224513530731201
+            },
+            {
+              "chunk_index": 65,
+              "page": 23,
+              "similarity": 0.8219473361968994
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.8154687285423279
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 66,
+              "page": 23,
+              "similarity": 0.7123335003852844
+            },
+            {
+              "chunk_index": 65,
+              "page": 23,
+              "similarity": 0.6351976990699768
+            },
+            {
+              "chunk_index": 78,
+              "page": 29,
+              "similarity": 0.6159754991531372
+            },
+            {
+              "chunk_index": 75,
+              "page": 28,
+              "similarity": 0.5953617691993713
+            },
+            {
+              "chunk_index": 5,
+              "page": 6,
+              "similarity": 0.5538327693939209
+            }
+          ]
+        },
+        {
+          "id": "tp2_002",
+          "question": "How does an interpreter differ from a compiler when processing a high-level language?",
+          "gold_chunk_indexes": [
+            67
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 67,
+              "page": 24,
+              "similarity": 0.8398672938346863
+            },
+            {
+              "chunk_index": 66,
+              "page": 23,
+              "similarity": 0.8289915323257446
+            },
+            {
+              "chunk_index": 79,
+              "page": 30,
+              "similarity": 0.8197436332702637
+            },
+            {
+              "chunk_index": 78,
+              "page": 29,
+              "similarity": 0.8165267109870911
+            },
+            {
+              "chunk_index": 65,
+              "page": 23,
+              "similarity": 0.8044717311859131
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 67,
+              "page": 24,
+              "similarity": 0.7234183549880981
+            },
+            {
+              "chunk_index": 78,
+              "page": 29,
+              "similarity": 0.6126510500907898
+            },
+            {
+              "chunk_index": 66,
+              "page": 23,
+              "similarity": 0.5904698371887207
+            },
+            {
+              "chunk_index": 79,
+              "page": 30,
+              "similarity": 0.5750296115875244
+            },
+            {
+              "chunk_index": 65,
+              "page": 23,
+              "similarity": 0.5588088035583496
+            }
+          ]
+        },
+        {
+          "id": "tp2_003",
+          "question": "What is the difference between natural languages and formal languages, and how does the book classify programming languages?",
+          "gold_chunk_indexes": [
+            73
+          ],
+          "e5_first_gold_rank": 3,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 74,
+              "page": 27,
+              "similarity": 0.8534570336341858
+            },
+            {
+              "chunk_index": 75,
+              "page": 28,
+              "similarity": 0.852292001247406
+            },
+            {
+              "chunk_index": 73,
+              "page": 27,
+              "similarity": 0.8431218862533569
+            },
+            {
+              "chunk_index": 65,
+              "page": 23,
+              "similarity": 0.8291810750961304
+            },
+            {
+              "chunk_index": 18,
+              "page": 13,
+              "similarity": 0.8279107809066772
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 75,
+              "page": 28,
+              "similarity": 0.6702347993850708
+            },
+            {
+              "chunk_index": 73,
+              "page": 27,
+              "similarity": 0.6383316516876221
+            },
+            {
+              "chunk_index": 74,
+              "page": 27,
+              "similarity": 0.6050787568092346
+            },
+            {
+              "chunk_index": 18,
+              "page": 13,
+              "similarity": 0.5875994563102722
+            },
+            {
+              "chunk_index": 79,
+              "page": 30,
+              "similarity": 0.586277961730957
+            }
+          ]
+        },
+        {
+          "id": "tp2_004",
+          "question": "What is parsing, and how does the book contrast ambiguity in natural languages with formal languages?",
+          "gold_chunk_indexes": [
+            74
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 74,
+              "page": 27,
+              "similarity": 0.8707412481307983
+            },
+            {
+              "chunk_index": 75,
+              "page": 28,
+              "similarity": 0.8505964279174805
+            },
+            {
+              "chunk_index": 79,
+              "page": 30,
+              "similarity": 0.8251060247421265
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.818213939666748
+            },
+            {
+              "chunk_index": 11,
+              "page": 9,
+              "similarity": 0.8164965510368347
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 74,
+              "page": 27,
+              "similarity": 0.6465588212013245
+            },
+            {
+              "chunk_index": 75,
+              "page": 28,
+              "similarity": 0.5729159712791443
+            },
+            {
+              "chunk_index": 73,
+              "page": 27,
+              "similarity": 0.5400587916374207
+            },
+            {
+              "chunk_index": 18,
+              "page": 13,
+              "similarity": 0.5085508227348328
+            },
+            {
+              "chunk_index": 79,
+              "page": 30,
+              "similarity": 0.5032111406326294
+            }
+          ]
+        },
+        {
+          "id": "tp2_005",
+          "question": "Why is class an illegal variable name in Python, and what are keywords used for?",
+          "gold_chunk_indexes": [
+            85
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 85,
+              "page": 35,
+              "similarity": 0.8632151484489441
+            },
+            {
+              "chunk_index": 92,
+              "page": 38,
+              "similarity": 0.8495184779167175
+            },
+            {
+              "chunk_index": 355,
+              "page": 190,
+              "similarity": 0.8483759760856628
+            },
+            {
+              "chunk_index": 368,
+              "page": 197,
+              "similarity": 0.8479284048080444
+            },
+            {
+              "chunk_index": 306,
+              "page": 162,
+              "similarity": 0.8447800874710083
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 85,
+              "page": 35,
+              "similarity": 0.6750022768974304
+            },
+            {
+              "chunk_index": 93,
+              "page": 39,
+              "similarity": 0.6143455505371094
+            },
+            {
+              "chunk_index": 83,
+              "page": 34,
+              "similarity": 0.5778005719184875
+            },
+            {
+              "chunk_index": 92,
+              "page": 38,
+              "similarity": 0.56175696849823
+            },
+            {
+              "chunk_index": 99,
+              "page": 43,
+              "similarity": 0.5477818250656128
+            }
+          ]
+        },
+        {
+          "id": "tp2_006",
+          "question": "In Python 2, why does minute/60 print 0 when minute is 59?",
+          "gold_chunk_indexes": [
+            86
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 86,
+              "page": 35,
+              "similarity": 0.9033504128456116
+            },
+            {
+              "chunk_index": 328,
+              "page": 176,
+              "similarity": 0.8632162809371948
+            },
+            {
+              "chunk_index": 323,
+              "page": 174,
+              "similarity": 0.8517724275588989
+            },
+            {
+              "chunk_index": 329,
+              "page": 177,
+              "similarity": 0.8501236438751221
+            },
+            {
+              "chunk_index": 335,
+              "page": 180,
+              "similarity": 0.8484292030334473
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 86,
+              "page": 35,
+              "similarity": 0.7395287752151489
+            },
+            {
+              "chunk_index": 325,
+              "page": 175,
+              "similarity": 0.5619581937789917
+            },
+            {
+              "chunk_index": 323,
+              "page": 174,
+              "similarity": 0.5483464598655701
+            },
+            {
+              "chunk_index": 87,
+              "page": 36,
+              "similarity": 0.5456401109695435
+            },
+            {
+              "chunk_index": 147,
+              "page": 70,
+              "similarity": 0.5408124923706055
+            }
+          ]
+        },
+        {
+          "id": "tp2_007",
+          "question": "What do the + and * operators do when applied to strings, according to the book?",
+          "gold_chunk_indexes": [
+            91
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 91,
+              "page": 38,
+              "similarity": 0.8293179273605347
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.8231905698776245
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8230884075164795
+            },
+            {
+              "chunk_index": 11,
+              "page": 9,
+              "similarity": 0.819793701171875
+            },
+            {
+              "chunk_index": 10,
+              "page": 8,
+              "similarity": 0.8182936310768127
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 91,
+              "page": 38,
+              "similarity": 0.6663295030593872
+            },
+            {
+              "chunk_index": 85,
+              "page": 35,
+              "similarity": 0.5837087631225586
+            },
+            {
+              "chunk_index": 189,
+              "page": 96,
+              "similarity": 0.5669295787811279
+            },
+            {
+              "chunk_index": 340,
+              "page": 183,
+              "similarity": 0.5480005741119385
+            },
+            {
+              "chunk_index": 185,
+              "page": 93,
+              "similarity": 0.5450141429901123
+            }
+          ]
+        },
+        {
+          "id": "tp2_008",
+          "question": "What is the flow of execution, and when must a function definition be executed relative to the first call?",
+          "gold_chunk_indexes": [
+            103
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 103,
+              "page": 45,
+              "similarity": 0.8730011582374573
+            },
+            {
+              "chunk_index": 102,
+              "page": 44,
+              "similarity": 0.824683427810669
+            },
+            {
+              "chunk_index": 23,
+              "page": 14,
+              "similarity": 0.8218368291854858
+            },
+            {
+              "chunk_index": 100,
+              "page": 43,
+              "similarity": 0.8212763071060181
+            },
+            {
+              "chunk_index": 366,
+              "page": 196,
+              "similarity": 0.820314884185791
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 103,
+              "page": 45,
+              "similarity": 0.7645896673202515
+            },
+            {
+              "chunk_index": 114,
+              "page": 50,
+              "similarity": 0.6007659435272217
+            },
+            {
+              "chunk_index": 23,
+              "page": 14,
+              "similarity": 0.5968554019927979
+            },
+            {
+              "chunk_index": 113,
+              "page": 50,
+              "similarity": 0.5933818817138672
+            },
+            {
+              "chunk_index": 100,
+              "page": 43,
+              "similarity": 0.5910331606864929
+            }
+          ]
+        },
+        {
+          "id": "tp2_009",
+          "question": "What is the difference between a fruitful function and a void function?",
+          "gold_chunk_indexes": [
+            109
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 109,
+              "page": 48,
+              "similarity": 0.8599179983139038
+            },
+            {
+              "chunk_index": 152,
+              "page": 73,
+              "similarity": 0.839919924736023
+            },
+            {
+              "chunk_index": 172,
+              "page": 84,
+              "similarity": 0.8254852890968323
+            },
+            {
+              "chunk_index": 113,
+              "page": 50,
+              "similarity": 0.8240089416503906
+            },
+            {
+              "chunk_index": 153,
+              "page": 74,
+              "similarity": 0.8217455148696899
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 109,
+              "page": 48,
+              "similarity": 0.6811261177062988
+            },
+            {
+              "chunk_index": 153,
+              "page": 74,
+              "similarity": 0.6242616176605225
+            },
+            {
+              "chunk_index": 152,
+              "page": 73,
+              "similarity": 0.6049492359161377
+            },
+            {
+              "chunk_index": 169,
+              "page": 82,
+              "similarity": 0.5917368531227112
+            },
+            {
+              "chunk_index": 331,
+              "page": 178,
+              "similarity": 0.5682129859924316
+            }
+          ]
+        },
+        {
+          "id": "tp2_010",
+          "question": "What turtle-steering functions does TurtleWorld provide, and what do pu and pd mean?",
+          "gold_chunk_indexes": [
+            119
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 119,
+              "page": 54,
+              "similarity": 0.853384792804718
+            },
+            {
+              "chunk_index": 374,
+              "page": 200,
+              "similarity": 0.8243058919906616
+            },
+            {
+              "chunk_index": 373,
+              "page": 200,
+              "similarity": 0.82084059715271
+            },
+            {
+              "chunk_index": 24,
+              "page": 14,
+              "similarity": 0.816736102104187
+            },
+            {
+              "chunk_index": 118,
+              "page": 53,
+              "similarity": 0.8089591264724731
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 119,
+              "page": 54,
+              "similarity": 0.6166889667510986
+            },
+            {
+              "chunk_index": 374,
+              "page": 200,
+              "similarity": 0.5457519292831421
+            },
+            {
+              "chunk_index": 118,
+              "page": 53,
+              "similarity": 0.5423183441162109
+            },
+            {
+              "chunk_index": 373,
+              "page": 200,
+              "similarity": 0.5081198215484619
+            },
+            {
+              "chunk_index": 24,
+              "page": 14,
+              "similarity": 0.502062201499939
+            }
+          ]
+        },
+        {
+          "id": "tp2_011",
+          "question": "What is refactoring in the turtle-graphics case study?",
+          "gold_chunk_indexes": [
+            129
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 129,
+              "page": 59,
+              "similarity": 0.8294721841812134
+            },
+            {
+              "chunk_index": 132,
+              "page": 60,
+              "similarity": 0.812889039516449
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8057900667190552
+            },
+            {
+              "chunk_index": 131,
+              "page": 60,
+              "similarity": 0.7972223162651062
+            },
+            {
+              "chunk_index": 11,
+              "page": 9,
+              "similarity": 0.7963342666625977
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 129,
+              "page": 59,
+              "similarity": 0.5783686637878418
+            },
+            {
+              "chunk_index": 24,
+              "page": 14,
+              "similarity": 0.5765806436538696
+            },
+            {
+              "chunk_index": 26,
+              "page": 14,
+              "similarity": 0.5404447317123413
+            },
+            {
+              "chunk_index": 123,
+              "page": 56,
+              "similarity": 0.540330171585083
+            },
+            {
+              "chunk_index": 119,
+              "page": 54,
+              "similarity": 0.5358569622039795
+            }
+          ]
+        },
+        {
+          "id": "tp2_012",
+          "question": "What is the difference between = and == in Python, and what are the three logical operators?",
+          "gold_chunk_indexes": [
+            136
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 136,
+              "page": 64,
+              "similarity": 0.8781999349594116
+            },
+            {
+              "chunk_index": 86,
+              "page": 35,
+              "similarity": 0.8509730696678162
+            },
+            {
+              "chunk_index": 194,
+              "page": 98,
+              "similarity": 0.845878005027771
+            },
+            {
+              "chunk_index": 422,
+              "page": 226,
+              "similarity": 0.8372256755828857
+            },
+            {
+              "chunk_index": 11,
+              "page": 9,
+              "similarity": 0.8342404961585999
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 136,
+              "page": 64,
+              "similarity": 0.7348995208740234
+            },
+            {
+              "chunk_index": 85,
+              "page": 35,
+              "similarity": 0.6190309524536133
+            },
+            {
+              "chunk_index": 87,
+              "page": 36,
+              "similarity": 0.6081269383430481
+            },
+            {
+              "chunk_index": 135,
+              "page": 63,
+              "similarity": 0.6036436557769775
+            },
+            {
+              "chunk_index": 89,
+              "page": 37,
+              "similarity": 0.5991130471229553
+            }
+          ]
+        },
+        {
+          "id": "tp2_013",
+          "question": "What is a chained conditional, and how does elif work in the book's x-versus-y example?",
+          "gold_chunk_indexes": [
+            138
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 138,
+              "page": 65,
+              "similarity": 0.8352972269058228
+            },
+            {
+              "chunk_index": 13,
+              "page": 10,
+              "similarity": 0.8294250965118408
+            },
+            {
+              "chunk_index": 7,
+              "page": 7,
+              "similarity": 0.8288925886154175
+            },
+            {
+              "chunk_index": 195,
+              "page": 99,
+              "similarity": 0.8268040418624878
+            },
+            {
+              "chunk_index": 230,
+              "page": 120,
+              "similarity": 0.8249671459197998
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 138,
+              "page": 65,
+              "similarity": 0.5949169397354126
+            },
+            {
+              "chunk_index": 149,
+              "page": 71,
+              "similarity": 0.5131993293762207
+            },
+            {
+              "chunk_index": 139,
+              "page": 65,
+              "similarity": 0.5000580549240112
+            },
+            {
+              "chunk_index": 28,
+              "page": 15,
+              "similarity": 0.4985584020614624
+            },
+            {
+              "chunk_index": 224,
+              "page": 116,
+              "similarity": 0.4818061292171478
+            }
+          ]
+        },
+        {
+          "id": "tp2_014",
+          "question": "What is infinite recursion, and what error does Python report when the maximum recursion depth is reached?",
+          "gold_chunk_indexes": [
+            144
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 404,
+              "page": 217,
+              "similarity": 0.8885321021080017
+            },
+            {
+              "chunk_index": 144,
+              "page": 68,
+              "similarity": 0.8652431964874268
+            },
+            {
+              "chunk_index": 306,
+              "page": 162,
+              "similarity": 0.850727379322052
+            },
+            {
+              "chunk_index": 153,
+              "page": 74,
+              "similarity": 0.8484262228012085
+            },
+            {
+              "chunk_index": 405,
+              "page": 218,
+              "similarity": 0.8482316732406616
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 144,
+              "page": 68,
+              "similarity": 0.6897002458572388
+            },
+            {
+              "chunk_index": 404,
+              "page": 217,
+              "similarity": 0.6768777370452881
+            },
+            {
+              "chunk_index": 405,
+              "page": 218,
+              "similarity": 0.5960143804550171
+            },
+            {
+              "chunk_index": 153,
+              "page": 74,
+              "similarity": 0.5893018245697021
+            },
+            {
+              "chunk_index": 241,
+              "page": 127,
+              "similarity": 0.5850811004638672
+            }
+          ]
+        },
+        {
+          "id": "tp2_015",
+          "question": "What does Downey mean by taking a leap of faith when you come to a function call?",
+          "gold_chunk_indexes": [
+            163
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 163,
+              "page": 79,
+              "similarity": 0.8126753568649292
+            },
+            {
+              "chunk_index": 103,
+              "page": 45,
+              "similarity": 0.794004499912262
+            },
+            {
+              "chunk_index": 1,
+              "page": 3,
+              "similarity": 0.7898113131523132
+            },
+            {
+              "chunk_index": 366,
+              "page": 196,
+              "similarity": 0.7817961573600769
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7805070281028748
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 163,
+              "page": 79,
+              "similarity": 0.5478541254997253
+            },
+            {
+              "chunk_index": 164,
+              "page": 79,
+              "similarity": 0.4932209253311157
+            },
+            {
+              "chunk_index": 5,
+              "page": 6,
+              "similarity": 0.4823814034461975
+            },
+            {
+              "chunk_index": 96,
+              "page": 41,
+              "similarity": 0.4625997543334961
+            },
+            {
+              "chunk_index": 113,
+              "page": 50,
+              "similarity": 0.4535146951675415
+            }
+          ]
+        },
+        {
+          "id": "tp2_016",
+          "question": "What is a guardian in a recursive function, according to the book?",
+          "gold_chunk_indexes": [
+            167
+          ],
+          "e5_first_gold_rank": 5,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8122390508651733
+            },
+            {
+              "chunk_index": 29,
+              "page": 15,
+              "similarity": 0.8065452575683594
+            },
+            {
+              "chunk_index": 160,
+              "page": 77,
+              "similarity": 0.8052093982696533
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.8051435947418213
+            },
+            {
+              "chunk_index": 167,
+              "page": 81,
+              "similarity": 0.8050932884216309
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 167,
+              "page": 81,
+              "similarity": 0.562785267829895
+            },
+            {
+              "chunk_index": 169,
+              "page": 82,
+              "similarity": 0.5000258684158325
+            },
+            {
+              "chunk_index": 165,
+              "page": 80,
+              "similarity": 0.49958983063697815
+            },
+            {
+              "chunk_index": 160,
+              "page": 77,
+              "similarity": 0.493539035320282
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.49048912525177
+            }
+          ]
+        },
+        {
+          "id": "tp2_017",
+          "question": "How does the break statement exit a loop that reads input until the user types done?",
+          "gold_chunk_indexes": [
+            176,
+            177
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 177,
+              "page": 88,
+              "similarity": 0.8578927516937256
+            },
+            {
+              "chunk_index": 190,
+              "page": 96,
+              "similarity": 0.8558028936386108
+            },
+            {
+              "chunk_index": 176,
+              "page": 87,
+              "similarity": 0.8452010750770569
+            },
+            {
+              "chunk_index": 145,
+              "page": 69,
+              "similarity": 0.8376474380493164
+            },
+            {
+              "chunk_index": 175,
+              "page": 87,
+              "similarity": 0.8330011367797852
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 175,
+              "page": 87,
+              "similarity": 0.6528360843658447
+            },
+            {
+              "chunk_index": 177,
+              "page": 88,
+              "similarity": 0.6526197195053101
+            },
+            {
+              "chunk_index": 176,
+              "page": 87,
+              "similarity": 0.6480610370635986
+            },
+            {
+              "chunk_index": 190,
+              "page": 96,
+              "similarity": 0.6071879267692566
+            },
+            {
+              "chunk_index": 145,
+              "page": 69,
+              "similarity": 0.5922198295593262
+            }
+          ]
+        },
+        {
+          "id": "tp2_018",
+          "question": "What does a string slice like s[0:5] return for s = 'Monty Python', and which indices are included?",
+          "gold_chunk_indexes": [
+            188
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 188,
+              "page": 95,
+              "similarity": 0.8530036807060242
+            },
+            {
+              "chunk_index": 198,
+              "page": 101,
+              "similarity": 0.8346843719482422
+            },
+            {
+              "chunk_index": 422,
+              "page": 226,
+              "similarity": 0.8219060897827148
+            },
+            {
+              "chunk_index": 221,
+              "page": 114,
+              "similarity": 0.8198399543762207
+            },
+            {
+              "chunk_index": 196,
+              "page": 99,
+              "similarity": 0.8177646398544312
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 188,
+              "page": 95,
+              "similarity": 0.6214185953140259
+            },
+            {
+              "chunk_index": 198,
+              "page": 101,
+              "similarity": 0.5709277391433716
+            },
+            {
+              "chunk_index": 258,
+              "page": 136,
+              "similarity": 0.5343174338340759
+            },
+            {
+              "chunk_index": 216,
+              "page": 112,
+              "similarity": 0.526123046875
+            },
+            {
+              "chunk_index": 193,
+              "page": 98,
+              "similarity": 0.525422990322113
+            }
+          ]
+        },
+        {
+          "id": "tp2_019",
+          "question": "Why does greeting[0] = 'J' fail when greeting is 'Hello, world!', and what does it mean that strings are immutable?",
+          "gold_chunk_indexes": [
+            189
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 189,
+              "page": 96,
+              "similarity": 0.883689284324646
+            },
+            {
+              "chunk_index": 195,
+              "page": 99,
+              "similarity": 0.8435462713241577
+            },
+            {
+              "chunk_index": 196,
+              "page": 99,
+              "similarity": 0.8412481546401978
+            },
+            {
+              "chunk_index": 306,
+              "page": 162,
+              "similarity": 0.8412448167800903
+            },
+            {
+              "chunk_index": 422,
+              "page": 226,
+              "similarity": 0.8334976434707642
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 189,
+              "page": 96,
+              "similarity": 0.6756256818771362
+            },
+            {
+              "chunk_index": 82,
+              "page": 33,
+              "similarity": 0.5256079435348511
+            },
+            {
+              "chunk_index": 76,
+              "page": 28,
+              "similarity": 0.5110387802124023
+            },
+            {
+              "chunk_index": 243,
+              "page": 128,
+              "similarity": 0.49870097637176514
+            },
+            {
+              "chunk_index": 200,
+              "page": 102,
+              "similarity": 0.4985065162181854
+            }
+          ]
+        },
+        {
+          "id": "tp2_020",
+          "question": "How can is_abecedarian be implemented with a for loop, and what does the function check?",
+          "gold_chunk_indexes": [
+            207
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 207,
+              "page": 106,
+              "similarity": 0.8760218620300293
+            },
+            {
+              "chunk_index": 187,
+              "page": 94,
+              "similarity": 0.8585940599441528
+            },
+            {
+              "chunk_index": 13,
+              "page": 10,
+              "similarity": 0.8457565903663635
+            },
+            {
+              "chunk_index": 204,
+              "page": 104,
+              "similarity": 0.8447897434234619
+            },
+            {
+              "chunk_index": 196,
+              "page": 99,
+              "similarity": 0.8430189490318298
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 207,
+              "page": 106,
+              "similarity": 0.7257953882217407
+            },
+            {
+              "chunk_index": 425,
+              "page": 228,
+              "similarity": 0.5686193704605103
+            },
+            {
+              "chunk_index": 187,
+              "page": 94,
+              "similarity": 0.5588376522064209
+            },
+            {
+              "chunk_index": 423,
+              "page": 227,
+              "similarity": 0.5556446313858032
+            },
+            {
+              "chunk_index": 190,
+              "page": 96,
+              "similarity": 0.5549575090408325
+            }
+          ]
+        },
+        {
+          "id": "tp2_021",
+          "question": "How does the book's histogram function use a dictionary to count characters in a string?",
+          "gold_chunk_indexes": [
+            238
+          ],
+          "e5_first_gold_rank": 4,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 279,
+              "page": 147,
+              "similarity": 0.8429239392280579
+            },
+            {
+              "chunk_index": 239,
+              "page": 125,
+              "similarity": 0.8335536122322083
+            },
+            {
+              "chunk_index": 278,
+              "page": 147,
+              "similarity": 0.8270686864852905
+            },
+            {
+              "chunk_index": 238,
+              "page": 125,
+              "similarity": 0.8235986232757568
+            },
+            {
+              "chunk_index": 288,
+              "page": 152,
+              "similarity": 0.8202599287033081
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 238,
+              "page": 125,
+              "similarity": 0.6373066902160645
+            },
+            {
+              "chunk_index": 278,
+              "page": 147,
+              "similarity": 0.6028364896774292
+            },
+            {
+              "chunk_index": 239,
+              "page": 125,
+              "similarity": 0.5911833643913269
+            },
+            {
+              "chunk_index": 282,
+              "page": 149,
+              "similarity": 0.571850061416626
+            },
+            {
+              "chunk_index": 279,
+              "page": 147,
+              "similarity": 0.5707240104675293
+            }
+          ]
+        },
+        {
+          "id": "tp2_022",
+          "question": "What is a memo, and why does the book introduce memoization for fibonacci?",
+          "gold_chunk_indexes": [
+            245
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 245,
+              "page": 129,
+              "similarity": 0.8480631709098816
+            },
+            {
+              "chunk_index": 246,
+              "page": 129,
+              "similarity": 0.8369810581207275
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.8361884355545044
+            },
+            {
+              "chunk_index": 13,
+              "page": 10,
+              "similarity": 0.8343794345855713
+            },
+            {
+              "chunk_index": 10,
+              "page": 8,
+              "similarity": 0.8343321084976196
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 245,
+              "page": 129,
+              "similarity": 0.5890496969223022
+            },
+            {
+              "chunk_index": 246,
+              "page": 129,
+              "similarity": 0.5521657466888428
+            },
+            {
+              "chunk_index": 10,
+              "page": 8,
+              "similarity": 0.49636030197143555
+            },
+            {
+              "chunk_index": 433,
+              "page": 233,
+              "similarity": 0.4865751266479492
+            },
+            {
+              "chunk_index": 244,
+              "page": 128,
+              "similarity": 0.4499533772468567
+            }
+          ]
+        },
+        {
+          "id": "tp2_023",
+          "question": "What are global variables, and how do they differ from local variables?",
+          "gold_chunk_indexes": [
+            247
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 247,
+              "page": 130,
+              "similarity": 0.8440346121788025
+            },
+            {
+              "chunk_index": 253,
+              "page": 133,
+              "similarity": 0.8252143859863281
+            },
+            {
+              "chunk_index": 368,
+              "page": 197,
+              "similarity": 0.8246686458587646
+            },
+            {
+              "chunk_index": 248,
+              "page": 130,
+              "similarity": 0.8244303464889526
+            },
+            {
+              "chunk_index": 84,
+              "page": 34,
+              "similarity": 0.8235915303230286
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 247,
+              "page": 130,
+              "similarity": 0.6640368103981018
+            },
+            {
+              "chunk_index": 253,
+              "page": 133,
+              "similarity": 0.584196925163269
+            },
+            {
+              "chunk_index": 83,
+              "page": 34,
+              "similarity": 0.5093966722488403
+            },
+            {
+              "chunk_index": 82,
+              "page": 33,
+              "similarity": 0.478217750787735
+            },
+            {
+              "chunk_index": 368,
+              "page": 197,
+              "similarity": 0.473158061504364
+            }
+          ]
+        },
+        {
+          "id": "tp2_024",
+          "question": "What does the built-in function divmod return, and how can a function return two values using a tuple?",
+          "gold_chunk_indexes": [
+            259
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 259,
+              "page": 137,
+              "similarity": 0.8773149251937866
+            },
+            {
+              "chunk_index": 260,
+              "page": 137,
+              "similarity": 0.8757802844047546
+            },
+            {
+              "chunk_index": 262,
+              "page": 138,
+              "similarity": 0.8422354459762573
+            },
+            {
+              "chunk_index": 428,
+              "page": 229,
+              "similarity": 0.8404567241668701
+            },
+            {
+              "chunk_index": 294,
+              "page": 156,
+              "similarity": 0.834907054901123
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 259,
+              "page": 137,
+              "similarity": 0.7459619641304016
+            },
+            {
+              "chunk_index": 260,
+              "page": 137,
+              "similarity": 0.6901092529296875
+            },
+            {
+              "chunk_index": 261,
+              "page": 138,
+              "similarity": 0.5891081094741821
+            },
+            {
+              "chunk_index": 263,
+              "page": 139,
+              "similarity": 0.5738426446914673
+            },
+            {
+              "chunk_index": 257,
+              "page": 136,
+              "similarity": 0.5738149285316467
+            }
+          ]
+        },
+        {
+          "id": "tp2_025",
+          "question": "What does the built-in function zip do when given a string and a list?",
+          "gold_chunk_indexes": [
+            261
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 261,
+              "page": 138,
+              "similarity": 0.8312681913375854
+            },
+            {
+              "chunk_index": 219,
+              "page": 113,
+              "similarity": 0.8280540704727173
+            },
+            {
+              "chunk_index": 262,
+              "page": 138,
+              "similarity": 0.8279819488525391
+            },
+            {
+              "chunk_index": 422,
+              "page": 226,
+              "similarity": 0.820315957069397
+            },
+            {
+              "chunk_index": 222,
+              "page": 115,
+              "similarity": 0.8118506073951721
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 261,
+              "page": 138,
+              "similarity": 0.7303232550621033
+            },
+            {
+              "chunk_index": 262,
+              "page": 138,
+              "similarity": 0.6226967573165894
+            },
+            {
+              "chunk_index": 222,
+              "page": 115,
+              "similarity": 0.5944455862045288
+            },
+            {
+              "chunk_index": 308,
+              "page": 163,
+              "similarity": 0.5904622077941895
+            },
+            {
+              "chunk_index": 270,
+              "page": 142,
+              "similarity": 0.582888126373291
+            }
+          ]
+        },
+        {
+          "id": "tp2_026",
+          "question": "What problem with anydbm does the pickle module solve, and what do pickle.dumps and pickle.loads do?",
+          "gold_chunk_indexes": [
+            300,
+            301
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 300,
+              "page": 159,
+              "similarity": 0.8820362687110901
+            },
+            {
+              "chunk_index": 299,
+              "page": 159,
+              "similarity": 0.8413982391357422
+            },
+            {
+              "chunk_index": 301,
+              "page": 160,
+              "similarity": 0.8217812776565552
+            },
+            {
+              "chunk_index": 49,
+              "page": 19,
+              "similarity": 0.7948992252349854
+            },
+            {
+              "chunk_index": 24,
+              "page": 14,
+              "similarity": 0.7942031025886536
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 300,
+              "page": 159,
+              "similarity": 0.6917558312416077
+            },
+            {
+              "chunk_index": 299,
+              "page": 159,
+              "similarity": 0.6025272607803345
+            },
+            {
+              "chunk_index": 301,
+              "page": 160,
+              "similarity": 0.599345326423645
+            },
+            {
+              "chunk_index": 49,
+              "page": 19,
+              "similarity": 0.5311563014984131
+            },
+            {
+              "chunk_index": 303,
+              "page": 161,
+              "similarity": 0.47865617275238037
+            }
+          ]
+        },
+        {
+          "id": "tp2_027",
+          "question": "What options does the book list for representing a two-dimensional point in Python before defining a Point class?",
+          "gold_chunk_indexes": [
+            310
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 310,
+              "page": 165,
+              "similarity": 0.8491272330284119
+            },
+            {
+              "chunk_index": 333,
+              "page": 179,
+              "similarity": 0.8296120166778564
+            },
+            {
+              "chunk_index": 2,
+              "page": 4,
+              "similarity": 0.8235548734664917
+            },
+            {
+              "chunk_index": 10,
+              "page": 8,
+              "similarity": 0.821956992149353
+            },
+            {
+              "chunk_index": 341,
+              "page": 183,
+              "similarity": 0.8219195604324341
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 310,
+              "page": 165,
+              "similarity": 0.6934323310852051
+            },
+            {
+              "chunk_index": 311,
+              "page": 166,
+              "similarity": 0.6024713516235352
+            },
+            {
+              "chunk_index": 333,
+              "page": 179,
+              "similarity": 0.5876752138137817
+            },
+            {
+              "chunk_index": 440,
+              "page": 238,
+              "similarity": 0.5792971849441528
+            },
+            {
+              "chunk_index": 313,
+              "page": 167,
+              "similarity": 0.5714133977890015
+            }
+          ]
+        },
+        {
+          "id": "tp2_028",
+          "question": "What is the difference between a shallow copy and a deep copy in the Chapter 15 glossary?",
+          "gold_chunk_indexes": [
+            319
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 317,
+              "page": 170,
+              "similarity": 0.8424302339553833
+            },
+            {
+              "chunk_index": 319,
+              "page": 171,
+              "similarity": 0.8212469816207886
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8102334141731262
+            },
+            {
+              "chunk_index": 12,
+              "page": 9,
+              "similarity": 0.8070509433746338
+            },
+            {
+              "chunk_index": 11,
+              "page": 9,
+              "similarity": 0.8061259388923645
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 317,
+              "page": 170,
+              "similarity": 0.6319334506988525
+            },
+            {
+              "chunk_index": 319,
+              "page": 171,
+              "similarity": 0.5616233348846436
+            },
+            {
+              "chunk_index": 53,
+              "page": 19,
+              "similarity": 0.4883866012096405
+            },
+            {
+              "chunk_index": 52,
+              "page": 19,
+              "similarity": 0.48618921637535095
+            },
+            {
+              "chunk_index": 50,
+              "page": 19,
+              "similarity": 0.4699926972389221
+            }
+          ]
+        },
+        {
+          "id": "tp2_029",
+          "question": "When is the Time class __init__ method invoked, and what default arguments does the book's init method use?",
+          "gold_chunk_indexes": [
+            338
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 339,
+              "page": 182,
+              "similarity": 0.8579972982406616
+            },
+            {
+              "chunk_index": 338,
+              "page": 182,
+              "similarity": 0.8416123986244202
+            },
+            {
+              "chunk_index": 335,
+              "page": 180,
+              "similarity": 0.8347547650337219
+            },
+            {
+              "chunk_index": 343,
+              "page": 184,
+              "similarity": 0.8172399997711182
+            },
+            {
+              "chunk_index": 336,
+              "page": 181,
+              "similarity": 0.8139024972915649
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 338,
+              "page": 182,
+              "similarity": 0.6549829244613647
+            },
+            {
+              "chunk_index": 336,
+              "page": 181,
+              "similarity": 0.617499828338623
+            },
+            {
+              "chunk_index": 339,
+              "page": 182,
+              "similarity": 0.603556752204895
+            },
+            {
+              "chunk_index": 335,
+              "page": 180,
+              "similarity": 0.597149670124054
+            },
+            {
+              "chunk_index": 334,
+              "page": 180,
+              "similarity": 0.5784856081008911
+            }
+          ]
+        },
+        {
+          "id": "tp2_030",
+          "question": "What is a callback in the Tkinter chapter, and how does event-driven programming determine the flow of execution?",
+          "gold_chunk_indexes": [
+            378
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": null,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 393,
+              "page": 210,
+              "similarity": 0.8641467094421387
+            },
+            {
+              "chunk_index": 378,
+              "page": 203,
+              "similarity": 0.8622928857803345
+            },
+            {
+              "chunk_index": 392,
+              "page": 210,
+              "similarity": 0.8525360822677612
+            },
+            {
+              "chunk_index": 388,
+              "page": 208,
+              "similarity": 0.847589373588562
+            },
+            {
+              "chunk_index": 59,
+              "page": 21,
+              "similarity": 0.8426432609558105
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 392,
+              "page": 210,
+              "similarity": 0.6401717662811279
+            },
+            {
+              "chunk_index": 388,
+              "page": 208,
+              "similarity": 0.6041052341461182
+            },
+            {
+              "chunk_index": 376,
+              "page": 202,
+              "similarity": 0.5745954513549805
+            },
+            {
+              "chunk_index": 393,
+              "page": 210,
+              "similarity": 0.5640408992767334
+            },
+            {
+              "chunk_index": 399,
+              "page": 214,
+              "similarity": 0.5603744983673096
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "book_id": "arthashastra",
+      "n_questions": 30,
+      "e5": {
+        "hit@1": 0.9666666666666667,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr@10": 0.9833333333333333,
+        "n_misses_top10": 0,
+        "eval_seconds": 8.307
+      },
+      "bge_m3_dense": {
+        "hit@1": 0.9,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "mrr@10": 0.9416666666666667,
+        "n_misses_top10": 0,
+        "eval_seconds": 2.172,
+        "query_embed_seconds": 2.062,
+        "search_seconds": 0.104,
+        "model_revision": "5617a9f61b028005a4858fdac845db406aefb181"
+      },
+      "n_improved": 0,
+      "n_worsened": 3,
+      "n_unchanged": 27,
+      "gita_e5_top10_misses": [],
+      "questions": [
+        {
+          "id": "arth_001",
+          "question": "According to the key points, what is the king's core duty regarding his subjects, and what does that duty lead to?",
+          "gold_chunk_indexes": [
+            0
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.850970983505249
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7947684526443481
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7844139337539673
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7771557569503784
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7689293622970581
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.643848180770874
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.4237098693847656
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.42046383023262024
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.413516104221344
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.40862974524497986
+            }
+          ]
+        },
+        {
+          "id": "arth_002",
+          "question": "According to what sources must the king administer law in order to conquer the world?",
+          "gold_chunk_indexes": [
+            0
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.8041950464248657
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7474848628044128
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7382233142852783
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7363615036010742
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.726962685585022
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.5555596351623535
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.40516015887260437
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.37676936388015747
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.3724519610404968
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.35231494903564453
+            }
+          ]
+        },
+        {
+          "id": "arth_003",
+          "question": "What military responsibilities does the text assign to the king?",
+          "gold_chunk_indexes": [
+            0
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.828361988067627
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7562682628631592
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7506531476974487
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7397380471229553
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.733634352684021
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.6019877791404724
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.4382348656654358
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.4060836434364319
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.37054377794265747
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.36110037565231323
+            }
+          ]
+        },
+        {
+          "id": "arth_004",
+          "question": "How should the king collect taxes, according to the key points on revenue and treasury?",
+          "gold_chunk_indexes": [
+            0
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.8155764937400818
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7752654552459717
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7731518745422363
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.7717432975769043
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7711551785469055
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.5426143407821655
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.4633710980415344
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.4187231659889221
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.4109092950820923
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.40598663687705994
+            }
+          ]
+        },
+        {
+          "id": "arth_005",
+          "question": "What infrastructure and safety duties does the king have regarding roads, forests, and trade?",
+          "gold_chunk_indexes": [
+            0
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.8280125260353088
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.762337327003479
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7457923293113708
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7385510206222534
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.7355517148971558
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.6145904064178467
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.41462600231170654
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.4129208028316498
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.38072869181632996
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.33289599418640137
+            }
+          ]
+        },
+        {
+          "id": "arth_006",
+          "question": "According to Chapter 36, Text 13, how should wages be fixed?",
+          "gold_chunk_indexes": [
+            1
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.852592408657074
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.8170586228370667
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.8038469552993774
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7819498777389526
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.7801809310913086
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.6551424264907837
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.5698034763336182
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.5518379807472229
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.5323609709739685
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.4362502694129944
+            }
+          ]
+        },
+        {
+          "id": "arth_007",
+          "question": "If workers have no prior wage agreement, how is fair compensation determined?",
+          "gold_chunk_indexes": [
+            1
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.8557270765304565
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.8279710412025452
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.8207000494003296
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.7970413565635681
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7725284099578857
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.6569758057594299
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.5653595924377441
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.5579043626785278
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.4969325661659241
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.49001407623291016
+            }
+          ]
+        },
+        {
+          "id": "arth_008",
+          "question": "What standard shares of produce or proceeds are set for cultivators, herdsmen, and traders?",
+          "gold_chunk_indexes": [
+            1
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.8207491636276245
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.8108144998550415
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7786145210266113
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.7680476903915405
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.759859025478363
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.6022469401359558
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.5032930374145508
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.47615182399749756
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.44233179092407227
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.43369996547698975
+            }
+          ]
+        },
+        {
+          "id": "arth_009",
+          "question": "What fine does an employer face for failing to pay wages?",
+          "gold_chunk_indexes": [
+            1,
+            2
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.8264369368553162
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.8208078145980835
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7943115830421448
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.7626966834068298
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.7528879642486572
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.6189968585968018
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.5929571390151978
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.5003990530967712
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.46095120906829834
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.3787231743335724
+            }
+          ]
+        },
+        {
+          "id": "arth_010",
+          "question": "What range of fines applies when someone misappropriates wages?",
+          "gold_chunk_indexes": [
+            1,
+            2
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.8602728247642517
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.8371618986129761
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7949340343475342
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7865288257598877
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.7644602060317993
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7060062885284424
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.5815267562866211
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.5205683708190918
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.4909343123435974
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.406280517578125
+            }
+          ]
+        },
+        {
+          "id": "arth_011",
+          "question": "How are wage disagreements settled when witnesses are present, and what happens if there are no witnesses?",
+          "gold_chunk_indexes": [
+            1,
+            2
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.8841668367385864
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.8447663187980652
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.8165009617805481
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.8154467940330505
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8070462942123413
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7032359838485718
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.5993644595146179
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.536237895488739
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.49586939811706543
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.49581921100616455
+            }
+          ]
+        },
+        {
+          "id": "arth_012",
+          "question": "What permitted profit margins does the Superintendent of Commerce allow on local goods versus imported goods?",
+          "gold_chunk_indexes": [
+            3
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.8261222243309021
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7478951811790466
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7472585439682007
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7442877292633057
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.738633930683136
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.6499730944633484
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.4080410897731781
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.3899609446525574
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.38737940788269043
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.3817388415336609
+            }
+          ]
+        },
+        {
+          "id": "arth_013",
+          "question": "What costs does the Superintendent consider when determining the base selling price?",
+          "gold_chunk_indexes": [
+            3
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.8448502421379089
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7578551173210144
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7485517263412476
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7322599291801453
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.7318909764289856
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.6670074462890625
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.40818169713020325
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.38787561655044556
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.37437063455581665
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.36684247851371765
+            }
+          ]
+        },
+        {
+          "id": "arth_014",
+          "question": "What happens if wholesale merchandise fails to sell at the fixed rate?",
+          "gold_chunk_indexes": [
+            3
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.8090513944625854
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7821531295776367
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7745404243469238
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7477109432220459
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7475836873054504
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.5774434804916382
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.471121609210968
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.4411604106426239
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.4271923303604126
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.4229316711425781
+            }
+          ]
+        },
+        {
+          "id": "arth_015",
+          "question": "Does the Arthashastra explicitly require equal pay for male and female workers doing similar work?",
+          "gold_chunk_indexes": [
+            4
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.8901485800743103
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.849012553691864
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.8283830285072327
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.8181480169296265
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.8098131418228149
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.789181113243103
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.651695728302002
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.6484180092811584
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.5252147912979126
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.41029560565948486
+            }
+          ]
+        },
+        {
+          "id": "arth_016",
+          "question": "How are women spinners at the weaving house paid?",
+          "gold_chunk_indexes": [
+            4
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.8262324333190918
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7806631326675415
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7690343260765076
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.762281060218811
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7415961027145386
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.5572385191917419
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.43503338098526
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.4341925382614136
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.3869098424911499
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.37275052070617676
+            }
+          ]
+        },
+        {
+          "id": "arth_017",
+          "question": "What happens to wages if a worker's output falls short in quantity or quality?",
+          "gold_chunk_indexes": [
+            4
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 4,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.8136179447174072
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.8027163743972778
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.802213191986084
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.76610267162323
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7572536468505859
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.6072896718978882
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.5867268443107605
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.5324358940124512
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.5306113958358765
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.41608577966690063
+            }
+          ]
+        },
+        {
+          "id": "arth_018",
+          "question": "What explicit protection does the text give children under eight years old who have no relatives?",
+          "gold_chunk_indexes": [
+            4,
+            5,
+            6
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.8147488832473755
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7941306233406067
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7923808693885803
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7499755620956421
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.7494741678237915
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.5654604434967041
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.5345851182937622
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.4274086356163025
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.3468305766582489
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.321722149848938
+            }
+          ]
+        },
+        {
+          "id": "arth_019",
+          "question": "What status does the text assign to children born to enslaved mothers?",
+          "gold_chunk_indexes": [
+            6
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7923580408096313
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7908788323402405
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7640565633773804
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.732142448425293
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.7304452657699585
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.5259802341461182
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.5181978344917297
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.4639473557472229
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.3534872531890869
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.3196336030960083
+            }
+          ]
+        },
+        {
+          "id": "arth_020",
+          "question": "When combining with partners of equal power, why does the text prefer two partners of equal strength over one stronger partner?",
+          "gold_chunk_indexes": [
+            6,
+            7
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.848812460899353
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8144261837005615
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.8124312162399292
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7943974733352661
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7879958152770996
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.6273722648620605
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.4789428412914276
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.4665895998477936
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.42880767583847046
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.4156174063682556
+            }
+          ]
+        },
+        {
+          "id": "arth_021",
+          "question": "If your partners are weaker than you, what advantage does the text say you have?",
+          "gold_chunk_indexes": [
+            6,
+            7
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.8146708011627197
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7946069240570068
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7894644737243652
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7752198576927185
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7751531004905701
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.5951784253120422
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.4975963234901428
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.4517134726047516
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.4477573335170746
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.43136125802993774
+            }
+          ]
+        },
+        {
+          "id": "arth_022",
+          "question": "Before entering an agreement that combines resources, what should the parties define up front?",
+          "gold_chunk_indexes": [
+            7
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.800888180732727
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.761747419834137
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.759713888168335
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.753157913684845
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7501111030578613
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.6183703541755676
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.4969446063041687
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.486788272857666
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.4762435555458069
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.4650813341140747
+            }
+          ]
+        },
+        {
+          "id": "arth_023",
+          "question": "If you must partner with or borrow from someone more powerful, what precautions does the text recommend?",
+          "gold_chunk_indexes": [
+            7
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.8388785123825073
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.816954493522644
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7972649931907654
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7888032793998718
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.7725996971130371
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.6217312812805176
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.5149883031845093
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.5115735530853271
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.46864694356918335
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.41579318046569824
+            }
+          ]
+        },
+        {
+          "id": "arth_024",
+          "question": "When is intelligence considered reliable, according to the discussion of information verification?",
+          "gold_chunk_indexes": [
+            8
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.822567343711853
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7487783432006836
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.7442575097084045
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.7360459566116333
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7332209348678589
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.6324340105056763
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.4516521394252777
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.43165314197540283
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.411042183637619
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.3913686275482178
+            }
+          ]
+        },
+        {
+          "id": "arth_025",
+          "question": "How should you gather information from a foreign counterpart while revealing little yourself?",
+          "gold_chunk_indexes": [
+            8
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.846622884273529
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.8048656582832336
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.7746133208274841
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.7670332193374634
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.760732889175415
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.6050694584846497
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.49438515305519104
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.4336187541484833
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.37401771545410156
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.36623919010162354
+            }
+          ]
+        },
+        {
+          "id": "arth_026",
+          "question": "Why might one spread different versions of information through different people?",
+          "gold_chunk_indexes": [
+            8
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8309530019760132
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.7693886160850525
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7552337646484375
+            },
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.7538301348686218
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7530548572540283
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.5817641615867615
+            },
+            {
+              "chunk_index": 7,
+              "page": 6,
+              "similarity": 0.4369163513183594
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.42211607098579407
+            },
+            {
+              "chunk_index": 5,
+              "page": 4,
+              "similarity": 0.3811852037906647
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.3770156800746918
+            }
+          ]
+        },
+        {
+          "id": "arth_027",
+          "question": "If an alleged thief admits the theft, is that confession enough for conviction?",
+          "gold_chunk_indexes": [
+            8,
+            9
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.8632447123527527
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8164103031158447
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7927005290985107
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7904796600341797
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.77454674243927
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.7318286299705505
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.4808242619037628
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.47679924964904785
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.45120495557785034
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.41481396555900574
+            }
+          ]
+        },
+        {
+          "id": "arth_028",
+          "question": "If an alleged thief denies wrongdoing, what circumstantial signs should the judge examine?",
+          "gold_chunk_indexes": [
+            9
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.8834734559059143
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.8001348376274109
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7877227067947388
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7860113382339478
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7687838077545166
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.7115083932876587
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.4758771061897278
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.4604852795600891
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.448743999004364
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.40142709016799927
+            }
+          ]
+        },
+        {
+          "id": "arth_029",
+          "question": "May a judge impose punishment when a theft charge is not quite established?",
+          "gold_chunk_indexes": [
+            9
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.8312851786613464
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7685559988021851
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.7656071186065674
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7644867300987244
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.756291925907135
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.6670454144477844
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.5428754687309265
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.5066718459129333
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.47965118288993835
+            },
+            {
+              "chunk_index": 3,
+              "page": 3,
+              "similarity": 0.469233900308609
+            }
+          ]
+        },
+        {
+          "id": "arth_030",
+          "question": "If neither confession nor circumstantial evidence proves guilt, how should the accused be treated, and why might innocent people be seized?",
+          "gold_chunk_indexes": [
+            9
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.853648841381073
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.805249810218811
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.7950804233551025
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.7864480018615723
+            },
+            {
+              "chunk_index": 4,
+              "page": 4,
+              "similarity": 0.7798026204109192
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 9,
+              "page": 8,
+              "similarity": 0.6580496430397034
+            },
+            {
+              "chunk_index": 8,
+              "page": 7,
+              "similarity": 0.4610854387283325
+            },
+            {
+              "chunk_index": 6,
+              "page": 5,
+              "similarity": 0.43357527256011963
+            },
+            {
+              "chunk_index": 2,
+              "page": 2,
+              "similarity": 0.4262460470199585
+            },
+            {
+              "chunk_index": 1,
+              "page": 2,
+              "similarity": 0.40314799547195435
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "book_id": "bhagavad_gita",
+      "n_questions": 30,
+      "e5": {
+        "hit@1": 0.4,
+        "hit@5": 0.7,
+        "hit@10": 0.7666666666666667,
+        "mrr@10": 0.5342592592592593,
+        "n_misses_top10": 7,
+        "eval_seconds": 10.542
+      },
+      "bge_m3_dense": {
+        "hit@1": 0.5,
+        "hit@5": 0.8,
+        "hit@10": 0.8333333333333334,
+        "mrr@10": 0.6261111111111112,
+        "n_misses_top10": 5,
+        "eval_seconds": 3.271,
+        "query_embed_seconds": 2.371,
+        "search_seconds": 0.889,
+        "model_revision": "5617a9f61b028005a4858fdac845db406aefb181"
+      },
+      "n_improved": 10,
+      "n_worsened": 5,
+      "n_unchanged": 15,
+      "gita_e5_top10_misses": [
+        {
+          "id": "bg_003",
+          "question": "How does the Introduction open the English meaning of the verse beginning om ajnana-timirandhasya?",
+          "e5_rank": null,
+          "bge_m3_rank": null,
+          "fixed_top10": false,
+          "still_miss": true
+        },
+        {
+          "id": "bg_004",
+          "question": "What three classes of transcendentalists does the Introduction name, and what English labels does it give them?",
+          "e5_rank": null,
+          "bge_m3_rank": null,
+          "fixed_top10": false,
+          "still_miss": true
+        },
+        {
+          "id": "bg_010",
+          "question": "According to the purport, why had Krishna agreed to be Arjuna's charioteer?",
+          "e5_rank": null,
+          "bge_m3_rank": null,
+          "fixed_top10": false,
+          "still_miss": true
+        },
+        {
+          "id": "bg_015",
+          "question": "What four miseries does this purport say are present everywhere in the material world?",
+          "e5_rank": null,
+          "bge_m3_rank": null,
+          "fixed_top10": false,
+          "still_miss": true
+        },
+        {
+          "id": "bg_020",
+          "question": "What does the quoted verse from Bhakti-rasamrita-sindhu say about devotional service that ignores authorized Vedic literatures?",
+          "e5_rank": null,
+          "bge_m3_rank": 1,
+          "fixed_top10": true,
+          "still_miss": false
+        },
+        {
+          "id": "bg_022",
+          "question": "Which four kinds of pious men does this translation say begin to render devotional service unto Krishna?",
+          "e5_rank": null,
+          "bge_m3_rank": 2,
+          "fixed_top10": true,
+          "still_miss": false
+        },
+        {
+          "id": "bg_024",
+          "question": "According to this translation, how is the Supreme Personality of Godhead, who is greater than all, said to be attained?",
+          "e5_rank": null,
+          "bge_m3_rank": 3,
+          "fixed_top10": true,
+          "still_miss": false
+        }
+      ],
+      "questions": [
+        {
+          "id": "bg_001",
+          "question": "According to the Preface, what happened to the original manuscript when Bhagavad-gita As It Is was first published?",
+          "gold_chunk_indexes": [
+            1
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.8372035622596741
+            },
+            {
+              "chunk_index": 1,
+              "page": 4,
+              "similarity": 0.8254101276397705
+            },
+            {
+              "chunk_index": 1726,
+              "page": 1030,
+              "similarity": 0.8196746110916138
+            },
+            {
+              "chunk_index": 3,
+              "page": 5,
+              "similarity": 0.8061532974243164
+            },
+            {
+              "chunk_index": 4,
+              "page": 5,
+              "similarity": 0.8050723075866699
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1,
+              "page": 4,
+              "similarity": 0.6762819290161133
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.5749620199203491
+            },
+            {
+              "chunk_index": 1726,
+              "page": 1030,
+              "similarity": 0.5533614754676819
+            },
+            {
+              "chunk_index": 3,
+              "page": 5,
+              "similarity": 0.5282119512557983
+            },
+            {
+              "chunk_index": 20,
+              "page": 14,
+              "similarity": 0.4922773838043213
+            }
+          ]
+        },
+        {
+          "id": "bg_002",
+          "question": "In the author's other books, what system of presenting each verse does he say he uses?",
+          "gold_chunk_indexes": [
+            1
+          ],
+          "e5_first_gold_rank": 9,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 1336,
+              "page": 781,
+              "similarity": 0.7719075083732605
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.7713996171951294
+            },
+            {
+              "chunk_index": 727,
+              "page": 433,
+              "similarity": 0.7688340544700623
+            },
+            {
+              "chunk_index": 50,
+              "page": 29,
+              "similarity": 0.768284797668457
+            },
+            {
+              "chunk_index": 1080,
+              "page": 631,
+              "similarity": 0.7680044174194336
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1103,
+              "page": 645,
+              "similarity": 0.4837889075279236
+            },
+            {
+              "chunk_index": 1,
+              "page": 4,
+              "similarity": 0.47631269693374634
+            },
+            {
+              "chunk_index": 1073,
+              "page": 627,
+              "similarity": 0.4721307158470154
+            },
+            {
+              "chunk_index": 477,
+              "page": 284,
+              "similarity": 0.4712865650653839
+            },
+            {
+              "chunk_index": 1425,
+              "page": 841,
+              "similarity": 0.4706047475337982
+            }
+          ]
+        },
+        {
+          "id": "bg_003",
+          "question": "How does the Introduction open the English meaning of the verse beginning om ajnana-timirandhasya?",
+          "gold_chunk_indexes": [
+            7
+          ],
+          "e5_first_gold_rank": null,
+          "bge_m3_first_gold_rank": null,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 1449,
+              "page": 853,
+              "similarity": 0.8132905960083008
+            },
+            {
+              "chunk_index": 1027,
+              "page": 602,
+              "similarity": 0.8132226467132568
+            },
+            {
+              "chunk_index": 615,
+              "page": 367,
+              "similarity": 0.8103413581848145
+            },
+            {
+              "chunk_index": 762,
+              "page": 453,
+              "similarity": 0.8087267875671387
+            },
+            {
+              "chunk_index": 1165,
+              "page": 687,
+              "similarity": 0.808329701423645
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1388,
+              "page": 816,
+              "similarity": 0.5274314880371094
+            },
+            {
+              "chunk_index": 1396,
+              "page": 822,
+              "similarity": 0.5271890163421631
+            },
+            {
+              "chunk_index": 1158,
+              "page": 683,
+              "similarity": 0.5208491683006287
+            },
+            {
+              "chunk_index": 426,
+              "page": 256,
+              "similarity": 0.5196270942687988
+            },
+            {
+              "chunk_index": 305,
+              "page": 180,
+              "similarity": 0.5191883444786072
+            }
+          ]
+        },
+        {
+          "id": "bg_004",
+          "question": "What three classes of transcendentalists does the Introduction name, and what English labels does it give them?",
+          "gold_chunk_indexes": [
+            14
+          ],
+          "e5_first_gold_rank": null,
+          "bge_m3_first_gold_rank": null,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 1243,
+              "page": 728,
+              "similarity": 0.8048352599143982
+            },
+            {
+              "chunk_index": 1695,
+              "page": 1012,
+              "similarity": 0.801388144493103
+            },
+            {
+              "chunk_index": 1724,
+              "page": 1028,
+              "similarity": 0.7965020537376404
+            },
+            {
+              "chunk_index": 1460,
+              "page": 859,
+              "similarity": 0.7957372665405273
+            },
+            {
+              "chunk_index": 721,
+              "page": 429,
+              "similarity": 0.7919439077377319
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 832,
+              "page": 492,
+              "similarity": 0.5006190538406372
+            },
+            {
+              "chunk_index": 1358,
+              "page": 793,
+              "similarity": 0.4980260729789734
+            },
+            {
+              "chunk_index": 155,
+              "page": 93,
+              "similarity": 0.4978339970111847
+            },
+            {
+              "chunk_index": 791,
+              "page": 468,
+              "similarity": 0.4971162676811218
+            },
+            {
+              "chunk_index": 1695,
+              "page": 1012,
+              "similarity": 0.49321889877319336
+            }
+          ]
+        },
+        {
+          "id": "bg_005",
+          "question": "Why does the Lord make Arjuna the first receiver of a new parampara?",
+          "gold_chunk_indexes": [
+            14
+          ],
+          "e5_first_gold_rank": 4,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 1138,
+              "page": 667,
+              "similarity": 0.8507006168365479
+            },
+            {
+              "chunk_index": 15,
+              "page": 11,
+              "similarity": 0.8475723266601562
+            },
+            {
+              "chunk_index": 1352,
+              "page": 789,
+              "similarity": 0.8464981913566589
+            },
+            {
+              "chunk_index": 14,
+              "page": 11,
+              "similarity": 0.8454958200454712
+            },
+            {
+              "chunk_index": 305,
+              "page": 180,
+              "similarity": 0.8451814651489258
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 14,
+              "page": 11,
+              "similarity": 0.6205370426177979
+            },
+            {
+              "chunk_index": 305,
+              "page": 180,
+              "similarity": 0.5987741947174072
+            },
+            {
+              "chunk_index": 16,
+              "page": 12,
+              "similarity": 0.5952908992767334
+            },
+            {
+              "chunk_index": 18,
+              "page": 13,
+              "similarity": 0.5820471048355103
+            },
+            {
+              "chunk_index": 1138,
+              "page": 667,
+              "similarity": 0.5777571201324463
+            }
+          ]
+        },
+        {
+          "id": "bg_006",
+          "question": "What inquiry does the Introduction say marks the beginning of humanity, and what Sanskrit name does the Brahma-sutra give it?",
+          "gold_chunk_indexes": [
+            20
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 4,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 20,
+              "page": 14,
+              "similarity": 0.8257277011871338
+            },
+            {
+              "chunk_index": 21,
+              "page": 14,
+              "similarity": 0.8050024509429932
+            },
+            {
+              "chunk_index": 44,
+              "page": 26,
+              "similarity": 0.8013780117034912
+            },
+            {
+              "chunk_index": 837,
+              "page": 495,
+              "similarity": 0.7996371984481812
+            },
+            {
+              "chunk_index": 1402,
+              "page": 826,
+              "similarity": 0.7975693941116333
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1380,
+              "page": 810,
+              "similarity": 0.49058997631073
+            },
+            {
+              "chunk_index": 21,
+              "page": 14,
+              "similarity": 0.4817489981651306
+            },
+            {
+              "chunk_index": 1042,
+              "page": 610,
+              "similarity": 0.48050394654273987
+            },
+            {
+              "chunk_index": 20,
+              "page": 14,
+              "similarity": 0.47819626331329346
+            },
+            {
+              "chunk_index": 1146,
+              "page": 674,
+              "similarity": 0.4763917326927185
+            }
+          ]
+        },
+        {
+          "id": "bg_007",
+          "question": "What does this PDF say the Gita states about whether the living entity is born or dies?",
+          "gold_chunk_indexes": [
+            44
+          ],
+          "e5_first_gold_rank": 3,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 818,
+              "page": 484,
+              "similarity": 0.8405964374542236
+            },
+            {
+              "chunk_index": 1293,
+              "page": 757,
+              "similarity": 0.8340868949890137
+            },
+            {
+              "chunk_index": 44,
+              "page": 26,
+              "similarity": 0.8335412740707397
+            },
+            {
+              "chunk_index": 0,
+              "page": 1,
+              "similarity": 0.8325831890106201
+            },
+            {
+              "chunk_index": 974,
+              "page": 572,
+              "similarity": 0.8323333859443665
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1475,
+              "page": 867,
+              "similarity": 0.6606723070144653
+            },
+            {
+              "chunk_index": 44,
+              "page": 26,
+              "similarity": 0.6348147988319397
+            },
+            {
+              "chunk_index": 1293,
+              "page": 757,
+              "similarity": 0.6228154897689819
+            },
+            {
+              "chunk_index": 1326,
+              "page": 775,
+              "similarity": 0.6157246828079224
+            },
+            {
+              "chunk_index": 22,
+              "page": 15,
+              "similarity": 0.607621431350708
+            }
+          ]
+        },
+        {
+          "id": "bg_008",
+          "question": "According to the quoted verses 9.32–33 in this chunk, who can attain the Supreme besides highly developed intelligences?",
+          "gold_chunk_indexes": [
+            70
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 3,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 814,
+              "page": 482,
+              "similarity": 0.8351345658302307
+            },
+            {
+              "chunk_index": 70,
+              "page": 39,
+              "similarity": 0.8274241089820862
+            },
+            {
+              "chunk_index": 1250,
+              "page": 733,
+              "similarity": 0.8251946568489075
+            },
+            {
+              "chunk_index": 1020,
+              "page": 598,
+              "similarity": 0.8234926462173462
+            },
+            {
+              "chunk_index": 1324,
+              "page": 773,
+              "similarity": 0.8190047740936279
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 814,
+              "page": 482,
+              "similarity": 0.5716447830200195
+            },
+            {
+              "chunk_index": 1020,
+              "page": 598,
+              "similarity": 0.5710668563842773
+            },
+            {
+              "chunk_index": 70,
+              "page": 39,
+              "similarity": 0.5658023357391357
+            },
+            {
+              "chunk_index": 1376,
+              "page": 807,
+              "similarity": 0.552686333656311
+            },
+            {
+              "chunk_index": 1363,
+              "page": 796,
+              "similarity": 0.550520658493042
+            }
+          ]
+        },
+        {
+          "id": "bg_009",
+          "question": "In the translation listing warriors, who are named as great chariot fighters besides Yudhamanyu and Uttamauja?",
+          "gold_chunk_indexes": [
+            88
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 88,
+              "page": 50,
+              "similarity": 0.8260133266448975
+            },
+            {
+              "chunk_index": 110,
+              "page": 64,
+              "similarity": 0.8085460662841797
+            },
+            {
+              "chunk_index": 87,
+              "page": 49,
+              "similarity": 0.8030352592468262
+            },
+            {
+              "chunk_index": 103,
+              "page": 60,
+              "similarity": 0.8018025159835815
+            },
+            {
+              "chunk_index": 116,
+              "page": 67,
+              "similarity": 0.8015623688697815
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 88,
+              "page": 50,
+              "similarity": 0.6216191053390503
+            },
+            {
+              "chunk_index": 87,
+              "page": 49,
+              "similarity": 0.4691962003707886
+            },
+            {
+              "chunk_index": 86,
+              "page": 48,
+              "similarity": 0.46099746227264404
+            },
+            {
+              "chunk_index": 105,
+              "page": 61,
+              "similarity": 0.45780593156814575
+            },
+            {
+              "chunk_index": 110,
+              "page": 64,
+              "similarity": 0.45680689811706543
+            }
+          ]
+        },
+        {
+          "id": "bg_010",
+          "question": "According to the purport, why had Krishna agreed to be Arjuna's charioteer?",
+          "gold_chunk_indexes": [
+            117
+          ],
+          "e5_first_gold_rank": null,
+          "bge_m3_first_gold_rank": null,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 151,
+              "page": 90,
+              "similarity": 0.8277486562728882
+            },
+            {
+              "chunk_index": 1721,
+              "page": 1027,
+              "similarity": 0.8271760940551758
+            },
+            {
+              "chunk_index": 98,
+              "page": 57,
+              "similarity": 0.8258906006813049
+            },
+            {
+              "chunk_index": 109,
+              "page": 63,
+              "similarity": 0.8254690766334534
+            },
+            {
+              "chunk_index": 111,
+              "page": 64,
+              "similarity": 0.8173401355743408
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 111,
+              "page": 64,
+              "similarity": 0.5521935224533081
+            },
+            {
+              "chunk_index": 180,
+              "page": 106,
+              "similarity": 0.5469607710838318
+            },
+            {
+              "chunk_index": 39,
+              "page": 23,
+              "similarity": 0.5435425043106079
+            },
+            {
+              "chunk_index": 151,
+              "page": 90,
+              "similarity": 0.5422484874725342
+            },
+            {
+              "chunk_index": 110,
+              "page": 64,
+              "similarity": 0.532149076461792
+            }
+          ]
+        },
+        {
+          "id": "bg_011",
+          "question": "What comparison does the translation make between the soul's change of body and the stages of one lifetime?",
+          "gold_chunk_indexes": [
+            190
+          ],
+          "e5_first_gold_rank": 6,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 1453,
+              "page": 855,
+              "similarity": 0.8252073526382446
+            },
+            {
+              "chunk_index": 233,
+              "page": 137,
+              "similarity": 0.8247643709182739
+            },
+            {
+              "chunk_index": 1476,
+              "page": 867,
+              "similarity": 0.8225264549255371
+            },
+            {
+              "chunk_index": 1292,
+              "page": 756,
+              "similarity": 0.8216187953948975
+            },
+            {
+              "chunk_index": 210,
+              "page": 124,
+              "similarity": 0.8196414709091187
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 190,
+              "page": 112,
+              "similarity": 0.6077531576156616
+            },
+            {
+              "chunk_index": 1452,
+              "page": 855,
+              "similarity": 0.5935566425323486
+            },
+            {
+              "chunk_index": 217,
+              "page": 128,
+              "similarity": 0.5883986949920654
+            },
+            {
+              "chunk_index": 1476,
+              "page": 867,
+              "similarity": 0.5717242956161499
+            },
+            {
+              "chunk_index": 210,
+              "page": 124,
+              "similarity": 0.5686073899269104
+            }
+          ]
+        },
+        {
+          "id": "bg_012",
+          "question": "What does this purport say remains true of the individual soul even after liberation, regarding the fragmental portions called kshara?",
+          "gold_chunk_indexes": [
+            192
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 192,
+              "page": 113,
+              "similarity": 0.8297288417816162
+            },
+            {
+              "chunk_index": 222,
+              "page": 130,
+              "similarity": 0.8280487060546875
+            },
+            {
+              "chunk_index": 1450,
+              "page": 854,
+              "similarity": 0.8233118057250977
+            },
+            {
+              "chunk_index": 562,
+              "page": 334,
+              "similarity": 0.8163246512413025
+            },
+            {
+              "chunk_index": 1448,
+              "page": 853,
+              "similarity": 0.8148359060287476
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 192,
+              "page": 113,
+              "similarity": 0.5773529410362244
+            },
+            {
+              "chunk_index": 222,
+              "page": 130,
+              "similarity": 0.5742663145065308
+            },
+            {
+              "chunk_index": 1450,
+              "page": 854,
+              "similarity": 0.5719491839408875
+            },
+            {
+              "chunk_index": 240,
+              "page": 141,
+              "similarity": 0.5668540596961975
+            },
+            {
+              "chunk_index": 1365,
+              "page": 798,
+              "similarity": 0.5661535263061523
+            }
+          ]
+        },
+        {
+          "id": "bg_013",
+          "question": "In the two-birds analogy quoted in this chunk, what happens when the eating bird turns toward his friend the Lord?",
+          "gold_chunk_indexes": [
+            219
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 219,
+              "page": 129,
+              "similarity": 0.8368775248527527
+            },
+            {
+              "chunk_index": 369,
+              "page": 219,
+              "similarity": 0.8152031898498535
+            },
+            {
+              "chunk_index": 118,
+              "page": 68,
+              "similarity": 0.8096880912780762
+            },
+            {
+              "chunk_index": 218,
+              "page": 128,
+              "similarity": 0.8090927600860596
+            },
+            {
+              "chunk_index": 181,
+              "page": 107,
+              "similarity": 0.8076408505439758
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 219,
+              "page": 129,
+              "similarity": 0.6277544498443604
+            },
+            {
+              "chunk_index": 218,
+              "page": 128,
+              "similarity": 0.5560155510902405
+            },
+            {
+              "chunk_index": 1002,
+              "page": 588,
+              "similarity": 0.5333393812179565
+            },
+            {
+              "chunk_index": 118,
+              "page": 68,
+              "similarity": 0.528080940246582
+            },
+            {
+              "chunk_index": 1451,
+              "page": 854,
+              "similarity": 0.5211163759231567
+            }
+          ]
+        },
+        {
+          "id": "bg_014",
+          "question": "How does this purport define buddhi-yoga or karma-yoga in relation to the Lord?",
+          "gold_chunk_indexes": [
+            259
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 259,
+              "page": 153,
+              "similarity": 0.8705069422721863
+            },
+            {
+              "chunk_index": 874,
+              "page": 515,
+              "similarity": 0.8679284453392029
+            },
+            {
+              "chunk_index": 620,
+              "page": 369,
+              "similarity": 0.8646709322929382
+            },
+            {
+              "chunk_index": 729,
+              "page": 435,
+              "similarity": 0.8625835180282593
+            },
+            {
+              "chunk_index": 1420,
+              "page": 838,
+              "similarity": 0.8547133803367615
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 259,
+              "page": 153,
+              "similarity": 0.6385918259620667
+            },
+            {
+              "chunk_index": 1421,
+              "page": 838,
+              "similarity": 0.6253073215484619
+            },
+            {
+              "chunk_index": 333,
+              "page": 199,
+              "similarity": 0.617315948009491
+            },
+            {
+              "chunk_index": 286,
+              "page": 169,
+              "similarity": 0.6152566075325012
+            },
+            {
+              "chunk_index": 261,
+              "page": 154,
+              "similarity": 0.6152346134185791
+            }
+          ]
+        },
+        {
+          "id": "bg_015",
+          "question": "What four miseries does this purport say are present everywhere in the material world?",
+          "gold_chunk_indexes": [
+            289
+          ],
+          "e5_first_gold_rank": null,
+          "bge_m3_first_gold_rank": null,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 1014,
+              "page": 595,
+              "similarity": 0.8004202842712402
+            },
+            {
+              "chunk_index": 287,
+              "page": 170,
+              "similarity": 0.7951262593269348
+            },
+            {
+              "chunk_index": 52,
+              "page": 30,
+              "similarity": 0.7936480641365051
+            },
+            {
+              "chunk_index": 423,
+              "page": 254,
+              "similarity": 0.7917963862419128
+            },
+            {
+              "chunk_index": 6,
+              "page": 6,
+              "similarity": 0.7901315093040466
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 746,
+              "page": 445,
+              "similarity": 0.5401023626327515
+            },
+            {
+              "chunk_index": 1347,
+              "page": 787,
+              "similarity": 0.5377177000045776
+            },
+            {
+              "chunk_index": 423,
+              "page": 254,
+              "similarity": 0.5330153703689575
+            },
+            {
+              "chunk_index": 52,
+              "page": 30,
+              "similarity": 0.5216178894042969
+            },
+            {
+              "chunk_index": 1518,
+              "page": 890,
+              "similarity": 0.5189151763916016
+            }
+          ]
+        },
+        {
+          "id": "bg_016",
+          "question": "According to the translation of the verse beginning krodhad bhavati sammohah, what sequence follows from anger?",
+          "gold_chunk_indexes": [
+            317
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 317,
+              "page": 187,
+              "similarity": 0.8312458992004395
+            },
+            {
+              "chunk_index": 1522,
+              "page": 892,
+              "similarity": 0.816290020942688
+            },
+            {
+              "chunk_index": 1502,
+              "page": 881,
+              "similarity": 0.8109589219093323
+            },
+            {
+              "chunk_index": 1490,
+              "page": 875,
+              "similarity": 0.8093567490577698
+            },
+            {
+              "chunk_index": 416,
+              "page": 250,
+              "similarity": 0.8080224990844727
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 317,
+              "page": 187,
+              "similarity": 0.6225200295448303
+            },
+            {
+              "chunk_index": 1540,
+              "page": 902,
+              "similarity": 0.5214446187019348
+            },
+            {
+              "chunk_index": 1502,
+              "page": 881,
+              "similarity": 0.5207388997077942
+            },
+            {
+              "chunk_index": 1164,
+              "page": 686,
+              "similarity": 0.5018957853317261
+            },
+            {
+              "chunk_index": 1505,
+              "page": 883,
+              "similarity": 0.4972945749759674
+            }
+          ]
+        },
+        {
+          "id": "bg_017",
+          "question": "Does this translation say one can attain perfection by renunciation alone or by merely abstaining from work?",
+          "gold_chunk_indexes": [
+            341
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 669,
+              "page": 398,
+              "similarity": 0.8555259704589844
+            },
+            {
+              "chunk_index": 341,
+              "page": 204,
+              "similarity": 0.8541804552078247
+            },
+            {
+              "chunk_index": 1657,
+              "page": 989,
+              "similarity": 0.8538339138031006
+            },
+            {
+              "chunk_index": 1266,
+              "page": 742,
+              "similarity": 0.8517881631851196
+            },
+            {
+              "chunk_index": 556,
+              "page": 331,
+              "similarity": 0.8512674570083618
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 556,
+              "page": 331,
+              "similarity": 0.6291604042053223
+            },
+            {
+              "chunk_index": 341,
+              "page": 204,
+              "similarity": 0.6230584383010864
+            },
+            {
+              "chunk_index": 669,
+              "page": 398,
+              "similarity": 0.5979820489883423
+            },
+            {
+              "chunk_index": 1661,
+              "page": 992,
+              "similarity": 0.5886459350585938
+            },
+            {
+              "chunk_index": 1658,
+              "page": 990,
+              "similarity": 0.587433934211731
+            }
+          ]
+        },
+        {
+          "id": "bg_018",
+          "question": "According to this purport, what is the highest principle of religion ordered at the end of the Gita, and why does it say Lord Buddha appeared?",
+          "gold_chunk_indexes": [
+            460
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 460,
+              "page": 275,
+              "similarity": 0.8594106435775757
+            },
+            {
+              "chunk_index": 461,
+              "page": 275,
+              "similarity": 0.8357453346252441
+            },
+            {
+              "chunk_index": 818,
+              "page": 484,
+              "similarity": 0.8323330879211426
+            },
+            {
+              "chunk_index": 78,
+              "page": 44,
+              "similarity": 0.8309139609336853
+            },
+            {
+              "chunk_index": 195,
+              "page": 114,
+              "similarity": 0.8298050165176392
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 460,
+              "page": 275,
+              "similarity": 0.6411100625991821
+            },
+            {
+              "chunk_index": 70,
+              "page": 39,
+              "similarity": 0.5864802002906799
+            },
+            {
+              "chunk_index": 462,
+              "page": 276,
+              "similarity": 0.582032322883606
+            },
+            {
+              "chunk_index": 78,
+              "page": 44,
+              "similarity": 0.5809627771377563
+            },
+            {
+              "chunk_index": 279,
+              "page": 164,
+              "similarity": 0.5792995691299438
+            }
+          ]
+        },
+        {
+          "id": "bg_019",
+          "question": "What does this purport say the ultimate goal of yoga is, and how does it describe the Lord's abode regarding sun, moon, and electricity?",
+          "gold_chunk_indexes": [
+            655
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 655,
+              "page": 390,
+              "similarity": 0.8482087254524231
+            },
+            {
+              "chunk_index": 13,
+              "page": 10,
+              "similarity": 0.8383386135101318
+            },
+            {
+              "chunk_index": 49,
+              "page": 28,
+              "similarity": 0.8324552178382874
+            },
+            {
+              "chunk_index": 628,
+              "page": 374,
+              "similarity": 0.8290727734565735
+            },
+            {
+              "chunk_index": 1637,
+              "page": 974,
+              "similarity": 0.8280332684516907
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 655,
+              "page": 390,
+              "similarity": 0.6623659133911133
+            },
+            {
+              "chunk_index": 49,
+              "page": 28,
+              "similarity": 0.5965412855148315
+            },
+            {
+              "chunk_index": 647,
+              "page": 386,
+              "similarity": 0.5938109755516052
+            },
+            {
+              "chunk_index": 13,
+              "page": 10,
+              "similarity": 0.5932942628860474
+            },
+            {
+              "chunk_index": 529,
+              "page": 313,
+              "similarity": 0.593079149723053
+            }
+          ]
+        },
+        {
+          "id": "bg_020",
+          "question": "What does the quoted verse from Bhakti-rasamrita-sindhu say about devotional service that ignores authorized Vedic literatures?",
+          "gold_chunk_indexes": [
+            743
+          ],
+          "e5_first_gold_rank": null,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 919,
+              "page": 542,
+              "similarity": 0.838545024394989
+            },
+            {
+              "chunk_index": 1236,
+              "page": 724,
+              "similarity": 0.8368518948554993
+            },
+            {
+              "chunk_index": 1547,
+              "page": 906,
+              "similarity": 0.8345441818237305
+            },
+            {
+              "chunk_index": 474,
+              "page": 282,
+              "similarity": 0.8315478563308716
+            },
+            {
+              "chunk_index": 1006,
+              "page": 591,
+              "similarity": 0.8239954113960266
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 743,
+              "page": 443,
+              "similarity": 0.5688477158546448
+            },
+            {
+              "chunk_index": 1574,
+              "page": 924,
+              "similarity": 0.5298372507095337
+            },
+            {
+              "chunk_index": 729,
+              "page": 435,
+              "similarity": 0.5281885862350464
+            },
+            {
+              "chunk_index": 1208,
+              "page": 709,
+              "similarity": 0.5277408361434937
+            },
+            {
+              "chunk_index": 791,
+              "page": 468,
+              "similarity": 0.5238832235336304
+            }
+          ]
+        },
+        {
+          "id": "bg_021",
+          "question": "In the translation beginning O son of Kunti, I am the taste of water, what else does Krishna say He is?",
+          "gold_chunk_indexes": [
+            760
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 760,
+              "page": 452,
+              "similarity": 0.8364190459251404
+            },
+            {
+              "chunk_index": 744,
+              "page": 443,
+              "similarity": 0.8090717792510986
+            },
+            {
+              "chunk_index": 1116,
+              "page": 652,
+              "similarity": 0.8086675405502319
+            },
+            {
+              "chunk_index": 31,
+              "page": 19,
+              "similarity": 0.8081133365631104
+            },
+            {
+              "chunk_index": 1065,
+              "page": 623,
+              "similarity": 0.8069757223129272
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 760,
+              "page": 452,
+              "similarity": 0.6445696353912354
+            },
+            {
+              "chunk_index": 763,
+              "page": 453,
+              "similarity": 0.545653223991394
+            },
+            {
+              "chunk_index": 194,
+              "page": 114,
+              "similarity": 0.5442014932632446
+            },
+            {
+              "chunk_index": 983,
+              "page": 577,
+              "similarity": 0.5391335487365723
+            },
+            {
+              "chunk_index": 1089,
+              "page": 637,
+              "similarity": 0.5362163186073303
+            }
+          ]
+        },
+        {
+          "id": "bg_022",
+          "question": "Which four kinds of pious men does this translation say begin to render devotional service unto Krishna?",
+          "gold_chunk_indexes": [
+            791
+          ],
+          "e5_first_gold_rank": null,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 1236,
+              "page": 724,
+              "similarity": 0.8132328987121582
+            },
+            {
+              "chunk_index": 1255,
+              "page": 736,
+              "similarity": 0.8104233145713806
+            },
+            {
+              "chunk_index": 1014,
+              "page": 595,
+              "similarity": 0.8096723556518555
+            },
+            {
+              "chunk_index": 554,
+              "page": 330,
+              "similarity": 0.8096022009849548
+            },
+            {
+              "chunk_index": 1019,
+              "page": 597,
+              "similarity": 0.8092756271362305
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 790,
+              "page": 467,
+              "similarity": 0.6208773255348206
+            },
+            {
+              "chunk_index": 791,
+              "page": 468,
+              "similarity": 0.6175570487976074
+            },
+            {
+              "chunk_index": 566,
+              "page": 337,
+              "similarity": 0.5445617437362671
+            },
+            {
+              "chunk_index": 795,
+              "page": 470,
+              "similarity": 0.5201497077941895
+            },
+            {
+              "chunk_index": 1143,
+              "page": 672,
+              "similarity": 0.514792799949646
+            }
+          ]
+        },
+        {
+          "id": "bg_023",
+          "question": "What does the translation call adhibhuta, adhidaiva, and adhiyajna?",
+          "gold_chunk_indexes": [
+            846
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 833,
+              "page": 492,
+              "similarity": 0.8126423358917236
+            },
+            {
+              "chunk_index": 846,
+              "page": 500,
+              "similarity": 0.8070790767669678
+            },
+            {
+              "chunk_index": 1490,
+              "page": 875,
+              "similarity": 0.8016859889030457
+            },
+            {
+              "chunk_index": 847,
+              "page": 500,
+              "similarity": 0.8011834621429443
+            },
+            {
+              "chunk_index": 838,
+              "page": 496,
+              "similarity": 0.7996323108673096
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 846,
+              "page": 500,
+              "similarity": 0.5855866074562073
+            },
+            {
+              "chunk_index": 985,
+              "page": 578,
+              "similarity": 0.5478807091712952
+            },
+            {
+              "chunk_index": 847,
+              "page": 500,
+              "similarity": 0.5346019268035889
+            },
+            {
+              "chunk_index": 833,
+              "page": 492,
+              "similarity": 0.5331019163131714
+            },
+            {
+              "chunk_index": 1717,
+              "page": 1024,
+              "similarity": 0.5258596539497375
+            }
+          ]
+        },
+        {
+          "id": "bg_024",
+          "question": "According to this translation, how is the Supreme Personality of Godhead, who is greater than all, said to be attained?",
+          "gold_chunk_indexes": [
+            889
+          ],
+          "e5_first_gold_rank": null,
+          "bge_m3_first_gold_rank": 3,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 1187,
+              "page": 698,
+              "similarity": 0.8720899820327759
+            },
+            {
+              "chunk_index": 1068,
+              "page": 624,
+              "similarity": 0.8717944025993347
+            },
+            {
+              "chunk_index": 1324,
+              "page": 773,
+              "similarity": 0.8662140965461731
+            },
+            {
+              "chunk_index": 468,
+              "page": 279,
+              "similarity": 0.8655895590782166
+            },
+            {
+              "chunk_index": 1070,
+              "page": 625,
+              "similarity": 0.8653060793876648
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 385,
+              "page": 230,
+              "similarity": 0.7172307968139648
+            },
+            {
+              "chunk_index": 1376,
+              "page": 807,
+              "similarity": 0.696324348449707
+            },
+            {
+              "chunk_index": 889,
+              "page": 525,
+              "similarity": 0.6875045299530029
+            },
+            {
+              "chunk_index": 1062,
+              "page": 621,
+              "similarity": 0.675085723400116
+            },
+            {
+              "chunk_index": 799,
+              "page": 473,
+              "similarity": 0.671343207359314
+            }
+          ]
+        },
+        {
+          "id": "bg_025",
+          "question": "What does the translation say Krishna is as time, and who does it say will be slain on the battlefield?",
+          "gold_chunk_indexes": [
+            1167
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 5,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 1167,
+              "page": 688,
+              "similarity": 0.8317954540252686
+            },
+            {
+              "chunk_index": 1161,
+              "page": 684,
+              "similarity": 0.8300826549530029
+            },
+            {
+              "chunk_index": 110,
+              "page": 64,
+              "similarity": 0.8272539377212524
+            },
+            {
+              "chunk_index": 126,
+              "page": 74,
+              "similarity": 0.815078616142273
+            },
+            {
+              "chunk_index": 1168,
+              "page": 688,
+              "similarity": 0.8149807453155518
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1169,
+              "page": 689,
+              "similarity": 0.5830197334289551
+            },
+            {
+              "chunk_index": 110,
+              "page": 64,
+              "similarity": 0.5665665864944458
+            },
+            {
+              "chunk_index": 253,
+              "page": 149,
+              "similarity": 0.552177906036377
+            },
+            {
+              "chunk_index": 150,
+              "page": 89,
+              "similarity": 0.5499456524848938
+            },
+            {
+              "chunk_index": 1167,
+              "page": 688,
+              "similarity": 0.5478272438049316
+            }
+          ]
+        },
+        {
+          "id": "bg_026",
+          "question": "What does Krishna call this body, and what does He call one who knows this body?",
+          "gold_chunk_indexes": [
+            1291
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 1291,
+              "page": 756,
+              "similarity": 0.8527345657348633
+            },
+            {
+              "chunk_index": 1457,
+              "page": 857,
+              "similarity": 0.8503692150115967
+            },
+            {
+              "chunk_index": 1289,
+              "page": 755,
+              "similarity": 0.84673672914505
+            },
+            {
+              "chunk_index": 1295,
+              "page": 758,
+              "similarity": 0.8438220024108887
+            },
+            {
+              "chunk_index": 1290,
+              "page": 755,
+              "similarity": 0.8435213565826416
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1291,
+              "page": 756,
+              "similarity": 0.6513684988021851
+            },
+            {
+              "chunk_index": 1295,
+              "page": 758,
+              "similarity": 0.6314834356307983
+            },
+            {
+              "chunk_index": 1293,
+              "page": 757,
+              "similarity": 0.5948055982589722
+            },
+            {
+              "chunk_index": 1342,
+              "page": 784,
+              "similarity": 0.5897016525268555
+            },
+            {
+              "chunk_index": 1297,
+              "page": 759,
+              "similarity": 0.5784515738487244
+            }
+          ]
+        },
+        {
+          "id": "bg_027",
+          "question": "What does this purport say demoniac people believe about life after death, and what does it say a physician cannot do?",
+          "gold_chunk_indexes": [
+            1524
+          ],
+          "e5_first_gold_rank": 1,
+          "bge_m3_first_gold_rank": 1,
+          "delta": "unchanged",
+          "e5_top5": [
+            {
+              "chunk_index": 1524,
+              "page": 893,
+              "similarity": 0.8595356941223145
+            },
+            {
+              "chunk_index": 1530,
+              "page": 896,
+              "similarity": 0.831024169921875
+            },
+            {
+              "chunk_index": 1564,
+              "page": 916,
+              "similarity": 0.826144278049469
+            },
+            {
+              "chunk_index": 1513,
+              "page": 887,
+              "similarity": 0.8168762922286987
+            },
+            {
+              "chunk_index": 205,
+              "page": 120,
+              "similarity": 0.8147138357162476
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1524,
+              "page": 893,
+              "similarity": 0.6761908531188965
+            },
+            {
+              "chunk_index": 1530,
+              "page": 896,
+              "similarity": 0.5612723231315613
+            },
+            {
+              "chunk_index": 1529,
+              "page": 896,
+              "similarity": 0.5579802393913269
+            },
+            {
+              "chunk_index": 1516,
+              "page": 889,
+              "similarity": 0.5551694631576538
+            },
+            {
+              "chunk_index": 1564,
+              "page": 916,
+              "similarity": 0.5521965026855469
+            }
+          ]
+        },
+        {
+          "id": "bg_028",
+          "question": "When is a sacrifice considered to be in the mode of ignorance, according to the translation about sacrifice without scriptural direction?",
+          "gold_chunk_indexes": [
+            1573,
+            1574
+          ],
+          "e5_first_gold_rank": 3,
+          "bge_m3_first_gold_rank": 2,
+          "delta": "improved",
+          "e5_top5": [
+            {
+              "chunk_index": 1585,
+              "page": 933,
+              "similarity": 0.847893238067627
+            },
+            {
+              "chunk_index": 1582,
+              "page": 930,
+              "similarity": 0.8395448923110962
+            },
+            {
+              "chunk_index": 1573,
+              "page": 923,
+              "similarity": 0.8360477685928345
+            },
+            {
+              "chunk_index": 1400,
+              "page": 825,
+              "similarity": 0.8324764966964722
+            },
+            {
+              "chunk_index": 1635,
+              "page": 972,
+              "similarity": 0.8238860368728638
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1585,
+              "page": 933,
+              "similarity": 0.6269631385803223
+            },
+            {
+              "chunk_index": 1574,
+              "page": 924,
+              "similarity": 0.618911623954773
+            },
+            {
+              "chunk_index": 1582,
+              "page": 930,
+              "similarity": 0.6185061931610107
+            },
+            {
+              "chunk_index": 1572,
+              "page": 922,
+              "similarity": 0.5789645910263062
+            },
+            {
+              "chunk_index": 1573,
+              "page": 923,
+              "similarity": 0.5776523947715759
+            }
+          ]
+        },
+        {
+          "id": "bg_029",
+          "question": "What does this purport say one should do throughout the twenty-four hours, and what does it say Krishna promises for one in that consciousness?",
+          "gold_chunk_indexes": [
+            1690
+          ],
+          "e5_first_gold_rank": 3,
+          "bge_m3_first_gold_rank": null,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 1675,
+              "page": 1000,
+              "similarity": 0.8364837765693665
+            },
+            {
+              "chunk_index": 998,
+              "page": 586,
+              "similarity": 0.8352813720703125
+            },
+            {
+              "chunk_index": 1690,
+              "page": 1010,
+              "similarity": 0.8342814445495605
+            },
+            {
+              "chunk_index": 314,
+              "page": 185,
+              "similarity": 0.8296366333961487
+            },
+            {
+              "chunk_index": 64,
+              "page": 36,
+              "similarity": 0.8293259739875793
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1675,
+              "page": 1000,
+              "similarity": 0.5861462354660034
+            },
+            {
+              "chunk_index": 982,
+              "page": 577,
+              "similarity": 0.5808306932449341
+            },
+            {
+              "chunk_index": 1663,
+              "page": 993,
+              "similarity": 0.5803709030151367
+            },
+            {
+              "chunk_index": 349,
+              "page": 209,
+              "similarity": 0.5781601071357727
+            },
+            {
+              "chunk_index": 899,
+              "page": 531,
+              "similarity": 0.5755083560943604
+            }
+          ]
+        },
+        {
+          "id": "bg_030",
+          "question": "According to Sanjaya's concluding opinion in this translation, what will certainly be present wherever Krishna and Arjuna are?",
+          "gold_chunk_indexes": [
+            1721
+          ],
+          "e5_first_gold_rank": 2,
+          "bge_m3_first_gold_rank": 6,
+          "delta": "worsened",
+          "e5_top5": [
+            {
+              "chunk_index": 1713,
+              "page": 1022,
+              "similarity": 0.8411079049110413
+            },
+            {
+              "chunk_index": 1721,
+              "page": 1027,
+              "similarity": 0.8274900317192078
+            },
+            {
+              "chunk_index": 1062,
+              "page": 621,
+              "similarity": 0.8231795430183411
+            },
+            {
+              "chunk_index": 1712,
+              "page": 1022,
+              "similarity": 0.8223268985748291
+            },
+            {
+              "chunk_index": 1718,
+              "page": 1025,
+              "similarity": 0.8212488293647766
+            }
+          ],
+          "bge_m3_top5": [
+            {
+              "chunk_index": 1713,
+              "page": 1022,
+              "similarity": 0.6268129348754883
+            },
+            {
+              "chunk_index": 899,
+              "page": 531,
+              "similarity": 0.5933153629302979
+            },
+            {
+              "chunk_index": 109,
+              "page": 63,
+              "similarity": 0.5879541635513306
+            },
+            {
+              "chunk_index": 132,
+              "page": 77,
+              "similarity": 0.5797414183616638
+            },
+            {
+              "chunk_index": 1177,
+              "page": 693,
+              "similarity": 0.5763363242149353
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

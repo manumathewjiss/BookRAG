@@ -1,0 +1,2713 @@
+{
+  "book_id": "pride_and_prejudice",
+  "embedding_family": "bge_m3_dense",
+  "eval_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/pride_and_prejudice_retrieval_eval_frozen_30.json",
+  "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+  "chunks_sha256": "e6aa2ad5ce095680573ed420db7111cf41bf807cebb99ebce8650830240d11c8",
+  "n_questions": 30,
+  "top_k": 10,
+  "questions": [
+    {
+      "id": "pp_001",
+      "question": "What truth is universally acknowledged in the opening of Pride and Prejudice about a single man in possession of a good fortune?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        1
+      ],
+      "gold_pages": [
+        2
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 1,
+          "page": 2,
+          "similarity": 0.6578129529953003,
+          "text_preview": "Pride and Prejudice\u0018 Chapter 1 I t is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feel…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 188,
+          "page": 188,
+          "similarity": 0.553138017654419,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 pain. Her heart had been but slightly touched, and her van - ity was satisfied with believing that SHE would have been his only choice, had fortune permitte…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 88,
+          "page": 88,
+          "similarity": 0.5428902506828308,
+          "text_preview": "Pride and Prejudice\u0018\u0018 their father’s estate; and he thought it an excellent one, full of eligibility and suitableness, and excessively generous and disinterested on his own part. …"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 24,
+          "page": 24,
+          "similarity": 0.5357345342636108,
+          "text_preview": "Pride and Prejudice\u0018\u0018 ‘Pride,’ observed Mary, who piqued herself upon the so - lidity of her reflections, ‘is a very common failing, I believe. By all that I have ever read, I am …"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 374,
+          "page": 374,
+          "similarity": 0.5334573984146118,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 know; one is, how much money your uncle has laid down to bring it about; and the other, how am I ever to pay him.’ ‘Money! My uncle!’ cried Jane, ‘what do y…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 18,
+          "page": 18,
+          "similarity": 0.5333586931228638,
+          "text_preview": "Pride and Prejudice1\u0018 are good and agreeable in your eyes. I never heard you speak ill of a human being in your life.’ ‘I would not wish to be hasty in censuring anyone; but I alw…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 362,
+          "page": 362,
+          "similarity": 0.5263669490814209,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 leaving them more dispirited than she found them. All Meryton seemed striving to blacken the man who, but three months before, had been almost an angel of l…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 476,
+          "page": 476,
+          "similarity": 0.5261524319648743,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 ‘MY DEAR LIZZY, ‘I wish you joy. If you love Mr. Darcy half as well as I do my dear Wickham, you must be very happy. It is a great comfort to have you so ri…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 11,
+          "page": 12,
+          "similarity": 0.5260645151138306,
+          "text_preview": "Pride and Prejudice1\u0018 tion within five minutes after his entrance, of his having ten thousand a year. The gentlemen pronounced him to be a fine figure of a man, the ladies declare…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 154,
+          "page": 154,
+          "similarity": 0.5242477059364319,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 diffident since the adventure of Wednesday. His reception, however, was of the most flattering kind. Miss Lucas per - ceived him from an upper window as he …"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_002",
+      "question": "Who tells Mr Bennet that Netherfield Park is let at last, and who had just brought Mrs Bennet the news?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        1
+      ],
+      "gold_pages": [
+        2
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 1,
+          "page": 2,
+          "similarity": 0.6600001454353333,
+          "text_preview": "Pride and Prejudice\u0018 Chapter 1 I t is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feel…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.6085441708564758,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 73,
+          "page": 73,
+          "similarity": 0.6030596494674683,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com one sister much exceeded her affection for the other. The master of the house heard with real sorrow that they were to go so soon, and repeatedly…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 109,
+          "page": 109,
+          "similarity": 0.5994274020195007,
+          "text_preview": "10\u0018Free eBooks at Planet eBook.com an activity which took their brother by surprise, and hurry - ing off as if eager to escape from Mrs. Bennet’s civilities. The prospect of the N…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 9,
+          "page": 10,
+          "similarity": 0.5954352021217346,
+          "text_preview": "Pride and Prejudice10 Chapter 3 N ot all that Mrs. Bennet, however, with the assistance of her five daughters, could ask on the subject, was suffi - cient to draw from her husband…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 421,
+          "page": 421,
+          "similarity": 0.5900909304618835,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com When the tea-things were removed, and the card-tables placed, the ladies all rose, and Elizabeth was then hoping to be soon joined by him, when …"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 51,
+          "page": 51,
+          "similarity": 0.5851523876190186,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com she expected. ‘Indeed I have, sir,’ was her answer. ‘She is a great deal too ill to be moved. Mr. Jones says we must not think of moving her. We …"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 223,
+          "page": 223,
+          "similarity": 0.5819159150123596,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com ‘Perfectly so, I thank you.’ She found that she was to receive no other answer, and, after a short pause added: ‘I think I have understood that …"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 13,
+          "page": 14,
+          "similarity": 0.5809977054595947,
+          "text_preview": "Pride and Prejudice1\u0018 Mr. Bingley followed his advice. Mr. Darcy walked off; and Elizabeth remained with no very cordial feelings to - ward him. She told the story, however, with …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 407,
+          "page": 407,
+          "similarity": 0.5804009437561035,
+          "text_preview": "\u00180\u0018Free eBooks at Planet eBook.com I defy even Sir William Lucas himself to produce a more valuable son-in-law.’ The loss of her daughter made Mrs. Bennet very dull for several da…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_003",
+      "question": "According to Mrs Bennet, what is the name of the single man who has taken Netherfield, and what yearly income does she attribute to him?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        2
+      ],
+      "gold_pages": [
+        3
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0000001192092896,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 1,
+          "page": 2,
+          "similarity": 0.651939868927002,
+          "text_preview": "Pride and Prejudice\u0018 Chapter 1 I t is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feel…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 10,
+          "page": 11,
+          "similarity": 0.5591738224029541,
+          "text_preview": "11Free eBooks at Planet eBook.com dow that he wore a blue coat, and rode a black horse. An invitation to dinner was soon afterwards dispatched; and already had Mrs. Bennet planned…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.5523871183395386,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 19,
+          "page": 19,
+          "similarity": 0.5502151250839233,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com in every respect entitled to think well of themselves, and meanly of others. They were of a respectable family in the north of England; a circums…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 429,
+          "page": 429,
+          "similarity": 0.5467891693115234,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com matters would be unpardonable in me.’ ‘Exceed their income! My dear Mr. Bennet,’ cried his wife, ‘what are you talking of? Why, he has four or f…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 109,
+          "page": 109,
+          "similarity": 0.545772910118103,
+          "text_preview": "10\u0018Free eBooks at Planet eBook.com an activity which took their brother by surprise, and hurry - ing off as if eager to escape from Mrs. Bennet’s civilities. The prospect of the N…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 223,
+          "page": 223,
+          "similarity": 0.5390971899032593,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com ‘Perfectly so, I thank you.’ She found that she was to receive no other answer, and, after a short pause added: ‘I think I have understood that …"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 407,
+          "page": 407,
+          "similarity": 0.5349336862564087,
+          "text_preview": "\u00180\u0018Free eBooks at Planet eBook.com I defy even Sir William Lucas himself to produce a more valuable son-in-law.’ The loss of her daughter made Mrs. Bennet very dull for several da…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 97,
+          "page": 97,
+          "similarity": 0.5347136855125427,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com ‘Yes,’ replied Mr. Wickham; ‘his estate there is a noble one. A clear ten thousand per annum. You could not have met with a person more capable o…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 9,
+          "page": 10,
+          "similarity": 0.5323032140731812,
+          "text_preview": "Pride and Prejudice10 Chapter 3 N ot all that Mrs. Bennet, however, with the assistance of her five daughters, could ask on the subject, was suffi - cient to draw from her husband…"
+        }
+      ],
+      "first_gold_rank": null,
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false,
+      "reciprocal_rank": 0.0
+    },
+    {
+      "id": "pp_004",
+      "question": "How does Mr Bennet first reveal that he has already called on Mr Bingley, and which daughter is trimming a hat when he speaks?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        5
+      ],
+      "gold_pages": [
+        6
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 5,
+          "page": 6,
+          "similarity": 0.6635266542434692,
+          "text_preview": "Pride and Prejudice\u0018 Chapter 2 M r. Bennet was among the earliest of those who waited on Mr. Bingley. He had always intended to visit him, though to the last always assuring his w…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 75,
+          "page": 75,
+          "similarity": 0.609042763710022,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Chapter 1 3 ‘I hope, my dear,’ said Mr. Bennet to his wife, as they were at breakfast the next morning, ‘that you have ordered a good dinner to-d…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 423,
+          "page": 423,
+          "similarity": 0.6065242290496826,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com Chapter 55 A few days after this visit, Mr. Bingley called again, and alone. His friend had left him that morning for Lon - don, but was to retu…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 2,
+          "page": 3,
+          "similarity": 0.5917986631393433,
+          "text_preview": "\u0018Free eBooks at Planet eBook.com servants are to be in the house by the end of next week.’ ‘What is his name?’ ‘Bingley.’ ‘Is he married or single?’ ‘Oh! Single, my dear, to be su…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 35,
+          "page": 35,
+          "similarity": 0.5838321447372437,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com winter, and Meryton was the headquarters. Their visits to Mrs. Phillips were now productive of the most interesting intelligence. Every day added…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 413,
+          "page": 413,
+          "similarity": 0.5833017826080322,
+          "text_preview": "\u00181\u0018Free eBooks at Planet eBook.com rassed. He was received by Mrs. Bennet with a degree of civility which made her two daughters ashamed, especially when contrasted with the cold …"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 6,
+          "page": 7,
+          "similarity": 0.5803282260894775,
+          "text_preview": "\u0018Free eBooks at Planet eBook.com ‘I do not cough for my own amusement,’ replied Kitty fretfully. ‘When is your next ball to be, Lizzy?’ ‘To-morrow fortnight.’ ‘Aye, so it is,’ cri…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 425,
+          "page": 425,
+          "similarity": 0.5792921781539917,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com Elizabeth made no attempt to reason with her mother, but remained quietly in the hall, till she and Kitty were out of sight, then returned into …"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 428,
+          "page": 428,
+          "similarity": 0.578490138053894,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 all his expectations of felicity to be rationally founded, be - cause they had for basis the excellent understanding, and super-excellent disposition of Jan…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 36,
+          "page": 36,
+          "similarity": 0.5783356428146362,
+          "text_preview": "Pride and Prejudice\u0018\u0018 not agree. I had hoped that our sentiments coincided in ev - ery particular, but I must so far differ from you as to think our two youngest daughters uncommo…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_005",
+      "question": "What yearly income is rumoured of Mr Darcy within five minutes of his entrance at the assembly, and how do his manners soon change the company's opinion of him?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        11
+      ],
+      "gold_pages": [
+        12
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0000001192092896,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 11,
+          "page": 12,
+          "similarity": 0.6122807860374451,
+          "text_preview": "Pride and Prejudice1\u0018 tion within five minutes after his entrance, of his having ten thousand a year. The gentlemen pronounced him to be a fine figure of a man, the ladies declare…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 97,
+          "page": 97,
+          "similarity": 0.6026692390441895,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com ‘Yes,’ replied Mr. Wickham; ‘his estate there is a noble one. A clear ten thousand per annum. You could not have met with a person more capable o…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 309,
+          "page": 309,
+          "similarity": 0.5865930318832397,
+          "text_preview": "\u00180\u0018Free eBooks at Planet eBook.com They were within twenty yards of each other, and so abrupt was his appearance, that it was impossible to avoid his sight. Their eyes instantly m…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 291,
+          "page": 291,
+          "similarity": 0.5856690406799316,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com humour, that on his making some inquiry as to the manner in which her time had passed at Hunsford, she mentioned Colonel Fitzwilliam’s and Mr. D…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 256,
+          "page": 256,
+          "similarity": 0.5721945762634277,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 to the living, of his receiving in lieu so considerable a sum as three thousand pounds, again was she forced to hesitate. She put down the letter, weighed e…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 19,
+          "page": 19,
+          "similarity": 0.5550223588943481,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com in every respect entitled to think well of themselves, and meanly of others. They were of a respectable family in the north of England; a circums…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 219,
+          "page": 219,
+          "similarity": 0.553307294845581,
+          "text_preview": "\u00181\u0018Free eBooks at Planet eBook.com you could not really believe me to entertain any design of alarming you; and I have had the pleasure of your acquain - tance long enough to know…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 238,
+          "page": 238,
+          "similarity": 0.5513132810592651,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 his eyes fixed on her face, seemed to catch her words with no less resentment than surprise. His complexion became pale with anger, and the disturbance of h…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 103,
+          "page": 103,
+          "similarity": 0.5512061715126038,
+          "text_preview": "10\u0018Free eBooks at Planet eBook.com gives me pain to speak ill of a Darcy. But she is too much like her brother—very, very proud. As a child, she was af - fectionate and pleasing, …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 320,
+          "page": 320,
+          "similarity": 0.5511515140533447,
+          "text_preview": "Pride and Prejudice\u0018\u00180 other causes of disquiet, she dreaded lest the partiality of the brother should have said too much in her favour; and, more than commonly anxious to please,…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_006",
+      "question": "At the Meryton assembly, with whom does Mr Darcy dance, and how does Mr Bingley's behaviour contrast with his friend's?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        11
+      ],
+      "gold_pages": [
+        12
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 31,
+          "page": 31,
+          "similarity": 0.6769235134124756,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com Sir William only smiled. ‘Your friend performs delight - fully,’ he continued after a pause, on seeing Bingley join the group; ‘and I doubt not t…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 11,
+          "page": 12,
+          "similarity": 0.6661494970321655,
+          "text_preview": "Pride and Prejudice1\u0018 tion within five minutes after his entrance, of his having ten thousand a year. The gentlemen pronounced him to be a fine figure of a man, the ladies declare…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 12,
+          "page": 13,
+          "similarity": 0.6578497290611267,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com that time, Mr. Darcy had been standing near enough for her to hear a conversation between him and Mr. Bingley, who came from the dance for a few …"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 20,
+          "page": 20,
+          "similarity": 0.6367439031600952,
+          "text_preview": "Pride and Prejudice\u00180 er contrast to his own, and though with his own he never appeared dissatisfied. On the strength of Darcy’s regard, Bingley had the firmest reliance, and of h…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 32,
+          "page": 32,
+          "similarity": 0.6315779685974121,
+          "text_preview": "Pride and Prejudice\u0018\u0018 Sir William: ‘Indeed, sir, I have not the least intention of dancing. I entreat you not to suppose that I moved this way in order to beg for a partner.’ Mr. …"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 68,
+          "page": 68,
+          "similarity": 0.6238301992416382,
+          "text_preview": "Pride and Prejudice\u0018\u0018 a dance at Netherfield? I would advise you, before you de - termine on it, to consult the wishes of the present party; I am much mistaken if there are not so…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 103,
+          "page": 103,
+          "similarity": 0.622982382774353,
+          "text_preview": "10\u0018Free eBooks at Planet eBook.com gives me pain to speak ill of a Darcy. But she is too much like her brother—very, very proud. As a child, she was af - fectionate and pleasing, …"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 116,
+          "page": 116,
+          "similarity": 0.621411919593811,
+          "text_preview": "Pride and Prejudice11\u0018 not go on. At length Darcy spoke, and in a constrained manner said, ‘Mr. Wickham is blessed with such happy manners as may ensure his MAKING friends—whether…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 128,
+          "page": 128,
+          "similarity": 0.6181302070617676,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 agreement to expose themselves as a much as a they could during the evening, it would have been impossible for them to play their parts with more spirit or …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 13,
+          "page": 14,
+          "similarity": 0.6119976043701172,
+          "text_preview": "Pride and Prejudice1\u0018 Mr. Bingley followed his advice. Mr. Darcy walked off; and Elizabeth remained with no very cordial feelings to - ward him. She told the story, however, with …"
+        }
+      ],
+      "first_gold_rank": 2,
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "id": "pp_007",
+      "question": "When Mr Bingley urges Darcy to dance at the assembly and points out Elizabeth sitting down, what does Darcy say about her looks and about giving consequence to young ladies?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        12
+      ],
+      "gold_pages": [
+        13
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 12,
+          "page": 13,
+          "similarity": 0.7445021867752075,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com that time, Mr. Darcy had been standing near enough for her to hear a conversation between him and Mr. Bingley, who came from the dance for a few …"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 32,
+          "page": 32,
+          "similarity": 0.6757677793502808,
+          "text_preview": "Pride and Prejudice\u0018\u0018 Sir William: ‘Indeed, sir, I have not the least intention of dancing. I entreat you not to suppose that I moved this way in order to beg for a partner.’ Mr. …"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 31,
+          "page": 31,
+          "similarity": 0.670663595199585,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com Sir William only smiled. ‘Your friend performs delight - fully,’ he continued after a pause, on seeing Bingley join the group; ‘and I doubt not t…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 116,
+          "page": 116,
+          "similarity": 0.6698833703994751,
+          "text_preview": "Pride and Prejudice11\u0018 not go on. At length Darcy spoke, and in a constrained manner said, ‘Mr. Wickham is blessed with such happy manners as may ensure his MAKING friends—whether…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 28,
+          "page": 28,
+          "similarity": 0.66389000415802,
+          "text_preview": "Pride and Prejudice\u0018\u0018 ‘You make me laugh, Charlotte; but it is not sound. You know it is not sound, and that you would never act in this way yourself.’ Occupied in observing Mr. B…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 333,
+          "page": 333,
+          "similarity": 0.6637112498283386,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com However little Mr. Darcy might have liked such an ad - dress, he contented himself with coolly replying that he perceived no other alteration th…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 103,
+          "page": 103,
+          "similarity": 0.6546729207038879,
+          "text_preview": "10\u0018Free eBooks at Planet eBook.com gives me pain to speak ill of a Darcy. But she is too much like her brother—very, very proud. As a child, she was af - fectionate and pleasing, …"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 68,
+          "page": 68,
+          "similarity": 0.6537803411483765,
+          "text_preview": "Pride and Prejudice\u0018\u0018 a dance at Netherfield? I would advise you, before you de - termine on it, to consult the wishes of the present party; I am much mistaken if there are not so…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 11,
+          "page": 12,
+          "similarity": 0.6537283062934875,
+          "text_preview": "Pride and Prejudice1\u0018 tion within five minutes after his entrance, of his having ten thousand a year. The gentlemen pronounced him to be a fine figure of a man, the ladies declare…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 55,
+          "page": 55,
+          "similarity": 0.6498108506202698,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com of inclination, I am convinced that one good sonnet will starve it entirely away.’ Darcy only smiled; and the general pause which ensued made Eli…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_008",
+      "question": "According to Mrs Bennet after the assembly, how many times did Mr Bingley dance with Jane, and whom did he dance with first?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        14
+      ],
+      "gold_pages": [
+        15
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 13,
+          "page": 14,
+          "similarity": 0.6409314274787903,
+          "text_preview": "Pride and Prejudice1\u0018 Mr. Bingley followed his advice. Mr. Darcy walked off; and Elizabeth remained with no very cordial feelings to - ward him. She told the story, however, with …"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 14,
+          "page": 15,
+          "similarity": 0.6154968738555908,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com with her twice! Only think of THAT, my dear; he actually danced with her twice! and she was the only creature in the room that he asked a second …"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 428,
+          "page": 428,
+          "similarity": 0.6066608428955078,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 all his expectations of felicity to be rationally founded, be - cause they had for basis the excellent understanding, and super-excellent disposition of Jan…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 22,
+          "page": 22,
+          "similarity": 0.6010105609893799,
+          "text_preview": "Pride and Prejudice\u0018\u0018 hear and to communicate. ‘YOU began the evening well, Charlotte,’ said Mrs. Ben - net with civil self-command to Miss Lucas. ‘YOU were Mr. Bingley’s first ch…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 418,
+          "page": 418,
+          "similarity": 0.5993282794952393,
+          "text_preview": "Pride and Prejudice\u00181\u0018 danger now?’ ‘I think you are in very great danger of making him as much in love with you as ever.’ * * * * * They did not see the gentlemen again till Tues…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 12,
+          "page": 13,
+          "similarity": 0.5921645164489746,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com that time, Mr. Darcy had been standing near enough for her to hear a conversation between him and Mr. Bingley, who came from the dance for a few …"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 124,
+          "page": 124,
+          "similarity": 0.5880730748176575,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 pursue, she turned her attention almost entirely on her sis - ter and Mr. Bingley; and the train of agreeable reflections which her observations gave birth …"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 11,
+          "page": 12,
+          "similarity": 0.5871880054473877,
+          "text_preview": "Pride and Prejudice1\u0018 tion within five minutes after his entrance, of his having ten thousand a year. The gentlemen pronounced him to be a fine figure of a man, the ladies declare…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 422,
+          "page": 422,
+          "similarity": 0.5866742730140686,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 prodigiously.’ Mrs. Bennet, in short, was in very great spirits; she had seen enough of Bingley’s behaviour to Jane, to be convinced that she would get him …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 7,
+          "page": 8,
+          "similarity": 0.5832874774932861,
+          "text_preview": "Pride and Prejudice\u0018 ‘I am sick of Mr. Bingley,’ cried his wife. ‘I am sorry to hear THAT; but why did not you tell me that before? If I had known as much this morning I certain -…"
+        }
+      ],
+      "first_gold_rank": 2,
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "id": "pp_009",
+      "question": "Where had Sir William Lucas formerly been in trade, and what is the name of the house he occupies after leaving that market town?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        21
+      ],
+      "gold_pages": [
+        21
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0000001192092896,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 21,
+          "page": 21,
+          "similarity": 0.6157189607620239,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com Chapter 5 W ithin a short walk of Longbourn lived a family with whom the Bennets were particularly intimate. Sir Wil- liam Lucas had been formerl…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 473,
+          "page": 473,
+          "similarity": 0.5168975591659546,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com really rejoicing in the match, was anxious to get away till the storm was blown over. At such a moment, the arrival of her friend was a sincere …"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 183,
+          "page": 183,
+          "similarity": 0.5160977840423584,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com ing thanked her for the kindness of her hints, they parted; a wonderful instance of advice being given on such a point, without being resented. …"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 414,
+          "page": 414,
+          "similarity": 0.5114902853965759,
+          "text_preview": "Pride and Prejudice\u00181\u0018 ‘I began to be afraid you would never come back again. People DID say you meant to quit the place entirely at Mich- aelmas; but, however, I hope it is not t…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.5110074281692505,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 191,
+          "page": 191,
+          "similarity": 0.508791983127594,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com The farewell between herself and Mr. Wickham was per - fectly friendly; on his side even more. His present pursuit could not make him forget tha…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 154,
+          "page": 154,
+          "similarity": 0.5012494325637817,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 diffident since the adventure of Wednesday. His reception, however, was of the most flattering kind. Miss Lucas per - ceived him from an upper window as he …"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 211,
+          "page": 211,
+          "similarity": 0.49365776777267456,
+          "text_preview": "\u001811Free eBooks at Planet eBook.com Chapter 30 S ir William stayed only a week at Hunsford, but his visit was long enough to convince him of his daughter’s be - ing most comfortabl…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 407,
+          "page": 407,
+          "similarity": 0.48702573776245117,
+          "text_preview": "\u00180\u0018Free eBooks at Planet eBook.com I defy even Sir William Lucas himself to produce a more valuable son-in-law.’ The loss of her daughter made Mrs. Bennet very dull for several da…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 202,
+          "page": 202,
+          "similarity": 0.4787423312664032,
+          "text_preview": "Pride and Prejudice\u00180\u0018 sight of such rooms, so many servants, and so splendid a dinner, might not wholly overpower them. When the ladies were separating for the toilette, he said …"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_010",
+      "question": "What is the yearly income of Mr Bennet's estate, how is it entailed, and how much did Mrs Bennet's father leave her?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        34
+      ],
+      "gold_pages": [
+        34
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 0.9999998807907104,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 34,
+          "page": 34,
+          "similarity": 0.6287966966629028,
+          "text_preview": "Pride and Prejudice\u0018\u0018 Chapter 7 M r. Bennet’s property consisted almost entirely in an estate of two thousand a year, which, unfortunately for his daughters, was entailed, in defa…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 429,
+          "page": 429,
+          "similarity": 0.5954737067222595,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com matters would be unpardonable in me.’ ‘Exceed their income! My dear Mr. Bennet,’ cried his wife, ‘what are you talking of? Why, he has four or f…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 380,
+          "page": 380,
+          "similarity": 0.5816243886947632,
+          "text_preview": "Pride and Prejudice\u0018\u00180 turn for economy, and her husband’s love of independence had alone prevented their exceeding their income. Five thousand pounds was settled by marriage arti…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 379,
+          "page": 379,
+          "similarity": 0.5726453065872192,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com Chapter 50 M r. Bennet had very often wished before this period of his life that, instead of spending his whole income, he had laid by an annual…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 97,
+          "page": 97,
+          "similarity": 0.555905818939209,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com ‘Yes,’ replied Mr. Wickham; ‘his estate there is a noble one. A clear ten thousand per annum. You could not have met with a person more capable o…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 88,
+          "page": 88,
+          "similarity": 0.555205225944519,
+          "text_preview": "Pride and Prejudice\u0018\u0018 their father’s estate; and he thought it an excellent one, full of eligibility and suitableness, and excessively generous and disinterested on his own part. …"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 206,
+          "page": 206,
+          "similarity": 0.5403252243995667,
+          "text_preview": "Pride and Prejudice\u00180\u0018 knew the least, and who she observed to Mrs. Collins was a very genteel, pretty kind of girl. She asked her, at differ - ent times, how many sisters she had…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 428,
+          "page": 428,
+          "similarity": 0.5356205701828003,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 all his expectations of felicity to be rationally founded, be - cause they had for basis the excellent understanding, and super-excellent disposition of Jan…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 2,
+          "page": 3,
+          "similarity": 0.5328519940376282,
+          "text_preview": "\u0018Free eBooks at Planet eBook.com servants are to be in the house by the end of next week.’ ‘What is his name?’ ‘Bingley.’ ‘Is he married or single?’ ‘Oh! Single, my dear, to be su…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 474,
+          "page": 474,
+          "similarity": 0.5298943519592285,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 61 H appy for all her maternal feelings was the day on which Mrs. Bennet got rid of her two most deserving daugh - ters. With what delighted pride s…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_011",
+      "question": "After Jane reads Caroline Bingley's invitation to Netherfield, why does Mrs Bennet tell Jane she had better go on horseback rather than take the carriage?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        37
+      ],
+      "gold_pages": [
+        37
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 37,
+          "page": 37,
+          "similarity": 0.6624639630317688,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com for the rest of our lives, for a whole day’s tete-a-tete between two women can never end without a quarrel. Come as soon as you can on receipt of…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 41,
+          "page": 41,
+          "similarity": 0.6524455547332764,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com as might be supposed, that she had caught a violent cold, and that they must endeavour to get the better of it; advised her to return to bed, and…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 72,
+          "page": 72,
+          "similarity": 0.6486430764198303,
+          "text_preview": "Pride and Prejudice\u0018\u0018 Chapter 12 I n consequence of an agreement between the sisters, Eliza - beth wrote the next morning to their mother, to beg that the carriage might be sent f…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 10,
+          "page": 11,
+          "similarity": 0.61400306224823,
+          "text_preview": "11Free eBooks at Planet eBook.com dow that he wore a blue coat, and rode a black horse. An invitation to dinner was soon afterwards dispatched; and already had Mrs. Bennet planned…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.609948992729187,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 73,
+          "page": 73,
+          "similarity": 0.609623372554779,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com one sister much exceeded her affection for the other. The master of the house heard with real sorrow that they were to go so soon, and repeatedly…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 50,
+          "page": 50,
+          "similarity": 0.604644238948822,
+          "text_preview": "Pride and Prejudice\u00180 Chapter 9 E lizabeth passed the chief of the night in her sister’s room, and in the morning had the pleasure of being able to send a tolerable answer to the …"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 147,
+          "page": 147,
+          "similarity": 0.6025866866111755,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com ‘This is from Caroline Bingley; what it contains has sur - prised me a good deal. The whole party have left Netherfield by this time, and are on…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 264,
+          "page": 264,
+          "similarity": 0.6025362014770508,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 for one of you—and indeed, if the weather should happen to be cool, I should not object to taking you both, as you are neither of you large.’ ‘You are all k…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 151,
+          "page": 151,
+          "similarity": 0.5994127988815308,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com her, and must fret no longer.’ ‘But, my dear sister, can I be happy, even supposing the best, in accepting a man whose sisters and friends are a…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_012",
+      "question": "When Elizabeth decides to walk to Netherfield to see Jane, how far does she say the distance is, and what does her mother object to about the walk?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        39
+      ],
+      "gold_pages": [
+        39
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0000001192092896,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 39,
+          "page": 39,
+          "similarity": 0.6534067392349243,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com to her, though the carriage was not to be had; and as she was no horsewoman, walking was her only alternative. She de - clared her resolution. ‘H…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 73,
+          "page": 73,
+          "similarity": 0.6249691247940063,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com one sister much exceeded her affection for the other. The master of the house heard with real sorrow that they were to go so soon, and repeatedly…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 41,
+          "page": 41,
+          "similarity": 0.6244829297065735,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com as might be supposed, that she had caught a violent cold, and that they must endeavour to get the better of it; advised her to return to bed, and…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 224,
+          "page": 224,
+          "similarity": 0.616499125957489,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 met with one of the very few sensible women who would have accepted him, or have made him happy if they had. My friend has an excellent understanding—though…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 371,
+          "page": 371,
+          "similarity": 0.6085025072097778,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com ther, who was deliberately pursuing his way towards a small wood on one side of the paddock. Jane, who was not so light nor so much in the habit…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 51,
+          "page": 51,
+          "similarity": 0.6026259660720825,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com she expected. ‘Indeed I have, sir,’ was her answer. ‘She is a great deal too ill to be moved. Mr. Jones says we must not think of moving her. We …"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 191,
+          "page": 191,
+          "similarity": 0.6006046533584595,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com The farewell between herself and Mr. Wickham was per - fectly friendly; on his side even more. His present pursuit could not make him forget tha…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 109,
+          "page": 109,
+          "similarity": 0.5968966484069824,
+          "text_preview": "10\u0018Free eBooks at Planet eBook.com an activity which took their brother by surprise, and hurry - ing off as if eager to escape from Mrs. Bennet’s civilities. The prospect of the N…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 283,
+          "page": 283,
+          "similarity": 0.595739483833313,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com opinion NOW of this sad business of Jane’s? For my part, I am determined never to speak of it again to anybody. I told my sister Phillips so the…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 322,
+          "page": 322,
+          "similarity": 0.5929493308067322,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 or twice pleased herself with the notion that, as he looked at her, he was trying to trace a resemblance. But, though this might be imaginary, she could not…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_013",
+      "question": "When Elizabeth arrives at Netherfield after walking alone in dirty weather, how do Mrs Hurst and Miss Bingley react, and what is Jane's condition in her room?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        40
+      ],
+      "gold_pages": [
+        40
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 41,
+          "page": 41,
+          "similarity": 0.7029060125350952,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com as might be supposed, that she had caught a violent cold, and that they must endeavour to get the better of it; advised her to return to bed, and…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 40,
+          "page": 40,
+          "similarity": 0.6989431381225586,
+          "text_preview": "Pride and Prejudice\u00180 She was shown into the breakfast-parlour, where all but Jane were assembled, and where her appearance created a great deal of surprise. That she should have …"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 73,
+          "page": 73,
+          "similarity": 0.6775267124176025,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com one sister much exceeded her affection for the other. The master of the house heard with real sorrow that they were to go so soon, and repeatedly…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 51,
+          "page": 51,
+          "similarity": 0.6627355217933655,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com she expected. ‘Indeed I have, sir,’ was her answer. ‘She is a great deal too ill to be moved. Mr. Jones says we must not think of moving her. We …"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 43,
+          "page": 43,
+          "similarity": 0.658998966217041,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Miss Bingley began abusing her as soon as she was out of the room. Her manners were pronounced to be very bad indeed, a mixture of pride and impe…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 38,
+          "page": 38,
+          "similarity": 0.6551589369773865,
+          "text_preview": "Pride and Prejudice\u0018\u0018 delighted. The rain continued the whole evening without intermission; Jane certainly could not come back. ‘This was a lucky idea of mine, indeed!’ said Mrs. …"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 412,
+          "page": 412,
+          "similarity": 0.6515905261039734,
+          "text_preview": "Pride and Prejudice\u00181\u0018 his coming to Netherfield, to Longbourn, and voluntarily seeking her again, was almost equal to what she had known on first witnessing his altered behaviour…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 147,
+          "page": 147,
+          "similarity": 0.6456640958786011,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com ‘This is from Caroline Bingley; what it contains has sur - prised me a good deal. The whole party have left Netherfield by this time, and are on…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 410,
+          "page": 410,
+          "similarity": 0.6428694725036621,
+          "text_preview": "Pride and Prejudice\u001810 with ourselves, so there will be just room at table for him.’ Consoled by this resolution, she was the better able to bear her husband’s incivility; though …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 222,
+          "page": 222,
+          "similarity": 0.6424300074577332,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 32 E lizabeth was sitting by herself the next morning, and writing to Jane while Mrs. Collins and Maria were gone on business into the village, when…"
+        }
+      ],
+      "first_gold_rank": 2,
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "id": "pp_014",
+      "question": "Who is Mr Collins in relation to the Longbourn family, and what does Mr Bennet say Collins may do when Mr Bennet is dead?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        76
+      ],
+      "gold_pages": [
+        76
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0000001192092896,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 76,
+          "page": 76,
+          "similarity": 0.6267796754837036,
+          "text_preview": "Pride and Prejudice\u0018\u0018 delicacy, and requiring early attention. It is from my cousin, Mr. Collins, who, when I am dead, may turn you all out of this house as soon as he pleases.’ ‘…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 165,
+          "page": 165,
+          "similarity": 0.6052258014678955,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com an agony of ill-humour, and wherever she went she was sure of hearing it talked of. The sight of Miss Lucas was odious to her. As her successor …"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 353,
+          "page": 353,
+          "similarity": 0.5787106156349182,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com sure there was some great neglect or other on their side, for she is not the kind of girl to do such a thing if she had been well looked after. …"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.5783405303955078,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 156,
+          "page": 156,
+          "similarity": 0.570030152797699,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 on his return as required some ingenuity to evade, and he was at the same time exercising great self-denial, for he was longing to publish his prosperous lo…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 92,
+          "page": 92,
+          "similarity": 0.5561847686767578,
+          "text_preview": "Pride and Prejudice\u0018\u0018 ing; but her contemplation of one stranger was soon put to an end by exclamations and inquiries about the other; of whom, however, she could only tell her ni…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 88,
+          "page": 88,
+          "similarity": 0.5536330938339233,
+          "text_preview": "Pride and Prejudice\u0018\u0018 their father’s estate; and he thought it an excellent one, full of eligibility and suitableness, and excessively generous and disinterested on his own part. …"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 155,
+          "page": 155,
+          "similarity": 0.5525918006896973,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com their appearance at St. James’s. The whole family, in short, were properly overjoyed on the occasion. The younger girls formed hopes of COMING O…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 176,
+          "page": 176,
+          "similarity": 0.5507693886756897,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 was to distribute her presents and describe the newest fash - ions. When this was done she had a less active part to play. It became her turn to listen. Mrs…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 175,
+          "page": 175,
+          "similarity": 0.5478873252868652,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com Chapter 25 A fter a week spent in professions of love and schemes of felicity, Mr. Collins was called from his amiable Char - lotte by the arriv…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_015",
+      "question": "After hearing Mr Collins's letter, what mixture of qualities does Mr Bennet say he finds in it, and does he think Collins is a sensible man?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        79
+      ],
+      "gold_pages": [
+        79
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 79,
+          "page": 79,
+          "similarity": 0.7205172777175903,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Could he be a sensible man, sir?’ ‘No, my dear, I think not. I have great hopes of finding him quite the reverse. There is a mixture of servility…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 157,
+          "page": 157,
+          "similarity": 0.6270952224731445,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com speedily receive from me a letter of thanks for this, and for every other mark of your regard during my stay in Hert - fordshire. As for my fair…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 139,
+          "page": 139,
+          "similarity": 0.6240664720535278,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com lins; ‘but if she is really headstrong and foolish, I know not whether she would altogether be a very desirable wife to a man in my situation, w…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 138,
+          "page": 138,
+          "similarity": 0.6222448348999023,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 Chapter 20 M r. Collins was not left long to the silent contempla - tion of his successful love; for Mrs. Bennet, having dawdled about in the vestibule to w…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 89,
+          "page": 89,
+          "similarity": 0.6161576509475708,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Collins was to attend them, at the request of Mr. Bennet, who was most anxious to get rid of him, and have his library to himself; for thither Mr…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 263,
+          "page": 263,
+          "similarity": 0.6143293380737305,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com his spirits tolerably till just at last; but Darcy seemed to feel it most acutely, more, I think, than last year. His attachment to Rosings cert…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 161,
+          "page": 161,
+          "similarity": 0.6093425750732422,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com ness of her congratulations to Sir William, in which she was readily joined by Jane, and by making a variety of remarks on the happiness that mi…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 446,
+          "page": 446,
+          "similarity": 0.6044694185256958,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 sagacity, to discover the name of your admirer. This letter is from Mr. Collins.’ ‘From Mr. Collins! and what can HE have to say?’ ‘Something very much to t…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 80,
+          "page": 80,
+          "similarity": 0.6038384437561035,
+          "text_preview": "Pride and Prejudice\u00180 Bennet, who quarreled with no compliments, answered most readily. ‘You are very kind, I am sure; and I wish with all my heart it may prove so, for else they …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 175,
+          "page": 175,
+          "similarity": 0.6037863492965698,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com Chapter 25 A fter a week spent in professions of love and schemes of felicity, Mr. Collins was called from his amiable Char - lotte by the arriv…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_016",
+      "question": "When Mr Collins wants to speak privately to Elizabeth, what does Mrs Bennet insist that Lizzy do?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        132
+      ],
+      "gold_pages": [
+        132
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 140,
+          "page": 140,
+          "similarity": 0.675562858581543,
+          "text_preview": "Pride and Prejudice1\u00180 ‘Speak to Lizzy about it yourself. Tell her that you insist upon her marrying him.’ ‘Let her be called down. She shall hear my opinion.’ Mrs. Bennet rang th…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 138,
+          "page": 138,
+          "similarity": 0.6667357087135315,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 Chapter 20 M r. Collins was not left long to the silent contempla - tion of his successful love; for Mrs. Bennet, having dawdled about in the vestibule to w…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 141,
+          "page": 141,
+          "similarity": 0.6491984128952026,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com Not yet, however, in spite of her disappointment in her husband, did Mrs. Bennet give up the point. She talked to Elizabeth again and again; coa…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 139,
+          "page": 139,
+          "similarity": 0.6490800380706787,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com lins; ‘but if she is really headstrong and foolish, I know not whether she would altogether be a very desirable wife to a man in my situation, w…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 142,
+          "page": 142,
+          "similarity": 0.6245846748352051,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 takes part with me. I am cruelly used, nobody feels for my poor nerves.’ Charlotte’s reply was spared by the entrance of Jane and Elizabeth. ‘Aye, there she…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 446,
+          "page": 446,
+          "similarity": 0.6226228475570679,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 sagacity, to discover the name of your admirer. This letter is from Mr. Collins.’ ‘From Mr. Collins! and what can HE have to say?’ ‘Something very much to t…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 132,
+          "page": 132,
+          "similarity": 0.6193524599075317,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 embarrassed looks, about to escape, she added: ‘Lizzy, I IN - SIST upon your staying and hearing Mr. Collins.’ Elizabeth would not oppose such an injunction…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 176,
+          "page": 176,
+          "similarity": 0.6172646284103394,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 was to distribute her presents and describe the newest fash - ions. When this was done she had a less active part to play. It became her turn to listen. Mrs…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 131,
+          "page": 131,
+          "similarity": 0.6136499047279358,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com Chapter 19 T he next day opened a new scene at Longbourn. Mr. Col - lins made his declaration in form. Having resolved to do it without loss of …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 160,
+          "page": 160,
+          "similarity": 0.6040527820587158,
+          "text_preview": "Pride and Prejudice1\u00180 Chapter 23 E lizabeth was sitting with her mother and sisters, re - flecting on what she had heard, and doubting whether she was authorised to mention it, w…"
+        }
+      ],
+      "first_gold_rank": 7,
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true,
+      "reciprocal_rank": 0.14285714285714285
+    },
+    {
+      "id": "pp_017",
+      "question": "What three reasons does Mr Collins give Elizabeth for marrying, and what advice did Lady Catherine give him the Saturday night before he left Hunsford?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        133
+      ],
+      "gold_pages": [
+        133
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 183,
+          "page": 183,
+          "similarity": 0.7067657709121704,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com ing thanked her for the kindness of her hints, they parted; a wonderful instance of advice being given on such a point, without being resented. …"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 133,
+          "page": 133,
+          "similarity": 0.6606700420379639,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com myself) to set the example of matrimony in his parish; secondly, that I am convinced that it will add very great - ly to my happiness; and third…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 269,
+          "page": 269,
+          "similarity": 0.6440383791923523,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com best; and most fortunately having it in our power to intro - duce you to very superior society, and, from our connection with Rosings, the frequ…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 268,
+          "page": 268,
+          "similarity": 0.6391973495483398,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 38 O n Saturday morning Elizabeth and Mr. Collins met for breakfast a few minutes before the others appeared; and he took the opportunity of paying …"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 223,
+          "page": 223,
+          "similarity": 0.6248324513435364,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com ‘Perfectly so, I thank you.’ She found that she was to receive no other answer, and, after a short pause added: ‘I think I have understood that …"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.6173347234725952,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 132,
+          "page": 132,
+          "similarity": 0.6118113398551941,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 embarrassed looks, about to escape, she added: ‘Lizzy, I IN - SIST upon your staying and hearing Mr. Collins.’ Elizabeth would not oppose such an injunction…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 198,
+          "page": 198,
+          "similarity": 0.6085386276245117,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 and I need not say you will be delighted with her. She is all affability and condescension, and I doubt not but you will be honoured with some portion of he…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 211,
+          "page": 211,
+          "similarity": 0.6084101796150208,
+          "text_preview": "\u001811Free eBooks at Planet eBook.com Chapter 30 S ir William stayed only a week at Hunsford, but his visit was long enough to convince him of his daughter’s be - ing most comfortabl…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 214,
+          "page": 214,
+          "similarity": 0.6047574281692505,
+          "text_preview": "Pride and Prejudice\u00181\u0018 His arrival was soon known at the Parsonage; for Mr. Collins was walking the whole morning within view of the lodges opening into Hunsford Lane, in order to…"
+        }
+      ],
+      "first_gold_rank": 2,
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "id": "pp_018",
+      "question": "In the library, what alternative does Mr Bennet put to Elizabeth about marrying Mr Collins, contrasting her mother's demand with his own?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        140
+      ],
+      "gold_pages": [
+        140
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 140,
+          "page": 140,
+          "similarity": 0.7010447978973389,
+          "text_preview": "Pride and Prejudice1\u00180 ‘Speak to Lizzy about it yourself. Tell her that you insist upon her marrying him.’ ‘Let her be called down. She shall hear my opinion.’ Mrs. Bennet rang th…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 88,
+          "page": 88,
+          "similarity": 0.6512097120285034,
+          "text_preview": "Pride and Prejudice\u0018\u0018 their father’s estate; and he thought it an excellent one, full of eligibility and suitableness, and excessively generous and disinterested on his own part. …"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 132,
+          "page": 132,
+          "similarity": 0.6388537883758545,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 embarrassed looks, about to escape, she added: ‘Lizzy, I IN - SIST upon your staying and hearing Mr. Collins.’ Elizabeth would not oppose such an injunction…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 89,
+          "page": 89,
+          "similarity": 0.6332409381866455,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Collins was to attend them, at the request of Mr. Bennet, who was most anxious to get rid of him, and have his library to himself; for thither Mr…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.6328514218330383,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 139,
+          "page": 139,
+          "similarity": 0.6319550275802612,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com lins; ‘but if she is really headstrong and foolish, I know not whether she would altogether be a very desirable wife to a man in my situation, w…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 433,
+          "page": 433,
+          "similarity": 0.6309090852737427,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com on her ladyship’s entrance, though no request of introduc - tion had been made. Mrs. Bennet, all amazement, though flattered by having a guest o…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 141,
+          "page": 141,
+          "similarity": 0.622443675994873,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com Not yet, however, in spite of her disappointment in her husband, did Mrs. Bennet give up the point. She talked to Elizabeth again and again; coa…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 138,
+          "page": 138,
+          "similarity": 0.6222946643829346,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 Chapter 20 M r. Collins was not left long to the silent contempla - tion of his successful love; for Mrs. Bennet, having dawdled about in the vestibule to w…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 183,
+          "page": 183,
+          "similarity": 0.6178570985794067,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com ing thanked her for the kindness of her hints, they parted; a wonderful instance of advice being given on such a point, without being resented. …"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_019",
+      "question": "Who comes to Longbourn, sent by his daughter, to announce Charlotte Lucas's engagement to the Bennet family?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        160
+      ],
+      "gold_pages": [
+        160
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 21,
+          "page": 21,
+          "similarity": 0.6075766682624817,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com Chapter 5 W ithin a short walk of Longbourn lived a family with whom the Bennets were particularly intimate. Sir Wil- liam Lucas had been formerl…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.5968450903892517,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 165,
+          "page": 165,
+          "similarity": 0.585279107093811,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com an agony of ill-humour, and wherever she went she was sure of hearing it talked of. The sight of Miss Lucas was odious to her. As her successor …"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 183,
+          "page": 183,
+          "similarity": 0.5845987796783447,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com ing thanked her for the kindness of her hints, they parted; a wonderful instance of advice being given on such a point, without being resented. …"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 141,
+          "page": 141,
+          "similarity": 0.5722153186798096,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com Not yet, however, in spite of her disappointment in her husband, did Mrs. Bennet give up the point. She talked to Elizabeth again and again; coa…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 153,
+          "page": 153,
+          "similarity": 0.5687112212181091,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com Chapter 22 T he Bennets were engaged to dine with the Lucases and again during the chief of the day was Miss Lucas so kind as to listen to Mr. C…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 179,
+          "page": 179,
+          "similarity": 0.5508519411087036,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com cessfully combated by the more natural influence of Jane’s attractions. Miss Bennet accepted her aunt’s invitation with pleasure; and the Bingle…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 75,
+          "page": 75,
+          "similarity": 0.5483047962188721,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Chapter 1 3 ‘I hope, my dear,’ said Mr. Bennet to his wife, as they were at breakfast the next morning, ‘that you have ordered a good dinner to-d…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 154,
+          "page": 154,
+          "similarity": 0.5470659732818604,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 diffident since the adventure of Wednesday. His reception, however, was of the most flattering kind. Miss Lucas per - ceived him from an upper window as he …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 25,
+          "page": 25,
+          "similarity": 0.544532299041748,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Chapter 6 T he ladies of Longbourn soon waited on those of Neth - erfield. The visit was soon returned in due form. Miss Bennet’s pleasing manner…"
+        }
+      ],
+      "first_gold_rank": null,
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false,
+      "reciprocal_rank": 0.0
+    },
+    {
+      "id": "pp_020",
+      "question": "What surprising news does Jane say is in Caroline Bingley's letter about the Netherfield party leaving Hertfordshire?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        147
+      ],
+      "gold_pages": [
+        147
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 0.9999998807907104,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 147,
+          "page": 147,
+          "similarity": 0.6635763049125671,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com ‘This is from Caroline Bingley; what it contains has sur - prised me a good deal. The whole party have left Netherfield by this time, and are on…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 222,
+          "page": 222,
+          "similarity": 0.5900242328643799,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 32 E lizabeth was sitting by herself the next morning, and writing to Jane while Mrs. Collins and Maria were gone on business into the village, when…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 223,
+          "page": 223,
+          "similarity": 0.5797137022018433,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com ‘Perfectly so, I thank you.’ She found that she was to receive no other answer, and, after a short pause added: ‘I think I have understood that …"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 148,
+          "page": 148,
+          "similarity": 0.5745784640312195,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 satisfaction as sisters? Mr. Bingley will not be detained in London by them.’ ‘Caroline decidedly says that none of the party will re - turn into Hertfordsh…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 163,
+          "page": 163,
+          "similarity": 0.5687849521636963,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com them, with many rapturous expressions, of his happiness in having obtained the affection of their amiable neighbour, Miss Lucas, and then explai…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 167,
+          "page": 167,
+          "similarity": 0.5685306787490845,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com Chapter 24 M iss Bingley’s letter arrived, and put an end to doubt. The very first sentence conveyed the assurance of their being all settled in…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 187,
+          "page": 187,
+          "similarity": 0.5652762651443481,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com that he is really partial to Miss Darcy. I cannot understand it. If I were not afraid of judging harshly, I should be almost tempted to say that…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 73,
+          "page": 73,
+          "similarity": 0.5607014894485474,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com one sister much exceeded her affection for the other. The master of the house heard with real sorrow that they were to go so soon, and repeatedly…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 151,
+          "page": 151,
+          "similarity": 0.5550621747970581,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com her, and must fret no longer.’ ‘But, my dear sister, can I be happy, even supposing the best, in accepting a man whose sisters and friends are a…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 109,
+          "page": 109,
+          "similarity": 0.5492830276489258,
+          "text_preview": "10\u0018Free eBooks at Planet eBook.com an activity which took their brother by surprise, and hurry - ing off as if eager to escape from Mrs. Bennet’s civilities. The prospect of the N…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_021",
+      "question": "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, how does he begin his first proposal to Elizabeth?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        236
+      ],
+      "gold_pages": [
+        236
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0000001192092896,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 32,
+          "page": 32,
+          "similarity": 0.629696249961853,
+          "text_preview": "Pride and Prejudice\u0018\u0018 Sir William: ‘Indeed, sir, I have not the least intention of dancing. I entreat you not to suppose that I moved this way in order to beg for a partner.’ Mr. …"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 214,
+          "page": 214,
+          "similarity": 0.6279866099357605,
+          "text_preview": "Pride and Prejudice\u00181\u0018 His arrival was soon known at the Parsonage; for Mr. Collins was walking the whole morning within view of the lodges opening into Hunsford Lane, in order to…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 309,
+          "page": 309,
+          "similarity": 0.6242537498474121,
+          "text_preview": "\u00180\u0018Free eBooks at Planet eBook.com They were within twenty yards of each other, and so abrupt was his appearance, that it was impossible to avoid his sight. Their eyes instantly m…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 12,
+          "page": 13,
+          "similarity": 0.6210879683494568,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com that time, Mr. Darcy had been standing near enough for her to hear a conversation between him and Mr. Bingley, who came from the dance for a few …"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 324,
+          "page": 324,
+          "similarity": 0.6206944584846497,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 dislike of the proposal, and seeing in her husband, who was fond of society, a perfect willingness to accept it, she ven - tured to engage for her attendanc…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 123,
+          "page": 123,
+          "similarity": 0.6117889881134033,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com look on as a point of duty. Pardon me for neglecting to prof- it by your advice, which on every other subject shall be my constant guide, though…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 314,
+          "page": 314,
+          "similarity": 0.6113476753234863,
+          "text_preview": "Pride and Prejudice\u00181\u0018 The conversation soon turned upon fishing; and she heard Mr. Darcy invite him, with the greatest civility, to fish there as often as he chose while he conti…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 236,
+          "page": 236,
+          "similarity": 0.6035915017127991,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 py about him. While settling this point, she was suddenly roused by the sound of the door-bell, and her spirits were a little flut - tered by the idea of it…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 320,
+          "page": 320,
+          "similarity": 0.6032494902610779,
+          "text_preview": "Pride and Prejudice\u0018\u00180 other causes of disquiet, she dreaded lest the partiality of the brother should have said too much in her favour; and, more than commonly anxious to please,…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 228,
+          "page": 228,
+          "similarity": 0.6028438806533813,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 33 M ore than once did Elizabeth, in her ramble within the park, unexpectedly meet Mr. Darcy. She felt all the perverseness of the mischance that sh…"
+        }
+      ],
+      "first_gold_rank": 8,
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": true,
+      "reciprocal_rank": 0.125
+    },
+    {
+      "id": "pp_022",
+      "question": "During Darcy's first proposal, what does Elizabeth say she had felt about him before she had known him a month, using the phrase about the last man in the world?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        241
+      ],
+      "gold_pages": [
+        241
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 241,
+          "page": 241,
+          "similarity": 0.67295241355896,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com ment; yet she tried to the utmost to speak with composure when she said: ‘You are mistaken, Mr. Darcy, if you suppose that the mode of your decl…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 182,
+          "page": 182,
+          "similarity": 0.5929921269416809,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 is, beyond all comparison, the most agreeable man I ever saw—and if he becomes really attached to me—I believe it will be better that he should not. I see t…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 324,
+          "page": 324,
+          "similarity": 0.5921292304992676,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 dislike of the proposal, and seeing in her husband, who was fond of society, a perfect willingness to accept it, she ven - tured to engage for her attendanc…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 305,
+          "page": 305,
+          "similarity": 0.5916850566864014,
+          "text_preview": "\u00180\u0018Free eBooks at Planet eBook.com his sister. ‘Is your master much at Pemberley in the course of the year?’ ‘Not so much as I could wish, sir; but I dare say he may spend half hi…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 467,
+          "page": 467,
+          "similarity": 0.5909979343414307,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com was heard only by herself, soon went away. But before she had been three minutes in her own room, her mother fol - lowed her. ‘My dearest child,…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 97,
+          "page": 97,
+          "similarity": 0.5889503955841064,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com ‘Yes,’ replied Mr. Wickham; ‘his estate there is a noble one. A clear ten thousand per annum. You could not have met with a person more capable o…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 279,
+          "page": 279,
+          "similarity": 0.5877678394317627,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com ‘No—I do not know that you were wrong in saying what you did.’ ‘But you WILL know it, when I tell you what happened the very next day.’ She then…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 12,
+          "page": 13,
+          "similarity": 0.5851855278015137,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com that time, Mr. Darcy had been standing near enough for her to hear a conversation between him and Mr. Bingley, who came from the dance for a few …"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 333,
+          "page": 333,
+          "similarity": 0.5822077393531799,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com However little Mr. Darcy might have liked such an ad - dress, he contented himself with coolly replying that he perceived no other alteration th…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 341,
+          "page": 341,
+          "similarity": 0.5794835686683655,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com hope, in half-an-hour. But nothing can be done—I know very well that nothing can be done. How is such a man to be worked on? How are they even t…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_023",
+      "question": "The morning after the first proposal, where has Darcy been walking, and what does he ask Elizabeth to do with the letter he hands her at the gate?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        244
+      ],
+      "gold_pages": [
+        244
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 244,
+          "page": 244,
+          "similarity": 0.7000247240066528,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 hearing herself called, though in a voice which proved it to be Mr. Darcy, she moved again towards the gate. He had by that time reached it also, and, holdi…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 222,
+          "page": 222,
+          "similarity": 0.6451460719108582,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 32 E lizabeth was sitting by herself the next morning, and writing to Jane while Mrs. Collins and Maria were gone on business into the village, when…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 459,
+          "page": 459,
+          "similarity": 0.6449154615402222,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com Chapter 59 ‘M y dear Lizzy, where can you have been walking to?’ was a question which Elizabeth received from Jane as soon as she entered their …"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 339,
+          "page": 339,
+          "similarity": 0.641512393951416,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com ‘Oh! where, where is my uncle?’ cried Elizabeth, darting from her seat as she finished the letter, in eagerness to fol - low him, without losing…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 420,
+          "page": 420,
+          "similarity": 0.6365692615509033,
+          "text_preview": "Pride and Prejudice\u0018\u00180 tea, and Elizabeth pouring out the coffee, in so close a con - federacy that there was not a single vacancy near her which would admit of a chair. And on th…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 214,
+          "page": 214,
+          "similarity": 0.6310664415359497,
+          "text_preview": "Pride and Prejudice\u00181\u0018 His arrival was soon known at the Parsonage; for Mr. Collins was walking the whole morning within view of the lodges opening into Hunsford Lane, in order to…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 146,
+          "page": 146,
+          "similarity": 0.6303197145462036,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 knowledged that the necessity of his absence HAD been self-imposed. ‘I found,’ said he, ‘as the time drew near that I had better not meet Mr. Darcy; that to…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 73,
+          "page": 73,
+          "similarity": 0.6272558569908142,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com one sister much exceeded her affection for the other. The master of the house heard with real sorrow that they were to go so soon, and repeatedly…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 457,
+          "page": 457,
+          "similarity": 0.6264218688011169,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com he quitted the inn, and that his gravity and thoughtfulness there had arisen from no other struggles than what such a purpose must comprehend. S…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 236,
+          "page": 236,
+          "similarity": 0.6255064010620117,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 py about him. While settling this point, she was suddenly roused by the sound of the door-bell, and her spirits were a little flut - tered by the idea of it…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_024",
+      "question": "In Darcy's letter, what does he say happened at Ramsgate involving Georgiana, Mrs Younge, and Mr Wickham, including Georgiana's age and fortune?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        251,
+        252
+      ],
+      "gold_pages": [
+        251,
+        252
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 252,
+          "page": 252,
+          "similarity": 0.5874711275100708,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 tionate heart retained a strong impression of his kindness to her as a child, that she was persuaded to believe herself in love, and to consent to an elopem…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 396,
+          "page": 396,
+          "similarity": 0.5850652456283569,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 over before I arrived; so my curiosity was not so dreadful - ly racked as YOUR’S seems to have been. He came to tell Mr. Gardiner that he had found out wher…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 251,
+          "page": 251,
+          "similarity": 0.576289176940918,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com His circumstances, he assured me, and I had no difficulty in believing it, were exceedingly bad. He had found the law a most unprofitable study,…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 332,
+          "page": 332,
+          "similarity": 0.5680903196334839,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 meaning that it should effect his endeavour to separate him from Miss Bennet, it is probable that it might add some - thing to his lively concern for the we…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 97,
+          "page": 97,
+          "similarity": 0.5655913352966309,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com ‘Yes,’ replied Mr. Wickham; ‘his estate there is a noble one. A clear ten thousand per annum. You could not have met with a person more capable o…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 456,
+          "page": 456,
+          "similarity": 0.5643811225891113,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 thy of being pleased.’ ‘Had you then persuaded yourself that I should?’ ‘Indeed I had. What will you think of my vanity? I be - lieved you to be wishing, ex…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 340,
+          "page": 340,
+          "similarity": 0.5629618167877197,
+          "text_preview": "Pride and Prejudice\u0018\u00180 herself. ‘There is nothing the matter with me. I am quite well; I am only distressed by some dreadful news which I have just received from Longbourn.’ She b…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 266,
+          "page": 266,
+          "similarity": 0.5608585476875305,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 would scarcely give them a hearing. They were ignorant, idle, and vain. While there was an officer in Meryton, they would flirt with him; and while Meryton …"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 119,
+          "page": 119,
+          "similarity": 0.558140754699707,
+          "text_preview": "11\u0018Free eBooks at Planet eBook.com communication, that he was the son of old Wickham, the late Mr. Darcy’s steward. Let me recommend you, however, as a friend, not to give implici…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 256,
+          "page": 256,
+          "similarity": 0.5565049052238464,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 to the living, of his receiving in lieu so considerable a sum as three thousand pounds, again was she forced to hesitate. She put down the letter, weighed e…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_025",
+      "question": "When Elizabeth and the Gardiners first drive into Pemberley, what does the park contain, and how is Pemberley House situated when they reach the eminence?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        301
+      ],
+      "gold_pages": [
+        301
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0000001192092896,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 301,
+          "page": 301,
+          "similarity": 0.655971348285675,
+          "text_preview": "\u001801Free eBooks at Planet eBook.com Chapter 43 E lizabeth, as they drove along, watched for the first ap - pearance of Pemberley Woods with some perturbation; and when at length th…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 299,
+          "page": 299,
+          "similarity": 0.6311691999435425,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com if there were disappointments abroad. It is not the object of this work to give a description of Derbyshire, nor of any of the remarkable places…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 298,
+          "page": 298,
+          "similarity": 0.6091158986091614,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 all the celebrated beauties of Matlock, Chatsworth, Dove - dale, or the Peak. Elizabeth was excessively disappointed; she had set her heart on seeing the La…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 302,
+          "page": 302,
+          "similarity": 0.6015016436576843,
+          "text_preview": "Pride and Prejudice\u00180\u0018 Pemberley might be something! They descended the hill, crossed the bridge, and drove to the door; and, while examining the nearer aspect of the house, all h…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 327,
+          "page": 327,
+          "similarity": 0.5831387042999268,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com to be imitated, though it could not be equalled, by some ex - ertion of politeness on their side; and, consequently, that it would be highly exp…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 311,
+          "page": 311,
+          "similarity": 0.5773323774337769,
+          "text_preview": "\u001811Free eBooks at Planet eBook.com sible of any of it; and, though she answered mechanically to the repeated appeals of her uncle and aunt, and seemed to direct her eyes to such o…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 46,
+          "page": 46,
+          "similarity": 0.575595498085022,
+          "text_preview": "Pride and Prejudice\u0018\u0018 lightful library you have at Pemberley, Mr. Darcy!’ ‘It ought to be good,’ he replied, ‘it has been the work of many generations.’ ‘And then you have added s…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 328,
+          "page": 328,
+          "similarity": 0.5755205750465393,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 45 C onvinced as Elizabeth now was that Miss Bingley’s dis - like of her had originated in jealousy, she could not help feeling how unwelcome her ap…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 300,
+          "page": 300,
+          "similarity": 0.5632350444793701,
+          "text_preview": "Pride and Prejudice\u001800 Elizabeth said no more—but her mind could not acqui - esce. The possibility of meeting Mr. Darcy, while viewing the place, instantly occurred. It would be d…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 477,
+          "page": 477,
+          "similarity": 0.5577824115753174,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com she retained all the claims to reputation which her marriage had given her. Though Darcy could never receive HIM at Pemberley, yet, for Elizabet…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_026",
+      "question": "What does Jane's second letter say about whether Wickham and Lydia have gone to Scotland, and where does Colonel Forster lose their trail after Epsom?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        337
+      ],
+      "gold_pages": [
+        337
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 0.9999998807907104,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 337,
+          "page": 337,
+          "similarity": 0.6535032391548157,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com know what I would write, but I have bad news for you, and it cannot be delayed. Imprudent as the marriage between Mr. Wickham and our poor Lydia…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 357,
+          "page": 357,
+          "similarity": 0.6314311027526855,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com had known, it seems, of their being in love with each other, many weeks.’ ‘But not before they went to Brighton?’ ‘No, I believe not.’ ‘And did …"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 335,
+          "page": 335,
+          "similarity": 0.6008803248405457,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com Chapter 46 E lizabeth had been a good deal disappointed in not find - ing a letter from Jane on their first arrival at Lambton; and this disappo…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 347,
+          "page": 347,
+          "similarity": 0.6007075309753418,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com lute proof that they are not gone to Scotland.’ ‘Oh! but their removing from the chaise into a hackney coach is such a presumption! And, besides…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 336,
+          "page": 336,
+          "similarity": 0.578330934047699,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 with one of his officers; to own the truth, with Wickham! Imagine our surprise. To Kitty, however, it does not seem so wholly unexpected. I am very, very so…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 386,
+          "page": 386,
+          "similarity": 0.5748287439346313,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 had expected most pleasure and pride in her company, for she had by no means given up her plan of their residing in Hertfordshire, was a severe disappointme…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 366,
+          "page": 366,
+          "similarity": 0.5743056535720825,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 to his fear of discovery by Lydia’s relations, for it had just transpired that he had left gaming debts behind him to a very considerable amount. Colonel Fo…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 363,
+          "page": 363,
+          "similarity": 0.5712977647781372,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com leave London and promised to write again very soon. There was also a postscript to this effect: ‘I have written to Colonel Forster to desire him…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 343,
+          "page": 343,
+          "similarity": 0.5692209601402283,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com of what is so often described as arising on a first interview with its object, and even before two words have been ex - changed, nothing can be …"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 360,
+          "page": 360,
+          "similarity": 0.5676324963569641,
+          "text_preview": "Pride and Prejudice\u0018\u00180 covery of his daughter. ‘He meant I believe,’ replied Jane, ‘to go to Epsom, the place where they last changed horses, see the postilions and try if anythin…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "id": "pp_027",
+      "question": "When Elizabeth meets Darcy just after reading Jane's letter at Lambton, what dreadful news from Longbourn does she tell him about Lydia and Wickham?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        340
+      ],
+      "gold_pages": [
+        340
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 279,
+          "page": 279,
+          "similarity": 0.663935661315918,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com ‘No—I do not know that you were wrong in saying what you did.’ ‘But you WILL know it, when I tell you what happened the very next day.’ She then…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 185,
+          "page": 185,
+          "similarity": 0.6425856351852417,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com counted for it, however, by supposing that her last letter to her friend from Longbourn had by some accident been lost. ‘My aunt,’ she continued…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 187,
+          "page": 187,
+          "similarity": 0.6322340369224548,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com that he is really partial to Miss Darcy. I cannot understand it. If I were not afraid of judging harshly, I should be almost tempted to say that…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 340,
+          "page": 340,
+          "similarity": 0.6283878087997437,
+          "text_preview": "Pride and Prejudice\u0018\u00180 herself. ‘There is nothing the matter with me. I am quite well; I am only distressed by some dreadful news which I have just received from Longbourn.’ She b…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 358,
+          "page": 358,
+          "similarity": 0.6236104965209961,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 is but one man in the world I love, and he is an angel. I should never be happy without him, so think it no harm to be off. You need not send them word at L…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 349,
+          "page": 349,
+          "similarity": 0.6213893890380859,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com he is as false and deceitful as he is insinuating.’ ‘And do you really know all this?’ cried Mrs. Gardiner, whose curiosity as to the mode of he…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 119,
+          "page": 119,
+          "similarity": 0.6172277927398682,
+          "text_preview": "11\u0018Free eBooks at Planet eBook.com communication, that he was the son of old Wickham, the late Mr. Darcy’s steward. Let me recommend you, however, as a friend, not to give implici…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 363,
+          "page": 363,
+          "similarity": 0.6137038469314575,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com leave London and promised to write again very soon. There was also a postscript to this effect: ‘I have written to Colonel Forster to desire him…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 337,
+          "page": 337,
+          "similarity": 0.6136627197265625,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com know what I would write, but I have bad news for you, and it cannot be delayed. Imprudent as the marriage between Mr. Wickham and our poor Lydia…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 107,
+          "page": 107,
+          "similarity": 0.6126551628112793,
+          "text_preview": "10\u0018Free eBooks at Planet eBook.com Chapter 17 E lizabeth related to Jane the next day what had passed between Mr. Wickham and herself. Jane listened with astonishment and concern;…"
+        }
+      ],
+      "first_gold_rank": 4,
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 0.25
+    },
+    {
+      "id": "pp_028",
+      "question": "What does Lady Catherine call Elizabeth during their confrontation at Longbourn, and what does she say about her daughter and nephew being formed for each other?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        438
+      ],
+      "gold_pages": [
+        438
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 0.9999999403953552,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 135,
+          "page": 135,
+          "similarity": 0.5895640850067139,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com ‘Upon my word, sir,’ cried Elizabeth, ‘your hope is a rath- er extraordinary one after my declaration. I do assure you that I am not one of thos…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 199,
+          "page": 199,
+          "similarity": 0.575840413570404,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com moment, she heard somebody running upstairs in a vio - lent hurry, and calling loudly after her. She opened the door and met Maria in the landin…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 445,
+          "page": 445,
+          "similarity": 0.5688952803611755,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com satisfied it, with the same kind of supposition which had appeased Mrs. Bennet’s curiosity; and Elizabeth was spared from much teasing on the su…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 131,
+          "page": 131,
+          "similarity": 0.5669434666633606,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com Chapter 19 T he next day opened a new scene at Longbourn. Mr. Col - lins made his declaration in form. Having resolved to do it without loss of …"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 478,
+          "page": 478,
+          "similarity": 0.565954327583313,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Lady Catherine was extremely indignant on the mar - riage of her nephew; and as she gave way to all the genuine frankness of her character in her reply to t…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 225,
+          "page": 225,
+          "similarity": 0.5633777379989624,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com my friend would not call herself NEAR her family under less than HALF the present distance.’ Mr. Darcy drew his chair a little towards her, and …"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 433,
+          "page": 433,
+          "similarity": 0.5630185008049011,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com on her ladyship’s entrance, though no request of introduc - tion had been made. Mrs. Bennet, all amazement, though flattered by having a guest o…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 435,
+          "page": 435,
+          "similarity": 0.5598521828651428,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com reason of my journey hither. Your own heart, your own conscience, must tell you why I come.’ Elizabeth looked with unaffected astonishment. ‘Ind…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 25,
+          "page": 25,
+          "similarity": 0.5598163604736328,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Chapter 6 T he ladies of Longbourn soon waited on those of Neth - erfield. The visit was soon returned in due form. Miss Bennet’s pleasing manner…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 205,
+          "page": 205,
+          "similarity": 0.558294951915741,
+          "text_preview": "\u00180\u0018Free eBooks at Planet eBook.com ever his son-in-law said, in a manner which Elizabeth wondered Lady Catherine could bear. But Lady Catherine seemed gratified by their excessive…"
+        }
+      ],
+      "first_gold_rank": null,
+      "hit_at_1": false,
+      "hit_at_5": false,
+      "hit_at_10": false,
+      "reciprocal_rank": 0.0
+    },
+    {
+      "id": "pp_029",
+      "question": "How does Lady Catherine invoke Lydia's elopement and Pemberley when she tries to stop Elizabeth marrying Darcy, including the remark about shades being polluted?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        440
+      ],
+      "gold_pages": [
+        440
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 478,
+          "page": 478,
+          "similarity": 0.623406171798706,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Lady Catherine was extremely indignant on the mar - riage of her nephew; and as she gave way to all the genuine frankness of her character in her reply to t…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 440,
+          "page": 440,
+          "similarity": 0.5881167650222778,
+          "text_preview": "Pride and Prejudice\u0018\u00180 dinary application have been as frivolous as the application was ill-judged. You have widely mistaken my character, if you think I can be worked on by such …"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 443,
+          "page": 443,
+          "similarity": 0.5785780549049377,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com Chapter 57 T he discomposure of spirits which this extraordinary vis - it threw Elizabeth into, could not be easily overcome; nor could she, for…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 64,
+          "page": 64,
+          "similarity": 0.5777179002761841,
+          "text_preview": "Pride and Prejudice\u0018\u0018 her great anxiety for the recovery of her dear friend Jane received some assistance from her desire of getting rid of Elizabeth. She often tried to provoke D…"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 447,
+          "page": 447,
+          "similarity": 0.5741072297096252,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com son to imagine that his aunt, Lady Catherine de Bourgh, does not look on the match with a friendly eye.’ ‘MR. DARCY, you see, is the man! Now, L…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 437,
+          "page": 437,
+          "similarity": 0.5661530494689941,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com pose he will make an offer to me.’ Lady Catherine hesitated for a moment, and then re - plied: ‘The engagement between them is of a peculiar kin…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 332,
+          "page": 332,
+          "similarity": 0.5631917715072632,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 meaning that it should effect his endeavour to separate him from Miss Bennet, it is probable that it might add some - thing to his lively concern for the we…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 461,
+          "page": 461,
+          "similarity": 0.5626926422119141,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com Bingley. I am afraid you will be angry.’ ‘My dearest sister, now BE serious. I want to talk very se - riously. Let me know every thing that I am…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 264,
+          "page": 264,
+          "similarity": 0.5606000423431396,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 for one of you—and indeed, if the weather should happen to be cool, I should not object to taking you both, as you are neither of you large.’ ‘You are all k…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 46,
+          "page": 46,
+          "similarity": 0.5574420690536499,
+          "text_preview": "Pride and Prejudice\u0018\u0018 lightful library you have at Pemberley, Mr. Darcy!’ ‘It ought to be good,’ he replied, ‘it has been the work of many generations.’ ‘And then you have added s…"
+        }
+      ],
+      "first_gold_rank": 2,
+      "hit_at_1": false,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "id": "pp_030",
+      "question": "On their walk after Elizabeth thanks Darcy for helping Lydia, what does he say about her feelings last April and about his own affections and wishes?",
+      "book_id": "pride_and_prejudice",
+      "gold_chunk_indexes": [
+        451
+      ],
+      "gold_pages": [
+        451
+      ],
+      "query_embedding_dimension": 1024,
+      "query_embedding_norm": 1.0000001192092896,
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_index": 451,
+          "page": 451,
+          "similarity": 0.6448421478271484,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com may be wounding your’s. I can no longer help thanking you for your unexampled kindness to my poor sister. Ever since I have known it, I have bee…"
+        },
+        {
+          "rank": 2,
+          "chunk_index": 342,
+          "page": 342,
+          "similarity": 0.6192039251327515,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 have been long desiring my absence, nor have I anything to plead in excuse of my stay, but real, though unavailing concern. Would to Heaven that anything co…"
+        },
+        {
+          "rank": 3,
+          "chunk_index": 465,
+          "page": 465,
+          "similarity": 0.6160644292831421,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com in her reply; and at length, by repeated assurances that Mr. Darcy was really the object of her choice, by explaining the gradual change which h…"
+        },
+        {
+          "rank": 4,
+          "chunk_index": 404,
+          "page": 404,
+          "similarity": 0.60331130027771,
+          "text_preview": "Pride and Prejudice\u00180\u0018 know, things are strangely misrepresented.’ ‘Certainly,’ he replied, biting his lips. Elizabeth hoped she had silenced him; but he soon afterwards said: ‘I …"
+        },
+        {
+          "rank": 5,
+          "chunk_index": 231,
+          "page": 231,
+          "similarity": 0.6025184988975525,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com ‘Are you indeed? And pray what sort of guardians do you make? Does your charge give you much trouble? Young la - dies of her age are sometimes a…"
+        },
+        {
+          "rank": 6,
+          "chunk_index": 290,
+          "page": 290,
+          "similarity": 0.602023184299469,
+          "text_preview": "Pride and Prejudice\u0018\u00180 prospects and such realities as these, what would have been her sensations? They could have been understood only by her mother, who might have felt nearly t…"
+        },
+        {
+          "rank": 7,
+          "chunk_index": 400,
+          "page": 400,
+          "similarity": 0.6017931699752808,
+          "text_preview": "Pride and Prejudice\u001800 cle would never have yielded, if we had not given him credit for ANOTHER INTEREST in the affair. ‘When all this was resolved on, he returned again to his fr…"
+        },
+        {
+          "rank": 8,
+          "chunk_index": 116,
+          "page": 116,
+          "similarity": 0.5982076525688171,
+          "text_preview": "Pride and Prejudice11\u0018 not go on. At length Darcy spoke, and in a constrained manner said, ‘Mr. Wickham is blessed with such happy manners as may ensure his MAKING friends—whether…"
+        },
+        {
+          "rank": 9,
+          "chunk_index": 339,
+          "page": 339,
+          "similarity": 0.5979537963867188,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com ‘Oh! where, where is my uncle?’ cried Elizabeth, darting from her seat as she finished the letter, in eagerness to fol - low him, without losing…"
+        },
+        {
+          "rank": 10,
+          "chunk_index": 417,
+          "page": 417,
+          "similarity": 0.5951936841011047,
+          "text_preview": "\u00181\u0018Free eBooks at Planet eBook.com Chapter 54 A s soon as they were gone, Elizabeth walked out to re - cover her spirits; or in other words, to dwell without interruption on those…"
+        }
+      ],
+      "first_gold_rank": 1,
+      "hit_at_1": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "reciprocal_rank": 1.0
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "stage": 2,
+  "pipeline": "Stage 1 validated chunks → passage: prefix → multilingual-e5-large → L2-normalized 1024-D vectors → PostgreSQL/pgvector upsert",
+  "not_implemented": [
+    "query embeddings",
+    "Top-K retrieval",
+    "Qwen/Ollama",
+    "ANN indexes (HNSW/IVFFlat)",
+    "FAISS"
+  ],
+  "embedding_model": "intfloat/multilingual-e5-large",
+  "device": "cpu",
+  "passage_prefix": "passage: ",
+  "chunks_artifact": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/arthashastra_stage1_chunks.json",
+  "book_id": "arthashastra",
+  "total_chunks_received": 10,
+  "total_embeddings_created": 10,
+  "embedding_dimension": 1024,
+  "expected_dimension": 1024,
+  "n_incorrect_dimension": 0,
+  "normalized_vector_check": "pass",
+  "minimum_vector_norm": 0.9999999403953552,
+  "average_vector_norm": 1.0,
+  "maximum_vector_norm": 1.0000001192092896,
+  "database_book_row_count": 2,
+  "database_chunk_row_count_for_book": 10,
+  "n_null_embeddings": 0,
+  "n_duplicate_chunk_indexes": 0,
+  "n_failed_embeddings": 0,
+  "processing_seconds": 18.2,
+  "idempotency": "upsert on books.book_id and chunks (book_id, chunk_index)",
+  "warnings": []
+}

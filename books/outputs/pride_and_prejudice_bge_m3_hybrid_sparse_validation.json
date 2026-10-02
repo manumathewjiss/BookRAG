@@ -1,0 +1,33 @@
+{
+  "stage": "bge_m3_hybrid_sparse_embed",
+  "embedding_model": "BAAI/bge-m3",
+  "model_revision": null,
+  "input_format": "raw chunk_text (BGE-M3 sparse docs: no passage:/query: prefixes)",
+  "sparse_formula": "ReLU(sparse_linear(last_hidden_state)); max weight per token id; drop cls/eos/pad/unk",
+  "modes_used": [
+    "sparse"
+  ],
+  "modes_not_used": [
+    "colbert",
+    "bm25",
+    "rerank",
+    "new_dense_model"
+  ],
+  "dense_vectors": "reused from chunk_embeddings_bge_m3; not rewritten",
+  "storage_table": "chunk_sparse_weights_bge_m3_hybrid",
+  "max_length": 512,
+  "batch_size": 4,
+  "device": "cpu",
+  "chunks_artifact": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/pride_and_prejudice_stage1_chunks.json",
+  "chunks_sha256": "e6aa2ad5ce095680573ed420db7111cf41bf807cebb99ebce8650830240d11c8",
+  "book_id": "pride_and_prejudice",
+  "total_chunks_received": 480,
+  "total_sparse_rows": 480,
+  "empty_sparse_vectors": 0,
+  "mean_nonzero_tokens": 135.03541666666666,
+  "e5_embedding_row_count_unchanged": 480,
+  "bge_m3_dense_row_count_unchanged": 480,
+  "git_head": "c462224e43ec21e970cf8cb495e1b180a1d13864",
+  "encode_seconds": 360.27,
+  "warnings": []
+}

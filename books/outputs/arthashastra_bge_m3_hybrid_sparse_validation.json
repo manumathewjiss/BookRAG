@@ -1,0 +1,33 @@
+{
+  "stage": "bge_m3_hybrid_sparse_embed",
+  "embedding_model": "BAAI/bge-m3",
+  "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+  "input_format": "raw chunk_text (BGE-M3 sparse docs: no passage:/query: prefixes)",
+  "sparse_formula": "ReLU(sparse_linear(last_hidden_state)); max weight per token id; drop cls/eos/pad/unk",
+  "modes_used": [
+    "sparse"
+  ],
+  "modes_not_used": [
+    "colbert",
+    "bm25",
+    "rerank",
+    "new_dense_model"
+  ],
+  "dense_vectors": "reused from chunk_embeddings_bge_m3; not rewritten",
+  "storage_table": "chunk_sparse_weights_bge_m3_hybrid",
+  "max_length": 512,
+  "batch_size": 4,
+  "device": "cpu",
+  "chunks_artifact": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/arthashastra_stage1_chunks.json",
+  "chunks_sha256": "341b52c09798a266e7411e9cbb9ba914bc386ed93d38b05215941a2ff5253dac",
+  "book_id": "arthashastra",
+  "total_chunks_received": 10,
+  "total_sparse_rows": 10,
+  "empty_sparse_vectors": 0,
+  "mean_nonzero_tokens": 124.8,
+  "e5_embedding_row_count_unchanged": 10,
+  "bge_m3_dense_row_count_unchanged": 10,
+  "git_head": "c462224e43ec21e970cf8cb495e1b180a1d13864",
+  "encode_seconds": 6.856,
+  "warnings": []
+}

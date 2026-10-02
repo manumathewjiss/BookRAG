@@ -1,0 +1,242 @@
+[
+  {
+    "id": "pp_001",
+    "book_id": "pride_and_prejudice",
+    "question": "What truth is universally acknowledged in the opening of Pride and Prejudice about a single man in possession of a good fortune?",
+    "gold_chunk_indexes": [1],
+    "gold_pages": [2],
+    "notes": "Chunk 1 (p.2): it is a truth universally acknowledged that a single man in possession of a good fortune must be in want of a wife."
+  },
+  {
+    "id": "pp_002",
+    "book_id": "pride_and_prejudice",
+    "question": "Who tells Mr Bennet that Netherfield Park is let at last, and who had just brought Mrs Bennet the news?",
+    "gold_chunk_indexes": [1],
+    "gold_pages": [2],
+    "notes": "Chunk 1 (p.2): Mrs Bennet tells him; Mrs Long has just been there and told her all about it."
+  },
+  {
+    "id": "pp_003",
+    "book_id": "pride_and_prejudice",
+    "question": "According to Mrs Bennet, what is the name of the single man who has taken Netherfield, and what yearly income does she attribute to him?",
+    "gold_chunk_indexes": [2],
+    "gold_pages": [3],
+    "notes": "Chunk 2 (p.3): his name is Bingley; a single man of large fortune, four or five thousand a year."
+  },
+  {
+    "id": "pp_004",
+    "book_id": "pride_and_prejudice",
+    "question": "How does Mr Bennet first reveal that he has already called on Mr Bingley, and which daughter is trimming a hat when he speaks?",
+    "gold_chunk_indexes": [5],
+    "gold_pages": [6],
+    "notes": "Chunk 5 (p.6): he addresses his second daughter Lizzy, who is trimming a hat, hoping Mr Bingley will like it, after visiting without telling his wife."
+  },
+  {
+    "id": "pp_005",
+    "book_id": "pride_and_prejudice",
+    "question": "What yearly income is rumoured of Mr Darcy within five minutes of his entrance at the assembly, and how do his manners soon change the company's opinion of him?",
+    "gold_chunk_indexes": [11],
+    "gold_pages": [12],
+    "notes": "Chunk 11 (p.12): ten thousand a year; he is discovered to be proud, above his company, and above being pleased."
+  },
+  {
+    "id": "pp_006",
+    "book_id": "pride_and_prejudice",
+    "question": "At the Meryton assembly, with whom does Mr Darcy dance, and how does Mr Bingley's behaviour contrast with his friend's?",
+    "gold_chunk_indexes": [11],
+    "gold_pages": [12],
+    "notes": "Chunk 11 (p.12): Darcy dances only once with Mrs Hurst and once with Miss Bingley; Bingley is lively, unreserved, and dances every dance."
+  },
+  {
+    "id": "pp_007",
+    "book_id": "pride_and_prejudice",
+    "question": "When Mr Bingley urges Darcy to dance at the assembly and points out Elizabeth sitting down, what does Darcy say about her looks and about giving consequence to young ladies?",
+    "gold_chunk_indexes": [12],
+    "gold_pages": [13],
+    "notes": "Chunk 12 (p.13): 'She is tolerable, but not handsome enough to tempt ME; I am in no humour at present to give consequence to young ladies who are slighted by other men.'"
+  },
+  {
+    "id": "pp_008",
+    "book_id": "pride_and_prejudice",
+    "question": "According to Mrs Bennet after the assembly, how many times did Mr Bingley dance with Jane, and whom did he dance with first?",
+    "gold_chunk_indexes": [14],
+    "gold_pages": [15],
+    "notes": "Chunk 14 (p.15): he danced with Jane twice and she was the only creature he asked a second time; first of all he asked Miss Lucas."
+  },
+  {
+    "id": "pp_009",
+    "book_id": "pride_and_prejudice",
+    "question": "Where had Sir William Lucas formerly been in trade, and what is the name of the house he occupies after leaving that market town?",
+    "gold_chunk_indexes": [21],
+    "gold_pages": [21],
+    "notes": "Chunk 21 (p.21): formerly in trade in Meryton; the house about a mile from Meryton is called Lucas Lodge."
+  },
+  {
+    "id": "pp_010",
+    "book_id": "pride_and_prejudice",
+    "question": "What is the yearly income of Mr Bennet's estate, how is it entailed, and how much did Mrs Bennet's father leave her?",
+    "gold_chunk_indexes": [34],
+    "gold_pages": [34],
+    "notes": "Chunk 34 (p.34): estate of two thousand a year, entailed in default of heirs male on a distant relation; her father left her four thousand pounds."
+  },
+  {
+    "id": "pp_011",
+    "book_id": "pride_and_prejudice",
+    "question": "After Jane reads Caroline Bingley's invitation to Netherfield, why does Mrs Bennet tell Jane she had better go on horseback rather than take the carriage?",
+    "gold_chunk_indexes": [37],
+    "gold_pages": [37],
+    "notes": "Chunk 37 (p.37): because it seems likely to rain, and then Jane must stay all night."
+  },
+  {
+    "id": "pp_012",
+    "book_id": "pride_and_prejudice",
+    "question": "When Elizabeth decides to walk to Netherfield to see Jane, how far does she say the distance is, and what does her mother object to about the walk?",
+    "gold_chunk_indexes": [39],
+    "gold_pages": [39],
+    "notes": "Chunk 39 (p.39): only three miles; her mother calls it silly in all this dirt and says she will not be fit to be seen."
+  },
+  {
+    "id": "pp_013",
+    "book_id": "pride_and_prejudice",
+    "question": "When Elizabeth arrives at Netherfield after walking alone in dirty weather, how do Mrs Hurst and Miss Bingley react, and what is Jane's condition in her room?",
+    "gold_chunk_indexes": [40],
+    "gold_pages": [40],
+    "notes": "Chunk 40 (p.40): her walking three miles so early in dirty weather is almost incredible to them; Jane had slept ill, is very feverish, and not well enough to leave her room."
+  },
+  {
+    "id": "pp_014",
+    "book_id": "pride_and_prejudice",
+    "question": "Who is Mr Collins in relation to the Longbourn family, and what does Mr Bennet say Collins may do when Mr Bennet is dead?",
+    "gold_chunk_indexes": [76],
+    "gold_pages": [76],
+    "notes": "Chunk 76 (p.76): he is Mr Bennet's cousin; when Mr Bennet is dead, Collins may turn them all out of the house as soon as he pleases."
+  },
+  {
+    "id": "pp_015",
+    "book_id": "pride_and_prejudice",
+    "question": "After hearing Mr Collins's letter, what mixture of qualities does Mr Bennet say he finds in it, and does he think Collins is a sensible man?",
+    "gold_chunk_indexes": [79],
+    "gold_pages": [79],
+    "notes": "Chunk 79 (p.79): he thinks not; there is a mixture of servility and self-importance in the letter which promises well."
+  },
+  {
+    "id": "pp_016",
+    "book_id": "pride_and_prejudice",
+    "question": "When Mr Collins wants to speak privately to Elizabeth, what does Mrs Bennet insist that Lizzy do?",
+    "gold_chunk_indexes": [132],
+    "gold_pages": [132],
+    "notes": "Chunk 132 (p.132): 'Lizzy, I INSIST upon your staying and hearing Mr. Collins.'"
+  },
+  {
+    "id": "pp_017",
+    "book_id": "pride_and_prejudice",
+    "question": "What three reasons does Mr Collins give Elizabeth for marrying, and what advice did Lady Catherine give him the Saturday night before he left Hunsford?",
+    "gold_chunk_indexes": [133],
+    "gold_pages": [133],
+    "notes": "Chunk 133 (p.133): example of matrimony in his parish; it will add to his happiness; particular advice of his patroness. Lady Catherine told him a clergyman must marry, choose a gentlewoman for her sake, and an active useful person able to make a small income go a good way."
+  },
+  {
+    "id": "pp_018",
+    "book_id": "pride_and_prejudice",
+    "question": "In the library, what alternative does Mr Bennet put to Elizabeth about marrying Mr Collins, contrasting her mother's demand with his own?",
+    "gold_chunk_indexes": [140],
+    "gold_pages": [140],
+    "notes": "Chunk 140 (p.140): her mother will never see her again if she does not marry Collins, and he will never see her again if she does."
+  },
+  {
+    "id": "pp_019",
+    "book_id": "pride_and_prejudice",
+    "question": "Who comes to Longbourn, sent by his daughter, to announce Charlotte Lucas's engagement to the Bennet family?",
+    "gold_chunk_indexes": [160],
+    "gold_pages": [160],
+    "notes": "Chunk 160 (p.160): Sir William Lucas himself appeared, sent by his daughter, to announce her engagement."
+  },
+  {
+    "id": "pp_020",
+    "book_id": "pride_and_prejudice",
+    "question": "What surprising news does Jane say is in Caroline Bingley's letter about the Netherfield party leaving Hertfordshire?",
+    "gold_chunk_indexes": [147],
+    "gold_pages": [147],
+    "notes": "Chunk 147 (p.147): the whole party have left Netherfield and are on their way to town, without any intention of coming back again."
+  },
+  {
+    "id": "pp_021",
+    "book_id": "pride_and_prejudice",
+    "question": "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, how does he begin his first proposal to Elizabeth?",
+    "gold_chunk_indexes": [236],
+    "gold_pages": [236],
+    "notes": "Chunk 236 (p.236): 'In vain I have struggled. It will not do. My feelings will not be repressed. You must allow me to tell you how ardently I admire and love you.'"
+  },
+  {
+    "id": "pp_022",
+    "book_id": "pride_and_prejudice",
+    "question": "During Darcy's first proposal, what does Elizabeth say she had felt about him before she had known him a month, using the phrase about the last man in the world?",
+    "gold_chunk_indexes": [241],
+    "gold_pages": [241],
+    "notes": "Chunk 241 (p.241): she had not known him a month before she felt that he was the last man in the world whom she could ever be prevailed on to marry."
+  },
+  {
+    "id": "pp_023",
+    "book_id": "pride_and_prejudice",
+    "question": "The morning after the first proposal, where has Darcy been walking, and what does he ask Elizabeth to do with the letter he hands her at the gate?",
+    "gold_chunk_indexes": [244],
+    "gold_pages": [244],
+    "notes": "Chunk 244 (p.244): he has been walking in the grove some time in the hope of meeting her; 'Will you do me the honour of reading that letter?' Dated from Rosings at eight o'clock in the morning."
+  },
+  {
+    "id": "pp_024",
+    "book_id": "pride_and_prejudice",
+    "question": "In Darcy's letter, what does he say happened at Ramsgate involving Georgiana, Mrs Younge, and Mr Wickham, including Georgiana's age and fortune?",
+    "gold_chunk_indexes": [251, 252],
+    "gold_pages": [251, 252],
+    "notes": "Chunks 251–252 (p.251–252): last summer at Ramsgate, Wickham by Mrs Younge's connivance recommended himself to Georgiana, then fifteen, who consented to an elopement; Darcy joined them a day or two before; Wickham's chief object was her fortune of thirty thousand pounds."
+  },
+  {
+    "id": "pp_025",
+    "book_id": "pride_and_prejudice",
+    "question": "When Elizabeth and the Gardiners first drive into Pemberley, what does the park contain, and how is Pemberley House situated when they reach the eminence?",
+    "gold_chunk_indexes": [301],
+    "gold_pages": [301],
+    "notes": "Chunk 301 (p.301): the park was very large and contained great variety of ground; Pemberley House is a large handsome stone building on rising ground, backed by woody hills, with a stream in front."
+  },
+  {
+    "id": "pp_026",
+    "book_id": "pride_and_prejudice",
+    "question": "What does Jane's second letter say about whether Wickham and Lydia have gone to Scotland, and where does Colonel Forster lose their trail after Epsom?",
+    "gold_chunk_indexes": [337],
+    "gold_pages": [337],
+    "notes": "Chunk 337 (p.337): there is too much reason to fear they are not gone to Scotland; Lydia's note mentioned Gretna Green, but Denny believed Wickham never intended to marry her; Forster traced them to Clapham, they changed to a hackney coach after dismissing the chaise from Epsom, and were seen on the London road."
+  },
+  {
+    "id": "pp_027",
+    "book_id": "pride_and_prejudice",
+    "question": "When Elizabeth meets Darcy just after reading Jane's letter at Lambton, what dreadful news from Longbourn does she tell him about Lydia and Wickham?",
+    "gold_chunk_indexes": [340],
+    "gold_pages": [340],
+    "notes": "Chunk 340 (p.340): her younger sister has eloped and thrown herself into the power of Mr Wickham; they are gone off together from Brighton."
+  },
+  {
+    "id": "pp_028",
+    "book_id": "pride_and_prejudice",
+    "question": "What does Lady Catherine call Elizabeth during their confrontation at Longbourn, and what does she say about her daughter and nephew being formed for each other?",
+    "gold_chunk_indexes": [438],
+    "gold_pages": [438],
+    "notes": "Chunk 438 (p.438): 'Obstinate, headstrong girl!'; her daughter and nephew are formed for each other, descended on the maternal side from the same noble line."
+  },
+  {
+    "id": "pp_029",
+    "book_id": "pride_and_prejudice",
+    "question": "How does Lady Catherine invoke Lydia's elopement and Pemberley when she tries to stop Elizabeth marrying Darcy, including the remark about shades being polluted?",
+    "gold_chunk_indexes": [440],
+    "gold_pages": [440],
+    "notes": "Chunk 440 (p.440): she knows the particulars of the youngest sister's infamous elopement, a patched-up marriage; 'Are the shades of Pemberley to be thus polluted?'"
+  },
+  {
+    "id": "pp_030",
+    "book_id": "pride_and_prejudice",
+    "question": "On their walk after Elizabeth thanks Darcy for helping Lydia, what does he say about her feelings last April and about his own affections and wishes?",
+    "gold_chunk_indexes": [451],
+    "gold_pages": [451],
+    "notes": "Chunk 451 (p.451): 'If your feelings are still what they were last April, tell me so at once. MY affections and wishes are unchanged, but one word from you will silence me on this subject for ever.'"
+  }
+]

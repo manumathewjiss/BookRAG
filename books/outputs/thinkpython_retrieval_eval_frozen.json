@@ -1,0 +1,162 @@
+[
+  {
+    "id": "tp_001",
+    "book_id": "thinkpython",
+    "question": "What is a program, according to Think Python?",
+    "gold_chunk_indexes": [69],
+    "gold_pages": [25],
+    "notes": "Chunk 69 (p.25) defines a program as a sequence of instructions that specifies how to perform a computation, and lists input/output/math/conditional/repetition."
+  },
+  {
+    "id": "tp_002",
+    "book_id": "thinkpython",
+    "question": "What is a syntax error in Python?",
+    "gold_chunk_indexes": [70],
+    "gold_pages": [25],
+    "notes": "Chunk 70 (p.25) section 1.3.1: syntax is the structure of a program; unmatched parentheses example (1+2) vs 8)."
+  },
+  {
+    "id": "tp_003",
+    "book_id": "thinkpython",
+    "question": "What is a semantic error, and why can the program still run?",
+    "gold_chunk_indexes": [71],
+    "gold_pages": [26],
+    "notes": "Chunk 71 (p.26) 1.3.3: computer generates no error messages but the program does not do the right thing."
+  },
+  {
+    "id": "tp_004",
+    "book_id": "thinkpython",
+    "question": "What is a variable, and what does an assignment statement do?",
+    "gold_chunk_indexes": [83],
+    "gold_pages": [34],
+    "notes": "Chunk 83 (p.34) 2.2: a variable is a name that refers to a value; assignment creates variables and gives them values."
+  },
+  {
+    "id": "tp_005",
+    "book_id": "thinkpython",
+    "question": "What is the difference between an expression and a statement?",
+    "gold_chunk_indexes": [87],
+    "gold_pages": [36],
+    "notes": "Chunk 87 (p.36) 2.5: an expression has a value; a statement does not. Expression is values/variables/operators; statement is a unit the interpreter can execute."
+  },
+  {
+    "id": "tp_006",
+    "book_id": "thinkpython",
+    "question": "How do you write a Hello, World! program in Python?",
+    "gold_chunk_indexes": [75, 76],
+    "gold_pages": [28],
+    "notes": "Chunks 75–76 overlap on print 'Hello, World!' (p.28). Both contain sufficient evidence for the first program."
+  },
+  {
+    "id": "tp_007",
+    "book_id": "thinkpython",
+    "question": "What does the modulus operator return?",
+    "gold_chunk_indexes": [135],
+    "gold_pages": [63],
+    "notes": "Chunk 135 (p.63): modulus % divides two numbers and returns the remainder; 7 % 3 is 1."
+  },
+  {
+    "id": "tp_008",
+    "book_id": "thinkpython",
+    "question": "What is dead code in a fruitful function?",
+    "gold_chunk_indexes": [153],
+    "gold_pages": [74],
+    "notes": "Chunk 153 (p.74): code after a return, or any place the flow of execution can never reach, is called dead code."
+  },
+  {
+    "id": "tp_009",
+    "book_id": "thinkpython",
+    "question": "How is factorial defined recursively in the book?",
+    "gold_chunk_indexes": [161],
+    "gold_pages": [78],
+    "notes": "Chunk 161 (p.78) recursive factorial: 0! = 1 and n! = n*(n-1)! with the corresponding Python function."
+  },
+  {
+    "id": "tp_010",
+    "book_id": "thinkpython",
+    "question": "What is a palindrome, as defined in Think Python?",
+    "gold_chunk_indexes": [170],
+    "gold_pages": [83],
+    "notes": "Chunk 170 (p.83): a palindrome is a word that is spelled the same backward and forward, e.g. noon and redder."
+  },
+  {
+    "id": "tp_011",
+    "book_id": "thinkpython",
+    "question": "How does the while-statement version of countdown work?",
+    "gold_chunk_indexes": [174],
+    "gold_pages": [86],
+    "notes": "Chunk 174 (p.86) 7.3: while n > 0 print n, n = n-1, then print Blastoff!"
+  },
+  {
+    "id": "tp_012",
+    "book_id": "thinkpython",
+    "question": "What is an infinite loop, and what shampoo-bottle example does the book use?",
+    "gold_chunk_indexes": [175],
+    "gold_pages": [87],
+    "notes": "Chunk 175 (p.87): if the loop never becomes false it is an infinite loop; 'Lather, rinse, repeat' on shampoo."
+  },
+  {
+    "id": "tp_013",
+    "book_id": "thinkpython",
+    "question": "How do you call the string method upper, and how is method syntax different from function syntax?",
+    "gold_chunk_indexes": [191],
+    "gold_pages": [97],
+    "notes": "Chunk 191 (p.97) 8.8: word.upper() instead of upper(word); invocation; banana → BANANA."
+  },
+  {
+    "id": "tp_014",
+    "book_id": "thinkpython",
+    "question": "What is the difference between list pop, the del operator, and list remove?",
+    "gold_chunk_indexes": [220, 221],
+    "gold_pages": [114],
+    "notes": "Chunks 220–221 overlap (p.114): pop modifies and returns an element; del deletes by index; remove deletes by value."
+  },
+  {
+    "id": "tp_015",
+    "book_id": "thinkpython",
+    "question": "What is aliasing when two variables refer to the same list object?",
+    "gold_chunk_indexes": [224, 225],
+    "gold_pages": [116, 117],
+    "notes": "Chunk 224 (p.116) introduces aliasing (a is b; changing one list affects the other). Chunk 225 (p.117) continues the aliasing discussion with object identity."
+  },
+  {
+    "id": "tp_016",
+    "book_id": "thinkpython",
+    "question": "How does tuple assignment swap the values of two variables?",
+    "gold_chunk_indexes": [257],
+    "gold_pages": [136],
+    "notes": "Chunk 257 (p.136) 12.2: a, b = b, a; right-side expressions evaluated before assignments."
+  },
+  {
+    "id": "tp_017",
+    "book_id": "thinkpython",
+    "question": "What does the book mean by persistent programs, as opposed to transient ones?",
+    "gold_chunk_indexes": [292],
+    "gold_pages": [155],
+    "notes": "Chunk 292 (p.155) 14.1: transient programs lose data when they end; persistent programs keep data in permanent storage (OS, web servers)."
+  },
+  {
+    "id": "tp_018",
+    "book_id": "thinkpython",
+    "question": "Why is add_time described as a pure function?",
+    "gold_chunk_indexes": [323],
+    "gold_pages": [174],
+    "notes": "Chunk 323 (p.174): add_time creates a new Time object and returns it; a pure function does not modify objects passed as arguments and has no side effects other than returning a value."
+  },
+  {
+    "id": "tp_019",
+    "book_id": "thinkpython",
+    "question": "What does the __str__ method do for Time objects?",
+    "gold_chunk_indexes": [340],
+    "gold_pages": [183],
+    "notes": "Chunk 340 (p.183) 17.6: __str__ returns a string representation; print invokes it; Time example prints 09:45:00."
+  },
+  {
+    "id": "tp_020",
+    "book_id": "thinkpython",
+    "question": "What is inheritance in object-oriented programming, as defined in the book?",
+    "gold_chunk_indexes": [361],
+    "gold_pages": [194],
+    "notes": "Chunk 361 (p.194) 18.7: inheritance is the ability to define a new class that is a modified version of an existing class; parent and child terminology."
+  }
+]

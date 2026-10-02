@@ -1,0 +1,242 @@
+[
+  {
+    "id": "bg_001",
+    "book_id": "bhagavad_gita",
+    "question": "According to the Preface, what happened to the original manuscript when Bhagavad-gita As It Is was first published?",
+    "gold_chunk_indexes": [1],
+    "gold_pages": [4],
+    "notes": "Chunk 1 (p.4): the original manuscript was cut short to less than 400 pages, without illustrations and without explanations for most of the original verses."
+  },
+  {
+    "id": "bg_002",
+    "book_id": "bhagavad_gita",
+    "question": "In the author's other books, what system of presenting each verse does he say he uses?",
+    "gold_chunk_indexes": [1],
+    "gold_pages": [4],
+    "notes": "Chunk 1 (p.4): original verse, English transliteration, word-for-word Sanskrit-English equivalents, translations and purports."
+  },
+  {
+    "id": "bg_003",
+    "book_id": "bhagavad_gita",
+    "question": "How does the Introduction open the English meaning of the verse beginning om ajnana-timirandhasya?",
+    "gold_chunk_indexes": [7],
+    "gold_pages": [7],
+    "notes": "Chunk 7 (p.7): I was born in the darkest ignorance, and my spiritual master opened my eyes with the torch..."
+  },
+  {
+    "id": "bg_004",
+    "book_id": "bhagavad_gita",
+    "question": "What three classes of transcendentalists does the Introduction name, and what English labels does it give them?",
+    "gold_chunk_indexes": [14],
+    "gold_pages": [11],
+    "notes": "Chunk 14 (p.11): jnani, yogi and bhakta, or the impersonalist, the meditator and the devotee."
+  },
+  {
+    "id": "bg_005",
+    "book_id": "bhagavad_gita",
+    "question": "Why does the Lord make Arjuna the first receiver of a new parampara?",
+    "gold_chunk_indexes": [14],
+    "gold_pages": [11],
+    "notes": "Chunk 14 (p.11): because the old succession was broken; He is relating the supreme secret because Arjuna is His devotee and friend."
+  },
+  {
+    "id": "bg_006",
+    "book_id": "bhagavad_gita",
+    "question": "What inquiry does the Introduction say marks the beginning of humanity, and what Sanskrit name does the Brahma-sutra give it?",
+    "gold_chunk_indexes": [20],
+    "gold_pages": [14],
+    "notes": "Chunk 20 (p.14): humanity begins when inquiry into suffering is awakened; Brahma-sutra calls this brahma jijnasa."
+  },
+  {
+    "id": "bg_007",
+    "book_id": "bhagavad_gita",
+    "question": "What does this PDF say the Gita states about whether the living entity is born or dies?",
+    "gold_chunk_indexes": [44],
+    "gold_pages": [26],
+    "notes": "Chunk 44 (p.26): the living entity is never born and he never dies; he is eternal and indestructible and continues to live after destruction of the temporary material body."
+  },
+  {
+    "id": "bg_008",
+    "book_id": "bhagavad_gita",
+    "question": "According to the quoted verses 9.32–33 in this chunk, who can attain the Supreme besides highly developed intelligences?",
+    "gold_chunk_indexes": [70],
+    "gold_pages": [39],
+    "notes": "Chunk 70 (p.39): even a merchant, a fallen woman or a laborer or human beings in the lowest status of life can attain the Supreme; one does not need highly developed intelligence."
+  },
+  {
+    "id": "bg_009",
+    "book_id": "bhagavad_gita",
+    "question": "In the translation listing warriors, who are named as great chariot fighters besides Yudhamanyu and Uttamauja?",
+    "gold_chunk_indexes": [88],
+    "gold_pages": [50],
+    "notes": "Chunk 88 (p.50) TRANSLATION: the son of Subhadra and the sons of Draupadi; all these warriors are great chariot fighters."
+  },
+  {
+    "id": "bg_010",
+    "book_id": "bhagavad_gita",
+    "question": "According to the purport, why had Krishna agreed to be Arjuna's charioteer?",
+    "gold_chunk_indexes": [117],
+    "gold_pages": [68],
+    "notes": "Chunk 117 (p.68): because Arjuna was the son of Prtha, the sister of Krishna's own father Vasudeva."
+  },
+  {
+    "id": "bg_011",
+    "book_id": "bhagavad_gita",
+    "question": "What comparison does the translation make between the soul's change of body and the stages of one lifetime?",
+    "gold_chunk_indexes": [190],
+    "gold_pages": [112],
+    "notes": "Chunk 190 (p.112) TRANSLATION: as the embodied soul passes from boyhood to youth to old age, the soul similarly passes into another body at death; a sober person is not bewildered."
+  },
+  {
+    "id": "bg_012",
+    "book_id": "bhagavad_gita",
+    "question": "What does this purport say remains true of the individual soul even after liberation, regarding the fragmental portions called kshara?",
+    "gold_chunk_indexes": [192],
+    "gold_pages": [113],
+    "notes": "Chunk 192 (p.113): fragmental portions exist eternally (sanatana) and are called kshara; even after liberation the individual soul remains fragmental, living in bliss and knowledge with the Personality of Godhead."
+  },
+  {
+    "id": "bg_013",
+    "book_id": "bhagavad_gita",
+    "question": "In the two-birds analogy quoted in this chunk, what happens when the eating bird turns toward his friend the Lord?",
+    "gold_chunk_indexes": [219],
+    "gold_pages": [129],
+    "notes": "Chunk 219 (p.129): the eating bird is engrossed with anxiety; if he turns his face to his friend who is the Lord and knows His glories, the suffering bird becomes free from all anxieties."
+  },
+  {
+    "id": "bg_014",
+    "book_id": "bhagavad_gita",
+    "question": "How does this purport define buddhi-yoga or karma-yoga in relation to the Lord?",
+    "gold_chunk_indexes": [259],
+    "gold_pages": [153],
+    "notes": "Chunk 259 (p.153): the working process in buddhi-yoga, or karma-yoga, is the practice of devotional service only for the sense gratification of the Lord; it is direct communion with the Lord as Paramatma."
+  },
+  {
+    "id": "bg_015",
+    "book_id": "bhagavad_gita",
+    "question": "What four miseries does this purport say are present everywhere in the material world?",
+    "gold_chunk_indexes": [289],
+    "gold_pages": [171],
+    "notes": "Chunk 289 (p.171): birth, death, old age and diseases are present everywhere within the material world."
+  },
+  {
+    "id": "bg_016",
+    "book_id": "bhagavad_gita",
+    "question": "According to the translation of the verse beginning krodhad bhavati sammohah, what sequence follows from anger?",
+    "gold_chunk_indexes": [317],
+    "gold_pages": [187],
+    "notes": "Chunk 317 (p.187): from anger, complete delusion; from delusion, bewilderment of memory; when memory is bewildered, intelligence is lost; when intelligence is lost one falls down into the material pool."
+  },
+  {
+    "id": "bg_017",
+    "book_id": "bhagavad_gita",
+    "question": "Does this translation say one can attain perfection by renunciation alone or by merely abstaining from work?",
+    "gold_chunk_indexes": [341],
+    "gold_pages": [204],
+    "notes": "Chunk 341 (p.204): not by merely abstaining from work can one achieve freedom from reaction, nor by renunciation alone can one attain perfection. Purport: without purification, abruptly adopting sannyasa is a disturbance."
+  },
+  {
+    "id": "bg_018",
+    "book_id": "bhagavad_gita",
+    "question": "According to this purport, what is the highest principle of religion ordered at the end of the Gita, and why does it say Lord Buddha appeared?",
+    "gold_chunk_indexes": [460],
+    "gold_pages": [275],
+    "notes": "Chunk 460 (p.275): the highest principle is to surrender unto Him only; Lord Buddha is the incarnation of Krishna who appeared when materialism was rampant and materialists used the pretext of Vedic authority."
+  },
+  {
+    "id": "bg_019",
+    "book_id": "bhagavad_gita",
+    "question": "What does this purport say the ultimate goal of yoga is, and how does it describe the Lord's abode regarding sun, moon, and electricity?",
+    "gold_chunk_indexes": [655],
+    "gold_pages": [390],
+    "notes": "Chunk 655 (p.390): yoga is to enable cessation of all material existence, not material health; the abode of the Lord is where there is no need of sun, moon or electricity."
+  },
+  {
+    "id": "bg_020",
+    "book_id": "bhagavad_gita",
+    "question": "What does the quoted verse from Bhakti-rasamrita-sindhu say about devotional service that ignores authorized Vedic literatures?",
+    "gold_chunk_indexes": [743],
+    "gold_pages": [443],
+    "notes": "Chunk 743 (p.443): devotional service that ignores Upanishads, Puranas and Narada-pancaratra is simply an unnecessary disturbance in society."
+  },
+  {
+    "id": "bg_021",
+    "book_id": "bhagavad_gita",
+    "question": "In the translation beginning O son of Kunti, I am the taste of water, what else does Krishna say He is?",
+    "gold_chunk_indexes": [760],
+    "gold_pages": [452],
+    "notes": "Chunk 760 (p.452): the light of the sun and the moon, the syllable om in the Vedic mantras, the sound in ether and ability in man."
+  },
+  {
+    "id": "bg_022",
+    "book_id": "bhagavad_gita",
+    "question": "Which four kinds of pious men does this translation say begin to render devotional service unto Krishna?",
+    "gold_chunk_indexes": [791],
+    "gold_pages": [468],
+    "notes": "Chunk 791 (p.468) independently lists the distressed, the desirer of wealth, the inquisitive, and he who is searching for knowledge of the Absolute. Chunk 790 only starts the sentence and does not list the four."
+  },
+  {
+    "id": "bg_023",
+    "book_id": "bhagavad_gita",
+    "question": "What does the translation call adhibhuta, adhidaiva, and adhiyajna?",
+    "gold_chunk_indexes": [846],
+    "gold_pages": [500],
+    "notes": "Chunk 846 (p.500): adhibhuta is the constantly changing physical/material manifestation; adhidaiva is the universal form including demigods of sun and moon; adhiyajna is the Lord as Supersoul in the heart, the Lord of sacrifice."
+  },
+  {
+    "id": "bg_024",
+    "book_id": "bhagavad_gita",
+    "question": "According to this translation, how is the Supreme Personality of Godhead, who is greater than all, said to be attained?",
+    "gold_chunk_indexes": [889],
+    "gold_pages": [525],
+    "notes": "Chunk 889 (p.525): attainable by unalloyed devotion; although present in His abode, He is all-pervading and everything is situated within Him."
+  },
+  {
+    "id": "bg_025",
+    "book_id": "bhagavad_gita",
+    "question": "What does the translation say Krishna is as time, and who does it say will be slain on the battlefield?",
+    "gold_chunk_indexes": [1167],
+    "gold_pages": [688],
+    "notes": "Chunk 1167 (p.688): Time I am, the great destroyer of the worlds; with the exception of the Pandavas, all the soldiers here on both sides will be slain."
+  },
+  {
+    "id": "bg_026",
+    "book_id": "bhagavad_gita",
+    "question": "What does Krishna call this body, and what does He call one who knows this body?",
+    "gold_chunk_indexes": [1291],
+    "gold_pages": [756],
+    "notes": "Chunk 1291 (p.756): this body is called the field, and one who knows this body is called the knower of the field; purport: field of activity for the conditioned soul."
+  },
+  {
+    "id": "bg_027",
+    "book_id": "bhagavad_gita",
+    "question": "What does this purport say demoniac people believe about life after death, and what does it say a physician cannot do?",
+    "gold_chunk_indexes": [1524],
+    "gold_pages": [893],
+    "notes": "Chunk 1524 (p.893): they do not believe in life after death or different bodies according to karma; a physician cannot prolong life even for a moment."
+  },
+  {
+    "id": "bg_028",
+    "book_id": "bhagavad_gita",
+    "question": "When is a sacrifice considered to be in the mode of ignorance, according to the translation about sacrifice without scriptural direction?",
+    "gold_chunk_indexes": [1573, 1574],
+    "gold_pages": [923, 924],
+    "notes": "Chunk 1573 (p.923) TRANSLATION: sacrifice without regard for scripture. Chunk 1574 (p.924) independently continues: without prasadam, Vedic hymns, priestly remunerations, and without faith is considered in the mode of ignorance."
+  },
+  {
+    "id": "bg_029",
+    "book_id": "bhagavad_gita",
+    "question": "What does this purport say one should do throughout the twenty-four hours, and what does it say Krishna promises for one in that consciousness?",
+    "gold_chunk_indexes": [1690],
+    "gold_pages": [1010],
+    "notes": "Chunk 1690 (p.1010): mold life so that throughout twenty-four hours one cannot but think of Krishna; anyone in such pure Krishna consciousness will return to the abode of Krishna and associate with Him face to face."
+  },
+  {
+    "id": "bg_030",
+    "book_id": "bhagavad_gita",
+    "question": "According to Sanjaya's concluding opinion in this translation, what will certainly be present wherever Krishna and Arjuna are?",
+    "gold_chunk_indexes": [1721],
+    "gold_pages": [1027],
+    "notes": "Chunk 1721 (p.1027): wherever there is Krishna, the master of all mystics, and Arjuna, the supreme archer, there will certainly be opulence, victory, extraordinary power, and morality."
+  }
+]
