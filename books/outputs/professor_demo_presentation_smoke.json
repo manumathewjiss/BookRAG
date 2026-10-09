@@ -1,0 +1,98 @@
+{
+  "artifact": "professor_demo_presentation_smoke",
+  "picker": [
+    [
+      "bhagavad_gita",
+      "Bhagavad-g\u012bt\u0101 As It Is"
+    ],
+    [
+      "arthashastra",
+      "Arthashastra (Temple Library excerpt)"
+    ],
+    [
+      "thinkpython",
+      "Think Python"
+    ],
+    [
+      "frankenstein_1532610843_print",
+      "Frankenstein (1818 print PDF)"
+    ],
+    [
+      "pride_and_prejudice",
+      "Pride and Prejudice"
+    ]
+  ],
+  "tests": [
+    {
+      "book_id": "bhagavad_gita",
+      "question": "What does this PDF say the Gita states about whether the living entity is born or dies?",
+      "enough_evidence": true,
+      "evidence_label": "Answer supported by this passage",
+      "answer": "The PDF says the Gita states that the living entity is never born and never dies. He is eternal and indestructible, continuing to live after the destruction of his temporary material body.",
+      "citations": [
+        {
+          "page": 26,
+          "page_label": "PDF page",
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 44
+        }
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 9.041,
+        "retrieve_hybrid": 3.4,
+        "sol_api": 3.496,
+        "total_wait": 15.939
+      },
+      "client_wait_s": 15.942,
+      "cost": 0.001225
+    },
+    {
+      "book_id": "arthashastra",
+      "question": "According to Chapter 36, Text 13, how should wages be fixed?",
+      "enough_evidence": true,
+      "evidence_label": "Answer supported by this passage",
+      "answer": "According to Chapter 36, Text 13, wages should be fixed \u201cin proportion to the work done and the time spent in doing it.\u201d",
+      "citations": [
+        {
+          "page": 2,
+          "page_label": "PDF page",
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 1
+        }
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 3.584,
+        "retrieve_hybrid": 0.638,
+        "sol_api": 2.514,
+        "total_wait": 6.737
+      },
+      "client_wait_s": 6.741,
+      "cost": 0.00108
+    },
+    {
+      "book_id": "thinkpython",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "enough_evidence": true,
+      "evidence_label": "Answer supported by this passage",
+      "answer": "Think Python emphasizes that high-level languages make programming easier: programs take less time to write, are shorter and easier to read, and are more likely to be correct. They are also portable, meaning programs can run on different kinds of computers with few or no modifications [66].",
+      "citations": [
+        {
+          "page": 23,
+          "page_label": "PDF page",
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 66
+        }
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 8.033,
+        "retrieve_hybrid": 0.22,
+        "sol_api": 3.48,
+        "total_wait": 11.736
+      },
+      "client_wait_s": 11.742,
+      "cost": 0.001342
+    }
+  ],
+  "estimated_usd": 0.003647,
+  "key_in_responses": false
+}

@@ -1,0 +1,10 @@
+{
+  "n_questions_run": 12,
+  "n_flagged": 1,
+  "estimated_usd_this_run": 0.103996,
+  "estimated_usd_total_including_prior": 1.630996,
+  "startup_seconds": 7.333,
+  "stopped": null,
+  "results_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/professor_demo_rehearsal_results.json",
+  "review_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/professor_demo_rehearsal_review.json"
+}

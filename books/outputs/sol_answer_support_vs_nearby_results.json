@@ -1,0 +1,1760 @@
+{
+  "experiment": "sol_answer_support_vs_nearby",
+  "production_pipeline_changed": false,
+  "cases_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/sol_answer_support_vs_nearby_cases.json",
+  "cases_sha256": "77177a854c5cbe248ee733ffd384ed437a9fdd293d52c6c19a7090c9443b39b0",
+  "already_tracked_sol_usd": 1.075128,
+  "estimated_usd_total_including_prior": 1.377942,
+  "estimated_usd_this_run": 0.302814,
+  "n_questions_planned": 13,
+  "n_questions_run": 13,
+  "stopped": null,
+  "env_file_loaded": true,
+  "gold_ids_sent_to_sol": false,
+  "questions": [
+    {
+      "case_id": "live_fr_why_second_creature",
+      "question_id": "live_fr_why_second_creature",
+      "book": "frankenstein",
+      "role": "why_later_explanation",
+      "question": "Why does Victor stop making a second creature?",
+      "gold_in_sent": null,
+      "retrieval_gold_chunk_indexes": [],
+      "passages_sent": [
+        {
+          "passage_id": 397,
+          "page": 252,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 148,
+          "page": 100,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 108,
+          "page": 74,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 334,
+          "page": 216,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 150,
+          "page": 101,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "The passages do not show the scene where Victor stops making the second creature. In a later reflection, he says he refused because his duty to humanity outweighed his duty to provide the first creature with happiness and a companion.",
+          "enough_evidence": false,
+          "missing_evidence": "The scene in which Victor abandons creation of the second creature, including his reasoning at that moment, is not provided; passage 397 is a later reflection.",
+          "asked_event": "Victor's decision to stop making a second creature and his reasons at that moment.",
+          "event_match": "nearby_only",
+          "event_match_gate": "forced_false_because_not_direct_answer",
+          "supporting_passage_ids_raw": [
+            397
+          ],
+          "supporting_passage_ids": [
+            397
+          ],
+          "display_citations": [
+            {
+              "passage_id": 397,
+              "page": 252,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 6.564,
+          "usage": {
+            "input_tokens": 2212,
+            "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 2209
+            },
+            "output_tokens": 137,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2349
+          },
+          "cost": {
+            "input_tokens": 2212,
+            "output_tokens": 137,
+            "cached_input_tokens": 2209,
+            "cache_write_tokens": 0,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.001597,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0e69a8889cceb440016ac3fdd97fa087d0b22a47ef0e6811e7"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "In his later explanation, Victor says he refused to create a companion because his duty to humanity outweighed his duty to make the first creature happy. He believed the happiness or misery of his fellow human beings had the greater claim on him.",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Why Victor stops making a second creature.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            397
+          ],
+          "supporting_passage_ids": [
+            397
+          ],
+          "display_citations": [
+            {
+              "passage_id": 397,
+              "page": 252,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 4.202,
+          "usage": {
+            "input_tokens": 2162,
+            "input_tokens_details": {
+              "cache_write_tokens": 2159,
+              "cached_tokens": 0
+            },
+            "output_tokens": 98,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2260
+          },
+          "cost": {
+            "input_tokens": 2162,
+            "output_tokens": 98,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2159,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.010702,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0a5f4c57ef2a4939016ac3fddfbeac87d08465f871989037af"
+        }
+      }
+    },
+    {
+      "case_id": "live_fr_november_creation",
+      "question_id": "live_fr_november_creation",
+      "book": "frankenstein",
+      "role": "exact_scene",
+      "question": "On what kind of November night does Victor finish his toils, what time is it, and what does he see when the creature's dull yellow eye opens?",
+      "gold_in_sent": null,
+      "retrieval_gold_chunk_indexes": [],
+      "passages_sent": [
+        {
+          "passage_id": 77,
+          "page": 55,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 248,
+          "page": 162,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 83,
+          "page": 59,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 351,
+          "page": 227,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 274,
+          "page": 179,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "Victor finishes his toils on a dreary November night, at one in the morning, with rain pattering dismally against the windowpanes. In the nearly extinguished candlelight, he sees the creature’s dull yellow eye open; it breathes hard, and a convulsive motion agitates its limbs.",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "The November night and time when Victor completes his toils, and what he observes as the creature’s dull yellow eye opens.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            77
+          ],
+          "supporting_passage_ids": [
+            77
+          ],
+          "display_citations": [
+            {
+              "passage_id": 77,
+              "page": 55,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 4.142,
+          "usage": {
+            "input_tokens": 2814,
+            "input_tokens_details": {
+              "cache_write_tokens": 2811,
+              "cached_tokens": 0
+            },
+            "output_tokens": 132,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2946
+          },
+          "cost": {
+            "input_tokens": 2814,
+            "output_tokens": 132,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2811,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.013976,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0728aefe5d0812bb016ac3fde3fcb087d0b51253ea4898ce88"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "Victor finishes his toils on a “dreary night of November,” at one in the morning. By the glimmer of his nearly extinguished candle, he sees the creature’s dull yellow eye open; it breathes hard, and a convulsive motion agitates its limbs (passage 77).",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "The kind of November night, the time, and what Victor observes when the creature’s dull yellow eye opens.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            77
+          ],
+          "supporting_passage_ids": [
+            77
+          ],
+          "display_citations": [
+            {
+              "passage_id": 77,
+              "page": 55,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 4.037,
+          "usage": {
+            "input_tokens": 2764,
+            "input_tokens_details": {
+              "cache_write_tokens": 2761,
+              "cached_tokens": 0
+            },
+            "output_tokens": 127,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2891
+          },
+          "cost": {
+            "input_tokens": 2764,
+            "output_tokens": 127,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2761,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.013701,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_066e0177e8b24d96016ac3fde8141c87d0986dc3e768b5dbb7"
+        }
+      }
+    },
+    {
+      "case_id": "pp_011_qwen_top5",
+      "question_id": "pp_011",
+      "book": "pride",
+      "role": "why",
+      "question": "After Jane reads Caroline Bingley's invitation to Netherfield, why does Mrs Bennet tell Jane she had better go on horseback rather than take the carriage?",
+      "gold_in_sent": true,
+      "retrieval_gold_chunk_indexes": [
+        37
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 37,
+          "page": 37,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 72,
+          "page": 72,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 50,
+          "page": 50,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 41,
+          "page": 41,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 36,
+          "page": 36,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "Mrs Bennet expects rain and wants Jane to be obliged to stay overnight at Netherfield. She also reasons that they cannot readily send Jane home, since Mr Bingley’s chaise will be in use and the Hursts have no horses for theirs.",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Mrs Bennet’s reason for telling Jane to go on horseback rather than take the carriage after Caroline Bingley’s invitation.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            37
+          ],
+          "supporting_passage_ids": [
+            37
+          ],
+          "display_citations": [
+            {
+              "passage_id": 37,
+              "page": 37,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 4.345,
+          "usage": {
+            "input_tokens": 2422,
+            "input_tokens_details": {
+              "cache_write_tokens": 2419,
+              "cached_tokens": 0
+            },
+            "output_tokens": 118,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2540
+          },
+          "cost": {
+            "input_tokens": 2422,
+            "output_tokens": 118,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2419,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.012072,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_05ba121646fc5bf4016ac3fdec1c4087d0be742bb0c981cc5c"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "Mrs Bennet expects rain and wants Jane to be obliged to stay overnight at Netherfield. She also reasons that they cannot send Jane home because Mr Bingley’s chaise will be in use and the Hursts have no horses for theirs.",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Why Mrs Bennet tells Jane to go to Netherfield on horseback rather than in the carriage after Caroline Bingley’s invitation.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            37
+          ],
+          "supporting_passage_ids": [
+            37
+          ],
+          "display_citations": [
+            {
+              "passage_id": 37,
+              "page": 37,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.97,
+          "usage": {
+            "input_tokens": 2372,
+            "input_tokens_details": {
+              "cache_write_tokens": 2369,
+              "cached_tokens": 0
+            },
+            "output_tokens": 117,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2489
+          },
+          "cost": {
+            "input_tokens": 2372,
+            "output_tokens": 117,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2369,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.011836,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0353bc76ddd7af44016ac3fdf072a087d0a3d44076d4171623"
+        }
+      }
+    },
+    {
+      "case_id": "tp2_005_qwen_top5",
+      "question_id": "tp2_005",
+      "book": "thinkpython",
+      "role": "why",
+      "question": "Why is class an illegal variable name in Python, and what are keywords used for?",
+      "gold_in_sent": true,
+      "retrieval_gold_chunk_indexes": [
+        85
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 85,
+          "page": 35,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 92,
+          "page": 38,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 401,
+          "page": 216,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 83,
+          "page": 34,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 310,
+          "page": 165,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "`class` is an illegal variable name because it is one of Python’s keywords. The interpreter uses keywords to recognize the structure of a program, so they cannot be used as variable names; trying to do so produces a syntax error.",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Why `class` cannot be used as a Python variable name and what keywords are used for.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            85
+          ],
+          "supporting_passage_ids": [
+            85
+          ],
+          "display_citations": [
+            {
+              "passage_id": 85,
+              "page": 35,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.144,
+          "usage": {
+            "input_tokens": 2616,
+            "input_tokens_details": {
+              "cache_write_tokens": 2613,
+              "cached_tokens": 0
+            },
+            "output_tokens": 109,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2725
+          },
+          "cost": {
+            "input_tokens": 2616,
+            "output_tokens": 109,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2613,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.012855,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0759920d810eef47016ac3fdf46ea487d0802ba3a391d36528"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "`class` is an illegal variable name because it is one of Python’s keywords. The interpreter uses keywords to recognize the structure of a program, so they cannot be used as variable names (passage 85).",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Why class cannot be used as a Python variable name and what keywords are used for.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            85
+          ],
+          "supporting_passage_ids": [
+            85
+          ],
+          "display_citations": [
+            {
+              "passage_id": 85,
+              "page": 35,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.085,
+          "usage": {
+            "input_tokens": 2566,
+            "input_tokens_details": {
+              "cache_write_tokens": 2563,
+              "cached_tokens": 0
+            },
+            "output_tokens": 104,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2670
+          },
+          "cost": {
+            "input_tokens": 2566,
+            "output_tokens": 104,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2563,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.01258,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0c2945e50c7f0e44016ac3fdf791b487d0933e3670a82f6bbe"
+        }
+      }
+    },
+    {
+      "case_id": "tp2_006_qwen_top5",
+      "question_id": "tp2_006",
+      "book": "thinkpython",
+      "role": "why",
+      "question": "In Python 2, why does minute/60 print 0 when minute is 59?",
+      "gold_in_sent": true,
+      "retrieval_gold_chunk_indexes": [
+        86
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 86,
+          "page": 35,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 87,
+          "page": 36,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 323,
+          "page": 174,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 328,
+          "page": 176,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 327,
+          "page": 176,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "In Python 2, dividing two integers performs floor division and returns an integer. Since both 59 and 60 are integers, the fractional part of 59/60 is discarded, so the result is 0.",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Why minute/60 returns 0 in Python 2 when minute is 59.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            86
+          ],
+          "supporting_passage_ids": [
+            86
+          ],
+          "display_citations": [
+            {
+              "passage_id": 86,
+              "page": 35,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.888,
+          "usage": {
+            "input_tokens": 2457,
+            "input_tokens_details": {
+              "cache_write_tokens": 2454,
+              "cached_tokens": 0
+            },
+            "output_tokens": 104,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2561
+          },
+          "cost": {
+            "input_tokens": 2457,
+            "output_tokens": 104,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2454,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.012089,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_076fc6186ca425d7016ac3fdfaac1887d08058e1fd590bcfa2"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "In Python 2, `/` performs floor division when both operands are integers. Since `59` and `60` are integers, the fractional part of 59/60 is discarded, giving `0` (passage 86).",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Why minute/60 produces 0 in Python 2 when minute is 59.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            86
+          ],
+          "supporting_passage_ids": [
+            86
+          ],
+          "display_citations": [
+            {
+              "passage_id": 86,
+              "page": 35,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.129,
+          "usage": {
+            "input_tokens": 2407,
+            "input_tokens_details": {
+              "cache_write_tokens": 2404,
+              "cached_tokens": 0
+            },
+            "output_tokens": 109,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2516
+          },
+          "cost": {
+            "input_tokens": 2407,
+            "output_tokens": 109,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2404,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.011914,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_03360bcdbbba8f88016ac3fdfe878087d0b4208e6a651fcd05"
+        }
+      }
+    },
+    {
+      "case_id": "fr_029_qwen_top5",
+      "question_id": "fr_029",
+      "book": "frankenstein",
+      "role": "why",
+      "question": "What does the creature say he shall collect for a funeral pile, and why does he not want its remains to afford light to any curious wretch?",
+      "gold_in_sent": true,
+      "retrieval_gold_chunk_indexes": [
+        409
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 409,
+          "page": 258,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 408,
+          "page": 258,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 302,
+          "page": 196,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 411,
+          "page": 259,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 410,
+          "page": 259,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "The creature says he shall collect his funeral pile and burn his miserable body to ashes. He wants no remains to provide knowledge or guidance to any “curious and unhallowed wretch” who might create another being like him.",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "The creature’s declaration that he will collect his funeral pile and destroy his remains so they cannot help anyone create another being like him.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            409
+          ],
+          "supporting_passage_ids": [
+            409
+          ],
+          "display_citations": [
+            {
+              "passage_id": 409,
+              "page": 258,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 4.344,
+          "usage": {
+            "input_tokens": 1907,
+            "input_tokens_details": {
+              "cache_write_tokens": 1904,
+              "cached_tokens": 0
+            },
+            "output_tokens": 114,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2021
+          },
+          "cost": {
+            "input_tokens": 1907,
+            "output_tokens": 114,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 1904,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.009714,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_06afad8d2a4e11e2016ac3fe01ad8887d0b96bf8e0b8f00044"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "He says he shall collect his own funeral pile and burn his miserable frame to ashes, so that his remains cannot provide knowledge to any “curious and unhallowed wretch” who might create another being like him.",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "What the creature says he shall collect for his funeral pile and why he wants his remains to afford no light to a curious wretch.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            409
+          ],
+          "supporting_passage_ids": [
+            409
+          ],
+          "display_citations": [
+            {
+              "passage_id": 409,
+              "page": 258,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.812,
+          "usage": {
+            "input_tokens": 1857,
+            "input_tokens_details": {
+              "cache_write_tokens": 1854,
+              "cached_tokens": 0
+            },
+            "output_tokens": 113,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1970
+          },
+          "cost": {
+            "input_tokens": 1857,
+            "output_tokens": 113,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 1854,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.009479,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_04abc1734326d6b0016ac3fe06022487d0ad3534b836aad995"
+        }
+      }
+    },
+    {
+      "case_id": "pp_007_qwen_top5",
+      "question_id": "pp_007",
+      "book": "pride",
+      "role": "exact_quote_or_scene",
+      "question": "When Mr Bingley urges Darcy to dance at the assembly and points out Elizabeth sitting down, what does Darcy say about her looks and about giving consequence to young ladies?",
+      "gold_in_sent": true,
+      "retrieval_gold_chunk_indexes": [
+        12
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 12,
+          "page": 13,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 333,
+          "page": 333,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 31,
+          "page": 31,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 219,
+          "page": 219,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 68,
+          "page": 68,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "Darcy says, “She is tolerable, but not handsome enough to tempt ME,” and adds, “I am in no humour at present to give consequence to young ladies who are slighted by other men.”",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Darcy’s remarks about Elizabeth’s looks and giving consequence to young ladies when Bingley urges him to dance and points out Elizabeth sitting down at the assembly.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            12
+          ],
+          "supporting_passage_ids": [
+            12
+          ],
+          "display_citations": [
+            {
+              "passage_id": 12,
+              "page": 13,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.247,
+          "usage": {
+            "input_tokens": 2727,
+            "input_tokens_details": {
+              "cache_write_tokens": 2724,
+              "cached_tokens": 0
+            },
+            "output_tokens": 119,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2846
+          },
+          "cost": {
+            "input_tokens": 2727,
+            "output_tokens": 119,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2724,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.013454,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0b5fb6b5e0761b82016ac3fe09d27887d0ad961793e31f67c5"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "Darcy says, “She is tolerable, but not handsome enough to tempt ME,” and adds, “I am in no humour at present to give consequence to young ladies who are slighted by other men” (passage 12).",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Darcy’s remarks about Elizabeth’s looks and giving consequence to young ladies when Bingley urges him to dance at the assembly.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            12
+          ],
+          "supporting_passage_ids": [
+            12
+          ],
+          "display_citations": [
+            {
+              "passage_id": 12,
+              "page": 13,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.622,
+          "usage": {
+            "input_tokens": 2677,
+            "input_tokens_details": {
+              "cache_write_tokens": 2674,
+              "cached_tokens": 0
+            },
+            "output_tokens": 119,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2796
+          },
+          "cost": {
+            "input_tokens": 2677,
+            "output_tokens": 119,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2674,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.013229,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0aedc41fa6121fde016ac3fe0d1d9087d0829e21a27e0251d2"
+        }
+      }
+    },
+    {
+      "case_id": "fr_018_qwen_top5",
+      "question_id": "fr_018",
+      "book": "frankenstein",
+      "role": "exact_quote_or_scene",
+      "question": "On the glacier, what does the creature first say when he eludes Victor's attack, and whom does he say he ought to be instead of the fallen angel?",
+      "gold_in_sent": true,
+      "retrieval_gold_chunk_indexes": [
+        162
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 162,
+          "page": 109,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 109,
+          "page": 75,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 334,
+          "page": 216,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 163,
+          "page": 109,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 259,
+          "page": 168,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "He first says, “Be calm! I entreat you to hear me, before you give vent to your hatred on my devoted head.” He says he ought to be Victor’s “Adam,” rather than “the fallen angel.”",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "The creature’s first words after eluding Victor’s attack on the glacier, and whom he says he ought to be instead of the fallen angel.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            162
+          ],
+          "supporting_passage_ids": [
+            162
+          ],
+          "display_citations": [
+            {
+              "passage_id": 162,
+              "page": 109,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.279,
+          "usage": {
+            "input_tokens": 2199,
+            "input_tokens_details": {
+              "cache_write_tokens": 2196,
+              "cached_tokens": 0
+            },
+            "output_tokens": 119,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2318
+          },
+          "cost": {
+            "input_tokens": 2199,
+            "output_tokens": 119,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2196,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.011078,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_06e2779e2e943a5a016ac3fe10b47087d086be15273a6c18b7"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "He first says, “Be calm! I entreat you to hear me, before you give vent to your hatred on my devoted head.” He says he ought to be Victor’s Adam: “I ought to be thy Adam; but I am rather the fallen angel.”",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "The creature’s first words after eluding Victor’s attack on the glacier, and whom he says he ought to be instead of the fallen angel.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            162
+          ],
+          "supporting_passage_ids": [
+            162
+          ],
+          "display_citations": [
+            {
+              "passage_id": 162,
+              "page": 109,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.283,
+          "usage": {
+            "input_tokens": 2149,
+            "input_tokens_details": {
+              "cache_write_tokens": 2146,
+              "cached_tokens": 0
+            },
+            "output_tokens": 127,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2276
+          },
+          "cost": {
+            "input_tokens": 2149,
+            "output_tokens": 127,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2146,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.010933,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0c3b05c6173c36f1016ac3fe13f86c87d08dc51d71fd8a6382"
+        }
+      }
+    },
+    {
+      "case_id": "fr_022_qwen_top5",
+      "question_id": "fr_022",
+      "book": "frankenstein",
+      "role": "exact_quote_or_scene",
+      "question": "After Victor refuses to make a female companion, what exact threat does the creature utter as he goes, and in what does Victor then see him shoot across the water?",
+      "gold_in_sent": true,
+      "retrieval_gold_chunk_indexes": [
+        298
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 298,
+          "page": 194,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 381,
+          "page": 243,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 253,
+          "page": 165,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 297,
+          "page": 194,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 397,
+          "page": 252,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "The creature threatens, “It is well. I go; but remember, I shall be with you on your wedding-night.” Victor then sees him in his boat, which shoots across the waters “with an arrowy swiftness.”",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "The creature’s exact departing threat after Victor refuses to create a female companion, and the vessel in which Victor sees him shoot across the water.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            298
+          ],
+          "supporting_passage_ids": [
+            298
+          ],
+          "display_citations": [
+            {
+              "passage_id": 298,
+              "page": 194,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.521,
+          "usage": {
+            "input_tokens": 1955,
+            "input_tokens_details": {
+              "cache_write_tokens": 1952,
+              "cached_tokens": 0
+            },
+            "output_tokens": 120,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2075
+          },
+          "cost": {
+            "input_tokens": 1955,
+            "output_tokens": 120,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 1952,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.00999,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_008c748400a9365b016ac3fe17439487d0b7bc82349b9da3ce"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "The creature threatens, “It is well. I go; but remember, I shall be with you on your wedding-night.” Victor then sees him in his boat, which shoots across the waters “with an arrowy swiftness.”",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "The creature’s exact departing threat after Victor refuses to create a female companion, and the vessel in which Victor sees him cross the water.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            298
+          ],
+          "supporting_passage_ids": [
+            298
+          ],
+          "display_citations": [
+            {
+              "passage_id": 298,
+              "page": 194,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.353,
+          "usage": {
+            "input_tokens": 1905,
+            "input_tokens_details": {
+              "cache_write_tokens": 1902,
+              "cached_tokens": 0
+            },
+            "output_tokens": 119,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2024
+          },
+          "cost": {
+            "input_tokens": 1905,
+            "output_tokens": 119,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 1902,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.009755,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_05b0f3d67c9e4421016ac3fe1ac72c87d090cf4a40463dedc1"
+        }
+      }
+    },
+    {
+      "case_id": "pp_016_qwen_top5",
+      "question_id": "pp_016",
+      "book": "pride",
+      "role": "nearby_or_missing",
+      "question": "When Mr Collins wants to speak privately to Elizabeth, what does Mrs Bennet insist that Lizzy do?",
+      "gold_in_sent": false,
+      "retrieval_gold_chunk_indexes": [
+        132
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 138,
+          "page": 138,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 140,
+          "page": 140,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 131,
+          "page": 131,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 139,
+          "page": 139,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 160,
+          "page": 160,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "Mrs Bennet insists that Lizzy stay where she is so Mr Collins can speak to her privately: “No, no, nonsense, Lizzy. I desire you to stay where you are.”",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "Mrs Bennet’s instruction to Lizzy when Mr Collins requests a private audience with Elizabeth.",
+          "event_match": "exact",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            131
+          ],
+          "supporting_passage_ids": [
+            131
+          ],
+          "display_citations": [
+            {
+              "passage_id": 131,
+              "page": 131,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 2.919,
+          "usage": {
+            "input_tokens": 2511,
+            "input_tokens_details": {
+              "cache_write_tokens": 2508,
+              "cached_tokens": 0
+            },
+            "output_tokens": 101,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2612
+          },
+          "cost": {
+            "input_tokens": 2511,
+            "output_tokens": 101,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2508,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.012302,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0a231b6dea191e1a016ac3fe1e26b887d0aab18a335becaafd"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "Mrs Bennet insists that Lizzy stay where she is: “No, no, nonsense, Lizzy. I desire you to stay where you are.”",
+          "enough_evidence": true,
+          "missing_evidence": "",
+          "asked_event": "What Mrs Bennet insists Lizzy do when Mr Collins requests a private audience with Elizabeth.",
+          "event_match": "direct_answer",
+          "event_match_gate": "unchanged",
+          "supporting_passage_ids_raw": [
+            131
+          ],
+          "supporting_passage_ids": [
+            131
+          ],
+          "display_citations": [
+            {
+              "passage_id": 131,
+              "page": 131,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 2.873,
+          "usage": {
+            "input_tokens": 2461,
+            "input_tokens_details": {
+              "cache_write_tokens": 2458,
+              "cached_tokens": 0
+            },
+            "output_tokens": 93,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2554
+          },
+          "cost": {
+            "input_tokens": 2461,
+            "output_tokens": 93,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2458,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.011997,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_06f51449406240ae016ac3fe21128887d0a2a9acd6e3e1b303"
+        }
+      }
+    },
+    {
+      "case_id": "pp_021_qwen_top5",
+      "question_id": "pp_021",
+      "book": "pride",
+      "role": "nearby_or_missing",
+      "question": "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, how does he begin his first proposal to Elizabeth?",
+      "gold_in_sent": false,
+      "retrieval_gold_chunk_indexes": [
+        236
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 214,
+          "page": 214,
+          "qwen_rank": 1
+        },
+        {
+          "passage_id": 228,
+          "page": 228,
+          "qwen_rank": 2
+        },
+        {
+          "passage_id": 314,
+          "page": 314,
+          "qwen_rank": 3
+        },
+        {
+          "passage_id": 323,
+          "page": 323,
+          "qwen_rank": 4
+        },
+        {
+          "passage_id": 123,
+          "page": 123,
+          "qwen_rank": 5
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "The passages do not contain the opening of Darcy’s first proposal. They show an earlier visit to the parsonage, when he pays reserved compliments to Mrs. Collins, but not the unexpected sitting-room entrance and proposal asked about.",
+          "enough_evidence": false,
+          "missing_evidence": "The scene of Darcy’s unexpected entrance into the Hunsford parsonage sitting-room and his opening words in his first proposal to Elizabeth are missing.",
+          "asked_event": "Darcy’s opening words in his first proposal to Elizabeth after unexpectedly entering the Hunsford parsonage sitting-room.",
+          "event_match": "nearby_only",
+          "event_match_gate": "forced_false_because_not_direct_answer",
+          "supporting_passage_ids_raw": [
+            214
+          ],
+          "supporting_passage_ids": [
+            214
+          ],
+          "display_citations": [
+            {
+              "passage_id": 214,
+              "page": 214,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 5.801,
+          "usage": {
+            "input_tokens": 2710,
+            "input_tokens_details": {
+              "cache_write_tokens": 2707,
+              "cached_tokens": 0
+            },
+            "output_tokens": 145,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2855
+          },
+          "cost": {
+            "input_tokens": 2710,
+            "output_tokens": 145,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2707,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.013638,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_02ecf7870fdee52d016ac3fe23ed9887d09f0693bcafccce68"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "The supplied passages do not give Darcy’s opening words in his first proposal. Passage 323 only recalls Elizabeth and Darcy’s “last lively scene in Hunsford Parsonage,” without recounting how he began.",
+          "enough_evidence": false,
+          "missing_evidence": "The proposal scene itself, or an account quoting or describing Darcy’s opening words, is missing.",
+          "asked_event": "How Darcy begins his first proposal to Elizabeth after unexpectedly entering the Hunsford parsonage sitting-room.",
+          "event_match": "nearby_only",
+          "event_match_gate": "forced_false_because_not_direct_answer",
+          "supporting_passage_ids_raw": [
+            323
+          ],
+          "supporting_passage_ids": [
+            323
+          ],
+          "display_citations": [
+            {
+              "passage_id": 323,
+              "page": 323,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 4.453,
+          "usage": {
+            "input_tokens": 2660,
+            "input_tokens_details": {
+              "cache_write_tokens": 2657,
+              "cached_tokens": 0
+            },
+            "output_tokens": 127,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2787
+          },
+          "cost": {
+            "input_tokens": 2660,
+            "output_tokens": 127,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2657,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.013233,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_04928c874b8aee37016ac3fe29c0c087d0bf2cfb7ba53aa3d1"
+        }
+      }
+    },
+    {
+      "case_id": "fr_005_qwen_tail5",
+      "question_id": "fr_005",
+      "book": "frankenstein",
+      "role": "nearby_or_missing",
+      "question": "Who is Henry Clerval's father, and what did Henry write when he was nine years old?",
+      "gold_in_sent": false,
+      "retrieval_gold_chunk_indexes": [
+        40
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 269,
+          "page": 176,
+          "qwen_rank": 16
+        },
+        {
+          "passage_id": 287,
+          "page": 188,
+          "qwen_rank": 17
+        },
+        {
+          "passage_id": 278,
+          "page": 183,
+          "qwen_rank": 18
+        },
+        {
+          "passage_id": 276,
+          "page": 180,
+          "qwen_rank": 19
+        },
+        {
+          "passage_id": 285,
+          "page": 187,
+          "qwen_rank": 20
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "The supplied passages do not identify Henry Clerval’s father or state what Henry wrote when he was nine years old.",
+          "enough_evidence": false,
+          "missing_evidence": "The passage describing Henry Clerval’s parentage and his writing at age nine is missing.",
+          "asked_event": "The identification of Henry Clerval’s father and the work Henry wrote when he was nine years old.",
+          "event_match": "absent",
+          "event_match_gate": "forced_false_because_not_direct_answer",
+          "supporting_passage_ids_raw": [],
+          "supporting_passage_ids": [],
+          "display_citations": [],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.718,
+          "usage": {
+            "input_tokens": 2762,
+            "input_tokens_details": {
+              "cache_write_tokens": 2759,
+              "cached_tokens": 0
+            },
+            "output_tokens": 104,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2866
+          },
+          "cost": {
+            "input_tokens": 2762,
+            "output_tokens": 104,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2759,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.013462,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0e7e9054d0edb8ea016ac3fe2e2ee087d0b4f7b50140567950"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "The supplied passages do not identify Henry Clerval’s father or state what Henry wrote when he was nine years old.",
+          "enough_evidence": false,
+          "missing_evidence": "A passage identifying Henry’s father and describing what Henry wrote at age nine is missing.",
+          "asked_event": "The identity of Henry Clerval’s father and what Henry wrote when he was nine years old.",
+          "event_match": "absent",
+          "event_match_gate": "forced_false_because_not_direct_answer",
+          "supporting_passage_ids_raw": [],
+          "supporting_passage_ids": [],
+          "display_citations": [],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.2,
+          "usage": {
+            "input_tokens": 2712,
+            "input_tokens_details": {
+              "cache_write_tokens": 2709,
+              "cached_tokens": 0
+            },
+            "output_tokens": 101,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2813
+          },
+          "cost": {
+            "input_tokens": 2712,
+            "output_tokens": 101,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2709,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.013207,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0b77c95262e7308f016ac3fe31eab087d0ae543f1a06ff4371"
+        }
+      }
+    },
+    {
+      "case_id": "tp2_012_qwen_tail5",
+      "question_id": "tp2_012",
+      "book": "thinkpython",
+      "role": "nearby_or_missing",
+      "question": "What is the difference between = and == in Python, and what are the three logical operators?",
+      "gold_in_sent": false,
+      "retrieval_gold_chunk_indexes": [
+        136
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 333,
+          "page": 179,
+          "qwen_rank": 16
+        },
+        {
+          "passage_id": 76,
+          "page": 28,
+          "qwen_rank": 17
+        },
+        {
+          "passage_id": 86,
+          "page": 35,
+          "qwen_rank": 18
+        },
+        {
+          "passage_id": 295,
+          "page": 157,
+          "qwen_rank": 19
+        },
+        {
+          "passage_id": 89,
+          "page": 37,
+          "qwen_rank": 20
+        }
+      ],
+      "runs": {
+        "revised_plus_nearby_event_check": {
+          "answer": "Passage 89 shows `x = 2` as an assignment statement, but the supplied passages do not explain the difference between `=` and `==` or identify the three logical operators.",
+          "enough_evidence": false,
+          "missing_evidence": "An explanation of `==` versus `=` and a list of the three logical operators are missing.",
+          "asked_event": "The distinction between Python's `=` and `==`, and the names of its three logical operators.",
+          "event_match": "nearby_only",
+          "event_match_gate": "forced_false_because_not_direct_answer",
+          "supporting_passage_ids_raw": [
+            89
+          ],
+          "supporting_passage_ids": [
+            89
+          ],
+          "display_citations": [
+            {
+              "passage_id": 89,
+              "page": 37,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 3.935,
+          "usage": {
+            "input_tokens": 2358,
+            "input_tokens_details": {
+              "cache_write_tokens": 2355,
+              "cached_tokens": 0
+            },
+            "output_tokens": 124,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 2482
+          },
+          "cost": {
+            "input_tokens": 2358,
+            "output_tokens": 124,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2355,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.011843,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_0bd48f26ac5dd9e9016ac3fe3528b087d09f94cad6b5b60cd9"
+        },
+        "answer_support_direct_or_later_explanation": {
+          "answer": "Passage 89 shows `x = 2` as an assignment statement, but the supplied passages do not explain how `=` differs from `==` or identify the three logical operators.",
+          "enough_evidence": false,
+          "missing_evidence": "An explanation of the difference between `=` and `==`, and a list of the three logical operators.",
+          "asked_event": "The difference between Python's `=` and `==`, and the names of its three logical operators.",
+          "event_match": "nearby_only",
+          "event_match_gate": "forced_false_because_not_direct_answer",
+          "supporting_passage_ids_raw": [
+            89
+          ],
+          "supporting_passage_ids": [
+            89
+          ],
+          "display_citations": [
+            {
+              "passage_id": 89,
+              "page": 37,
+              "page_source": "stage1_chunk_metadata"
+            }
+          ],
+          "rejected_citations": [],
+          "citation_gate": "ID-in-sent and Stage 1 page checks only; not a support judgment.",
+          "api_time_seconds": 5.144,
+          "usage": {
+            "input_tokens": 2308,
+            "input_tokens_details": {
+              "cache_write_tokens": 2305,
+              "cached_tokens": 0
+            },
+            "output_tokens": 180,
+            "output_tokens_details": {
+              "reasoning_tokens": 55
+            },
+            "total_tokens": 2488
+          },
+          "cost": {
+            "input_tokens": 2308,
+            "output_tokens": 180,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 2305,
+            "long_context_rates": false,
+            "processing": "standard",
+            "estimated_usd": 0.012178,
+            "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+          },
+          "service_tier_returned": "default",
+          "response_id": "resp_09951af48f47e272016ac3fe390aa887d09f1693757715c562"
+        }
+      }
+    }
+  ]
+}

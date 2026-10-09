@@ -2,6 +2,10 @@ __pycache__/
 *.pyc
 .DS_Store
 
+# Local secrets. Root .gitignore already matches `.env`; keep this explicit.
+.env
+.env.local
+
 # The repo root ignores every PDF. Re-include sample books in this directory.
 !*.pdf
 
@@ -28,3 +32,6 @@ outputs/qwen3_reranker_0_6b_local_vs_hybrid_comparison.json
 outputs/arthashastra_stage1_chunks.json
 outputs/arthashastra_*_results*.json
 outputs/arthashastra_stage1_validation.json
+
+# Live-attached PDFs and chunk copies for the local demo only.
+demo_uploads/

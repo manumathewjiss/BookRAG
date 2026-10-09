@@ -1,0 +1,21 @@
+{
+  "artifact": "sol_heldout_answer_quality_review",
+  "n_questions": 28,
+  "n_api_calls": 56,
+  "estimated_usd_this_run": 0.548883,
+  "estimated_usd_total_including_prior_sol_experiments": 0.729776,
+  "org_costs_api": "403 missing api.usage.read; could not read dashboard balance",
+  "instruction_for_demo": "revised_scene_and_citation",
+  "do_not_declare_winner_from_enough_evidence_flag": true,
+  "enough_evidence_flags_matched": 26,
+  "citation_set_differed": ["pp_010_qwen_top5", "tp2_014_qwen_top5"],
+  "shared_failure": {
+    "id": "pp_016_qwen_top5",
+    "note": "Gold 132 (INSIST upon staying and hearing Mr Collins) was not in the five. Both instructions answered from adjacent 131 (I desire you to stay where you are) and set enough_evidence true. Related, not the exact line."
+  },
+  "revised_citation_improvements": [
+    "pp_010 dropped extra 206 (Lady Catherine on entail) that lacked the 2000/4000 figures",
+    "tp2_014 dropped extra 149 glossary that lacked RuntimeError"
+  ],
+  "production_pipeline_changed": false
+}

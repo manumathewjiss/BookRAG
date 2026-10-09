@@ -1,0 +1,1491 @@
+{
+  "artifact": "sol_heldout_answer_quality_cases",
+  "frozen_before_api_calls": true,
+  "excluded_instruction_design_ids": [
+    "pp_003",
+    "pp_028",
+    "tp2_002"
+  ],
+  "n_questions": 28,
+  "n_api_calls_planned": 56,
+  "instructions_to_run": [
+    "original_short_grounded",
+    "revised_scene_and_citation"
+  ],
+  "same_passages_both_instructions": true,
+  "gold_ids_sent_to_sol": false,
+  "model": "gpt-6.1-sol",
+  "service_tier": "default",
+  "reasoning_effort": "low",
+  "already_tracked_sol_usd": 0.180893,
+  "stop_usd_including_already_tracked": 18.0,
+  "hard_limit_usd": 20.0,
+  "scoring": {
+    "four_dimensions": [
+      "answer_correctness",
+      "evidence_sufficiency",
+      "citation_correctness_per_claim",
+      "refusal_or_qualification"
+    ],
+    "do_not_declare_winner_from_enough_evidence_flag_alone": true,
+    "code_id_page_checks_are_not_support": true
+  },
+  "cases": [
+    {
+      "id": "fr_002_qwen_top5",
+      "question_id": "fr_002",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "In Letter II, from which port dated 28th March does Walton write that he has hired a vessel, and what one want does he tell Margaret he has never been able to satisfy?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        14
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 14,
+          "page": 15,
+          "qwen_rank": 1,
+          "n_chars": 1657,
+          "text_preview": "Letter II To Mrs. Saville, England. Archangel, 28th March, 17—. How slowly the time passes here, encompassed as I am by frost and snow; yet a second step is taken towards my enter-"
+        },
+        {
+          "passage_id": 19,
+          "page": 18,
+          "qwen_rank": 2,
+          "n_chars": 531,
+          "text_preview": "Shall I meet you again, after having traversed immense seas, and returned by the most southern cape of Africa or America? I dare not expect such success, yet I cannot bear to look "
+        },
+        {
+          "passage_id": 13,
+          "page": 14,
+          "qwen_rank": 3,
+          "n_chars": 1557,
+          "text_preview": "depressed. I am about to proceed on a long and difficult voy- age; the emergencies of which will demand all my fortitude: I am required not only to raise the spirits of others, but"
+        },
+        {
+          "passage_id": 380,
+          "page": 243,
+          "qwen_rank": 4,
+          "n_chars": 1616,
+          "text_preview": "In this manner many appalling hours passed; several of my dogs died; and I myself was about to sink under the accu- mulation of distress, when I saw your vessel riding at anchor, a"
+        },
+        {
+          "passage_id": 18,
+          "page": 17,
+          "qwen_rank": 5,
+          "n_chars": 213,
+          "text_preview": "able and half fearful, with which I am preparing to depart. I am going to unexplored regions, to “the land of mist and snow;” but I shall kill no albatross, therefore do not be ala"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_006_qwen_top5",
+      "question_id": "fr_006",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "When Victor asks his father the nature and origin of thunder and lightning, what one-word reply does his father give, and what machine does he then construct?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        47
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 47,
+          "page": 36,
+          "qwen_rank": 1,
+          "n_chars": 256,
+          "text_preview": "ishment; and I eagerly inquired of my father the nature and origin of thunder and lightning. He replied, “Electricity;” describing at the same time the various effects of that powe"
+        },
+        {
+          "passage_id": 46,
+          "page": 36,
+          "qwen_rank": 2,
+          "n_chars": 1786,
+          "text_preview": "failure rather to my own inexperience and mistake, than to a want of skill or fidelity in my instructors. The natural phænomena that take place every day before our eyes did not es"
+        },
+        {
+          "passage_id": 334,
+          "page": 216,
+          "qwen_rank": 3,
+          "n_chars": 1766,
+          "text_preview": "to my imagination, the remembrance of which I preserved in my convalescence. I avoided explanation, and maintained a continual silence concerning the wretch I had created. I had a "
+        },
+        {
+          "passage_id": 42,
+          "page": 34,
+          "qwen_rank": 4,
+          "n_chars": 1764,
+          "text_preview": "my early days, I must not omit to record those events which led, by insensible steps to my after tale of misery: for when I would account to myself for the birth of that passion, w"
+        },
+        {
+          "passage_id": 266,
+          "page": 174,
+          "qwen_rank": 5,
+          "n_chars": 1786,
+          "text_preview": "resumed your former pleasures, and seem to be returning to yourself. And yet you are still unhappy, and still avoid our society. For some time I was lost in conjecture as to the ca"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_011_qwen_top5",
+      "question_id": "fr_011",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "On what kind of November night does Victor finish his toils, what time is it, and what does he see when the creature's dull yellow eye opens?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        77
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 77,
+          "page": 55,
+          "qwen_rank": 1,
+          "n_chars": 1680,
+          "text_preview": "Chapter IV It was on a dreary night of November, that I beheld the accomplishment of my toils. With an anxiety that almost amounted to agony, I collected the instruments of life ar"
+        },
+        {
+          "passage_id": 248,
+          "page": 162,
+          "qwen_rank": 2,
+          "n_chars": 1543,
+          "text_preview": "“But my toils now drew near a close; and, two months from this time, I reached the environs of Geneva. “It was evening when I arrived, and I retired to a hiding- place among the fi"
+        },
+        {
+          "passage_id": 83,
+          "page": 59,
+          "qwen_rank": 3,
+          "n_chars": 1727,
+          "text_preview": "“Very well, and very happy, only a little uneasy that they hear from you so seldom. By the bye, I mean to lecture you a little upon their account myself. – But, my dear Franken- st"
+        },
+        {
+          "passage_id": 351,
+          "page": 227,
+          "qwen_rank": 4,
+          "n_chars": 1565,
+          "text_preview": "Chapter VI It was eight o’clock when we landed; we walked for a short time on the shore, enjoying the transitory light, and then retired to the inn, and contemplated the lovely sce"
+        },
+        {
+          "passage_id": 274,
+          "page": 179,
+          "qwen_rank": 5,
+          "n_chars": 1672,
+          "text_preview": "We travelled at the time of the vintage, and heard the song of the labourers, as we glided down the stream. Even I, depressed in mind, and my spirits continually agitated by gloomy"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_014_qwen_top5",
+      "question_id": "fr_014",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "In the letter headed To V. Frankenstein, what woeful news does Victor's father announce about William?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        106
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 106,
+          "page": 73,
+          "qwen_rank": 1,
+          "n_chars": 1562,
+          "text_preview": "Chapter VI On my return, I found the following letter from my father:– “To V. Frankenstein. “My dear Victor, “You have probably waited impatiently for a letter to fix the date of y"
+        },
+        {
+          "passage_id": 249,
+          "page": 162,
+          "qwen_rank": 2,
+          "n_chars": 260,
+          "text_preview": "“‘Boy, you will never see your father again; you must come with me.’ “‘Hideous monster! let me go; My papa is a Syndic – he is M. Frankenstein – he would punish you. You dare not k"
+        },
+        {
+          "passage_id": 109,
+          "page": 75,
+          "qwen_rank": 3,
+          "n_chars": 1651,
+          "text_preview": "my son, to return and be our comforter? Your dear mother! Alas, Victor! I now say, Thank God she did not live to witness the cruel, miserable death of her youngest darling! “Come, "
+        },
+        {
+          "passage_id": 90,
+          "page": 63,
+          "qwen_rank": 4,
+          "n_chars": 1588,
+          "text_preview": "Chapter V Clerval then put the following letter into my hands. “To V. Frankenstein. “My dear cousin, “I cannot describe to you the uneasiness we have all felt concerning your healt"
+        },
+        {
+          "passage_id": 335,
+          "page": 217,
+          "qwen_rank": 5,
+          "n_chars": 1769,
+          "text_preview": "ceeded to Paris, where my father had some business which detained us a few weeks. In this city, I received the following letter from Elizabeth:– “To Victor Frankenstein. “My deares"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_018_qwen_top5",
+      "question_id": "fr_018",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "On the glacier, what does the creature first say when he eludes Victor's attack, and whom does he say he ought to be instead of the fallen angel?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        162
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 162,
+          "page": 109,
+          "qwen_rank": 1,
+          "n_chars": 1585,
+          "text_preview": "My rage was without bounds; I sprang on him, impelled by all the feelings which can arm one being against the exis- tence of another. He easily eluded me, and said, “Be calm! I ent"
+        },
+        {
+          "passage_id": 109,
+          "page": 75,
+          "qwen_rank": 2,
+          "n_chars": 1651,
+          "text_preview": "my son, to return and be our comforter? Your dear mother! Alas, Victor! I now say, Thank God she did not live to witness the cruel, miserable death of her youngest darling! “Come, "
+        },
+        {
+          "passage_id": 334,
+          "page": 216,
+          "qwen_rank": 3,
+          "n_chars": 1766,
+          "text_preview": "to my imagination, the remembrance of which I preserved in my convalescence. I avoided explanation, and maintained a continual silence concerning the wretch I had created. I had a "
+        },
+        {
+          "passage_id": 163,
+          "page": 109,
+          "qwen_rank": 4,
+          "n_chars": 415,
+          "text_preview": "turn a favourable eye upon thy creature, who implores thy goodness and compassion? Believe me, Frankenstein: I was benevolent; my soul glowed with love and humanity: but am I not a"
+        },
+        {
+          "passage_id": 259,
+          "page": 168,
+          "qwen_rank": 5,
+          "n_chars": 256,
+          "text_preview": "fested towards him. His power and threats were not omit- ted in my calculations: a creature who could exist in the ice caves of the glaciers, and hide himself from pursuit among th"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_022_qwen_top5",
+      "question_id": "fr_022",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "After Victor refuses to make a female companion, what exact threat does the creature utter as he goes, and in what does Victor then see him shoot across the water?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        298
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 298,
+          "page": 194,
+          "qwen_rank": 1,
+          "n_chars": 425,
+          "text_preview": "“It is well. I go; but remember, I shall be with you on your wedding-night.” I started forward, and exclaimed, “Villain! before you sign my death-warrant, be sure that you are your"
+        },
+        {
+          "passage_id": 381,
+          "page": 243,
+          "qwen_rank": 2,
+          "n_chars": 465,
+          "text_preview": "over my accumulated woes, and live to make another such a wretch as I am. He is eloquent and persuasive; and once his words had even power over my heart: but trust him not. His sou"
+        },
+        {
+          "passage_id": 253,
+          "page": 165,
+          "qwen_rank": 3,
+          "n_chars": 1665,
+          "text_preview": "Chapter IX The being finished speaking, and fixed his looks upon me in expectation of a reply. But I was bewildered, perplexed, and unable to arrange my ideas sufficiently to under"
+        },
+        {
+          "passage_id": 297,
+          "page": 194,
+          "qwen_rank": 4,
+          "n_chars": 1570,
+          "text_preview": "“The hour of my weakness is past, and the period of your power is arrived. Your threats cannot move me to do an act of wickedness; but they confirm me in a resolution of not creati"
+        },
+        {
+          "passage_id": 397,
+          "page": 252,
+          "qwen_rank": 5,
+          "n_chars": 494,
+          "text_preview": "my power, his happiness and well-being. This was my duty; but there was another still paramount to that. My duties towards my fellow-creatures had greater claims to my atten- tion,"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_025_qwen_top5",
+      "question_id": "fr_025",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "In Elizabeth Lavenza's letter signed Geneva, May 18th, which threat of the fiend does the letter revive in Victor's memory?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        338
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 338,
+          "page": 219,
+          "qwen_rank": 1,
+          "n_chars": 1725,
+          "text_preview": "I see but one smile on your lips when we meet, occasioned by this or any other exertion of mine, I shall need no other happiness. “Elizabeth Lavenza. “Geneva, May 18th, 17—.” This "
+        },
+        {
+          "passage_id": 342,
+          "page": 221,
+          "qwen_rank": 2,
+          "n_chars": 1729,
+          "text_preview": "I was furious, and burnt with rage, sometimes low and despondent. I neither spoke or looked, but sat motionless, bewildered by the multitude of miseries that overcame me. Elizabeth"
+        },
+        {
+          "passage_id": 150,
+          "page": 101,
+          "qwen_rank": 3,
+          "n_chars": 1763,
+          "text_preview": "not so wretched as you are. There is an expression of despair, and sometimes of revenge, in your countenance, that makes me tremble. Be calm, my dear Victor; I would sacrifice my l"
+        },
+        {
+          "passage_id": 356,
+          "page": 230,
+          "qwen_rank": 4,
+          "n_chars": 1705,
+          "text_preview": "expect the return of Elizabeth and myself, and that I must return alone. This reflection brought tears into my eyes, and I wept for a long time; but my thoughts rambled to various "
+        },
+        {
+          "passage_id": 381,
+          "page": 243,
+          "qwen_rank": 5,
+          "n_chars": 465,
+          "text_preview": "over my accumulated woes, and live to make another such a wretch as I am. He is eloquent and persuasive; and once his words had even power over my heart: but trust him not. His sou"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_029_qwen_top5",
+      "question_id": "fr_029",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "What does the creature say he shall collect for a funeral pile, and why does he not want its remains to afford light to any curious wretch?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        409
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 409,
+          "page": 258,
+          "qwen_rank": 1,
+          "n_chars": 377,
+          "text_preview": "globe; I shall collect my funeral pile, and consume to ashes this miserable frame, that its remains may afford no light to any curious and unhallowed wretch, who would create such "
+        },
+        {
+          "passage_id": 408,
+          "page": 258,
+          "qwen_rank": 2,
+          "n_chars": 1713,
+          "text_preview": "criminal, when all human kind sinned against me? Why do you not hate Felix, who drove his friend from his door with contumely? Why do you not execrate the rustic who sought to dest"
+        },
+        {
+          "passage_id": 302,
+          "page": 196,
+          "qwen_rank": 3,
+          "n_chars": 372,
+          "text_preview": "courage, and unlocked the door of my laboratory. The remains of the half-finished creature, whom I had destroyed, lay scattered on the floor, and I almost felt as if I had man- gle"
+        },
+        {
+          "passage_id": 411,
+          "page": 259,
+          "qwen_rank": 4,
+          "n_chars": 443,
+          "text_preview": "pile triumphantly, and exult in the agony of the torturing flames. The light of that conflagration will fade away; my ashes will be swept into the sea by the winds. My spirit will "
+        },
+        {
+          "passage_id": 410,
+          "page": 259,
+          "qwen_rank": 5,
+          "n_chars": 1627,
+          "text_preview": "being; and when I shall be no more, the very remembrance of us both will speedily vanish. I shall no longer see the sun or stars, or feel the winds play on my cheeks. Light, feelin"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_005_qwen_tail5",
+      "question_id": "fr_005",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "Who is Henry Clerval's father, and what did Henry write when he was nine years old?",
+      "passage_set": "qwen_tail5",
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [
+        40
+      ],
+      "gold_in_sent": false,
+      "passages": [
+        {
+          "passage_id": 269,
+          "page": 176,
+          "qwen_rank": 16,
+          "n_chars": 1833,
+          "text_preview": "ily; during which period some event might happen which would restore me to them in peace and happiness: my promise might be fulfilled, and the monster have departed; or some accide"
+        },
+        {
+          "passage_id": 287,
+          "page": 188,
+          "qwen_rank": 17,
+          "n_chars": 1677,
+          "text_preview": "a moment, but followed him as his shadow, to protect him from the fancied rage of his destroyer. I felt as if I had committed some great crime, the consciousness of which haunted m"
+        },
+        {
+          "passage_id": 278,
+          "page": 183,
+          "qwen_rank": 18,
+          "n_chars": 1672,
+          "text_preview": "Chapter II London was our present point of rest; we determined to remain several months in this wonderful and celebrated city. Clerval desired the intercourse of the men of genius "
+        },
+        {
+          "passage_id": 276,
+          "page": 180,
+          "qwen_rank": 19,
+          "n_chars": 1526,
+          "text_preview": "who pile the glacier, or retire to the inaccessible peaks of the mountains of our own country.” Clerval! beloved friend! even now it delights me to record your words, and to dwell "
+        },
+        {
+          "passage_id": 285,
+          "page": 187,
+          "qwen_rank": 20,
+          "n_chars": 1794,
+          "text_preview": "streams, were all familiar and dear sights to me. Here also we made some acquaintances, who almost contrived to cheat me into happiness. The delight of Clerval was proportionably g"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "fr_015_qwen_tail5",
+      "question_id": "fr_015",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "About what time in the morning does Victor's father find William stretched on the grass, and what mark of the murderer does he report?",
+      "passage_set": "qwen_tail5",
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [
+        107
+      ],
+      "gold_in_sent": false,
+      "passages": [
+        {
+          "passage_id": 95,
+          "page": 66,
+          "qwen_rank": 16,
+          "n_chars": 1752,
+          "text_preview": "which she had conceived. Accordingly, a few months after your departure for Ingolstadt, Justine was called home by her repentant mother. Poor girl! she wept when she quitted our ho"
+        },
+        {
+          "passage_id": 332,
+          "page": 214,
+          "qwen_rank": 17,
+          "n_chars": 319,
+          "text_preview": "Towards morning I was possessed by a kind of night-mare; I felt the fiend’s grasp in my neck, and could not free myself from it; groans and cries rung in my ears. My father, who wa"
+        },
+        {
+          "passage_id": 116,
+          "page": 79,
+          "qwen_rank": 18,
+          "n_chars": 1732,
+          "text_preview": "tree for support. The figure passed me quickly, and I lost it in the gloom. Nothing in human shape could have destroyed that fair child. He was the murderer! I could not doubt it. "
+        },
+        {
+          "passage_id": 134,
+          "page": 90,
+          "qwen_rank": 19,
+          "n_chars": 1681,
+          "text_preview": "endured. The person to whom I addressed myself added, that Justine had already confessed her guilt. “That evidence,” he observed, “was hardly required in so glaring a case, but I a"
+        },
+        {
+          "passage_id": 113,
+          "page": 77,
+          "qwen_rank": 20,
+          "n_chars": 368,
+          "text_preview": "William had been murdered. As I could not pass through the town, I was obliged to cross the lake in a boat to arrive at Plainpalais. During this short voyage I saw the lightnings p"
+        }
+      ],
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+      "qwen_results": "frankenstein_qwen3_reranker_hybrid_pool20_results.json"
+    },
+    {
+      "id": "pp_001_qwen_top5",
+      "question_id": "pp_001",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What truth is universally acknowledged in the opening of Pride and Prejudice about a single man in possession of a good fortune?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        1
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 1,
+          "page": 2,
+          "qwen_rank": 1,
+          "n_chars": 1176,
+          "text_preview": "Pride and Prejudice\u0018 Chapter 1 I t is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feeli"
+        },
+        {
+          "passage_id": 460,
+          "page": 460,
+          "qwen_rank": 2,
+          "n_chars": 1549,
+          "text_preview": "Pride and Prejudice\u0018\u00180 ‘This is a wretched beginning indeed! My sole depen - dence was on you; and I am sure nobody else will believe me, if you do not. Yet, indeed, I am in earnes"
+        },
+        {
+          "passage_id": 336,
+          "page": 336,
+          "qwen_rank": 3,
+          "n_chars": 1680,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 with one of his officers; to own the truth, with Wickham! Imagine our surprise. To Kitty, however, it does not seem so wholly unexpected. I am very, very sor"
+        },
+        {
+          "passage_id": 358,
+          "page": 358,
+          "qwen_rank": 4,
+          "n_chars": 1465,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 is but one man in the world I love, and he is an angel. I should never be happy without him, so think it no harm to be off. You need not send them word at Lo"
+        },
+        {
+          "passage_id": 188,
+          "page": 188,
+          "qwen_rank": 5,
+          "n_chars": 1694,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 pain. Her heart had been but slightly touched, and her van - ity was satisfied with believing that SHE would have been his only choice, had fortune permitted"
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_004_qwen_top5",
+      "question_id": "pp_004",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "How does Mr Bennet first reveal that he has already called on Mr Bingley, and which daughter is trimming a hat when he speaks?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        5
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 5,
+          "page": 6,
+          "qwen_rank": 1,
+          "n_chars": 1266,
+          "text_preview": "Pride and Prejudice\u0018 Chapter 2 M r. Bennet was among the earliest of those who waited on Mr. Bingley. He had always intended to visit him, though to the last always assuring his wi"
+        },
+        {
+          "passage_id": 423,
+          "page": 423,
+          "qwen_rank": 2,
+          "n_chars": 1198,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com Chapter 55 A few days after this visit, Mr. Bingley called again, and alone. His friend had left him that morning for Lon - don, but was to retur"
+        },
+        {
+          "passage_id": 7,
+          "page": 8,
+          "qwen_rank": 3,
+          "n_chars": 1552,
+          "text_preview": "Pride and Prejudice\u0018 ‘I am sick of Mr. Bingley,’ cried his wife. ‘I am sorry to hear THAT; but why did not you tell me that before? If I had known as much this morning I certain - "
+        },
+        {
+          "passage_id": 75,
+          "page": 75,
+          "qwen_rank": 4,
+          "n_chars": 1251,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Chapter 1 3 ‘I hope, my dear,’ said Mr. Bennet to his wife, as they were at breakfast the next morning, ‘that you have ordered a good dinner to-da"
+        },
+        {
+          "passage_id": 55,
+          "page": 55,
+          "qwen_rank": 5,
+          "n_chars": 1683,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com of inclination, I am convinced that one good sonnet will starve it entirely away.’ Darcy only smiled; and the general pause which ensued made Eliz"
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_005_qwen_top5",
+      "question_id": "pp_005",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What yearly income is rumoured of Mr Darcy within five minutes of his entrance at the assembly, and how do his manners soon change the company's opinion of him?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        11
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 11,
+          "page": 12,
+          "qwen_rank": 1,
+          "n_chars": 1620,
+          "text_preview": "Pride and Prejudice1\u0018 tion within five minutes after his entrance, of his having ten thousand a year. The gentlemen pronounced him to be a fine figure of a man, the ladies declared"
+        },
+        {
+          "passage_id": 256,
+          "page": 256,
+          "qwen_rank": 2,
+          "n_chars": 1687,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 to the living, of his receiving in lieu so considerable a sum as three thousand pounds, again was she forced to hesitate. She put down the letter, weighed ev"
+        },
+        {
+          "passage_id": 476,
+          "page": 476,
+          "qwen_rank": 3,
+          "n_chars": 1559,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 ‘MY DEAR LIZZY, ‘I wish you joy. If you love Mr. Darcy half as well as I do my dear Wickham, you must be very happy. It is a great comfort to have you so ric"
+        },
+        {
+          "passage_id": 467,
+          "page": 467,
+          "qwen_rank": 4,
+          "n_chars": 1315,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com was heard only by herself, soon went away. But before she had been three minutes in her own room, her mother fol - lowed her. ‘My dearest child,’"
+        },
+        {
+          "passage_id": 291,
+          "page": 291,
+          "qwen_rank": 5,
+          "n_chars": 1456,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com humour, that on his making some inquiry as to the manner in which her time had passed at Hunsford, she mentioned Colonel Fitzwilliam’s and Mr. Da"
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_007_qwen_top5",
+      "question_id": "pp_007",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "When Mr Bingley urges Darcy to dance at the assembly and points out Elizabeth sitting down, what does Darcy say about her looks and about giving consequence to young ladies?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        12
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 12,
+          "page": 13,
+          "qwen_rank": 1,
+          "n_chars": 1586,
+          "text_preview": "1\u0018Free eBooks at Planet eBook.com that time, Mr. Darcy had been standing near enough for her to hear a conversation between him and Mr. Bingley, who came from the dance for a few m"
+        },
+        {
+          "passage_id": 333,
+          "page": 333,
+          "qwen_rank": 2,
+          "n_chars": 1668,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com However little Mr. Darcy might have liked such an ad - dress, he contented himself with coolly replying that he perceived no other alteration tha"
+        },
+        {
+          "passage_id": 31,
+          "page": 31,
+          "qwen_rank": 3,
+          "n_chars": 1401,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com Sir William only smiled. ‘Your friend performs delight - fully,’ he continued after a pause, on seeing Bingley join the group; ‘and I doubt not th"
+        },
+        {
+          "passage_id": 219,
+          "page": 219,
+          "qwen_rank": 4,
+          "n_chars": 1575,
+          "text_preview": "\u00181\u0018Free eBooks at Planet eBook.com you could not really believe me to entertain any design of alarming you; and I have had the pleasure of your acquain - tance long enough to know "
+        },
+        {
+          "passage_id": 68,
+          "page": 68,
+          "qwen_rank": 5,
+          "n_chars": 1634,
+          "text_preview": "Pride and Prejudice\u0018\u0018 a dance at Netherfield? I would advise you, before you de - termine on it, to consult the wishes of the present party; I am much mistaken if there are not som"
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_010_qwen_top5",
+      "question_id": "pp_010",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What is the yearly income of Mr Bennet's estate, how is it entailed, and how much did Mrs Bennet's father leave her?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        34
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 34,
+          "page": 34,
+          "qwen_rank": 1,
+          "n_chars": 1408,
+          "text_preview": "Pride and Prejudice\u0018\u0018 Chapter 7 M r. Bennet’s property consisted almost entirely in an estate of two thousand a year, which, unfortunately for his daughters, was entailed, in defau"
+        },
+        {
+          "passage_id": 379,
+          "page": 379,
+          "qwen_rank": 2,
+          "n_chars": 1402,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com Chapter 50 M r. Bennet had very often wished before this period of his life that, instead of spending his whole income, he had laid by an annual "
+        },
+        {
+          "passage_id": 76,
+          "page": 76,
+          "qwen_rank": 3,
+          "n_chars": 1541,
+          "text_preview": "Pride and Prejudice\u0018\u0018 delicacy, and requiring early attention. It is from my cousin, Mr. Collins, who, when I am dead, may turn you all out of this house as soon as he pleases.’ ‘O"
+        },
+        {
+          "passage_id": 80,
+          "page": 80,
+          "qwen_rank": 4,
+          "n_chars": 1559,
+          "text_preview": "Pride and Prejudice\u00180 Bennet, who quarreled with no compliments, answered most readily. ‘You are very kind, I am sure; and I wish with all my heart it may prove so, for else they w"
+        },
+        {
+          "passage_id": 206,
+          "page": 206,
+          "qwen_rank": 5,
+          "n_chars": 1426,
+          "text_preview": "Pride and Prejudice\u00180\u0018 knew the least, and who she observed to Mrs. Collins was a very genteel, pretty kind of girl. She asked her, at differ - ent times, how many sisters she had,"
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_014_qwen_top5",
+      "question_id": "pp_014",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "Who is Mr Collins in relation to the Longbourn family, and what does Mr Bennet say Collins may do when Mr Bennet is dead?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        76
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 76,
+          "page": 76,
+          "qwen_rank": 1,
+          "n_chars": 1541,
+          "text_preview": "Pride and Prejudice\u0018\u0018 delicacy, and requiring early attention. It is from my cousin, Mr. Collins, who, when I am dead, may turn you all out of this house as soon as he pleases.’ ‘O"
+        },
+        {
+          "passage_id": 165,
+          "page": 165,
+          "qwen_rank": 2,
+          "n_chars": 1554,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com an agony of ill-humour, and wherever she went she was sure of hearing it talked of. The sight of Miss Lucas was odious to her. As her successor i"
+        },
+        {
+          "passage_id": 431,
+          "page": 431,
+          "qwen_rank": 3,
+          "n_chars": 1150,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com the interference of his friend; for, though Jane had the most generous and forgiving heart in the world, she knew it was a circumstance which mus"
+        },
+        {
+          "passage_id": 353,
+          "page": 353,
+          "qwen_rank": 4,
+          "n_chars": 1678,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com sure there was some great neglect or other on their side, for she is not the kind of girl to do such a thing if she had been well looked after. I"
+        },
+        {
+          "passage_id": 89,
+          "page": 89,
+          "qwen_rank": 5,
+          "n_chars": 1703,
+          "text_preview": "\u0018\u0018Free eBooks at Planet eBook.com Collins was to attend them, at the request of Mr. Bennet, who was most anxious to get rid of him, and have his library to himself; for thither Mr."
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_018_qwen_top5",
+      "question_id": "pp_018",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "In the library, what alternative does Mr Bennet put to Elizabeth about marrying Mr Collins, contrasting her mother's demand with his own?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        140
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 140,
+          "page": 140,
+          "qwen_rank": 1,
+          "n_chars": 1451,
+          "text_preview": "Pride and Prejudice1\u00180 ‘Speak to Lizzy about it yourself. Tell her that you insist upon her marrying him.’ ‘Let her be called down. She shall hear my opinion.’ Mrs. Bennet rang the"
+        },
+        {
+          "passage_id": 139,
+          "page": 139,
+          "qwen_rank": 2,
+          "n_chars": 1553,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com lins; ‘but if she is really headstrong and foolish, I know not whether she would altogether be a very desirable wife to a man in my situation, wh"
+        },
+        {
+          "passage_id": 130,
+          "page": 130,
+          "qwen_rank": 3,
+          "n_chars": 753,
+          "text_preview": "Pride and Prejudice1\u00180 portunity of waiting on her, after his return from London, whither he was obliged to go the next day for a short time. Mrs. Bennet was perfectly satisfied, a"
+        },
+        {
+          "passage_id": 138,
+          "page": 138,
+          "qwen_rank": 4,
+          "n_chars": 1350,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 Chapter 20 M r. Collins was not left long to the silent contempla - tion of his successful love; for Mrs. Bennet, having dawdled about in the vestibule to wa"
+        },
+        {
+          "passage_id": 132,
+          "page": 132,
+          "qwen_rank": 5,
+          "n_chars": 1683,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 embarrassed looks, about to escape, she added: ‘Lizzy, I IN - SIST upon your staying and hearing Mr. Collins.’ Elizabeth would not oppose such an injunction—"
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_022_qwen_top5",
+      "question_id": "pp_022",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "During Darcy's first proposal, what does Elizabeth say she had felt about him before she had known him a month, using the phrase about the last man in the world?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        241
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 241,
+          "page": 241,
+          "qwen_rank": 1,
+          "n_chars": 1494,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com ment; yet she tried to the utmost to speak with composure when she said: ‘You are mistaken, Mr. Darcy, if you suppose that the mode of your decla"
+        },
+        {
+          "passage_id": 315,
+          "page": 315,
+          "qwen_rank": 2,
+          "n_chars": 1576,
+          "text_preview": "\u00181\u0018Free eBooks at Planet eBook.com indeed, before we left Bakewell, we understood that you were not immediately expected in the country.’ He ac - knowledged the truth of it all, an"
+        },
+        {
+          "passage_id": 178,
+          "page": 178,
+          "qwen_rank": 3,
+          "n_chars": 1589,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 of service—and perhaps a little relief from home may be as useful as anything.’ Elizabeth was exceedingly pleased with this proposal, and felt persuaded of h"
+        },
+        {
+          "passage_id": 404,
+          "page": 404,
+          "qwen_rank": 4,
+          "n_chars": 1342,
+          "text_preview": "Pride and Prejudice\u00180\u0018 know, things are strangely misrepresented.’ ‘Certainly,’ he replied, biting his lips. Elizabeth hoped she had silenced him; but he soon afterwards said: ‘I w"
+        },
+        {
+          "passage_id": 457,
+          "page": 457,
+          "qwen_rank": 5,
+          "n_chars": 1540,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com he quitted the inn, and that his gravity and thoughtfulness there had arisen from no other struggles than what such a purpose must comprehend. Sh"
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_016_qwen_top5",
+      "question_id": "pp_016",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "When Mr Collins wants to speak privately to Elizabeth, what does Mrs Bennet insist that Lizzy do?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [
+        132
+      ],
+      "gold_in_sent": false,
+      "passages": [
+        {
+          "passage_id": 138,
+          "page": 138,
+          "qwen_rank": 1,
+          "n_chars": 1350,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 Chapter 20 M r. Collins was not left long to the silent contempla - tion of his successful love; for Mrs. Bennet, having dawdled about in the vestibule to wa"
+        },
+        {
+          "passage_id": 140,
+          "page": 140,
+          "qwen_rank": 2,
+          "n_chars": 1451,
+          "text_preview": "Pride and Prejudice1\u00180 ‘Speak to Lizzy about it yourself. Tell her that you insist upon her marrying him.’ ‘Let her be called down. She shall hear my opinion.’ Mrs. Bennet rang the"
+        },
+        {
+          "passage_id": 131,
+          "page": 131,
+          "qwen_rank": 3,
+          "n_chars": 1362,
+          "text_preview": "1\u00181Free eBooks at Planet eBook.com Chapter 19 T he next day opened a new scene at Longbourn. Mr. Col - lins made his declaration in form. Having resolved to do it without loss of t"
+        },
+        {
+          "passage_id": 139,
+          "page": 139,
+          "qwen_rank": 4,
+          "n_chars": 1553,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com lins; ‘but if she is really headstrong and foolish, I know not whether she would altogether be a very desirable wife to a man in my situation, wh"
+        },
+        {
+          "passage_id": 160,
+          "page": 160,
+          "qwen_rank": 5,
+          "n_chars": 1355,
+          "text_preview": "Pride and Prejudice1\u00180 Chapter 23 E lizabeth was sitting with her mother and sisters, re - flecting on what she had heard, and doubting whether she was authorised to mention it, wh"
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "pp_021_qwen_top5",
+      "question_id": "pp_021",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, how does he begin his first proposal to Elizabeth?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [
+        236
+      ],
+      "gold_in_sent": false,
+      "passages": [
+        {
+          "passage_id": 214,
+          "page": 214,
+          "qwen_rank": 1,
+          "n_chars": 1641,
+          "text_preview": "Pride and Prejudice\u00181\u0018 His arrival was soon known at the Parsonage; for Mr. Collins was walking the whole morning within view of the lodges opening into Hunsford Lane, in order to "
+        },
+        {
+          "passage_id": 228,
+          "page": 228,
+          "qwen_rank": 2,
+          "n_chars": 1442,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 33 M ore than once did Elizabeth, in her ramble within the park, unexpectedly meet Mr. Darcy. She felt all the perverseness of the mischance that sho"
+        },
+        {
+          "passage_id": 314,
+          "page": 314,
+          "qwen_rank": 3,
+          "n_chars": 1681,
+          "text_preview": "Pride and Prejudice\u00181\u0018 The conversation soon turned upon fishing; and she heard Mr. Darcy invite him, with the greatest civility, to fish there as often as he chose while he contin"
+        },
+        {
+          "passage_id": 323,
+          "page": 323,
+          "qwen_rank": 4,
+          "n_chars": 1715,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com of manners which she had yesterday witnessed however temporary its existence might prove, had at least outlived one day. When she saw him thus se"
+        },
+        {
+          "passage_id": 123,
+          "page": 123,
+          "qwen_rank": 5,
+          "n_chars": 1675,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com look on as a point of duty. Pardon me for neglecting to prof- it by your advice, which on every other subject shall be my constant guide, though "
+        }
+      ],
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+      "qwen_results": "pride_and_prejudice_qwen3_reranker_0_6b_pool20_results.json"
+    },
+    {
+      "id": "tp2_001_qwen_top5",
+      "question_id": "tp2_001",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        66
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 66,
+          "page": 23,
+          "qwen_rank": 1,
+          "n_chars": 490,
+          "text_preview": "high-level languages. The advantages are enormous. First, it is much easier to program in a high-level language. Programs written in a high-level language take less time to write, "
+        },
+        {
+          "passage_id": 65,
+          "page": 23,
+          "qwen_rank": 2,
+          "n_chars": 1885,
+          "text_preview": "Chapter 1 The way of the program The goal of this book is to teach you to think like a computer scientist. This way of think- ing combines some of the best features of mathematics,"
+        },
+        {
+          "passage_id": 78,
+          "page": 29,
+          "qwen_rank": 3,
+          "n_chars": 1022,
+          "text_preview": "letting your reactions interfere with your ability to work effectively. Learning to debug can be frustrating, but it is a valuable skill that is useful for many ac- tivities beyond"
+        },
+        {
+          "passage_id": 0,
+          "page": 1,
+          "qwen_rank": 4,
+          "n_chars": 66,
+          "text_preview": "Think Python How to Think Like a Computer Scientist Version 2.0.17"
+        },
+        {
+          "passage_id": 333,
+          "page": 179,
+          "qwen_rank": 5,
+          "n_chars": 1921,
+          "text_preview": "Chapter 17 Classes and methods Code examples from this chapter are available from http://thinkpython.com/code/ Time2.py . 17.1 Object-oriented features Python is an object-oriented"
+        }
+      ],
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+      "qwen_results": "thinkpython_qwen3_reranker_0_6b_local_retrieval_results_30.json"
+    },
+    {
+      "id": "tp2_004_qwen_top5",
+      "question_id": "tp2_004",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What is parsing, and how does the book contrast ambiguity in natural languages with formal languages?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        74
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 75,
+          "page": 28,
+          "qwen_rank": 1,
+          "n_chars": 1947,
+          "text_preview": "6 Chapter 1. The way of the program literalness: Natural languages are full of idiom and metaphor. If I say, “The penny dropped,” there is probably no penny and nothing dropping (t"
+        },
+        {
+          "passage_id": 74,
+          "page": 27,
+          "qwen_rank": 2,
+          "n_chars": 1286,
+          "text_preview": "other sentence with all valid tokens but with invalid structure. When you read a sentence in English or a statement in a formal language, you have to ﬁgure out what the structure o"
+        },
+        {
+          "passage_id": 73,
+          "page": 27,
+          "qwen_rank": 3,
+          "n_chars": 1842,
+          "text_preview": "1.4. Formal and natural languages 5 1.4 Formal and natural languages Natural languages are the languages people speak, such as English, Spanish, and French. They were not designed "
+        },
+        {
+          "passage_id": 79,
+          "page": 30,
+          "qwen_rank": 4,
+          "n_chars": 1809,
+          "text_preview": "8 Chapter 1. The way of the program source code: A program in a high-level language before being compiled. object code: The output of the compiler after it translates the program. "
+        },
+        {
+          "passage_id": 18,
+          "page": 13,
+          "qwen_rank": 5,
+          "n_chars": 571,
+          "text_preview": "Contents Preface v 1 The way of the program 1 1.1 The Python programming language . . . . . . . . . . . . . . . . . . . . . . 1 1.2 What is a program? . . . . . . . . . . . . . . ."
+        }
+      ],
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+      "qwen_results": "thinkpython_qwen3_reranker_0_6b_local_retrieval_results_30.json"
+    },
+    {
+      "id": "tp2_007_qwen_top5",
+      "question_id": "tp2_007",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What do the + and * operators do when applied to strings, according to the book?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        91
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 91,
+          "page": 38,
+          "qwen_rank": 1,
+          "n_chars": 1675,
+          "text_preview": "16 Chapter 2. Variables, expressions and statements The + operator works with strings, but it might not do what you expect: it performs con- catenation, which means joining the str"
+        },
+        {
+          "passage_id": 90,
+          "page": 37,
+          "qwen_rank": 2,
+          "n_chars": 374,
+          "text_preview": "I don’t work very hard to remember rules of precedence for other operators. If I can’t tell by looking at the expression, I use parentheses to make it obvious. 2.8 String operation"
+        },
+        {
+          "passage_id": 340,
+          "page": 183,
+          "qwen_rank": 3,
+          "n_chars": 1563,
+          "text_preview": "17.6. The __str__ method 161 17.6 The __str__ method __str__ is a special method, like __init__ , that is supposed to return a string representa- tion of an object. For example, he"
+        },
+        {
+          "passage_id": 85,
+          "page": 35,
+          "qwen_rank": 4,
+          "n_chars": 1711,
+          "text_preview": "2.4. Operators and operands 13 The underscore character, _ , can appear in a name. It is often used in names with multiple words, such as my_name or airspeed_of_unladen_swallow . I"
+        },
+        {
+          "passage_id": 215,
+          "page": 111,
+          "qwen_rank": 5,
+          "n_chars": 1552,
+          "text_preview": "10.3. Traversing a list 89 10.3 Traversing a list The most common way to traverse the elements of a list is with a for loop. The syntax is the same as for strings: for cheese in ch"
+        }
+      ],
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+      "qwen_results": "thinkpython_qwen3_reranker_0_6b_local_retrieval_results_30.json"
+    },
+    {
+      "id": "tp2_010_qwen_top5",
+      "question_id": "tp2_010",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What turtle-steering functions does TurtleWorld provide, and what do pu and pd mean?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        119
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 119,
+          "page": 54,
+          "qwen_rank": 1,
+          "n_chars": 1565,
+          "text_preview": "32 Chapter 4. Case study: interface design The ﬁrst line imports everything from the TurtleWorld module in the swampy package. The next lines create a TurtleWorld assigned toworld "
+        },
+        {
+          "passage_id": 118,
+          "page": 53,
+          "qwen_rank": 2,
+          "n_chars": 1291,
+          "text_preview": "Chapter 4 Case study: interface design Code examples from this chapter are available from http://thinkpython.com/code/ polygon.py . 4.1 T urtleWorld To accompany this book, I have "
+        },
+        {
+          "passage_id": 132,
+          "page": 60,
+          "qwen_rank": 3,
+          "n_chars": 768,
+          "text_preview": "the function. 4.11 Glossary instance: A member of a set. The TurtleWorld in this chapter is a member of the set of TurtleWorlds. loop: A part of a program that can execute repeated"
+        },
+        {
+          "passage_id": 131,
+          "page": 60,
+          "qwen_rank": 4,
+          "n_chars": 1919,
+          "text_preview": "38 Chapter 4. Case study: interface design This docstring is a triple-quoted string, also known as a multiline string because the triple quotes allow the string to span more than o"
+        },
+        {
+          "passage_id": 24,
+          "page": 14,
+          "qwen_rank": 5,
+          "n_chars": 493,
+          "text_preview": "3.13 Importing with from . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27 3.14 Debugging . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2"
+        }
+      ],
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+      "qwen_results": "thinkpython_qwen3_reranker_0_6b_local_retrieval_results_30.json"
+    },
+    {
+      "id": "tp2_014_qwen_top5",
+      "question_id": "tp2_014",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What is infinite recursion, and what error does Python report when the maximum recursion depth is reached?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        144
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 404,
+          "page": 217,
+          "qwen_rank": 1,
+          "n_chars": 709,
+          "text_preview": "inﬁnite loop. Go to the “Inﬁnite Loop” section below. • Most of the time, an inﬁnite recursion will cause the program to run for a while and then produce a “RuntimeError: Maximum r"
+        },
+        {
+          "passage_id": 144,
+          "page": 68,
+          "qwen_rank": 2,
+          "n_chars": 1521,
+          "text_preview": "46 Chapter 5. Conditionals and recursion <module> countdown countdown countdown countdown n 3 n 2 n 1 n 0 Figure 5.1: Stack diagram. 5.10 Inﬁnite recursion If a recursion never rea"
+        },
+        {
+          "passage_id": 405,
+          "page": 218,
+          "qwen_rank": 3,
+          "n_chars": 1848,
+          "text_preview": "196 Appendix A. Debugging Inﬁnite Loop If you think you have an inﬁnite loop and you think you know what loop is causing the problem, add a print statement at the end of the loop t"
+        },
+        {
+          "passage_id": 400,
+          "page": 215,
+          "qwen_rank": 4,
+          "n_chars": 1769,
+          "text_preview": "Appendix A Debugging Different kinds of errors can occur in a program, and it is useful to distinguish among them in order to track them down more quickly: • Syntax errors are prod"
+        },
+        {
+          "passage_id": 149,
+          "page": 71,
+          "qwen_rank": 5,
+          "n_chars": 1647,
+          "text_preview": "5.14. Exercises 49 nested conditional: A conditional statement that appears in one of the branches of another conditional statement. recursion: The process of calling the function "
+        }
+      ],
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+      "qwen_results": "thinkpython_qwen3_reranker_0_6b_local_retrieval_results_30.json"
+    },
+    {
+      "id": "tp2_018_qwen_top5",
+      "question_id": "tp2_018",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What does a string slice like s[0:5] return for s = 'Monty Python', and which indices are included?",
+      "passage_set": "qwen_top5",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [
+        188
+      ],
+      "gold_in_sent": true,
+      "passages": [
+        {
+          "passage_id": 188,
+          "page": 95,
+          "qwen_rank": 1,
+          "n_chars": 1220,
+          "text_preview": "8.4. String slices 73 fruit b a n na a ’ 0 1 2 3 4 5 6index ’ Figure 8.1: Slice indices. prefixes = ' JKLMNOPQ ' suffix = ' ack ' for letter in prefixes: print letter + suffix The "
+        },
+        {
+          "passage_id": 198,
+          "page": 101,
+          "qwen_rank": 2,
+          "n_chars": 1703,
+          "text_preview": "8.13. Exercises 79 sequence: An ordered set; that is, a set of values where each value is identiﬁed by an integer index. item: One of the values in a sequence. index: An integer va"
+        },
+        {
+          "passage_id": 185,
+          "page": 93,
+          "qwen_rank": 3,
+          "n_chars": 1130,
+          "text_preview": "Chapter 8 Strings 8.1 A string is a sequence A string is a sequence of characters. You can access the characters one at a time with the bracket operator: >>> fruit = ' banana ' >>>"
+        },
+        {
+          "passage_id": 258,
+          "page": 136,
+          "qwen_rank": 4,
+          "n_chars": 241,
+          "text_preview": ">>> addr = ' monty@python.org ' >>> uname, domain = addr.split( ' @ ' ) The return value from split is a list with two elements; the ﬁrst element is assigned to uname , the second "
+        },
+        {
+          "passage_id": 216,
+          "page": 112,
+          "qwen_rank": 5,
+          "n_chars": 1136,
+          "text_preview": "90 Chapter 10. Lists >>> t = [ ' a ' , ' b ' , ' c ' , ' d ' , ' e ' , ' f ' ] >>> t[1:3] [ ' b ' , ' c ' ] >>> t[:4] [ ' a ' , ' b ' , ' c ' , ' d ' ] >>> t[3:] [ ' d ' , ' e ' , "
+        }
+      ],
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+      "qwen_results": "thinkpython_qwen3_reranker_0_6b_local_retrieval_results_30.json"
+    },
+    {
+      "id": "tp2_006_qwen_tail5",
+      "question_id": "tp2_006",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "In Python 2, why does minute/60 print 0 when minute is 59?",
+      "passage_set": "qwen_tail5",
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [
+        86
+      ],
+      "gold_in_sent": false,
+      "passages": [
+        {
+          "passage_id": 169,
+          "page": 82,
+          "qwen_rank": 16,
+          "n_chars": 1340,
+          "text_preview": "60 Chapter 6. Fruitful functions factorial 5 factorial 4 factorial 3 factorial 2 factorial 1 factorial 0 returning 1 returning 1 returning 2 returning 6 returning 24 returning 120 "
+        },
+        {
+          "passage_id": 79,
+          "page": 30,
+          "qwen_rank": 17,
+          "n_chars": 1809,
+          "text_preview": "8 Chapter 1. The way of the program source code: A program in a high-level language before being compiled. object code: The output of the compiler after it translates the program. "
+        },
+        {
+          "passage_id": 88,
+          "page": 36,
+          "qwen_rank": 18,
+          "n_chars": 244,
+          "text_preview": "miles = 26.2 print miles * 1.61 This behavior can be confusing at ﬁrst. A script usually contains a sequence of statements. If there is more than one statement, the results appear "
+        },
+        {
+          "passage_id": 136,
+          "page": 64,
+          "qwen_rank": 19,
+          "n_chars": 1716,
+          "text_preview": "42 Chapter 5. Conditionals and recursion The == operator is one of the relational operators; the others are: x != y # x is not equal to y x > y # x is greater than y x < y # x is l"
+        },
+        {
+          "passage_id": 406,
+          "page": 218,
+          "qwen_rank": 20,
+          "n_chars": 711,
+          "text_preview": "If you are not sure how the ﬂow of execution is moving through your program, add print statements to the beginning of each function with a message like “entering function foo ,” wh"
+        }
+      ],
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+      "qwen_results": "thinkpython_qwen3_reranker_0_6b_local_retrieval_results_30.json"
+    },
+    {
+      "id": "tp2_012_qwen_tail5",
+      "question_id": "tp2_012",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What is the difference between = and == in Python, and what are the three logical operators?",
+      "passage_set": "qwen_tail5",
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [
+        136
+      ],
+      "gold_in_sent": false,
+      "passages": [
+        {
+          "passage_id": 333,
+          "page": 179,
+          "qwen_rank": 16,
+          "n_chars": 1921,
+          "text_preview": "Chapter 17 Classes and methods Code examples from this chapter are available from http://thinkpython.com/code/ Time2.py . 17.1 Object-oriented features Python is an object-oriented"
+        },
+        {
+          "passage_id": 76,
+          "page": 28,
+          "qwen_rank": 17,
+          "n_chars": 775,
+          "text_preview": "cause all it does is display the words “Hello, World!”. In Python, it looks like this: print ' Hello, World! ' This is an example of a print statement, which doesn’t actually print"
+        },
+        {
+          "passage_id": 86,
+          "page": 35,
+          "qwen_rank": 18,
+          "n_chars": 653,
+          "text_preview": "In some other languages, ^ is used for exponentiation, but in Python it is a bitwise operator called XOR. I won’t cover bitwise operators in this book, but you can read about them "
+        },
+        {
+          "passage_id": 295,
+          "page": 157,
+          "qwen_rank": 19,
+          "n_chars": 1543,
+          "text_preview": "14.4. Filenames and paths 135 In the ﬁrst example, there aren’t enough elements; in the second, the element is the wrong type. The format operator is powerful, but it can be difﬁcu"
+        },
+        {
+          "passage_id": 89,
+          "page": 37,
+          "qwen_rank": 20,
+          "n_chars": 1732,
+          "text_preview": "2.7. Order of operations 15 print 1 x = 2 print x produces the output 1 2 The assignment statement produces no output. Exercise 2.1. Type the following statements in the Python int"
+        }
+      ],
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+      "qwen_results": "thinkpython_qwen3_reranker_0_6b_local_retrieval_results_30.json"
+    }
+  ]
+}

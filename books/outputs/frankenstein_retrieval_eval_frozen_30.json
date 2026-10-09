@@ -1,0 +1,242 @@
+[
+  {
+    "id": "fr_001",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "In Letter I, from which city and on what date does Walton write to Mrs Saville in England, and what northern breeze does he say plays upon his cheeks?",
+    "gold_chunk_indexes": [8],
+    "gold_pages": [11],
+    "notes": "Chunk 8 (p.11): St. Petersburgh, Dec. 11th, 17—; a cold northern breeze from the regions toward which he is advancing."
+  },
+  {
+    "id": "fr_002",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "In Letter II, from which port dated 28th March does Walton write that he has hired a vessel, and what one want does he tell Margaret he has never been able to satisfy?",
+    "gold_chunk_indexes": [14],
+    "gold_pages": [15],
+    "notes": "Chunk 14 (p.15): Archangel, 28th March, 17—; he has no friend who could sympathize with him."
+  },
+  {
+    "id": "fr_003",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "How does Victor describe his birthplace and family standing at the start of Volume I Chapter I, and who was the merchant friend whose fall into poverty he relates?",
+    "gold_chunk_indexes": [35],
+    "gold_pages": [29],
+    "notes": "Chunk 35 (p.29): Genevese; distinguished republic family; counsellors and syndics; Beaufort."
+  },
+  {
+    "id": "fr_004",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "How many years after Beaufort's disaster does Caroline become Victor's father's wife, according to the family history?",
+    "gold_chunk_indexes": [37],
+    "gold_pages": [30],
+    "notes": "Chunk 37 (p.30): Two years after this event Caroline became his wife."
+  },
+  {
+    "id": "fr_005",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "Who is Henry Clerval's father, and what did Henry write when he was nine years old?",
+    "gold_chunk_indexes": [40],
+    "gold_pages": [32],
+    "notes": "Chunk 40 (p.32): son of a merchant of Geneva, intimate friend of Victor's father; a fairy tale."
+  },
+  {
+    "id": "fr_006",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "When Victor asks his father the nature and origin of thunder and lightning, what one-word reply does his father give, and what machine does he then construct?",
+    "gold_chunk_indexes": [47],
+    "gold_pages": [36],
+    "notes": "Chunk 47 (p.36): Electricity; a small electrical machine."
+  },
+  {
+    "id": "fr_007",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "At what age do Victor's parents resolve that he should become a student at Ingolstadt, and what illness does Elizabeth catch before his departure?",
+    "gold_chunk_indexes": [50],
+    "gold_pages": [39],
+    "notes": "Chunk 50 (p.39): seventeen; scarlet fever. Distinct from later deaths of Elizabeth."
+  },
+  {
+    "id": "fr_008",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "After attending Elizabeth with scarlet fever, how does Victor's mother die, and what hope does she say she will indulge?",
+    "gold_chunk_indexes": [51],
+    "gold_pages": [40],
+    "notes": "Chunk 51 (p.40): she died calmly; hope of meeting you in another world. Distinct from Elizabeth's later murder."
+  },
+  {
+    "id": "fr_009",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "How does Victor physically describe M. Krempe, and on what subject does he say M. Waldman would lecture on the alternate days?",
+    "gold_chunk_indexes": [57],
+    "gold_pages": [43],
+    "notes": "Chunk 57 (p.43): Krempe a little squat man with a gruff voice and repulsive countenance; Waldman would lecture upon chemistry."
+  },
+  {
+    "id": "fr_010",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "About how old does Victor judge M. Waldman to be, and what does Waldman say the ancient teachers of chemistry promised compared with the modern masters?",
+    "gold_chunk_indexes": [59],
+    "gold_pages": [44],
+    "notes": "Chunk 59 (p.44): about fifty; ancient teachers promised impossibilities and performed nothing; modern masters promise very little."
+  },
+  {
+    "id": "fr_011",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "On what kind of November night does Victor finish his toils, what time is it, and what does he see when the creature's dull yellow eye opens?",
+    "gold_chunk_indexes": [77],
+    "gold_pages": [55],
+    "notes": "Chunk 77 (p.55): dreary night of November; already one in the morning; rain; yellow skin, lustrous black hair, pearly teeth."
+  },
+  {
+    "id": "fr_012",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "In the nightmare after the creation, whom does Victor first embrace in Ingolstadt, and into whose corpse does the form change, with grave-worms in the shroud?",
+    "gold_chunk_indexes": [78],
+    "gold_pages": [56],
+    "notes": "Chunk 78 (p.56): Elizabeth in bloom of health, then the corpse of his dead mother. Distinct from the later real murder of Elizabeth."
+  },
+  {
+    "id": "fr_013",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "After that nightmare, by what light through the window-shutters does Victor behold the wretch he created?",
+    "gold_chunk_indexes": [78],
+    "gold_pages": [56],
+    "notes": "Chunk 78 (p.56): dim and yellow light of the moon forcing its way through the window-shutters."
+  },
+  {
+    "id": "fr_014",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "In the letter headed To V. Frankenstein, what woeful news does Victor's father announce about William?",
+    "gold_chunk_indexes": [106],
+    "gold_pages": [73],
+    "notes": "Chunk 106 (p.73): William is dead! Distinct from Justine, Clerval, and Elizabeth."
+  },
+  {
+    "id": "fr_015",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "About what time in the morning does Victor's father find William stretched on the grass, and what mark of the murderer does he report?",
+    "gold_chunk_indexes": [107],
+    "gold_pages": [74],
+    "notes": "Chunk 107 (p.74): about five in the morning; print of the murderer's finger on his neck."
+  },
+  {
+    "id": "fr_016",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "What object discovered in Justine's pocket after William's murder is judged to have been the temptation of the murderer, and how does Victor answer Ernest about Justine's guilt?",
+    "gold_chunk_indexes": [121],
+    "gold_pages": [82],
+    "notes": "Chunk 121 (p.82): picture of my mother; Victor says Justine is innocent and he knows the murderer."
+  },
+  {
+    "id": "fr_017",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "After Justine's trial, what colour were all the ballots, and what was the verdict?",
+    "gold_chunk_indexes": [133],
+    "gold_pages": [89],
+    "notes": "Chunk 133 (p.89): ballots all black; Justine was condemned."
+  },
+  {
+    "id": "fr_018",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "On the glacier, what does the creature first say when he eludes Victor's attack, and whom does he say he ought to be instead of the fallen angel?",
+    "gold_chunk_indexes": [162],
+    "gold_pages": [109],
+    "notes": "Chunk 162 (p.109): Be calm! I entreat you to hear me; I am thy creature; I ought to be thy Adam."
+  },
+  {
+    "id": "fr_019",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "According to the creature, what was the old man's name in the cottage family, from which country was he descended, and in which luxurious city had they lived before their ruin?",
+    "gold_chunk_indexes": [208],
+    "gold_pages": [139],
+    "notes": "Chunk 208 (p.139): De Lacey; France; Paris. The father of Safie caused their ruin."
+  },
+  {
+    "id": "fr_020",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "After the De Laceys spurn him, what does the creature place around the cottage, and when does he wait to start the fire?",
+    "gold_chunk_indexes": [240],
+    "gold_pages": [158],
+    "notes": "Chunk 240 (p.158): a variety of combustibles; waits until the moon had sunk; lights a dry branch and dances around the cottage."
+  },
+  {
+    "id": "fr_021",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "Where in Scotland does Victor fix as the scene of his labour on a second creature, and how far was the mainland from which even fresh water had to be procured?",
+    "gold_chunk_indexes": [289],
+    "gold_pages": [189],
+    "notes": "Chunk 289 (p.189): one of the remotest of the Orkneys; mainland about five miles distant; three miserable huts."
+  },
+  {
+    "id": "fr_022",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "After Victor refuses to make a female companion, what exact threat does the creature utter as he goes, and in what does Victor then see him shoot across the water?",
+    "gold_chunk_indexes": [298],
+    "gold_pages": [194],
+    "notes": "Chunk 298 (p.194): I shall be with you on your wedding-night; boat with arrowy swiftness. Distinct from Elizabeth's later letter quoting the same threat."
+  },
+  {
+    "id": "fr_023",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "When Victor unlocks his laboratory after destroying the second being, what does he find scattered on the floor?",
+    "gold_chunk_indexes": [302],
+    "gold_pages": [196],
+    "notes": "Chunk 302 (p.196): remains of the half-finished creature whom I had destroyed. Distinct from the November animation of the first creature."
+  },
+  {
+    "id": "fr_024",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "Which magistrate has Victor taken to view a corpse at an inn, and in his later fever whom does he name himself the murderer of besides William and Justine?",
+    "gold_chunk_indexes": [315, 316],
+    "gold_pages": [205],
+    "notes": "Chunks 315–316 (p.205): Mr. Kirwin; ravings name William, Justine, and Clerval."
+  },
+  {
+    "id": "fr_025",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "In Elizabeth Lavenza's letter signed Geneva, May 18th, which threat of the fiend does the letter revive in Victor's memory?",
+    "gold_chunk_indexes": [338],
+    "gold_pages": [219],
+    "notes": "Chunk 338 (p.219): I will be with you on your wedding-night. Same words as chunk 298 but a later recollection, not the original utterance."
+  },
+  {
+    "id": "fr_026",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "On the wedding night, from which room does the shrill scream come, and in what state does Victor find Elizabeth when he rushes in?",
+    "gold_chunk_indexes": [352],
+    "gold_pages": [228],
+    "notes": "Chunk 352 (p.228): the room into which Elizabeth had retired; lifeless and inanimate. Distinct from the Ingolstadt nightmare and from William's death on the grass."
+  },
+  {
+    "id": "fr_027",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "In the continuation dated August 26th, to whom does Walton write that Victor has told this strange story, and which letters of Felix and Safie does he say Victor showed him?",
+    "gold_chunk_indexes": [382],
+    "gold_pages": [244],
+    "notes": "Chunk 382 (p.244): Margaret; letters of Felix and Safie; apparition of the monster."
+  },
+  {
+    "id": "fr_028",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "When sailors come in deputation to Walton's cabin, what do they fear he will do if the ice dissipates, and what solemn promise do they demand?",
+    "gold_chunk_indexes": [391],
+    "gold_pages": [249],
+    "notes": "Chunk 391 (p.249): that he would continue the voyage into fresh dangers; they want a promise that if freed he would instantly direct his course southward (coarse in this PDF)."
+  },
+  {
+    "id": "fr_029",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "What does the creature say he shall collect for a funeral pile, and why does he not want its remains to afford light to any curious wretch?",
+    "gold_chunk_indexes": [409],
+    "gold_pages": [258],
+    "notes": "Chunk 409 (p.258): collect my funeral pile and consume to ashes this miserable frame; so remains afford no light to any who would create such another."
+  },
+  {
+    "id": "fr_030",
+    "book_id": "frankenstein_1532610843_print",
+    "question": "After the creature's last farewell, from what part of the ship does he spring, and onto what does he spring that lay close to the vessel?",
+    "gold_chunk_indexes": [411],
+    "gold_pages": [259],
+    "notes": "Chunk 411 (p.259): sprung from the cabin-window upon the ice-raft; borne away and lost in darkness and distance."
+  }
+]

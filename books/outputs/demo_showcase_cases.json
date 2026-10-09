@@ -1,0 +1,8 @@
+{
+  "artifact": "demo_showcase_cases",
+  "purpose": "Saved BookRAG demo Q&A for live showcasing (query, answer, PDF evidence).",
+  "created_at": "2026-10-07T00:24:14Z",
+  "updated_at": "2026-10-07T00:24:14Z",
+  "n_cases": 0,
+  "cases": []
+}

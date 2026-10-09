@@ -1,0 +1,109 @@
+{
+  "artifact": "bookrag_answer_support_demo_rehearsal",
+  "server": "http://127.0.0.1:5055",
+  "startup_seconds": 6.401,
+  "instruction": "answer_support_direct_or_later_explanation",
+  "tests": [
+    {
+      "label": "frankenstein_why_second_creature",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "Why does Victor stop making a second creature?",
+      "evidence_label": "Answer supported by this passage",
+      "enough_evidence": true,
+      "event_match": "direct_answer",
+      "answer": "In his later explanation, Victor says he refused to create a companion because his duty to protect humanity outweighed his duty to secure the first creature’s happiness: humanity’s happiness or misery involved far more lives.",
+      "citations": [
+        {
+          "page": 252,
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 397
+        }
+      ],
+      "qwen_top5_ids": [
+        397,
+        148,
+        108,
+        334,
+        150
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 8.096,
+        "retrieve_hybrid": 4.509,
+        "sol_api": 3.526,
+        "total_wait": 16.132
+      },
+      "client_wait_s": 16.134,
+      "cost_estimated_usd": 0.001142,
+      "instruction": "answer_support_direct_or_later_explanation",
+      "startup_seconds_already_paid": 6.401
+    },
+    {
+      "label": "thinkpython_supported",
+      "book_id": "thinkpython",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "evidence_label": "Answer supported by this passage",
+      "enough_evidence": true,
+      "event_match": "direct_answer",
+      "answer": "Think Python emphasizes that high-level languages make programming easier: programs take less time to write, are shorter and easier to read, and are more likely to be correct. They are also portable, meaning their programs can run on different kinds of computers with few or no modifications [66].",
+      "citations": [
+        {
+          "page": 23,
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 66
+        }
+      ],
+      "qwen_top5_ids": [
+        66,
+        65,
+        78,
+        0,
+        333
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 7.825,
+        "retrieve_hybrid": 0.248,
+        "sol_api": 3.924,
+        "total_wait": 11.999
+      },
+      "client_wait_s": 12.006,
+      "cost_estimated_usd": 0.009522,
+      "instruction": "answer_support_direct_or_later_explanation",
+      "startup_seconds_already_paid": 6.401
+    },
+    {
+      "label": "thinkpython_insufficient",
+      "book_id": "thinkpython",
+      "question": "According to this book, how do you install TensorFlow and PyTorch?",
+      "evidence_label": "Related passage only",
+      "enough_evidence": false,
+      "event_match": "absent",
+      "answer": "The supplied passages do not explain how to install TensorFlow or PyTorch. The installation guidance shown is for Swampy: download it from http://thinkpython.com/swampy and follow the instructions there [118].",
+      "citations": [
+        {
+          "page": 53,
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 118
+        }
+      ],
+      "qwen_top5_ids": [
+        2,
+        118,
+        8,
+        433,
+        4
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 7.879,
+        "retrieve_hybrid": 1.068,
+        "sol_api": 3.582,
+        "total_wait": 12.529
+      },
+      "client_wait_s": 12.536,
+      "cost_estimated_usd": 0.009763,
+      "instruction": "answer_support_direct_or_later_explanation",
+      "startup_seconds_already_paid": 6.401
+    }
+  ],
+  "estimated_usd_rehearsal": 0.020427,
+  "key_in_responses": false
+}

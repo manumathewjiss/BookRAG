@@ -1,0 +1,33 @@
+{
+  "stage": "bge_m3_hybrid_sparse_embed",
+  "embedding_model": "BAAI/bge-m3",
+  "model_revision": null,
+  "input_format": "raw chunk_text (BGE-M3 sparse docs: no passage:/query: prefixes)",
+  "sparse_formula": "ReLU(sparse_linear(last_hidden_state)); max weight per token id; drop cls/eos/pad/unk",
+  "modes_used": [
+    "sparse"
+  ],
+  "modes_not_used": [
+    "colbert",
+    "bm25",
+    "rerank",
+    "new_dense_model"
+  ],
+  "dense_vectors": "reused from chunk_embeddings_bge_m3; not rewritten",
+  "storage_table": "chunk_sparse_weights_bge_m3_hybrid",
+  "max_length": 512,
+  "batch_size": 4,
+  "device": "cpu",
+  "chunks_artifact": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/frankenstein_1532610843_print_stage1_chunks.json",
+  "chunks_sha256": "d2fbc368bea09be944f1426d55a5a960406676d6c8171f588c51670c89742aa9",
+  "book_id": "frankenstein_1532610843_print",
+  "total_chunks_received": 412,
+  "total_sparse_rows": 412,
+  "empty_sparse_vectors": 0,
+  "mean_nonzero_tokens": 116.22815533980582,
+  "e5_embedding_row_count_unchanged": 412,
+  "bge_m3_dense_row_count_unchanged": 412,
+  "git_head": "9fccb61a7491b054d946cb68a1a719bf860591d8",
+  "encode_seconds": 171.377,
+  "warnings": []
+}

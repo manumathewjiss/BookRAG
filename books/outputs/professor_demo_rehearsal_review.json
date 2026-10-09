@@ -1,0 +1,18 @@
+{
+  "artifact": "professor_demo_rehearsal_review",
+  "n_run": 12,
+  "failures": [
+    {
+      "id": "arth_confusable_children",
+      "locus": "sol_quote_citation_mismatch",
+      "enough_evidence": false,
+      "gold_in_hybrid20": true,
+      "gold_in_sol5": true,
+      "gold_cited": true,
+      "note": "Sol cited gold-overlapping passage 6 (paraphrase: mean or degrading work) while quoting 'mean avocations' from neighboring gold text in 4/5. Quote gate correctly forced not-enough. Not a search miss.",
+      "answer_preview": "Children under eight who have no relatives cannot be forced into “mean avocations” (degrading work), or sold or mortgaged to foreign lands. A master who violates this protection faces punishment. The quoted wording above could not be fully "
+    }
+  ],
+  "estimated_usd_this_run": 0.103996,
+  "estimated_usd_total_including_prior": 1.630996
+}

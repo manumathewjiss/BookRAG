@@ -1,0 +1,11 @@
+{
+  "file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/frankenstein_retrieval_eval_frozen_30.json",
+  "sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+  "n_questions": 30,
+  "frozen_before_search": true,
+  "frozen_at_utc": "2026-10-02T17:30:00Z",
+  "pdf": "books/sample_pdfs/Frankenstein-1532610843._print.pdf",
+  "edition_note": "Pressbooks/PrinceXML print PDF of Mary Shelley's Frankenstein; Or, the Modern Prometheus, 1818 text",
+  "stage1_chunks": "books/outputs/frankenstein_1532610843_print_stage1_chunks.json",
+  "book_id": "frankenstein_1532610843_print"
+}

@@ -1,0 +1,30 @@
+{
+  "artifact": "sol_answer_support_vs_nearby_review",
+  "production_pipeline_changed": false,
+  "gold_ids_sent_to_sol": false,
+  "hardcoded_question_ids": false,
+  "n_questions": 13,
+  "only_flag_difference": "live_fr_why_second_creature",
+  "why_later_explanation": {
+    "current_rule": "enough=false, nearby_only, cited 397 but refused because the stopping scene was missing",
+    "proposed_rule": "enough=true, direct_answer, cited 397; answer states this is a later explanation of the refusal"
+  },
+  "pp_016": {
+    "current_and_proposed": "both enough=true from passage 131 (I desire you to stay). Gold 132 not in the five. Not newly introduced; not fixed."
+  },
+  "nearby_cases_still_not_certain": ["pp_021", "fr_005", "tp2_012"],
+  "asked_scene_and_why_with_gold_still_supported": [
+    "live_fr_november_creation",
+    "pp_011",
+    "tp2_005",
+    "tp2_006",
+    "fr_029",
+    "pp_007",
+    "fr_018",
+    "fr_022"
+  ],
+  "meaningful_new_failure": false,
+  "instruction_for_demo": "answer_support_direct_or_later_explanation",
+  "estimated_usd_this_run": 0.302814,
+  "estimated_usd_total_including_prior": 1.377942
+}

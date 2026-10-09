@@ -1,0 +1,72 @@
+{
+  "embedding_model": "BAAI/bge-m3",
+  "model_revision": null,
+  "embedding_family": "bge_m3_hybrid",
+  "input_format": "raw question text; dense from SentenceTransformer; sparse from BGE-M3 sparse_linear",
+  "fusion": {
+    "method": "reciprocal_rank_fusion",
+    "rrf_k": 60,
+    "formula": "1/(rrf_k + rank) summed over dense and sparse lists",
+    "candidate_k_per_retriever": 30,
+    "final_k": 20
+  },
+  "modes_used": [
+    "dense",
+    "sparse",
+    "rrf"
+  ],
+  "modes_not_used": [
+    "colbert",
+    "bm25",
+    "rerank",
+    "llm"
+  ],
+  "book_filter": "frankenstein_1532610843_print",
+  "n_e5_embeddings": 412,
+  "n_bge_m3_dense_embeddings": 412,
+  "n_bge_m3_hybrid_sparse_rows": 412,
+  "hybrid": {
+    "n_questions": 30,
+    "recall_hit@1": 0.6666666666666666,
+    "recall_hit@5": 0.9333333333333333,
+    "recall_hit@10": 0.9666666666666667,
+    "mrr@10": 0.7875,
+    "n_misses_top10": 0
+  },
+  "dense_pool30_top10": {
+    "n_questions": 30,
+    "recall_hit@1": 0.6666666666666666,
+    "recall_hit@5": 0.9,
+    "recall_hit@10": 0.9333333333333333,
+    "mrr@10": 0.776984126984127,
+    "n_misses_top10": 1
+  },
+  "sparse_top10": {
+    "n_questions": 30,
+    "recall_hit@1": 0.7333333333333333,
+    "recall_hit@5": 0.9666666666666667,
+    "recall_hit@10": 0.9666666666666667,
+    "mrr@10": 0.8011111111111112,
+    "n_misses_top10": 1
+  },
+  "processing_time_seconds": 8.668,
+  "dense_query_embed_seconds": 6.177,
+  "sparse_query_embed_seconds": 2.126,
+  "dense_search_seconds": 0.32,
+  "sparse_search_seconds": 0.009,
+  "fusion_seconds": 0.001,
+  "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f",
+  "chunks_sha256": "d2fbc368bea09be944f1426d55a5a960406676d6c8171f588c51670c89742aa9",
+  "git_head": "9fccb61a7491b054d946cb68a1a719bf860591d8",
+  "results_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/frankenstein_bge_m3_hybrid_retrieval_results.json",
+  "dense_pool_results_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/frankenstein_bge_m3_hybrid_dense_pool30_results.json",
+  "warnings": [],
+  "errors": [],
+  "generation": "not implemented",
+  "recall_hit@1": 0.6666666666666666,
+  "recall_hit@5": 0.9333333333333333,
+  "recall_hit@10": 0.9666666666666667,
+  "mrr@10": 0.7875,
+  "n_misses_top10": 0,
+  "n_evaluation_questions": 30
+}

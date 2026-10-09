@@ -1,0 +1,13 @@
+{
+  "n_questions_run": 14,
+  "answerable_with_gold": 11,
+  "baseline_gold_in_sol5": 8,
+  "dual_gold_in_sol5": 8,
+  "baseline_mean_total_wait_s": 19.598,
+  "dual_mean_total_wait_s": 18.692,
+  "estimated_usd_this_run": 0.127895,
+  "estimated_usd_total_including_prior": 1.525895,
+  "stopped": null,
+  "results_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/sol_wording_sensitivity_results.json",
+  "unanswerable_n": 3
+}

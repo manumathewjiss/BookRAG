@@ -1,0 +1,364 @@
+{
+  "experiment": "qwen_hybrid8_hybrid10_vs_hybrid20_saved_score_rerank",
+  "ran_qwen": false,
+  "baseline_reproduction_ok": true,
+  "methods_compared": {
+    "hybrid_rrf_top20": "Current hybrid RRF top 20 (dense 30 + sparse 30, RRF k=60)",
+    "hybrid8_then_interleave": "Reserve the first 8 hybrid RRF passages, then fill remaining slots by alternating meaning and word ranks (skip duplicates; leftover meaning then word)",
+    "hybrid10_then_interleave": "Reserve the first 10 hybrid RRF passages, then fill remaining slots by alternating meaning and word ranks (skip duplicates; leftover meaning then word)"
+  },
+  "by_book": {
+    "thinkpython": {
+      "baseline_reproduction": {
+        "ok": true,
+        "note": "Reproduced the previous hybrid top-20 saved-score simulation. The original Qwen result file used the dense∪sparse union, not hybrid top 20.",
+        "n_previous_simulation_mismatches": 0,
+        "n_pride_saved_file_mismatches": 0,
+        "n_retrieved_prefix_mismatches": 0,
+        "n_union_vs_hybrid20_rank_diffs": 0
+      },
+      "metrics": {
+        "hybrid_rrf_top20": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 26,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 0.9333333333333333
+        },
+        "hybrid8_then_interleave": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 26,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 0.9333333333333333
+        },
+        "hybrid10_then_interleave": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 26,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 0.9333333333333333
+        }
+      },
+      "vs_hybrid_rrf_top20": {
+        "hybrid8_then_interleave": {
+          "pool_gained_ids": [],
+          "pool_lost_ids": [],
+          "rerank_improved_ids": [],
+          "rerank_worsened_ids": [],
+          "rerank_improved": [],
+          "rerank_worsened": []
+        },
+        "hybrid10_then_interleave": {
+          "pool_gained_ids": [],
+          "pool_lost_ids": [],
+          "rerank_improved_ids": [],
+          "rerank_worsened_ids": [],
+          "rerank_improved": [],
+          "rerank_worsened": []
+        }
+      }
+    },
+    "arthashastra": {
+      "baseline_reproduction": {
+        "ok": true,
+        "note": "Reproduced the previous hybrid top-20 saved-score simulation. The original Qwen result file used the dense∪sparse union, not hybrid top 20.",
+        "n_previous_simulation_mismatches": 0,
+        "n_pride_saved_file_mismatches": 0,
+        "n_retrieved_prefix_mismatches": 0,
+        "n_union_vs_hybrid20_rank_diffs": 0
+      },
+      "metrics": {
+        "hybrid_rrf_top20": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 30,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 1.0
+        },
+        "hybrid8_then_interleave": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 30,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 1.0
+        },
+        "hybrid10_then_interleave": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 30,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 1.0
+        }
+      },
+      "vs_hybrid_rrf_top20": {
+        "hybrid8_then_interleave": {
+          "pool_gained_ids": [],
+          "pool_lost_ids": [],
+          "rerank_improved_ids": [],
+          "rerank_worsened_ids": [],
+          "rerank_improved": [],
+          "rerank_worsened": []
+        },
+        "hybrid10_then_interleave": {
+          "pool_gained_ids": [],
+          "pool_lost_ids": [],
+          "rerank_improved_ids": [],
+          "rerank_worsened_ids": [],
+          "rerank_improved": [],
+          "rerank_worsened": []
+        }
+      }
+    },
+    "bhagavad_gita": {
+      "baseline_reproduction": {
+        "ok": true,
+        "note": "Reproduced the previous hybrid top-20 saved-score simulation. The original Qwen result file used the dense∪sparse union, not hybrid top 20.",
+        "n_previous_simulation_mismatches": 0,
+        "n_pride_saved_file_mismatches": 0,
+        "n_retrieved_prefix_mismatches": 0,
+        "n_union_vs_hybrid20_rank_diffs": 0
+      },
+      "metrics": {
+        "hybrid_rrf_top20": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 24,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 0.9
+        },
+        "hybrid8_then_interleave": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 24,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 0.9
+        },
+        "hybrid10_then_interleave": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 24,
+          "n_hit@5": 30,
+          "n_hit@10": 30,
+          "mrr@10": 0.9
+        }
+      },
+      "vs_hybrid_rrf_top20": {
+        "hybrid8_then_interleave": {
+          "pool_gained_ids": [],
+          "pool_lost_ids": [],
+          "rerank_improved_ids": [],
+          "rerank_worsened_ids": [],
+          "rerank_improved": [],
+          "rerank_worsened": []
+        },
+        "hybrid10_then_interleave": {
+          "pool_gained_ids": [],
+          "pool_lost_ids": [],
+          "rerank_improved_ids": [],
+          "rerank_worsened_ids": [],
+          "rerank_improved": [],
+          "rerank_worsened": []
+        }
+      }
+    },
+    "pride_and_prejudice": {
+      "baseline_reproduction": {
+        "ok": true,
+        "note": "Reproduced the saved Pride hybrid top-20 Qwen file and the saved hybrid retrieved lists.",
+        "n_previous_simulation_mismatches": 0,
+        "n_pride_saved_file_mismatches": 0,
+        "n_retrieved_prefix_mismatches": 0,
+        "n_union_vs_hybrid20_rank_diffs": 0
+      },
+      "metrics": {
+        "hybrid_rrf_top20": {
+          "n_gold_reached_qwen": 27,
+          "n_hit@1": 25,
+          "n_hit@5": 26,
+          "n_hit@10": 27,
+          "mrr@10": 0.8555555555555556
+        },
+        "hybrid8_then_interleave": {
+          "n_gold_reached_qwen": 29,
+          "n_hit@1": 26,
+          "n_hit@5": 28,
+          "n_hit@10": 29,
+          "mrr@10": 0.8972222222222223
+        },
+        "hybrid10_then_interleave": {
+          "n_gold_reached_qwen": 29,
+          "n_hit@1": 26,
+          "n_hit@5": 28,
+          "n_hit@10": 29,
+          "mrr@10": 0.8972222222222223
+        }
+      },
+      "vs_hybrid_rrf_top20": {
+        "hybrid8_then_interleave": {
+          "pool_gained_ids": [
+            "pp_003",
+            "pp_021"
+          ],
+          "pool_lost_ids": [],
+          "rerank_improved_ids": [
+            "pp_003",
+            "pp_021"
+          ],
+          "rerank_worsened_ids": [],
+          "rerank_improved": [
+            {
+              "id": "pp_003",
+              "hybrid_rank": null,
+              "new_rank": 4
+            },
+            {
+              "id": "pp_021",
+              "hybrid_rank": null,
+              "new_rank": 1
+            }
+          ],
+          "rerank_worsened": []
+        },
+        "hybrid10_then_interleave": {
+          "pool_gained_ids": [
+            "pp_003",
+            "pp_021"
+          ],
+          "pool_lost_ids": [],
+          "rerank_improved_ids": [
+            "pp_003",
+            "pp_021"
+          ],
+          "rerank_worsened_ids": [],
+          "rerank_improved": [
+            {
+              "id": "pp_003",
+              "hybrid_rank": null,
+              "new_rank": 4
+            },
+            {
+              "id": "pp_021",
+              "hybrid_rank": null,
+              "new_rank": 1
+            }
+          ],
+          "rerank_worsened": []
+        }
+      }
+    }
+  },
+  "four_book_totals": {
+    "hybrid_rrf_top20": {
+      "n_gold_reached_qwen": 117,
+      "n_hit@1": 105,
+      "n_hit@5": 116,
+      "n_hit@10": 117,
+      "n_rerank_worsened": 0,
+      "n_books_worse_hit1_than_hybrid": 0,
+      "by_book": {
+        "thinkpython": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 26,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "arthashastra": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 30,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "bhagavad_gita": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 24,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "pride_and_prejudice": {
+          "n_gold_reached_qwen": 27,
+          "n_hit@1": 25,
+          "n_hit@5": 26,
+          "n_hit@10": 27
+        }
+      }
+    },
+    "hybrid8_then_interleave": {
+      "n_gold_reached_qwen": 119,
+      "n_hit@1": 106,
+      "n_hit@5": 118,
+      "n_hit@10": 119,
+      "n_rerank_worsened": 0,
+      "n_books_worse_hit1_than_hybrid": 0,
+      "by_book": {
+        "thinkpython": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 26,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "arthashastra": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 30,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "bhagavad_gita": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 24,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "pride_and_prejudice": {
+          "n_gold_reached_qwen": 29,
+          "n_hit@1": 26,
+          "n_hit@5": 28,
+          "n_hit@10": 29
+        }
+      }
+    },
+    "hybrid10_then_interleave": {
+      "n_gold_reached_qwen": 119,
+      "n_hit@1": 106,
+      "n_hit@5": 118,
+      "n_hit@10": 119,
+      "n_rerank_worsened": 0,
+      "n_books_worse_hit1_than_hybrid": 0,
+      "by_book": {
+        "thinkpython": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 26,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "arthashastra": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 30,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "bhagavad_gita": {
+          "n_gold_reached_qwen": 30,
+          "n_hit@1": 24,
+          "n_hit@5": 30,
+          "n_hit@10": 30
+        },
+        "pride_and_prejudice": {
+          "n_gold_reached_qwen": 29,
+          "n_hit@1": 26,
+          "n_hit@5": 28,
+          "n_hit@10": 29
+        }
+      }
+    }
+  },
+  "recommendation": {
+    "recommend_change": true,
+    "chosen_method": null,
+    "tied_methods": [
+      "hybrid8_then_interleave",
+      "hybrid10_then_interleave"
+    ],
+    "reason": "hybrid8_then_interleave and hybrid10_then_interleave are tied on every four-book Qwen metric and on every per-question rank in this test. Both beat current hybrid top 20 only on Pride (pp_003 to rank 4, pp_021 to rank 1) and match hybrid on the other three books. Neither 8 nor 10 is better than the other, so 8 is not chosen for being listed first. Either reserved-hybrid rule is the better 20-list than hybrid top 20 alone."
+  },
+  "detail_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/qwen_hybrid_reserved_saved_score_rerank_comparison.json"
+}

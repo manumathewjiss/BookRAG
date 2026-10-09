@@ -1,0 +1,196 @@
+{
+  "artifact": "bookrag_professor_demo_rehearsal",
+  "server": "http://127.0.0.1:5055",
+  "startup_seconds": 7.259,
+  "startup_not_included_in_question_wait": true,
+  "instruction": "revised_plus_nearby_event_check",
+  "hybrid_pool": 20,
+  "qwen_top": 5,
+  "tests": [
+    {
+      "label": "frankenstein_supported",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "On what kind of November night does Victor finish his toils, what time is it, and what does he see when the creature's dull yellow eye opens?",
+      "enough_evidence": true,
+      "event_match": "exact",
+      "answer": "Victor finishes his toils on a dreary November night, at one in the morning. In the glimmer of his nearly extinguished candle, he sees the creature’s dull yellow eye open; it breathes hard, and a convulsive motion agitates its limbs.",
+      "citations": [
+        {
+          "page": 55,
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 77
+        }
+      ],
+      "supporting_passage_ids": [
+        77
+      ],
+      "supporting_passage_pages": [
+        55
+      ],
+      "supporting_passage_shown_beside_citation": true,
+      "qwen_top5_ids": [
+        77,
+        248,
+        83,
+        351,
+        274
+      ],
+      "hybrid_pool20_ids": [
+        77,
+        97,
+        351,
+        106,
+        90,
+        119,
+        109,
+        248,
+        95,
+        107,
+        143,
+        150,
+        85,
+        348,
+        83,
+        274,
+        196,
+        148,
+        79,
+        336
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 8.848,
+        "retrieve_hybrid": 4.417,
+        "sol_api": 4.366,
+        "total_wait": 17.632
+      },
+      "client_wait_s": 17.635,
+      "cost_estimated_usd": 0.001517,
+      "instruction": "revised_plus_nearby_event_check",
+      "startup_seconds_already_paid": 7.259
+    },
+    {
+      "label": "thinkpython_supported",
+      "book_id": "thinkpython",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "enough_evidence": true,
+      "event_match": "exact",
+      "answer": "Think Python emphasizes that high-level languages make programming easier: programs take less time to write, are shorter and easier to read, and are more likely to be correct. Portability means programs can run on different kinds of computers with few or no modifications, unlike low-level programs that must be rewritten for another kind of computer.",
+      "citations": [
+        {
+          "page": 23,
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 66
+        }
+      ],
+      "supporting_passage_ids": [
+        66
+      ],
+      "supporting_passage_pages": [
+        23
+      ],
+      "supporting_passage_shown_beside_citation": true,
+      "qwen_top5_ids": [
+        66,
+        65,
+        78,
+        0,
+        333
+      ],
+      "hybrid_pool20_ids": [
+        66,
+        65,
+        78,
+        5,
+        67,
+        75,
+        3,
+        333,
+        0,
+        18,
+        83,
+        79,
+        4,
+        87,
+        1,
+        99,
+        70,
+        76,
+        348,
+        174
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 8.39,
+        "retrieve_hybrid": 3.456,
+        "sol_api": 5.568,
+        "total_wait": 17.417
+      },
+      "client_wait_s": 17.423,
+      "cost_estimated_usd": 0.001427,
+      "instruction": "revised_plus_nearby_event_check",
+      "startup_seconds_already_paid": 7.259
+    },
+    {
+      "label": "thinkpython_insufficient",
+      "book_id": "thinkpython",
+      "question": "According to this book, how do you install TensorFlow and PyTorch?",
+      "enough_evidence": false,
+      "event_match": "absent",
+      "answer": "The supplied passages do not explain how to install TensorFlow or PyTorch. They provide installation guidance only for Swampy, directing readers to http://thinkpython.com/swampy to download it and follow the instructions there.",
+      "citations": [
+        {
+          "page": 53,
+          "page_source": "stage1_chunk_metadata",
+          "passage_id": 118
+        }
+      ],
+      "supporting_passage_ids": [
+        118
+      ],
+      "supporting_passage_pages": [
+        53
+      ],
+      "supporting_passage_shown_beside_citation": true,
+      "qwen_top5_ids": [
+        2,
+        118,
+        8,
+        433,
+        4
+      ],
+      "hybrid_pool20_ids": [
+        118,
+        2,
+        5,
+        350,
+        3,
+        11,
+        4,
+        65,
+        10,
+        278,
+        8,
+        23,
+        103,
+        133,
+        386,
+        433,
+        396,
+        383,
+        199,
+        275
+      ],
+      "timings_seconds": {
+        "qwen_rerank": 7.839,
+        "retrieve_hybrid": 0.44,
+        "sol_api": 7.799,
+        "total_wait": 16.078
+      },
+      "client_wait_s": 16.107,
+      "cost_estimated_usd": 0.010058,
+      "instruction": "revised_plus_nearby_event_check",
+      "startup_seconds_already_paid": 7.259
+    }
+  ],
+  "estimated_usd_rehearsal": 0.013002,
+  "key_in_responses": false
+}

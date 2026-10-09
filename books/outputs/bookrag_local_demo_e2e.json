@@ -1,0 +1,40 @@
+{
+  "artifact": "bookrag_local_demo_e2e",
+  "server": "http://127.0.0.1:5055",
+  "instruction": "revised_scene_and_citation",
+  "hybrid_pool": 20,
+  "qwen_top": 5,
+  "tests": [
+    {
+      "label": "thinkpython_answerable_tp2_001",
+      "book_id": "thinkpython",
+      "client_wait_s": 28.108,
+      "timings_seconds": {"retrieve_hybrid": 5.244, "qwen_rerank": 8.959, "sol_api": 8.355, "total_wait": 22.834},
+      "enough_evidence": true,
+      "citations": [{"passage_id": 66, "page": 23, "page_source": "stage1_chunk_metadata"}],
+      "estimated_usd": 0.001051,
+      "note": "First request includes model load; client wait 28.1s vs pipeline 22.8s"
+    },
+    {
+      "label": "pride_insufficient_pp021",
+      "book_id": "pride_and_prejudice",
+      "client_wait_s": 13.462,
+      "timings_seconds": {"retrieve_hybrid": 0.784, "qwen_rerank": 7.71, "sol_api": 4.829, "total_wait": 13.442},
+      "enough_evidence": false,
+      "citations": [{"passage_id": 214, "page": 214, "page_source": "stage1_chunk_metadata"}],
+      "estimated_usd": 0.001341,
+      "note": "Refused proposal opening; cited related earlier parsonage visit"
+    },
+    {
+      "label": "frankenstein_answerable_fr011",
+      "book_id": "frankenstein_1532610843_print",
+      "client_wait_s": 12.19,
+      "timings_seconds": {"retrieve_hybrid": 0.267, "qwen_rerank": 8.175, "sol_api": 3.636, "total_wait": 12.185},
+      "enough_evidence": true,
+      "citations": [{"passage_id": 77, "page": 55, "page_source": "stage1_chunk_metadata"}],
+      "estimated_usd": 0.001141
+    }
+  ],
+  "estimated_usd_demo_tests": 0.003533,
+  "key_in_responses": false
+}

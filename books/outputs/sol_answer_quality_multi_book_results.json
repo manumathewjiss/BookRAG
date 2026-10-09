@@ -1,0 +1,1198 @@
+{
+  "experiment": "sol_answer_quality_multi_book",
+  "production_pipeline_changed": false,
+  "model": "gpt-6.1-sol",
+  "service_tier_requested": "default",
+  "reasoning_effort": "low",
+  "budget_usd": 2.0,
+  "estimated_usd_total": 0.106383,
+  "n_cases_planned": 11,
+  "n_cases_run": 11,
+  "n_passed": 10,
+  "env_file_loaded": true,
+  "questions": [
+    {
+      "case_id": "fr_011",
+      "question_id": "fr_011",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "On what kind of November night does Victor finish his toils, what time is it, and what does he see when the creature's dull yellow eye opens?",
+      "passage_set": "qwen_top5",
+      "note": "Creation scene; gold should be in Qwen top 5",
+      "expect_enough": true,
+      "gold_chunk_indexes": [
+        77
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 77,
+          "page": 55,
+          "qwen_rank": 1,
+          "qwen_score": 0.99951171875,
+          "text_preview": "Chapter IV It was on a dreary night of November, that I beheld the accomplishment of my toils. With an anxiety that almost amounted to agony, I collected the instruments of life around me, that I might infuse a spark of ",
+          "n_chars": 1680
+        },
+        {
+          "passage_id": 248,
+          "page": 162,
+          "qwen_rank": 2,
+          "qwen_score": 0.6494140625,
+          "text_preview": "“But my toils now drew near a close; and, two months from this time, I reached the environs of Geneva. “It was evening when I arrived, and I retired to a hiding- place among the fields that surround it, to meditate in wh",
+          "n_chars": 1543
+        },
+        {
+          "passage_id": 83,
+          "page": 59,
+          "qwen_rank": 3,
+          "qwen_score": 0.1151123046875,
+          "text_preview": "“Very well, and very happy, only a little uneasy that they hear from you so seldom. By the bye, I mean to lecture you a little upon their account myself. – But, my dear Franken- stein,” continued he, stopping short, and ",
+          "n_chars": 1727
+        },
+        {
+          "passage_id": 351,
+          "page": 227,
+          "qwen_rank": 4,
+          "qwen_score": 0.056182861328125,
+          "text_preview": "Chapter VI It was eight o’clock when we landed; we walked for a short time on the shore, enjoying the transitory light, and then retired to the inn, and contemplated the lovely scene of waters, woods, and mountains, obsc",
+          "n_chars": 1565
+        },
+        {
+          "passage_id": 274,
+          "page": 179,
+          "qwen_rank": 5,
+          "qwen_score": 0.017547607421875,
+          "text_preview": "We travelled at the time of the vintage, and heard the song of the labourers, as we glided down the stream. Even I, depressed in mind, and my spirits continually agitated by gloomy feelings, even I was pleased. I lay at ",
+          "n_chars": 1672
+        }
+      ],
+      "sol": {
+        "answer": "Victor finishes his toils on a dreary November night, at one in the morning. By the glimmer of his nearly extinguished candle, he sees the creature’s dull yellow eye open; it breathes hard, and a convulsive motion agitates its limbs.",
+        "supporting_passage_ids": [
+          77
+        ],
+        "supporting_passage_ids_raw": [
+          77
+        ],
+        "enough_evidence": true,
+        "missing_evidence": ""
+      },
+      "display_citations": [
+        {
+          "passage_id": 77,
+          "page": 55,
+          "page_source": "stage1_chunk_metadata"
+        }
+      ],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": true,
+        "gold_cited": true,
+        "expect_enough": true,
+        "cited_char_count": 1680,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 4.91,
+      "usage": {
+        "input_tokens": 2304,
+        "input_tokens_details": {
+          "cache_write_tokens": 2301,
+          "cached_tokens": 0
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2393
+      },
+      "cost": {
+        "input_tokens": 2304,
+        "output_tokens": 89,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 2301,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.011251,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_0523e76eed5d16a1016ac33f85055c87d0b40214292825f0e3",
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f"
+    },
+    {
+      "case_id": "fr_026",
+      "question_id": "fr_026",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "On the wedding night, from which room does the shrill scream come, and in what state does Victor find Elizabeth when he rushes in?",
+      "passage_set": "qwen_top5",
+      "note": "Wedding-night murder of Elizabeth; confusable with earlier threat",
+      "expect_enough": true,
+      "gold_chunk_indexes": [
+        352
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 352,
+          "page": 228,
+          "qwen_rank": 1,
+          "qwen_score": 0.99951171875,
+          "text_preview": "to retire, resolving not to join her until I had obtained some knowledge as to the situation of my enemy. She left me, and I continued some time walking up and down the passages of the house, and inspecting every corner ",
+          "n_chars": 1730
+        },
+        {
+          "passage_id": 78,
+          "page": 56,
+          "qwen_rank": 2,
+          "qwen_score": 0.2783203125,
+          "text_preview": "of the room, and continued a long time traversing my bed- chamber, unable to compose my mind to sleep. At length las- situde succeeded to the tumult I had before endured; and I threw myself on the bed in my clothes, ende",
+          "n_chars": 1659
+        },
+        {
+          "passage_id": 353,
+          "page": 228,
+          "qwen_rank": 3,
+          "qwen_score": 0.175537109375,
+          "text_preview": "a shadow of the feelings that oppressed me. I escaped from them to the room where lay the body of Elizabeth, my love, my wife, so lately living, so dear, so worthy. She had been moved from the posture in which I had firs",
+          "n_chars": 313
+        },
+        {
+          "passage_id": 340,
+          "page": 220,
+          "qwen_rank": 4,
+          "qwen_score": 0.10015869140625,
+          "text_preview": "with me on my wedding-night, yet he did not consider that threat as binding him to peace in the mean time; for, as if to shew me that he was not yet satiated with blood, he had murdered Clerval immediately after the enun",
+          "n_chars": 1754
+        },
+        {
+          "passage_id": 351,
+          "page": 227,
+          "qwen_rank": 5,
+          "qwen_score": 0.0875244140625,
+          "text_preview": "Chapter VI It was eight o’clock when we landed; we walked for a short time on the shore, enjoying the transitory light, and then retired to the inn, and contemplated the lovely scene of waters, woods, and mountains, obsc",
+          "n_chars": 1565
+        }
+      ],
+      "sol": {
+        "answer": "The scream comes from the room into which Elizabeth had retired. Victor finds her lifeless, thrown across the bed, with her head hanging down and her pale, distorted features half covered by her hair.",
+        "supporting_passage_ids": [
+          352
+        ],
+        "supporting_passage_ids_raw": [
+          352
+        ],
+        "enough_evidence": true,
+        "missing_evidence": ""
+      },
+      "display_citations": [
+        {
+          "passage_id": 352,
+          "page": 228,
+          "page_source": "stage1_chunk_metadata"
+        }
+      ],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": true,
+        "gold_cited": true,
+        "expect_enough": true,
+        "cited_char_count": 1730,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 5.013,
+      "usage": {
+        "input_tokens": 2008,
+        "input_tokens_details": {
+          "cache_write_tokens": 2005,
+          "cached_tokens": 0
+        },
+        "output_tokens": 75,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2083
+      },
+      "cost": {
+        "input_tokens": 2008,
+        "output_tokens": 75,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 2005,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.009779,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_0f5d552c8e600d73016ac33f8a215087d08d93271e91441ee2",
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f"
+    },
+    {
+      "case_id": "tp2_001",
+      "question_id": "tp2_001",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "passage_set": "qwen_top5",
+      "note": "High-level language advantages",
+      "expect_enough": true,
+      "gold_chunk_indexes": [
+        66
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 66,
+          "page": 23,
+          "qwen_rank": 1,
+          "qwen_score": 0.9990234375,
+          "text_preview": "high-level languages. The advantages are enormous. First, it is much easier to program in a high-level language. Programs written in a high-level language take less time to write, they are shorter and easier to read, and",
+          "n_chars": 490
+        },
+        {
+          "passage_id": 65,
+          "page": 23,
+          "qwen_rank": 2,
+          "qwen_score": 0.95947265625,
+          "text_preview": "Chapter 1 The way of the program The goal of this book is to teach you to think like a computer scientist. This way of think- ing combines some of the best features of mathematics, engineering, and natural science. Like ",
+          "n_chars": 1885
+        },
+        {
+          "passage_id": 78,
+          "page": 29,
+          "qwen_rank": 3,
+          "qwen_score": 0.9580078125,
+          "text_preview": "letting your reactions interfere with your ability to work effectively. Learning to debug can be frustrating, but it is a valuable skill that is useful for many ac- tivities beyond programming. At the end of each chapter",
+          "n_chars": 1022
+        },
+        {
+          "passage_id": 0,
+          "page": 1,
+          "qwen_rank": 4,
+          "qwen_score": 0.90869140625,
+          "text_preview": "Think Python How to Think Like a Computer Scientist Version 2.0.17",
+          "n_chars": 66
+        },
+        {
+          "passage_id": 333,
+          "page": 179,
+          "qwen_rank": 5,
+          "qwen_score": 0.83740234375,
+          "text_preview": "Chapter 17 Classes and methods Code examples from this chapter are available from http://thinkpython.com/code/ Time2.py . 17.1 Object-oriented features Python is an object-oriented programming language , which means that",
+          "n_chars": 1921
+        }
+      ],
+      "sol": {
+        "answer": "Think Python emphasizes that high-level languages make programming easier: programs take less time to write, are shorter and easier to read, and are more likely to be correct. They also offer portability, meaning programs can run on different kinds of computers with few or no modifications, unlike low-level programs that must be rewritten for another kind of computer.",
+        "supporting_passage_ids": [
+          66
+        ],
+        "supporting_passage_ids_raw": [
+          66
+        ],
+        "enough_evidence": true,
+        "missing_evidence": ""
+      },
+      "display_citations": [
+        {
+          "passage_id": 66,
+          "page": 23,
+          "page_source": "stage1_chunk_metadata"
+        }
+      ],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": true,
+        "gold_cited": true,
+        "expect_enough": true,
+        "cited_char_count": 490,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 3.93,
+      "usage": {
+        "input_tokens": 1400,
+        "input_tokens_details": {
+          "cache_write_tokens": 1397,
+          "cached_tokens": 0
+        },
+        "output_tokens": 102,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1502
+      },
+      "cost": {
+        "input_tokens": 1400,
+        "output_tokens": 102,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 1397,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.007313,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_0ca8cd5556f6f6ae016ac33f8ea81487d0bfcd7de6305326a0",
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889"
+    },
+    {
+      "case_id": "tp2_002",
+      "question_id": "tp2_002",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "How does an interpreter differ from a compiler when processing a high-level language?",
+      "passage_set": "qwen_top5",
+      "note": "Interpreter vs compiler",
+      "expect_enough": true,
+      "gold_chunk_indexes": [
+        67
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 67,
+          "page": 24,
+          "qwen_rank": 1,
+          "qwen_score": 0.99755859375,
+          "text_preview": "2 Chapter 1. The way of the program SOURCE CODE INTERPRETER OUTPUT Figure 1.1: An interpreter processes the program a little at a time, alternately reading lines and performing computations. CODE OBJECT EXECUTOR CODE SOU",
+          "n_chars": 1816
+        },
+        {
+          "passage_id": 78,
+          "page": 29,
+          "qwen_rank": 2,
+          "qwen_score": 0.89990234375,
+          "text_preview": "letting your reactions interfere with your ability to work effectively. Learning to debug can be frustrating, but it is a valuable skill that is useful for many ac- tivities beyond programming. At the end of each chapter",
+          "n_chars": 1022
+        },
+        {
+          "passage_id": 79,
+          "page": 30,
+          "qwen_rank": 3,
+          "qwen_score": 0.87744140625,
+          "text_preview": "8 Chapter 1. The way of the program source code: A program in a high-level language before being compiled. object code: The output of the compiler after it translates the program. executable: Another name for object code",
+          "n_chars": 1809
+        },
+        {
+          "passage_id": 66,
+          "page": 23,
+          "qwen_rank": 4,
+          "qwen_score": 0.474609375,
+          "text_preview": "high-level languages. The advantages are enormous. First, it is much easier to program in a high-level language. Programs written in a high-level language take less time to write, they are shorter and easier to read, and",
+          "n_chars": 490
+        },
+        {
+          "passage_id": 87,
+          "page": 36,
+          "qwen_rank": 5,
+          "qwen_score": 0.1201171875,
+          "text_preview": "14 Chapter 2. Variables, expressions and statements In Python 3, the result of this division is a float . The new operator // performs ﬂoor division. If either of the operands is a ﬂoating-point number, Python performs ﬂ",
+          "n_chars": 1931
+        }
+      ],
+      "sol": {
+        "answer": "An interpreter processes and executes a high-level program a little at a time, alternating between reading lines and performing computations. A compiler translates the entire program into object code before execution; the compiled program can then run repeatedly without further translation.",
+        "supporting_passage_ids": [
+          67,
+          78
+        ],
+        "supporting_passage_ids_raw": [
+          67,
+          78
+        ],
+        "enough_evidence": true,
+        "missing_evidence": ""
+      },
+      "display_citations": [
+        {
+          "passage_id": 67,
+          "page": 24,
+          "page_source": "stage1_chunk_metadata"
+        },
+        {
+          "passage_id": 78,
+          "page": 29,
+          "page_source": "stage1_chunk_metadata"
+        }
+      ],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": true,
+        "gold_cited": true,
+        "expect_enough": true,
+        "cited_char_count": 2839,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 5.106,
+      "usage": {
+        "input_tokens": 1810,
+        "input_tokens_details": {
+          "cache_write_tokens": 1807,
+          "cached_tokens": 0
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1893
+      },
+      "cost": {
+        "input_tokens": 1810,
+        "output_tokens": 83,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 1807,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.008968,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_0ec69ebdbb91c268016ac33f92a19487d08892d51f8e7f6767",
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889"
+    },
+    {
+      "case_id": "pp_001",
+      "question_id": "pp_001",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What truth is universally acknowledged in the opening of Pride and Prejudice about a single man in possession of a good fortune?",
+      "passage_set": "qwen_top5",
+      "note": "Opening truth universally acknowledged",
+      "expect_enough": true,
+      "gold_chunk_indexes": [
+        1
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 1,
+          "page": 2,
+          "qwen_rank": 1,
+          "qwen_score": 0.9990234375,
+          "text_preview": "Pride and Prejudice\u0018 Chapter 1 I t is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his",
+          "n_chars": 1176
+        },
+        {
+          "passage_id": 460,
+          "page": 460,
+          "qwen_rank": 2,
+          "qwen_score": 0.978515625,
+          "text_preview": "Pride and Prejudice\u0018\u00180 ‘This is a wretched beginning indeed! My sole depen - dence was on you; and I am sure nobody else will believe me, if you do not. Yet, indeed, I am in earnest. I speak noth- ing but the truth. He s",
+          "n_chars": 1549
+        },
+        {
+          "passage_id": 336,
+          "page": 336,
+          "qwen_rank": 3,
+          "qwen_score": 0.93310546875,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 with one of his officers; to own the truth, with Wickham! Imagine our surprise. To Kitty, however, it does not seem so wholly unexpected. I am very, very sorry. So imprudent a match on both sides! ",
+          "n_chars": 1680
+        },
+        {
+          "passage_id": 358,
+          "page": 358,
+          "qwen_rank": 4,
+          "qwen_score": 0.92431640625,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 is but one man in the world I love, and he is an angel. I should never be happy without him, so think it no harm to be off. You need not send them word at Longbourn of my going, if you do not like ",
+          "n_chars": 1465
+        },
+        {
+          "passage_id": 188,
+          "page": 188,
+          "qwen_rank": 5,
+          "qwen_score": 0.9013671875,
+          "text_preview": "Pride and Prejudice1\u0018\u0018 pain. Her heart had been but slightly touched, and her van - ity was satisfied with believing that SHE would have been his only choice, had fortune permitted it. The sudden ac - quisition of ten th",
+          "n_chars": 1694
+        }
+      ],
+      "sol": {
+        "answer": "The universally acknowledged truth is that “a single man in possession of a good fortune, must be in want of a wife.”",
+        "supporting_passage_ids": [
+          1
+        ],
+        "supporting_passage_ids_raw": [
+          1
+        ],
+        "enough_evidence": true,
+        "missing_evidence": ""
+      },
+      "display_citations": [
+        {
+          "passage_id": 1,
+          "page": 2,
+          "page_source": "stage1_chunk_metadata"
+        }
+      ],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": true,
+        "gold_cited": true,
+        "expect_enough": true,
+        "cited_char_count": 1176,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 3.215,
+      "usage": {
+        "input_tokens": 2156,
+        "input_tokens_details": {
+          "cache_write_tokens": 2153,
+          "cached_tokens": 0
+        },
+        "output_tokens": 61,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2217
+      },
+      "cost": {
+        "input_tokens": 2156,
+        "output_tokens": 61,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 2153,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.010304,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_0d4ef2447a7688f2016ac33f97b67c87d089b2aa8919256e15",
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc"
+    },
+    {
+      "case_id": "pp_005",
+      "question_id": "pp_005",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What yearly income is rumoured of Mr Darcy within five minutes of his entrance at the assembly, and how do his manners soon change the company's opinion of him?",
+      "passage_set": "qwen_top5",
+      "note": "Should be answerable from Qwen top 5",
+      "expect_enough": true,
+      "gold_chunk_indexes": [
+        11
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 11,
+          "page": 12,
+          "qwen_rank": 1,
+          "qwen_score": 1.0,
+          "text_preview": "Pride and Prejudice1\u0018 tion within five minutes after his entrance, of his having ten thousand a year. The gentlemen pronounced him to be a fine figure of a man, the ladies declared he was much handsomer than Mr. Bingley,",
+          "n_chars": 1620
+        },
+        {
+          "passage_id": 256,
+          "page": 256,
+          "qwen_rank": 2,
+          "qwen_score": 0.99365234375,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 to the living, of his receiving in lieu so considerable a sum as three thousand pounds, again was she forced to hesitate. She put down the letter, weighed every circumstance with what she meant to ",
+          "n_chars": 1687
+        },
+        {
+          "passage_id": 476,
+          "page": 476,
+          "qwen_rank": 3,
+          "qwen_score": 0.9833984375,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 ‘MY DEAR LIZZY, ‘I wish you joy. If you love Mr. Darcy half as well as I do my dear Wickham, you must be very happy. It is a great comfort to have you so rich, and when you have nothing else to do,",
+          "n_chars": 1559
+        },
+        {
+          "passage_id": 467,
+          "page": 467,
+          "qwen_rank": 4,
+          "qwen_score": 0.9814453125,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com was heard only by herself, soon went away. But before she had been three minutes in her own room, her mother fol - lowed her. ‘My dearest child,’ she cried, ‘I can think of nothing else",
+          "n_chars": 1315
+        },
+        {
+          "passage_id": 291,
+          "page": 291,
+          "qwen_rank": 5,
+          "qwen_score": 0.97802734375,
+          "text_preview": "\u0018\u00181Free eBooks at Planet eBook.com humour, that on his making some inquiry as to the manner in which her time had passed at Hunsford, she mentioned Colonel Fitzwilliam’s and Mr. Darcy’s having both spent three weeks at R",
+          "n_chars": 1456
+        }
+      ],
+      "sol": {
+        "answer": "Mr Darcy is rumoured to have ten thousand a year. Initially admired for his appearance, he soon disgusts the company with his proud, aloof manners, seeming above both his companions and being pleased; they come to regard him as forbidding and disagreeable.",
+        "supporting_passage_ids": [
+          11
+        ],
+        "supporting_passage_ids_raw": [
+          11
+        ],
+        "enough_evidence": true,
+        "missing_evidence": ""
+      },
+      "display_citations": [
+        {
+          "passage_id": 11,
+          "page": 12,
+          "page_source": "stage1_chunk_metadata"
+        }
+      ],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": true,
+        "gold_cited": true,
+        "expect_enough": true,
+        "cited_char_count": 1620,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 5.07,
+      "usage": {
+        "input_tokens": 2125,
+        "input_tokens_details": {
+          "cache_write_tokens": 2122,
+          "cached_tokens": 0
+        },
+        "output_tokens": 88,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2213
+      },
+      "cost": {
+        "input_tokens": 2125,
+        "output_tokens": 88,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 2122,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.010435,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_097b0817ac3fb02d016ac33f9b49c087d0b01e660bdc98dda3",
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc"
+    },
+    {
+      "case_id": "pp_003",
+      "question_id": "pp_003",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "According to Mrs Bennet, what is the name of the single man who has taken Netherfield, and what yearly income does she attribute to him?",
+      "passage_set": "qwen_top5",
+      "note": "Gold never reached hybrid-20; top 5 should lack Bingley income/name",
+      "expect_enough": false,
+      "gold_chunk_indexes": [
+        2
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 429,
+          "page": 429,
+          "qwen_rank": 1,
+          "qwen_score": 0.9970703125,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com matters would be unpardonable in me.’ ‘Exceed their income! My dear Mr. Bennet,’ cried his wife, ‘what are you talking of? Why, he has four or five thousand a year, and very likely more",
+          "n_chars": 1585
+        },
+        {
+          "passage_id": 1,
+          "page": 2,
+          "qwen_rank": 2,
+          "qwen_score": 0.99609375,
+          "text_preview": "Pride and Prejudice\u0018 Chapter 1 I t is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his",
+          "n_chars": 1176
+        },
+        {
+          "passage_id": 130,
+          "page": 130,
+          "qwen_rank": 3,
+          "qwen_score": 0.966796875,
+          "text_preview": "Pride and Prejudice1\u00180 portunity of waiting on her, after his return from London, whither he was obliged to go the next day for a short time. Mrs. Bennet was perfectly satisfied, and quitted the house under the delightfu",
+          "n_chars": 753
+        },
+        {
+          "passage_id": 51,
+          "page": 51,
+          "qwen_rank": 4,
+          "qwen_score": 0.96630859375,
+          "text_preview": "\u00181Free eBooks at Planet eBook.com she expected. ‘Indeed I have, sir,’ was her answer. ‘She is a great deal too ill to be moved. Mr. Jones says we must not think of moving her. We must trespass a little longer on your kin",
+          "n_chars": 1500
+        },
+        {
+          "passage_id": 10,
+          "page": 11,
+          "qwen_rank": 5,
+          "qwen_score": 0.95654296875,
+          "text_preview": "11Free eBooks at Planet eBook.com dow that he wore a blue coat, and rode a black horse. An invitation to dinner was soon afterwards dispatched; and already had Mrs. Bennet planned the courses that were to do credit to he",
+          "n_chars": 1702
+        }
+      ],
+      "sol": {
+        "answer": "The man is Mr. Bingley, whom Mrs. Bennet credits with an income of four or five thousand a year, and very likely more.",
+        "supporting_passage_ids": [
+          51,
+          429
+        ],
+        "supporting_passage_ids_raw": [
+          51,
+          429
+        ],
+        "enough_evidence": true,
+        "missing_evidence": ""
+      },
+      "display_citations": [
+        {
+          "passage_id": 51,
+          "page": 51,
+          "page_source": "stage1_chunk_metadata"
+        },
+        {
+          "passage_id": 429,
+          "page": 429,
+          "page_source": "stage1_chunk_metadata"
+        }
+      ],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": false,
+        "gold_cited": false,
+        "expect_enough": false,
+        "cited_char_count": 3086,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": true
+      },
+      "case_passed": false,
+      "api_time_seconds": 3.761,
+      "usage": {
+        "input_tokens": 1923,
+        "input_tokens_details": {
+          "cache_write_tokens": 1920,
+          "cached_tokens": 0
+        },
+        "output_tokens": 68,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1991
+      },
+      "cost": {
+        "input_tokens": 1923,
+        "output_tokens": 68,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 1920,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.009326,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_0a57bfdf14b53746016ac33fa0161887d0b1877bfe04467ba9",
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc"
+    },
+    {
+      "case_id": "pp_021",
+      "question_id": "pp_021",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, how does he begin his first proposal to Elizabeth?",
+      "passage_set": "qwen_top5",
+      "note": "Gold outside hybrid-20",
+      "expect_enough": false,
+      "gold_chunk_indexes": [
+        236
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 214,
+          "page": 214,
+          "qwen_rank": 1,
+          "qwen_score": 0.98779296875,
+          "text_preview": "Pride and Prejudice\u00181\u0018 His arrival was soon known at the Parsonage; for Mr. Collins was walking the whole morning within view of the lodges opening into Hunsford Lane, in order to have the earliest assurance of it, and a",
+          "n_chars": 1641
+        },
+        {
+          "passage_id": 228,
+          "page": 228,
+          "qwen_rank": 2,
+          "qwen_score": 0.98193359375,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 Chapter 33 M ore than once did Elizabeth, in her ramble within the park, unexpectedly meet Mr. Darcy. She felt all the perverseness of the mischance that should bring him where no one else was brou",
+          "n_chars": 1442
+        },
+        {
+          "passage_id": 314,
+          "page": 314,
+          "qwen_rank": 3,
+          "qwen_score": 0.96435546875,
+          "text_preview": "Pride and Prejudice\u00181\u0018 The conversation soon turned upon fishing; and she heard Mr. Darcy invite him, with the greatest civility, to fish there as often as he chose while he continued in the neigh - bourhood, offering at",
+          "n_chars": 1681
+        },
+        {
+          "passage_id": 323,
+          "page": 323,
+          "qwen_rank": 4,
+          "qwen_score": 0.95703125,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com of manners which she had yesterday witnessed however temporary its existence might prove, had at least outlived one day. When she saw him thus seeking the acquaintance and courting the ",
+          "n_chars": 1715
+        },
+        {
+          "passage_id": 123,
+          "page": 123,
+          "qwen_rank": 5,
+          "qwen_score": 0.9541015625,
+          "text_preview": "1\u0018\u0018Free eBooks at Planet eBook.com look on as a point of duty. Pardon me for neglecting to prof- it by your advice, which on every other subject shall be my constant guide, though in the case before us I consider my - se",
+          "n_chars": 1675
+        }
+      ],
+      "sol": {
+        "answer": "The provided passages do not describe the beginning of Darcy’s first proposal to Elizabeth, so there is not enough evidence to answer.",
+        "supporting_passage_ids": [],
+        "supporting_passage_ids_raw": [],
+        "enough_evidence": false,
+        "missing_evidence": "The scene at Hunsford parsonage containing Darcy’s opening words or actions in his first proposal."
+      },
+      "display_citations": [],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": false,
+        "gold_cited": false,
+        "expect_enough": false,
+        "cited_char_count": 0,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 5.864,
+      "usage": {
+        "input_tokens": 2200,
+        "input_tokens_details": {
+          "cache_write_tokens": 2197,
+          "cached_tokens": 0
+        },
+        "output_tokens": 79,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2279
+      },
+      "cost": {
+        "input_tokens": 2200,
+        "output_tokens": 79,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 2197,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.010683,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_0c8128a6267af104016ac33fa3c73c87d093d90fac888651a8",
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc"
+    },
+    {
+      "case_id": "pp_028",
+      "question_id": "pp_028",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What does Lady Catherine call Elizabeth during their confrontation at Longbourn, and what does she say about her daughter and nephew being formed for each other?",
+      "passage_set": "qwen_top5",
+      "note": "Gold outside hybrid-20",
+      "expect_enough": false,
+      "gold_chunk_indexes": [
+        438
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 439,
+          "page": 439,
+          "qwen_rank": 1,
+          "qwen_score": 0.99267578125,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com as quitting that sphere. He is a gentleman; I am a gentle - man’s daughter; so far we are equal.’ ‘True. You ARE a gentleman’s daughter. But who was your mother? Who are your uncles and",
+          "n_chars": 1445
+        },
+        {
+          "passage_id": 434,
+          "page": 434,
+          "qwen_rank": 2,
+          "qwen_score": 0.98828125,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 motive for her calling. But no letter appeared, and she was completely puzzled. Mrs. Bennet, with great civility, begged her ladyship to take some refreshment; but Lady Catherine very resolutely, a",
+          "n_chars": 1431
+        },
+        {
+          "passage_id": 433,
+          "page": 433,
+          "qwen_rank": 3,
+          "qwen_score": 0.9453125,
+          "text_preview": "\u0018\u0018\u0018Free eBooks at Planet eBook.com on her ladyship’s entrance, though no request of introduc - tion had been made. Mrs. Bennet, all amazement, though flattered by having a guest of such high importance, received her with",
+          "n_chars": 1413
+        },
+        {
+          "passage_id": 472,
+          "page": 472,
+          "qwen_rank": 4,
+          "qwen_score": 0.9248046875,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 style; and still different from either was what Mr. Bennet sent to Mr. Collins, in reply to his last. ‘DEAR SIR,  ‘I must trouble you once more for congratulations. Elizabeth will soon be the wife ",
+          "n_chars": 1359
+        },
+        {
+          "passage_id": 448,
+          "page": 448,
+          "qwen_rank": 5,
+          "qwen_score": 0.7734375,
+          "text_preview": "Pride and Prejudice\u0018\u0018\u0018 hearing that you received the young couple into your house as soon as they were married. It was an encouragement of vice; and had I been the rector of Longbourn, I should very strenuously have oppo",
+          "n_chars": 1619
+        }
+      ],
+      "sol": {
+        "answer": "The provided passages show Lady Catherine addressing Elizabeth as “Miss Bennet,” but they do not include the specific epithet she uses or her statement about her daughter and nephew being formed for each other.",
+        "supporting_passage_ids": [
+          439
+        ],
+        "supporting_passage_ids_raw": [
+          439
+        ],
+        "enough_evidence": false,
+        "missing_evidence": "The passage containing Lady Catherine’s epithet for Elizabeth and her declaration that her daughter and nephew were formed for each other is missing."
+      },
+      "display_citations": [
+        {
+          "passage_id": 439,
+          "page": 439,
+          "page_source": "stage1_chunk_metadata"
+        }
+      ],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": false,
+        "gold_cited": false,
+        "expect_enough": false,
+        "cited_char_count": 1445,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": true
+      },
+      "case_passed": true,
+      "api_time_seconds": 5.039,
+      "usage": {
+        "input_tokens": 2039,
+        "input_tokens_details": {
+          "cache_write_tokens": 2036,
+          "cached_tokens": 0
+        },
+        "output_tokens": 99,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2138
+      },
+      "cost": {
+        "input_tokens": 2039,
+        "output_tokens": 99,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 2036,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.010158,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_05d052305d08826e016ac33fa9a9dc87d0b5165f3da099e0da",
+      "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc"
+    },
+    {
+      "case_id": "fr_001",
+      "question_id": "fr_001",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "In Letter I, from which city and on what date does Walton write to Mrs Saville in England, and what northern breeze does he say plays upon his cheeks?",
+      "passage_set": "qwen_tail5",
+      "note": "Controlled miss: Letter I gold is Qwen #1; send ranks 16–20 instead",
+      "expect_enough": false,
+      "gold_chunk_indexes": [
+        8
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 307,
+          "page": 199,
+          "qwen_rank": 16,
+          "qwen_score": 0.001953125,
+          "text_preview": "gentle breeze, and the sea became free from breakers. But these gave place to a heavy swell; I felt sick, and hardly able to hold the rudder, when suddenly I saw a line of high land towards the south. Almost spent, as I ",
+          "n_chars": 1706
+        },
+        {
+          "passage_id": 386,
+          "page": 246,
+          "qwen_rank": 17,
+          "qwen_score": 0.0017309188842773438,
+          "text_preview": "one; but, I fear, I have gained him only to know his value, and lose him. I would reconcile him to life, but he repulses the idea. “I thank you, Walton,” he said, “for your kind intentions towards so miserable a wretch; ",
+          "n_chars": 322
+        },
+        {
+          "passage_id": 396,
+          "page": 252,
+          "qwen_rank": 18,
+          "qwen_score": 0.001285552978515625,
+          "text_preview": "“Doso, if you will; but I will not. You may give up your pur- pose; but mine is assigned to me by heaven, and I dare not. I am weak; but surely the spirits who assist my vengeance will endow me with sufficient strength.”",
+          "n_chars": 1640
+        },
+        {
+          "passage_id": 287,
+          "page": 188,
+          "qwen_rank": 19,
+          "qwen_score": 0.000579833984375,
+          "text_preview": "a moment, but followed him as his shadow, to protect him from the fancied rage of his destroyer. I felt as if I had committed some great crime, the consciousness of which haunted me. I was guiltless, but I had indeed dra",
+          "n_chars": 1677
+        },
+        {
+          "passage_id": 330,
+          "page": 213,
+          "qwen_rank": 20,
+          "qwen_score": 0.00022518634796142578,
+          "text_preview": "this wretched country; take me where I may forget myself, my existence, and all the world.” My father easily acceded to my desire; and, after having taken leave of Mr. Kirwin, we hastened to Dublin. I felt as if I was re",
+          "n_chars": 1668
+        }
+      ],
+      "sol": {
+        "answer": "The provided passages do not contain Letter I, so they do not establish the city, date, or northern breeze Walton describes to Mrs Saville.",
+        "supporting_passage_ids": [],
+        "supporting_passage_ids_raw": [],
+        "enough_evidence": false,
+        "missing_evidence": "The heading and opening of Letter I giving Walton’s city, date, and description of the breeze playing upon his cheeks."
+      },
+      "display_citations": [],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": false,
+        "gold_cited": false,
+        "expect_enough": false,
+        "cited_char_count": 0,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 4.041,
+      "usage": {
+        "input_tokens": 1983,
+        "input_tokens_details": {
+          "cache_write_tokens": 1980,
+          "cached_tokens": 0
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2069
+      },
+      "cost": {
+        "input_tokens": 1983,
+        "output_tokens": 86,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 1980,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.009776,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_07368e786ba84df8016ac33faec88887d0a6f5101d80219ff9",
+      "eval_sha256": "7d89a30f58b3b21c680407616036e1d8c836d018ed406f67fd99ada72f1af85f"
+    },
+    {
+      "case_id": "tp2_001_tail",
+      "question_id": "tp2_001",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "passage_set": "qwen_tail5",
+      "note": "Controlled miss: send Qwen ranks 16–20 of the portable-language question",
+      "expect_enough": false,
+      "gold_chunk_indexes": [
+        66
+      ],
+      "passages_sent": [
+        {
+          "passage_id": 302,
+          "page": 160,
+          "qwen_rank": 16,
+          "qwen_score": 0.018524169921875,
+          "text_preview": "a list of its anagrams. Solution: http: // thinkpython. com/ code/ anagram_ db. py 14.8 Pipes Most operating systems provide a command-line interface, also known as a shell. Shells usually provide commands to navigate th",
+          "n_chars": 1242
+        },
+        {
+          "passage_id": 368,
+          "page": 197,
+          "qwen_rank": 17,
+          "qwen_score": 0.0174102783203125,
+          "text_preview": "entity in the real world (or at least a mathematical world). But sometimes it is less obvious what objects you need and how they should interact. In that case you need a different development plan. In the same way that w",
+          "n_chars": 978
+        },
+        {
+          "passage_id": 87,
+          "page": 36,
+          "qwen_rank": 18,
+          "qwen_score": 0.01047515869140625,
+          "text_preview": "14 Chapter 2. Variables, expressions and statements In Python 3, the result of this division is a float . The new operator // performs ﬂoor division. If either of the operands is a ﬂoating-point number, Python performs ﬂ",
+          "n_chars": 1931
+        },
+        {
+          "passage_id": 387,
+          "page": 207,
+          "qwen_rank": 19,
+          "qwen_score": 0.0086517333984375,
+          "text_preview": "Python modules. Tkinter alone provides three different mechanisms for arranging widgets. These mechanisms are called geometry managers. The one I demonstrated in this section is the “grid” geometry manager; the others ar",
+          "n_chars": 751
+        },
+        {
+          "passage_id": 18,
+          "page": 13,
+          "qwen_rank": 20,
+          "qwen_score": 0.0037059783935546875,
+          "text_preview": "Contents Preface v 1 The way of the program 1 1.1 The Python programming language . . . . . . . . . . . . . . . . . . . . . . 1 1.2 What is a program? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3 1.3",
+          "n_chars": 571
+        }
+      ],
+      "sol": {
+        "answer": "The provided passages do not contain Think Python’s explanation of the advantages of high-level languages or its definition of portability, so there is not enough evidence to answer.",
+        "supporting_passage_ids": [],
+        "supporting_passage_ids_raw": [],
+        "enough_evidence": false,
+        "missing_evidence": "The discussion of high-level language advantages and the definition of portability, likely in Section 1.1, is not provided."
+      },
+      "display_citations": [],
+      "support_check": {
+        "cited_ids_were_in_sent_passages": true,
+        "gold_in_sent_passages": false,
+        "gold_cited": false,
+        "expect_enough": false,
+        "cited_char_count": 0,
+        "answer_nonempty": true,
+        "possible_guess_without_gold": false
+      },
+      "case_passed": true,
+      "api_time_seconds": 4.067,
+      "usage": {
+        "input_tokens": 1666,
+        "input_tokens_details": {
+          "cache_write_tokens": 1663,
+          "cached_tokens": 0
+        },
+        "output_tokens": 90,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1756
+      },
+      "cost": {
+        "input_tokens": 1666,
+        "output_tokens": 90,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 1663,
+        "long_context_rates": false,
+        "processing": "standard",
+        "estimated_usd": 0.00839,
+        "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+      },
+      "service_tier_returned": "default",
+      "response_id": "resp_040e46dfcf4c07a2016ac33fb2bc7c87d0b5dae24ee72b5cf2",
+      "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889"
+    }
+  ]
+}

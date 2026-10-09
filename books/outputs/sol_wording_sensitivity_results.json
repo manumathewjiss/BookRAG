@@ -1,0 +1,2950 @@
+{
+  "experiment": "sol_wording_sensitivity_baseline_vs_dual_query",
+  "production_pipeline_changed": false,
+  "live_demo_search_changed": false,
+  "cases_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/sol_wording_sensitivity_cases.json",
+  "cases_sha256": "45363b52b5ca7726d6b64e47343fc2bb54205fb48b4acce6358633ad947cb8ac",
+  "already_tracked_sol_usd": 1.398,
+  "estimated_usd_total_including_prior": 1.525895,
+  "estimated_usd_this_run": 0.127895,
+  "n_questions_planned": 14,
+  "n_questions_run": 14,
+  "stopped": null,
+  "gold_ids_sent_to_sol": false,
+  "questions": [
+    {
+      "id": "pp_016_frozen_wording",
+      "question_id": "pp_016",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "When Mr Collins wants to speak privately to Elizabeth, what does Mrs Bennet insist that Lizzy do?",
+      "role": "difficult_nearby_line",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        132
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "When Mr Collins wants to speak privately to Elizabeth, what does Mrs Bennet insist that Lizzy do?"
+          ],
+          "hybrid_pool20_ids": [
+            140,
+            138,
+            446,
+            141,
+            142,
+            132,
+            160,
+            139,
+            176,
+            433,
+            55,
+            131,
+            143,
+            442,
+            88,
+            287,
+            5,
+            462,
+            89,
+            275
+          ],
+          "qwen_top5_ids": [
+            138,
+            140,
+            131,
+            139,
+            160
+          ],
+          "gold_rank_in_hybrid20": 6,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": false,
+          "timings_seconds": {
+            "retrieve_hybrid": 8.673,
+            "qwen_rerank": 15.488,
+            "sol_api": 5.553,
+            "total_wait": 29.721
+          },
+          "sol": {
+            "answer": "Mrs Bennet insists that Lizzy stay where she is, saying, “No, no, nonsense, Lizzy. I desire you to stay where you are.”",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "What Mrs Bennet insists Lizzy do when Mr Collins requests a private audience with Elizabeth.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 131,
+                "page": 131,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              131
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "No, no, nonsense, Lizzy. I desire you to stay where you are.",
+                  "supported": true
+                }
+              ],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 5.553,
+            "cost": {
+              "input_tokens": 2461,
+              "output_tokens": 95,
+              "cached_input_tokens": 2458,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001202,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0c5acb56b70c1c47016ac403a82d8887d0988182256f23a173",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 131,
+                "page": 131,
+                "excerpt": "11Free eBooks at Planet eBook.com Chapter 19 T he next day opened a new scene at Longbourn. Mr. Col lins made his declaration in form. Having resolved to do it without loss of time, as his leave of absence extended only to the following Saturday, and having no feelings of diffi dence to make it distressing to himself even at the moment, he set about it in a very orderly manner, with all the obser vances, which he…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": false,
+            "gold_cited": false,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "When Mr Collins wants to speak privately to Elizabeth, what does Mrs Bennet insist that Lizzy do?"
+          ],
+          "hybrid_pool20_ids": [
+            140,
+            138,
+            446,
+            141,
+            142,
+            132,
+            160,
+            139,
+            176,
+            433,
+            55,
+            131,
+            143,
+            442,
+            88,
+            287,
+            5,
+            462,
+            89,
+            275
+          ],
+          "qwen_top5_ids": [
+            138,
+            140,
+            131,
+            139,
+            160
+          ],
+          "gold_rank_in_hybrid20": 6,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": false,
+          "timings_seconds": {
+            "retrieve_hybrid": 7.551,
+            "qwen_rerank": 8.879,
+            "sol_api": 4.006,
+            "total_wait": 20.438
+          },
+          "sol": {
+            "answer": "Mrs Bennet insists that Lizzy stay where she is, telling her, “I desire you to stay where you are,” rather than leave when Mr Collins requests a private audience.",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "What Mrs Bennet insists Lizzy do when Mr Collins requests to speak privately to Elizabeth.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 131,
+                "page": 131,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              131
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "I desire you to stay where you are,",
+                  "supported": false
+                }
+              ],
+              "all_supported": false,
+              "unsupported": [
+                "I desire you to stay where you are,"
+              ],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 4.006,
+            "cost": {
+              "input_tokens": 2461,
+              "output_tokens": 97,
+              "cached_input_tokens": 2458,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001222,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_00cfbbaebced658d016ac403bcaa3087d09dfbb11f69484d09",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 131,
+                "page": 131,
+                "excerpt": "11Free eBooks at Planet eBook.com Chapter 19 T he next day opened a new scene at Longbourn. Mr. Col lins made his declaration in form. Having resolved to do it without loss of time, as his leave of absence extended only to the following Saturday, and having no feelings of diffi dence to make it distressing to himself even at the moment, he set about it in a very orderly manner, with all the obser vances, which he…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": false,
+            "gold_cited": false,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": false,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "darcy_opening_words_no_quote",
+      "question_id": null,
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What were Darcy's exact opening words when he first proposed to Elizabeth?",
+      "role": "wording_sensitive_no_quote",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        236
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "What were Darcy's exact opening words when he first proposed to Elizabeth?"
+          ],
+          "hybrid_pool20_ids": [
+            238,
+            457,
+            309,
+            339,
+            435,
+            12,
+            122,
+            341,
+            464,
+            467,
+            244,
+            236,
+            240,
+            447,
+            23,
+            241,
+            333,
+            71,
+            31,
+            450
+          ],
+          "qwen_top5_ids": [
+            238,
+            241,
+            333,
+            341,
+            23
+          ],
+          "gold_rank_in_hybrid20": 12,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": false,
+          "timings_seconds": {
+            "retrieve_hybrid": 5.619,
+            "qwen_rerank": 9.095,
+            "sol_api": 4.879,
+            "total_wait": 19.594
+          },
+          "sol": {
+            "answer": "The supplied passages do not contain Darcy’s exact opening words. Passage 238 begins after Elizabeth has rejected him, with Darcy asking, ‘And this is all the reply which I am to have the honour of expecting!’—not the opening of his proposal.",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "event_match": "nearby_only",
+            "asked_event": "Darcy’s exact opening words when he first proposed to Elizabeth.",
+            "missing_evidence": "The opening lines of Darcy’s first proposal to Elizabeth are missing.",
+            "citations": [
+              {
+                "passage_id": 238,
+                "page": 238,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              238
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 4.879,
+            "cost": {
+              "input_tokens": 2655,
+              "output_tokens": 121,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2652,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.01315,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_02531f303d863370016ac403cf592087d0aaccd6dcaec996e1",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 238,
+                "page": 238,
+                "excerpt": "his eyes fixed on her face, seemed to catch her words with no less resentment than surprise. His complexion became pale with anger, and the disturbance of his mind was vis ible in every feature. He was struggling for the appearance of composure, and would not open his lips till he believed himself to have attained it. The pause was to Elizabeth’s feelings dreadful. At length, with a voice of forced calm ness, he…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": false,
+            "gold_cited": false,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": "What did Darcy say when he first proposed to Elizabeth?",
+          "queries_used": [
+            "What were Darcy's exact opening words when he first proposed to Elizabeth?",
+            "What did Darcy say when he first proposed to Elizabeth?"
+          ],
+          "hybrid_pool20_ids": [
+            457,
+            12,
+            435,
+            238,
+            309,
+            122,
+            464,
+            339,
+            240,
+            333,
+            31,
+            450,
+            241,
+            71,
+            411,
+            341,
+            219,
+            467,
+            70,
+            244
+          ],
+          "qwen_top5_ids": [
+            238,
+            241,
+            333,
+            341,
+            31
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": false,
+          "correct_passage_in_sol5": false,
+          "timings_seconds": {
+            "retrieve_hybrid": 2.669,
+            "qwen_rerank": 8.315,
+            "sol_api": 5.07,
+            "total_wait": 16.058
+          },
+          "sol": {
+            "answer": "The supplied passages do not contain Darcy’s exact opening words. Passage 238 begins after Elizabeth has rejected him, with Darcy asking about her reply, rather than opening his proposal.",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "event_match": "nearby_only",
+            "asked_event": "Darcy’s exact opening words when he first proposed to Elizabeth.",
+            "missing_evidence": "The opening of Darcy’s first proposal, including his exact words, is missing.",
+            "citations": [
+              {
+                "passage_id": 238,
+                "page": 238,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              238
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 5.07,
+            "cost": {
+              "input_tokens": 2630,
+              "output_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2627,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.013088,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0952bbc4f8e57fb3016ac403df36a887d08976947209def80d",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 238,
+                "page": 238,
+                "excerpt": "his eyes fixed on her face, seemed to catch her words with no less resentment than surprise. His complexion became pale with anger, and the disturbance of his mind was vis ible in every feature. He was struggling for the appearance of composure, and would not open his lips till he believed himself to have attained it. The pause was to Elizabeth’s feelings dreadful. At length, with a voice of forced calm ness, he…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": false,
+            "gold_cited": false,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "darcy_opening_with_quote_hint",
+      "question_id": null,
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What were Darcy's exact opening words when he first proposed to Elizabeth, beginning \"In vain I have struggled\"?",
+      "role": "wording_sensitive_with_quote",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        236
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "What were Darcy's exact opening words when he first proposed to Elizabeth, beginning \"In vain I have struggled\"?"
+          ],
+          "hybrid_pool20_ids": [
+            236,
+            240,
+            341,
+            457,
+            339,
+            32,
+            12,
+            238,
+            464,
+            71,
+            476,
+            401,
+            122,
+            254,
+            241,
+            333,
+            435,
+            441,
+            459,
+            450
+          ],
+          "qwen_top5_ids": [
+            236,
+            32,
+            238,
+            241,
+            341
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 6.883,
+            "qwen_rerank": 9.5,
+            "sol_api": 3.794,
+            "total_wait": 20.182
+          },
+          "sol": {
+            "answer": "“In vain I have struggled. It will not do. My feelings will not be repressed. You must allow me to tell you how ardently I admire and love you.”",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "Darcy's exact opening words in his first proposal to Elizabeth, beginning “In vain I have struggled.”",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 236,
+                "page": 236,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              236
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "In vain I have struggled. It will not do. My feelings will not be repressed. You must allow me to tell you how ardently I admire and love you.",
+                  "supported": true
+                }
+              ],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 3.794,
+            "cost": {
+              "input_tokens": 2626,
+              "output_tokens": 120,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2623,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.01301,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0c2823c517fda801016ac403f4915487d0aa6ea6258f193c9b",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 236,
+                "page": 236,
+                "excerpt": "py about him. While settling this point, she was suddenly roused by the sound of the door-bell, and her spirits were a little flut tered by the idea of its being Colonel Fitzwilliam himself, who had once before called late in the evening, and might now come to inquire particularly after her. But this idea was soon banished, and her spirits were very differently affect ed, when, to her utter amazement, she saw Mr.…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": "In vain I have struggled",
+          "queries_used": [
+            "What were Darcy's exact opening words when he first proposed to Elizabeth, beginning \"In vain I have struggled\"?",
+            "In vain I have struggled"
+          ],
+          "hybrid_pool20_ids": [
+            236,
+            341,
+            240,
+            32,
+            457,
+            441,
+            345,
+            67,
+            280,
+            339,
+            12,
+            15,
+            186,
+            238,
+            24,
+            464,
+            71,
+            237,
+            399,
+            476
+          ],
+          "qwen_top5_ids": [
+            236,
+            32,
+            238,
+            341,
+            240
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 2.891,
+            "qwen_rerank": 8.962,
+            "sol_api": 3.226,
+            "total_wait": 15.081
+          },
+          "sol": {
+            "answer": "“In vain I have struggled. It will not do. My feelings will not be repressed. You must allow me to tell you how ardently I admire and love you.”",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "Darcy’s exact opening words in his first proposal to Elizabeth, beginning “In vain I have struggled.”",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 236,
+                "page": 236,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              236
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "In vain I have struggled. It will not do. My feelings will not be repressed. You must allow me to tell you how ardently I admire and love you.",
+                  "supported": true
+                }
+              ],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 3.226,
+            "cost": {
+              "input_tokens": 2648,
+              "output_tokens": 102,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2645,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.012928,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_01c45561ba8a83c0016ac40404434c87d0b95e7e853b5b470e",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 236,
+                "page": 236,
+                "excerpt": "py about him. While settling this point, she was suddenly roused by the sound of the door-bell, and her spirits were a little flut tered by the idea of its being Colonel Fitzwilliam himself, who had once before called late in the evening, and might now come to inquire particularly after her. But this idea was soon banished, and her spirits were very differently affect ed, when, to her utter amazement, she saw Mr.…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "pp_021_frozen_wording",
+      "question_id": "pp_021",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, how does he begin his first proposal to Elizabeth?",
+      "role": "difficult_proposal_opening",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        236
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, how does he begin his first proposal to Elizabeth?"
+          ],
+          "hybrid_pool20_ids": [
+            324,
+            228,
+            214,
+            291,
+            323,
+            123,
+            226,
+            12,
+            309,
+            178,
+            314,
+            307,
+            223,
+            219,
+            412,
+            339,
+            97,
+            225,
+            32,
+            271
+          ],
+          "qwen_top5_ids": [
+            214,
+            228,
+            314,
+            323,
+            123
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": false,
+          "correct_passage_in_sol5": false,
+          "timings_seconds": {
+            "retrieve_hybrid": 2.005,
+            "qwen_rerank": 9.183,
+            "sol_api": 4.458,
+            "total_wait": 15.648
+          },
+          "sol": {
+            "answer": "The supplied passages do not give Darcy’s opening words in his first proposal. Passage 214 describes an earlier visit to the parsonage, when he pays his compliments with his usual reserve, not the proposal scene.",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "event_match": "nearby_only",
+            "asked_event": "How Darcy begins his first proposal to Elizabeth after unexpectedly entering the Hunsford parsonage sitting-room.",
+            "missing_evidence": "The scene of Darcy’s first proposal at Hunsford, including his opening words, is not provided.",
+            "citations": [
+              {
+                "passage_id": 214,
+                "page": 214,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              214
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 4.458,
+            "cost": {
+              "input_tokens": 2660,
+              "output_tokens": 129,
+              "cached_input_tokens": 2657,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001562,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0b08a7691f4a9365016ac40412b66087d08bb72a659509bb93",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 214,
+                "page": 214,
+                "excerpt": "1 His arrival was soon known at the Parsonage; for Mr. Collins was walking the whole morning within view of the lodges opening into Hunsford Lane, in order to have the earliest assurance of it, and after making his bow as the carriage turned into the Park, hurried home with the great intelligence. On the following morning he hastened to Ros ings to pay his respects. There were two nephews of Lady Catherine to…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": false,
+            "gold_cited": false,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, what does he say at the start of his first proposal to Elizabeth?",
+          "queries_used": [
+            "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, how does he begin his first proposal to Elizabeth?",
+            "When Mr Darcy unexpectedly walks into the Hunsford parsonage sitting-room, what does he say at the start of his first proposal to Elizabeth?"
+          ],
+          "hybrid_pool20_ids": [
+            324,
+            214,
+            228,
+            123,
+            291,
+            12,
+            223,
+            309,
+            323,
+            178,
+            314,
+            219,
+            226,
+            97,
+            412,
+            225,
+            32,
+            271,
+            307,
+            339
+          ],
+          "qwen_top5_ids": [
+            214,
+            228,
+            314,
+            323,
+            123
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": false,
+          "correct_passage_in_sol5": false,
+          "timings_seconds": {
+            "retrieve_hybrid": 4.965,
+            "qwen_rerank": 9.778,
+            "sol_api": 4.966,
+            "total_wait": 19.711
+          },
+          "sol": {
+            "answer": "The supplied passages do not contain Darcy’s opening words in his first proposal. Passage 323 only recalls Elizabeth and Darcy’s earlier scene at Hunsford Parsonage, without quoting how he began.",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "event_match": "nearby_only",
+            "asked_event": "How Darcy begins his first proposal to Elizabeth at Hunsford parsonage.",
+            "missing_evidence": "The proposal scene, specifically Darcy’s opening words after entering the Hunsford parsonage sitting-room, is missing.",
+            "citations": [
+              {
+                "passage_id": 323,
+                "page": 323,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              323
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 4.966,
+            "cost": {
+              "input_tokens": 2660,
+              "output_tokens": 124,
+              "cached_input_tokens": 2657,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001512,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0d3cf81e0e842220016ac40425eddc87d0bf382538cfa2d144",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 323,
+                "page": 323,
+                "excerpt": "of manners which she had yesterday witnessed however temporary its existence might prove, had at least outlived one day. When she saw him thus seeking the acquaintance and courting the good opinion of people with whom any intercourse a few months ago would have been a disgrace— when she saw him thus civil, not only to herself, but to the very relations whom he had openly disdained, and recol lected their last…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": false,
+            "gold_cited": false,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "live_fr_why_second_creature",
+      "question_id": null,
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "Why does Victor stop making a second creature?",
+      "role": "why_later_explanation",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        397
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "Why does Victor stop making a second creature?"
+          ],
+          "hybrid_pool20_ids": [
+            90,
+            334,
+            106,
+            141,
+            97,
+            109,
+            336,
+            85,
+            108,
+            143,
+            134,
+            95,
+            381,
+            266,
+            148,
+            397,
+            150,
+            235,
+            253,
+            119
+          ],
+          "qwen_top5_ids": [
+            397,
+            148,
+            108,
+            334,
+            150
+          ],
+          "gold_rank_in_hybrid20": 16,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 1.057,
+            "qwen_rerank": 10.135,
+            "sol_api": 4.263,
+            "total_wait": 15.457
+          },
+          "sol": {
+            "answer": "In his later explanation, Victor says he refused to create a companion because his duty to humanity outweighed his duty to the first creature: the happiness or misery of many people mattered more than the creature’s welfare.",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "Why Victor stops making a second creature.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 397,
+                "page": 252,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              397
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 4.263,
+            "cost": {
+              "input_tokens": 2162,
+              "output_tokens": 93,
+              "cached_input_tokens": 2159,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001152,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0323b416fd44dbfc016ac40436417887d096e8dd5cebc62c64",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 397,
+                "page": 252,
+                "excerpt": "my power, his happiness and well-being. This was my duty; but there was another still paramount to that. My duties towards my fellow-creatures had greater claims to my attention, because they included a greater proportion of happiness or misery. Urged by this view, I refused, and I did right in refusing, to create a companion for the first creature. He shewed unparalleled malignity and selfishness, in evil: he…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "Why does Victor stop making a second creature?"
+          ],
+          "hybrid_pool20_ids": [
+            90,
+            334,
+            106,
+            141,
+            97,
+            109,
+            336,
+            85,
+            108,
+            143,
+            134,
+            95,
+            381,
+            266,
+            148,
+            397,
+            150,
+            235,
+            253,
+            119
+          ],
+          "qwen_top5_ids": [
+            397,
+            148,
+            108,
+            334,
+            150
+          ],
+          "gold_rank_in_hybrid20": 16,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 0.883,
+            "qwen_rerank": 13.48,
+            "sol_api": 4.765,
+            "total_wait": 19.13
+          },
+          "sol": {
+            "answer": "In his later explanation, Victor says he refused to create a companion because his duty to protect his fellow human beings outweighed his duty to secure the first creature’s happiness. He believed humanity’s potential happiness or misery had the greater claim on him.",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "Why Victor stops making a second creature.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 397,
+                "page": 252,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              397
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 4.765,
+            "cost": {
+              "input_tokens": 2162,
+              "output_tokens": 100,
+              "cached_input_tokens": 2159,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001222,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_08b985ea3d51df84016ac40448be8887d0b25b8134ea136e8d",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 397,
+                "page": 252,
+                "excerpt": "my power, his happiness and well-being. This was my duty; but there was another still paramount to that. My duties towards my fellow-creatures had greater claims to my attention, because they included a greater proportion of happiness or misery. Urged by this view, I refused, and I did right in refusing, to create a companion for the first creature. He shewed unparalleled malignity and selfishness, in evil: he…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "fr_011_creation",
+      "question_id": "fr_011",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "On what kind of November night does Victor finish his toils, what time is it, and what does he see when the creature's dull yellow eye opens?",
+      "role": "known_success",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        77
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "On what kind of November night does Victor finish his toils, what time is it, and what does he see when the creature's dull yellow eye opens?"
+          ],
+          "hybrid_pool20_ids": [
+            77,
+            97,
+            351,
+            106,
+            90,
+            119,
+            109,
+            248,
+            95,
+            107,
+            143,
+            150,
+            85,
+            348,
+            83,
+            274,
+            196,
+            148,
+            79,
+            336
+          ],
+          "qwen_top5_ids": [
+            77,
+            248,
+            83,
+            351,
+            274
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 1.556,
+            "qwen_rerank": 16.29,
+            "sol_api": 4.201,
+            "total_wait": 22.062
+          },
+          "sol": {
+            "answer": "Victor finishes his toils on a “dreary night of November,” at one in the morning. By the glimmer of his nearly extinguished candle, he sees the creature’s dull yellow eye open; it breathes hard, and a convulsive motion agitates its limbs.",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The kind of November night, the time, and what Victor sees when the creature’s dull yellow eye opens.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 77,
+                "page": 55,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              77
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "dreary night of November,",
+                  "supported": true
+                }
+              ],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 4.201,
+            "cost": {
+              "input_tokens": 2764,
+              "output_tokens": 121,
+              "cached_input_tokens": 2761,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001492,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0c4530d233049b2c016ac4045f6b3487d0be3911b2c211cd71",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 77,
+                "page": 55,
+                "excerpt": "Chapter IV It was on a dreary night of November, that I beheld the accomplishment of my toils. With an anxiety that almost amounted to agony, I collected the instruments of life around me, that I might infuse a spark of being into the lifeless thing that lay at my feet. It was already one in the morning; the rain pattered dismally against the panes, and my candle was nearly burnt out, when, by the glimmer of the…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "On what kind of November night does Victor finish his toils, what time is it, and what does he see when the creature's dull yellow eye opens?"
+          ],
+          "hybrid_pool20_ids": [
+            77,
+            97,
+            351,
+            106,
+            90,
+            119,
+            109,
+            248,
+            95,
+            107,
+            143,
+            150,
+            85,
+            348,
+            83,
+            274,
+            196,
+            148,
+            79,
+            336
+          ],
+          "qwen_top5_ids": [
+            77,
+            248,
+            83,
+            351,
+            274
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 3.517,
+            "qwen_rerank": 15.359,
+            "sol_api": 3.933,
+            "total_wait": 22.811
+          },
+          "sol": {
+            "answer": "Victor finishes his toils on a dreary November night, at one in the morning. In the glimmer of his nearly extinguished candle, he sees the creature’s dull yellow eye open; it breathes hard, and a convulsive motion agitates its limbs (passage 77).",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The kind of November night, the time, and what Victor observes when the creature’s dull yellow eye opens.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 77,
+                "page": 55,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              77
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 3.933,
+            "cost": {
+              "input_tokens": 2764,
+              "output_tokens": 125,
+              "cached_input_tokens": 2761,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001532,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_04144afd9236f19f016ac404767e1487d0bca577b4e63c5cc8",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 77,
+                "page": 55,
+                "excerpt": "Chapter IV It was on a dreary night of November, that I beheld the accomplishment of my toils. With an anxiety that almost amounted to agony, I collected the instruments of life around me, that I might infuse a spark of being into the lifeless thing that lay at my feet. It was already one in the morning; the rain pattered dismally against the panes, and my candle was nearly burnt out, when, by the glimmer of the…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "fr_022_wedding_threat",
+      "question_id": "fr_022",
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "After Victor refuses to make a female companion, what exact threat does the creature utter as he goes, and in what does Victor then see him shoot across the water?",
+      "role": "known_success_exact_quote",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        298
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "After Victor refuses to make a female companion, what exact threat does the creature utter as he goes, and in what does Victor then see him shoot across the water?"
+          ],
+          "hybrid_pool20_ids": [
+            351,
+            253,
+            297,
+            334,
+            106,
+            160,
+            348,
+            298,
+            336,
+            397,
+            256,
+            342,
+            90,
+            148,
+            381,
+            134,
+            388,
+            246,
+            97,
+            258
+          ],
+          "qwen_top5_ids": [
+            298,
+            381,
+            253,
+            297,
+            397
+          ],
+          "gold_rank_in_hybrid20": 8,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 0.817,
+            "qwen_rerank": 14.466,
+            "sol_api": 4.441,
+            "total_wait": 19.727
+          },
+          "sol": {
+            "answer": "The creature threatens, “It is well. I go; but remember, I shall be with you on your wedding-night.” Victor then sees him in his boat, which shoots across the water “with an arrowy swiftness.”",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The creature’s exact departing threat after Victor refuses to create a female companion, and the vessel in which Victor sees him cross the water.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 298,
+                "page": 194,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              298
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "It is well. I go; but remember, I shall be with you on your wedding-night.",
+                  "supported": true
+                },
+                {
+                  "span": "with an arrowy swiftness.",
+                  "supported": false
+                }
+              ],
+              "all_supported": false,
+              "unsupported": [
+                "with an arrowy swiftness."
+              ],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 4.441,
+            "cost": {
+              "input_tokens": 1905,
+              "output_tokens": 119,
+              "cached_input_tokens": 1902,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001386,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0b970861f23bbe25016ac404899bb487d093fad971b5949985",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 298,
+                "page": 194,
+                "excerpt": "“It is well. I go; but remember, I shall be with you on your wedding-night.” I started forward, and exclaimed, “Villain! before you sign my death-warrant, be sure that you are yourself safe.” I would have seized him; but he eluded me, and quitted the house with precipitation: in a few moments I saw him in his boat, which shot across the waters with an arrowy swiftness, and was soon lost amidst the waves. 186 |…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": false,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": "After Victor refuses to make a female companion, what threat does the creature utter as he goes, and in what does Victor then see him shoot across the water?",
+          "queries_used": [
+            "After Victor refuses to make a female companion, what exact threat does the creature utter as he goes, and in what does Victor then see him shoot across the water?",
+            "After Victor refuses to make a female companion, what threat does the creature utter as he goes, and in what does Victor then see him shoot across the water?"
+          ],
+          "hybrid_pool20_ids": [
+            351,
+            253,
+            297,
+            334,
+            106,
+            160,
+            348,
+            298,
+            336,
+            397,
+            256,
+            342,
+            90,
+            148,
+            381,
+            134,
+            388,
+            246,
+            97,
+            258
+          ],
+          "qwen_top5_ids": [
+            298,
+            381,
+            253,
+            297,
+            397
+          ],
+          "gold_rank_in_hybrid20": 8,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 0.478,
+            "qwen_rerank": 13.259,
+            "sol_api": 3.767,
+            "total_wait": 17.505
+          },
+          "sol": {
+            "answer": "The creature threatens, “It is well. I go; but remember, I shall be with you on your wedding-night.” Victor then sees him in his boat, which shoots across the water “with an arrowy swiftness.”",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The creature’s exact departing threat after Victor refuses to create a female companion, and the vessel in which Victor sees him cross the water.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 298,
+                "page": 194,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              298
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "It is well. I go; but remember, I shall be with you on your wedding-night.",
+                  "supported": true
+                },
+                {
+                  "span": "with an arrowy swiftness.",
+                  "supported": false
+                }
+              ],
+              "all_supported": false,
+              "unsupported": [
+                "with an arrowy swiftness."
+              ],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 3.767,
+            "cost": {
+              "input_tokens": 1905,
+              "output_tokens": 119,
+              "cached_input_tokens": 1902,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001386,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_027b32423eae15ae016ac4049bc3d487d09ce1ff181b2d7725",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 298,
+                "page": 194,
+                "excerpt": "“It is well. I go; but remember, I shall be with you on your wedding-night.” I started forward, and exclaimed, “Villain! before you sign my death-warrant, be sure that you are yourself safe.” I would have seized him; but he eluded me, and quitted the house with precipitation: in a few moments I saw him in his boat, which shot across the waters with an arrowy swiftness, and was soon lost amidst the waves. 186 |…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": false,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "pp_001_opening",
+      "question_id": "pp_001",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "What truth is universally acknowledged in the opening of Pride and Prejudice about a single man in possession of a good fortune?",
+      "role": "known_success",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        1
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "What truth is universally acknowledged in the opening of Pride and Prejudice about a single man in possession of a good fortune?"
+          ],
+          "hybrid_pool20_ids": [
+            1,
+            188,
+            18,
+            88,
+            362,
+            280,
+            358,
+            11,
+            252,
+            154,
+            54,
+            182,
+            460,
+            336,
+            24,
+            374,
+            422,
+            326,
+            476,
+            338
+          ],
+          "qwen_top5_ids": [
+            1,
+            460,
+            336,
+            358,
+            188
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 0.287,
+            "qwen_rerank": 12.747,
+            "sol_api": 3.407,
+            "total_wait": 16.442
+          },
+          "sol": {
+            "answer": "The universally acknowledged truth is that a single man in possession of a good fortune “must be in want of a wife.”",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The universally acknowledged truth about a wealthy single man stated in the opening of Pride and Prejudice.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 1,
+                "page": 2,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              1
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "must be in want of a wife.",
+                  "supported": true
+                }
+              ],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 3.407,
+            "cost": {
+              "input_tokens": 2616,
+              "output_tokens": 87,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2613,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.012634,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0607d7be7a27f3de016ac404ac921c87d0a637561fa2176b9e",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 1,
+                "page": 2,
+                "excerpt": "Chapter 1 I t is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters. ‘My dear Mr. Bennet,’ said his…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "What truth is universally acknowledged in the opening of Pride and Prejudice about a single man in possession of a good fortune?"
+          ],
+          "hybrid_pool20_ids": [
+            1,
+            188,
+            18,
+            88,
+            362,
+            280,
+            358,
+            11,
+            252,
+            154,
+            54,
+            182,
+            460,
+            336,
+            24,
+            374,
+            422,
+            326,
+            476,
+            338
+          ],
+          "qwen_top5_ids": [
+            1,
+            460,
+            336,
+            358,
+            188
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 1.305,
+            "qwen_rerank": 13.19,
+            "sol_api": 3.307,
+            "total_wait": 17.805
+          },
+          "sol": {
+            "answer": "The universally acknowledged truth is that “a single man in possession of a good fortune, must be in want of a wife.”",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The universally acknowledged truth about a wealthy single man in the opening of Pride and Prejudice.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 1,
+                "page": 2,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              1
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "a single man in possession of a good fortune, must be in want of a wife.",
+                  "supported": true
+                }
+              ],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 3.307,
+            "cost": {
+              "input_tokens": 2616,
+              "output_tokens": 87,
+              "cached_input_tokens": 2613,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001137,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0aab166bc035032a016ac404be799087d0a6690ad21832f38a",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 1,
+                "page": 2,
+                "excerpt": "Chapter 1 I t is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters. ‘My dear Mr. Bennet,’ said his…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "pp_007_tolerable",
+      "question_id": "pp_007",
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "When Mr Bingley urges Darcy to dance at the assembly and points out Elizabeth sitting down, what does Darcy say about her looks and about giving consequence to young ladies?",
+      "role": "known_success_exact_quote",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        12
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "When Mr Bingley urges Darcy to dance at the assembly and points out Elizabeth sitting down, what does Darcy say about her looks and about giving consequence to young ladies?"
+          ],
+          "hybrid_pool20_ids": [
+            12,
+            31,
+            28,
+            103,
+            32,
+            11,
+            333,
+            63,
+            68,
+            113,
+            231,
+            121,
+            108,
+            412,
+            411,
+            23,
+            116,
+            55,
+            457,
+            219
+          ],
+          "qwen_top5_ids": [
+            12,
+            333,
+            31,
+            219,
+            68
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 1.816,
+            "qwen_rerank": 12.676,
+            "sol_api": 4.25,
+            "total_wait": 18.743
+          },
+          "sol": {
+            "answer": "Darcy says, “She is tolerable, but not handsome enough to tempt ME; I am in no humour at present to give consequence to young ladies who are slighted by other men.” [12]",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "Darcy’s remarks about Elizabeth’s looks and giving consequence to young ladies when Bingley urges him to dance at the assembly.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 12,
+                "page": 13,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              12
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "She is tolerable, but not handsome enough to tempt ME; I am in no humour at present to give consequence to young ladies who are slighted by other men.",
+                  "supported": true
+                }
+              ],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 4.25,
+            "cost": {
+              "input_tokens": 2677,
+              "output_tokens": 112,
+              "cached_input_tokens": 2674,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001393,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0f51d359621b8815016ac404d041c887d0bad98042292af216",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 12,
+                "page": 13,
+                "excerpt": "1Free eBooks at Planet eBook.com that time, Mr. Darcy had been standing near enough for her to hear a conversation between him and Mr. Bingley, who came from the dance for a few minutes, to press his friend to join it. ‘Come, Darcy,’ said he, ‘I must have you dance. I hate to see you standing about by yourself in this stupid manner. You had much better dance.’ ‘I certainly shall not. You know how I detest it,…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "When Mr Bingley urges Darcy to dance at the assembly and points out Elizabeth sitting down, what does Darcy say about her looks and about giving consequence to young ladies?"
+          ],
+          "hybrid_pool20_ids": [
+            12,
+            31,
+            28,
+            103,
+            32,
+            11,
+            333,
+            63,
+            68,
+            113,
+            231,
+            121,
+            108,
+            412,
+            411,
+            23,
+            116,
+            55,
+            457,
+            219
+          ],
+          "qwen_top5_ids": [
+            12,
+            333,
+            31,
+            219,
+            68
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 0.305,
+            "qwen_rerank": 13.909,
+            "sol_api": 3.894,
+            "total_wait": 18.11
+          },
+          "sol": {
+            "answer": "Darcy says, “She is tolerable, but not handsome enough to tempt ME; I am in no humour at present to give consequence to young ladies who are slighted by other men.”",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "Darcy’s remarks about Elizabeth’s looks and giving consequence to young ladies when Bingley urges him to dance at the assembly.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 12,
+                "page": 13,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              12
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": true,
+              "spans": [
+                {
+                  "span": "She is tolerable, but not handsome enough to tempt ME; I am in no humour at present to give consequence to young ladies who are slighted by other men.",
+                  "supported": true
+                }
+              ],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "Quote support requires the normalized words to appear in a cited passage."
+            },
+            "api_time_seconds": 3.894,
+            "cost": {
+              "input_tokens": 2677,
+              "output_tokens": 127,
+              "cached_input_tokens": 2674,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001543,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_02a87b80fdf49acc016ac404e2beb087d0bd35d512fa82306f",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 12,
+                "page": 13,
+                "excerpt": "1Free eBooks at Planet eBook.com that time, Mr. Darcy had been standing near enough for her to hear a conversation between him and Mr. Bingley, who came from the dance for a few minutes, to press his friend to join it. ‘Come, Darcy,’ said he, ‘I must have you dance. I hate to see you standing about by yourself in this stupid manner. You had much better dance.’ ‘I certainly shall not. You know how I detest it,…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "tp2_001_portable",
+      "question_id": "tp2_001",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "role": "known_success",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        66
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?"
+          ],
+          "hybrid_pool20_ids": [
+            66,
+            65,
+            78,
+            5,
+            67,
+            75,
+            3,
+            333,
+            0,
+            18,
+            83,
+            79,
+            4,
+            87,
+            1,
+            99,
+            70,
+            76,
+            348,
+            174
+          ],
+          "qwen_top5_ids": [
+            66,
+            65,
+            78,
+            0,
+            333
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 2.544,
+            "qwen_rerank": 14.461,
+            "sol_api": 3.765,
+            "total_wait": 20.776
+          },
+          "sol": {
+            "answer": "Think Python emphasizes that high-level languages make programming easier: programs take less time to write, are shorter and easier to read, and are more likely to be correct. They are also portable, meaning their programs can run on different kinds of computers with few or no modifications [66].",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The advantages of high-level languages emphasized by Think Python and the meaning of portability.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 66,
+                "page": 23,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              66
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 3.765,
+            "cost": {
+              "input_tokens": 1860,
+              "output_tokens": 134,
+              "cached_input_tokens": 1857,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001532,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0e4d55288f50d8a8016ac404f7bc9087d092fbcc48d3b7c618",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 66,
+                "page": 23,
+                "excerpt": "high-level languages. The advantages are enormous. First, it is much easier to program in a high-level language. Programs written in a high-level language take less time to write, they are shorter and easier to read, and they are more likely to be correct. Second, high-level languages are portable, meaning that they can run on different kinds of computers with few or no modiﬁcations. Low-level programs can run on…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?"
+          ],
+          "hybrid_pool20_ids": [
+            66,
+            65,
+            78,
+            5,
+            67,
+            75,
+            3,
+            333,
+            0,
+            18,
+            83,
+            79,
+            4,
+            87,
+            1,
+            99,
+            70,
+            76,
+            348,
+            174
+          ],
+          "qwen_top5_ids": [
+            66,
+            65,
+            78,
+            0,
+            333
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 1,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 3.621,
+            "qwen_rerank": 13.279,
+            "sol_api": 3.821,
+            "total_wait": 20.721
+          },
+          "sol": {
+            "answer": "Think Python emphasizes that high-level languages make programming easier: programs take less time to write, are shorter and easier to read, and are more likely to be correct. They are also portable, meaning their programs can run on different kinds of computers with few or no modifications [66].",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The advantages of high-level languages and the meaning of portability.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 66,
+                "page": 23,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              66
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 3.821,
+            "cost": {
+              "input_tokens": 1860,
+              "output_tokens": 112,
+              "cached_input_tokens": 1857,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001312,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_054a99c263a8800b016ac4050c7e7c87d0933e32f6e3906616",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 66,
+                "page": 23,
+                "excerpt": "high-level languages. The advantages are enormous. First, it is much easier to program in a high-level language. Programs written in a high-level language take less time to write, they are shorter and easier to read, and they are more likely to be correct. Second, high-level languages are portable, meaning that they can run on different kinds of computers with few or no modiﬁcations. Low-level programs can run on…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "tp2_014_recursion",
+      "question_id": "tp2_014",
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "What is infinite recursion, and what error does Python report when the maximum recursion depth is reached?",
+      "role": "known_success",
+      "expects_answerable": true,
+      "gold_passage_ids": [
+        144
+      ],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "What is infinite recursion, and what error does Python report when the maximum recursion depth is reached?"
+          ],
+          "hybrid_pool20_ids": [
+            144,
+            404,
+            405,
+            403,
+            147,
+            400,
+            149,
+            164,
+            145,
+            165,
+            174,
+            182,
+            142,
+            298,
+            159,
+            297,
+            153,
+            241,
+            136,
+            408
+          ],
+          "qwen_top5_ids": [
+            404,
+            144,
+            405,
+            400,
+            149
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 2,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 1.524,
+            "qwen_rerank": 14.507,
+            "sol_api": 3.635,
+            "total_wait": 19.669
+          },
+          "sol": {
+            "answer": "Infinite recursion occurs when a recursive function never reaches a base case and keeps making recursive calls. When the maximum recursion depth is reached, Python reports `RuntimeError: Maximum recursion depth exceeded` (passage 144).",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The definition of infinite recursion and the error Python reports when maximum recursion depth is reached.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 144,
+                "page": 68,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              144
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 3.635,
+            "cost": {
+              "input_tokens": 2482,
+              "output_tokens": 104,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2479,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.012202,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_05f77bf86937353a016ac4052043e087d0b19376c0fa5f5d30",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 144,
+                "page": 68,
+                "excerpt": "46 Chapter 5. Conditionals and recursion <module> countdown countdown countdown countdown n 3 n 2 n 1 n 0 Figure 5.1: Stack diagram. 5.10 Inﬁnite recursion If a recursion never reaches a base case, it goes on making recursive calls forever, and the program never terminates. This is known as inﬁnite recursion , and it is generally not a good idea. Here is a minimal program with an inﬁnite recursion: def recurse():…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "What is infinite recursion, and what error does Python report when the maximum recursion depth is reached?"
+          ],
+          "hybrid_pool20_ids": [
+            144,
+            404,
+            405,
+            403,
+            147,
+            400,
+            149,
+            164,
+            145,
+            165,
+            174,
+            182,
+            142,
+            298,
+            159,
+            297,
+            153,
+            241,
+            136,
+            408
+          ],
+          "qwen_top5_ids": [
+            404,
+            144,
+            405,
+            400,
+            149
+          ],
+          "gold_rank_in_hybrid20": 1,
+          "gold_rank_in_sol5": 2,
+          "correct_passage_in_hybrid20": true,
+          "correct_passage_in_sol5": true,
+          "timings_seconds": {
+            "retrieve_hybrid": 1.559,
+            "qwen_rerank": 14.354,
+            "sol_api": 3.433,
+            "total_wait": 19.348
+          },
+          "sol": {
+            "answer": "Infinite recursion occurs when a recursion never reaches a base case and keeps making recursive calls. When the maximum recursion depth is reached, Python reports `RuntimeError: Maximum recursion depth exceeded` (passage 144).",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "event_match": "direct_answer",
+            "asked_event": "The definition of infinite recursion and the error Python reports when maximum recursion depth is reached.",
+            "missing_evidence": "",
+            "citations": [
+              {
+                "passage_id": 144,
+                "page": 68,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              144
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 3.433,
+            "cost": {
+              "input_tokens": 2482,
+              "output_tokens": 103,
+              "cached_input_tokens": 2479,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001284,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0966c34e31d0b56e016ac40533bc1887d08391a56de6720d9e",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 144,
+                "page": 68,
+                "excerpt": "46 Chapter 5. Conditionals and recursion <module> countdown countdown countdown countdown n 3 n 2 n 1 n 0 Figure 5.1: Stack diagram. 5.10 Inﬁnite recursion If a recursion never reaches a base case, it goes on making recursive calls forever, and the program never terminates. This is known as inﬁnite recursion , and it is generally not a good idea. Here is a minimal program with an inﬁnite recursion: def recurse():…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": true,
+            "gold_cited": true,
+            "enough_evidence_flag": true,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": true
+          }
+        }
+      }
+    },
+    {
+      "id": "tp_missing_tensorflow",
+      "question_id": null,
+      "book": "thinkpython",
+      "book_id": "thinkpython",
+      "question": "According to this book, how do you install TensorFlow and PyTorch?",
+      "role": "unanswerable",
+      "expects_answerable": false,
+      "gold_passage_ids": [],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "According to this book, how do you install TensorFlow and PyTorch?"
+          ],
+          "hybrid_pool20_ids": [
+            118,
+            2,
+            5,
+            350,
+            3,
+            11,
+            4,
+            65,
+            10,
+            278,
+            8,
+            23,
+            103,
+            133,
+            386,
+            433,
+            396,
+            383,
+            199,
+            275
+          ],
+          "qwen_top5_ids": [
+            2,
+            118,
+            8,
+            433,
+            4
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": null,
+          "correct_passage_in_sol5": null,
+          "timings_seconds": {
+            "retrieve_hybrid": 1.459,
+            "qwen_rerank": 12.661,
+            "sol_api": 4.017,
+            "total_wait": 18.137
+          },
+          "sol": {
+            "answer": "The supplied passages do not explain how to install TensorFlow or PyTorch. The installation guidance provided is for Swampy: download it from http://thinkpython.com/swampy and follow the instructions there [118].",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "event_match": "absent",
+            "asked_event": "How to install TensorFlow and PyTorch according to the book.",
+            "missing_evidence": "No supplied passage contains installation instructions for TensorFlow or PyTorch.",
+            "citations": [
+              {
+                "passage_id": 118,
+                "page": 53,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              118
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 4.017,
+            "cost": {
+              "input_tokens": 1920,
+              "output_tokens": 114,
+              "cached_input_tokens": 1917,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001338,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0450fa39ceb3e1cf016ac4054546d087d0b1719786480ac198",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 118,
+                "page": 53,
+                "excerpt": "Chapter 4 Case study: interface design Code examples from this chapter are available from http://thinkpython.com/code/ polygon.py . 4.1 T urtleWorld To accompany this book, I have written a package called Swampy. You can download Swampy from http://thinkpython.com/swampy ; follow the instructions there to install Swampy on your system. A package is a collection of modules; one of the modules in Swampy is…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": null,
+            "gold_cited": null,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": false
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "According to this book, how do you install TensorFlow and PyTorch?"
+          ],
+          "hybrid_pool20_ids": [
+            118,
+            2,
+            5,
+            350,
+            3,
+            11,
+            4,
+            65,
+            10,
+            278,
+            8,
+            23,
+            103,
+            133,
+            386,
+            433,
+            396,
+            383,
+            199,
+            275
+          ],
+          "qwen_top5_ids": [
+            2,
+            118,
+            8,
+            433,
+            4
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": null,
+          "correct_passage_in_sol5": null,
+          "timings_seconds": {
+            "retrieve_hybrid": 0.747,
+            "qwen_rerank": 14.184,
+            "sol_api": 3.795,
+            "total_wait": 18.726
+          },
+          "sol": {
+            "answer": "The supplied passages do not explain how to install TensorFlow or PyTorch. The installation guidance provided is for Swampy: download it from http://thinkpython.com/swampy and follow the instructions there [118].",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "event_match": "absent",
+            "asked_event": "The book’s instructions for installing TensorFlow and PyTorch.",
+            "missing_evidence": "No supplied passage contains installation instructions for TensorFlow or PyTorch.",
+            "citations": [
+              {
+                "passage_id": 118,
+                "page": 53,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              118
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 3.795,
+            "cost": {
+              "input_tokens": 1920,
+              "output_tokens": 113,
+              "cached_input_tokens": 1917,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001328,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0447702fd44e8d4d016ac40558529887d08de2431312476fa9",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 118,
+                "page": 53,
+                "excerpt": "Chapter 4 Case study: interface design Code examples from this chapter are available from http://thinkpython.com/code/ polygon.py . 4.1 T urtleWorld To accompany this book, I have written a package called Swampy. You can download Swampy from http://thinkpython.com/swampy ; follow the instructions there to install Swampy on your system. A package is a collection of modules; one of the modules in Swampy is…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": null,
+            "gold_cited": null,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": false
+          }
+        }
+      }
+    },
+    {
+      "id": "fr_missing_smartphone",
+      "question_id": null,
+      "book": "frankenstein",
+      "book_id": "frankenstein_1532610843_print",
+      "question": "According to this book, what smartphone model does Walton use to message Margaret?",
+      "role": "unanswerable",
+      "expects_answerable": false,
+      "gold_passage_ids": [],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "According to this book, what smartphone model does Walton use to message Margaret?"
+          ],
+          "hybrid_pool20_ids": [
+            398,
+            382,
+            13,
+            32,
+            19,
+            380,
+            386,
+            14,
+            389,
+            20,
+            22,
+            396,
+            399,
+            28,
+            11,
+            23,
+            95,
+            121,
+            293,
+            96
+          ],
+          "qwen_top5_ids": [
+            19,
+            13,
+            382,
+            32,
+            398
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": null,
+          "correct_passage_in_sol5": null,
+          "timings_seconds": {
+            "retrieve_hybrid": 2.708,
+            "qwen_rerank": 14.438,
+            "sol_api": 4.061,
+            "total_wait": 21.21
+          },
+          "sol": {
+            "answer": "The supplied passages do not identify any smartphone model. The related correspondence instead has Walton asking Margaret to write to him and referring to receiving her letters.",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "event_match": "nearby_only",
+            "asked_event": "The smartphone model Walton uses to message Margaret.",
+            "missing_evidence": "No supplied passage describes Walton using a smartphone to message Margaret or names a smartphone model.",
+            "citations": [
+              {
+                "passage_id": 19,
+                "page": 18,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              19
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 4.061,
+            "cost": {
+              "input_tokens": 2460,
+              "output_tokens": 99,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2457,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.012052,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0c7b1d5aadda424a016ac4056d2b3c87d0a7439bb584544da0",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 19,
+                "page": 18,
+                "excerpt": "Shall I meet you again, after having traversed immense seas, and returned by the most southern cape of Africa or America? I dare not expect such success, yet I cannot bear to look on the reverse of the picture. Continue to write to me by every opportunity: I may receive your letters (though the chance is very doubtful) on some occasions when I need them most to support my spirits. I love you very tenderly. Remember…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": null,
+            "gold_cited": null,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": false
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "According to this book, what smartphone model does Walton use to message Margaret?"
+          ],
+          "hybrid_pool20_ids": [
+            398,
+            382,
+            13,
+            32,
+            19,
+            380,
+            386,
+            14,
+            389,
+            20,
+            22,
+            396,
+            399,
+            28,
+            11,
+            23,
+            95,
+            121,
+            293,
+            96
+          ],
+          "qwen_top5_ids": [
+            19,
+            13,
+            382,
+            32,
+            398
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": null,
+          "correct_passage_in_sol5": null,
+          "timings_seconds": {
+            "retrieve_hybrid": 2.448,
+            "qwen_rerank": 12.908,
+            "sol_api": 3.472,
+            "total_wait": 18.829
+          },
+          "sol": {
+            "answer": "The supplied passages do not name a smartphone model. They instead show Walton writing to Margaret and asking her to continue sending letters (passages 13 and 19).",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "event_match": "nearby_only",
+            "asked_event": "The smartphone model Walton uses to message Margaret.",
+            "missing_evidence": "No supplied passage states that Walton uses a smartphone to message Margaret or identifies a model.",
+            "citations": [
+              {
+                "passage_id": 13,
+                "page": 14,
+                "page_source": "stage1_chunk_metadata"
+              },
+              {
+                "passage_id": 19,
+                "page": 18,
+                "page_source": "stage1_chunk_metadata"
+              }
+            ],
+            "supporting_passage_ids": [
+              13,
+              19
+            ],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 3.472,
+            "cost": {
+              "input_tokens": 2460,
+              "output_tokens": 106,
+              "cached_input_tokens": 2457,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001312,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_03e8625d163c4d8a016ac405809bdc87d097a78441cbd5644d",
+            "display_excerpt_sample": [
+              {
+                "passage_id": 13,
+                "page": 14,
+                "excerpt": "depressed. I am about to proceed on a long and difficult voyage; the emergencies of which will demand all my fortitude: I am required not only to raise the spirits of others, but sometimes to sustain my own, when their’s are failing. This is the most favourable period for travelling in Russia. They fly quickly over the snow in their sledges; the motion is pleasant, and, in my opinion, far more agreeable than that…"
+              },
+              {
+                "passage_id": 19,
+                "page": 18,
+                "excerpt": "Shall I meet you again, after having traversed immense seas, and returned by the most southern cape of Africa or America? I dare not expect such success, yet I cannot bear to look on the reverse of the picture. Continue to write to me by every opportunity: I may receive your letters (though the chance is very doubtful) on some occasions when I need them most to support my spirits. I love you very tenderly. Remember…"
+              }
+            ]
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": null,
+            "gold_cited": null,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": false
+          }
+        }
+      }
+    },
+    {
+      "id": "pp_missing_email",
+      "question_id": null,
+      "book": "pride",
+      "book_id": "pride_and_prejudice",
+      "question": "According to this book, what is Elizabeth Bennet's email address?",
+      "role": "unanswerable",
+      "expects_answerable": false,
+      "gold_passage_ids": [],
+      "methods": {
+        "baseline_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "According to this book, what is Elizabeth Bennet's email address?"
+          ],
+          "hybrid_pool20_ids": [
+            429,
+            157,
+            446,
+            445,
+            435,
+            89,
+            367,
+            45,
+            169,
+            433,
+            63,
+            415,
+            277,
+            21,
+            139,
+            294,
+            425,
+            263,
+            161,
+            75
+          ],
+          "qwen_top5_ids": [
+            433,
+            75,
+            157,
+            446,
+            445
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": null,
+          "correct_passage_in_sol5": null,
+          "timings_seconds": {
+            "retrieve_hybrid": 2.722,
+            "qwen_rerank": 11.374,
+            "sol_api": 2.913,
+            "total_wait": 17.01
+          },
+          "sol": {
+            "answer": "The supplied passages do not state an email address for Elizabeth Bennet.",
+            "enough_evidence": false,
+            "evidence_label": "The supplied passages do not answer this question",
+            "event_match": "absent",
+            "asked_event": "Elizabeth Bennet’s email address according to the book.",
+            "missing_evidence": "No supplied passage gives Elizabeth Bennet’s email address.",
+            "citations": [],
+            "supporting_passage_ids": [],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 2.913,
+            "cost": {
+              "input_tokens": 2484,
+              "output_tokens": 78,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2481,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.01195,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0b6b39fea03a5d30016ac40592337487d0b78ac54c6f715014",
+            "display_excerpt_sample": []
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": null,
+            "gold_cited": null,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": false
+          }
+        },
+        "dual_query_merge_hybrid20_qwen5": {
+          "alternative_phrasing": null,
+          "queries_used": [
+            "According to this book, what is Elizabeth Bennet's email address?"
+          ],
+          "hybrid_pool20_ids": [
+            429,
+            157,
+            446,
+            445,
+            435,
+            89,
+            367,
+            45,
+            169,
+            433,
+            63,
+            415,
+            277,
+            21,
+            139,
+            294,
+            425,
+            263,
+            161,
+            75
+          ],
+          "qwen_top5_ids": [
+            433,
+            75,
+            157,
+            446,
+            445
+          ],
+          "gold_rank_in_hybrid20": null,
+          "gold_rank_in_sol5": null,
+          "correct_passage_in_hybrid20": null,
+          "correct_passage_in_sol5": null,
+          "timings_seconds": {
+            "retrieve_hybrid": 0.359,
+            "qwen_rerank": 13.726,
+            "sol_api": 3.334,
+            "total_wait": 17.421
+          },
+          "sol": {
+            "answer": "The supplied passages do not give Elizabeth Bennet’s email address.",
+            "enough_evidence": false,
+            "evidence_label": "The supplied passages do not answer this question",
+            "event_match": "absent",
+            "asked_event": "Elizabeth Bennet’s email address according to the book.",
+            "missing_evidence": "No supplied passage states an email address for Elizabeth Bennet.",
+            "citations": [],
+            "supporting_passage_ids": [],
+            "quote_check": {
+              "asks_or_uses_quotes": false,
+              "spans": [],
+              "all_supported": true,
+              "unsupported": [],
+              "note": "No quoted spans of length >= 8 in the answer."
+            },
+            "api_time_seconds": 3.334,
+            "cost": {
+              "input_tokens": 2484,
+              "output_tokens": 78,
+              "cached_input_tokens": 2481,
+              "cache_write_tokens": 0,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.001034,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            },
+            "response_id": "resp_0f0b4b7236149fe2016ac405a33a3087d0a5e721fc364981c7",
+            "display_excerpt_sample": []
+          },
+          "judgments": {
+            "correct_passage_found_in_sol5": null,
+            "gold_cited": null,
+            "enough_evidence_flag": false,
+            "quote_words_in_cited_passage": true,
+            "expects_answerable": false
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "artifact": "sol_citation_reliability_cases_and_rules",
+  "frozen_before_api_calls": true,
+  "production_pipeline_changed": false,
+  "instruction_name": "revised_scene_and_citation",
+  "original_instruction_name": "original_short_grounded",
+  "do_not_send_to_sol": [
+    "frozen gold chunk IDs",
+    "expected answers",
+    "these evaluation rules"
+  ],
+  "passage_source": "saved Qwen lists only; pages from Stage 1 chunk metadata",
+  "budget_usd": 2.0,
+  "stop_usd": 1.75,
+  "scoring": {
+    "four_dimensions": [
+      {
+        "id": "answer_correctness",
+        "rule": "Is the content true to the book and to the specific question asked? A later-echo fact can be true and still fail this if presented as the requested scene."
+      },
+      {
+        "id": "evidence_sufficiency",
+        "rule": "asked_scene if the five contain the requested scene; later_or_related if they only have a later repeat or adjacent page; missing if they contain neither. Frozen gold IDs stay unchanged and are not the only sufficiency test."
+      },
+      {
+        "id": "citation_correctness",
+        "rule": "Each displayed citation must be a sent ID with a Stage 1 page (code). Separately, each must directly support the claim it is attached to (human). Extra citations that do not support a claim fail."
+      },
+      {
+        "id": "refusal_or_qualification",
+        "rule": "If asked_scene is missing, Sol should refuse or clearly qualify. enough_evidence true is wrong when only a later repeat or related page is present."
+      }
+    ],
+    "code_checks_are_not_support": true
+  },
+  "cases": [
+    {
+      "id": "pp_003_top5_later_echo",
+      "pair": "bingley_income",
+      "question_id": "pp_003",
+      "book": "pride",
+      "passage_set": "qwen_top5",
+      "compare_original_case_id": "pp_003",
+      "expected_evidence": "later_or_related",
+      "retrieval_gold_chunk_indexes": [2],
+      "note": "Opening Netherfield-let naming is gold 2 (not in Qwen 20). Qwen top 5 includes later 429 income echo and trap 51.",
+      "citation_should_not_include": [51],
+      "desired_behavior": "Do not treat 429 as the opening scene. Qualify as a later repeat. If citing, 429 only for the later income remark."
+    },
+    {
+      "id": "pp_003_tail5_absent",
+      "pair": "bingley_income",
+      "question_id": "pp_003",
+      "book": "pride",
+      "passage_set": "qwen_tail5",
+      "compare_original_case_id": null,
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [2],
+      "note": "Qwen ranks 16–20. Includes Darcy ten-thousand (11), not opening Bingley income and not 429.",
+      "citation_should_not_include": [11],
+      "desired_behavior": "Refuse. Do not report Darcy’s income as Bingley’s Netherfield fortune."
+    },
+    {
+      "id": "pp_028_top5_adjacent",
+      "pair": "lady_catherine",
+      "question_id": "pp_028",
+      "book": "pride",
+      "passage_set": "qwen_top5",
+      "compare_original_case_id": "pp_028",
+      "expected_evidence": "later_or_related",
+      "retrieval_gold_chunk_indexes": [438],
+      "note": "Gold 438 (Obstinate, headstrong girl; formed for each other) is not in Qwen 20. Top 5 starts at 439.",
+      "citation_should_not_include": [],
+      "desired_behavior": "Refuse the asked epithet and formed-for-each-other line. May note Miss Bennet on 439 as related only, with enough_evidence false."
+    },
+    {
+      "id": "pp_028_tail5_absent",
+      "pair": "lady_catherine",
+      "question_id": "pp_028",
+      "book": "pride",
+      "passage_set": "qwen_tail5",
+      "compare_original_case_id": null,
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [438],
+      "note": "Farther Qwen ranks; 438 still absent.",
+      "citation_should_not_include": [],
+      "desired_behavior": "Refuse. Do not invent Obstinate, headstrong girl."
+    },
+    {
+      "id": "tp2_002_top5_extra_cite_trap",
+      "pair": "interpreter_compiler",
+      "question_id": "tp2_002",
+      "book": "thinkpython",
+      "passage_set": "qwen_top5",
+      "compare_original_case_id": "tp2_002",
+      "expected_evidence": "asked_scene",
+      "retrieval_gold_chunk_indexes": [67],
+      "note": "Gold 67 is Qwen rank 1. Rank 2 is debugging passage 78, the extra-citation trap.",
+      "citation_should_not_include": [78],
+      "desired_behavior": "Answer from 67. Cite 67 only (or other passages that actually define interpreter vs compiler). Do not cite 78."
+    },
+    {
+      "id": "tp2_002_tail5_absent",
+      "pair": "interpreter_compiler",
+      "question_id": "tp2_002",
+      "book": "thinkpython",
+      "passage_set": "qwen_tail5",
+      "compare_original_case_id": null,
+      "expected_evidence": "missing",
+      "retrieval_gold_chunk_indexes": [67],
+      "note": "Qwen ranks 16–20. Not the interpreter/compiler definition in 67.",
+      "citation_should_not_include": [],
+      "desired_behavior": "Refuse if those passages do not define interpreter vs compiler."
+    }
+  ]
+}

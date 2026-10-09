@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BookRAG</title>
+  <style>
+    :root {
+      --ivory: #f7f3ea;
+      --paper: #fffdf8;
+      --navy: #1c2d5a;
+      --navy-soft: #2a3d6e;
+      --brass: #a67c2d;
+      --brass-deep: #8a6420;
+      --ink: #1f2430;
+      --muted: #6d6558;
+      --line: #e4d9c4;
+      --parchment: #f3ead6;
+      --highlight: #f6e7a8;
+      --ok: #2d6a3a;
+      --ok-bg: #e7f3ea;
+      --warn: #8a5a12;
+      --warn-bg: #f8eedc;
+      --err: #8b2e2e;
+      --err-bg: #f8e7e5;
+      --shadow: 0 10px 30px rgba(28, 45, 90, 0.06);
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      background: var(--ivory);
+      color: var(--ink);
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      min-height: 100%;
+    }
+    button, input, textarea, select { font: inherit; }
+    .desk {
+      display: grid;
+      grid-template-columns: 220px minmax(280px, 1fr) minmax(280px, 420px);
+      min-height: 100vh;
+      align-items: stretch;
+    }
+    .library {
+      position: relative;
+      padding: 1.4rem 1rem 1.6rem;
+      border-right: 1px solid var(--line);
+      background: #f3eee3;
+    }
+    .brand {
+      font-size: 1.55rem;
+      color: var(--brass-deep);
+      letter-spacing: 0.02em;
+      margin: 0 0 1.1rem;
+    }
+    .lib-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 0.7rem;
+    }
+    #attach, .attach-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.8rem;
+      height: 1.8rem;
+      margin: 0 0 0.8rem;
+      padding: 0 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--brass-deep);
+      cursor: pointer;
+      line-height: 1;
+      font-size: 0.78rem;
+    }
+    #attach:disabled, .attach-label.is-busy { opacity: 0.5; cursor: wait; }
+    #pdf-file {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    #attach-status { color: var(--muted); font-size: 0.78rem; line-height: 1.35; margin: 0 0 0.6rem; min-height: 1.1rem; }
+    .lib-note { color: var(--muted); font-size: 0.78rem; line-height: 1.35; margin: 0 0 0.8rem; }
+    .lib-group {
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0.85rem 0 0.4rem;
+    }
+    .book-list { display: flex; flex-direction: column; gap: 0.45rem; }
+    .book-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0.35rem;
+    }
+    .book-card {
+      display: flex;
+      gap: 0.7rem;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+      border: 1px solid transparent;
+      background: transparent;
+      border-radius: 12px;
+      padding: 0.4rem 0.5rem;
+      cursor: pointer;
+      color: var(--navy);
+    }
+    .book-card:hover { background: rgba(255,255,255,0.45); }
+    .book-card.active {
+      background: #fff;
+      border-color: var(--line);
+      box-shadow: var(--shadow);
+    }
+    .book-remove {
+      flex: 0 0 auto;
+      align-self: center;
+      width: 1.7rem;
+      height: 1.7rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--brass-deep);
+      cursor: pointer;
+      line-height: 1;
+      font-size: 0.95rem;
+      padding: 0;
+    }
+    .book-remove:hover { background: var(--err-bg); color: var(--err); border-color: #e2b8b4; }
+    .book-remove:disabled { opacity: 0.45; cursor: wait; }
+    .spine {
+      width: 38px;
+      height: 52px;
+      border-radius: 4px 8px 8px 4px;
+      background: linear-gradient(180deg, #31457a, #1c2d5a);
+      color: #f4ead6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      flex: 0 0 auto;
+      box-shadow: inset -4px 0 0 rgba(166, 124, 45, 0.45);
+    }
+    .spine.excerpt { background: linear-gradient(180deg, #6d5a3d, #4a3c28); }
+    .book-meta { min-width: 0; }
+    .book-name { display: block; font-size: 0.98rem; line-height: 1.2; }
+    .book-tag {
+      display: inline-block;
+      margin-top: 0.18rem;
+      font-size: 0.7rem;
+      color: var(--brass-deep);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .main, .evidence {
+      padding: 1.35rem 1.4rem 2rem;
+      min-width: 0;
+    }
+    .evidence { border-left: 1px solid var(--line); background: #fbf8f1; }
+    h2 {
+      margin: 0 0 0.75rem;
+      color: var(--navy);
+      font-size: 1.45rem;
+      font-weight: 600;
+    }
+    .ask-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: stretch;
+    }
+    #q {
+      flex: 1;
+      min-height: 3.1rem;
+      max-height: 8rem;
+      resize: vertical;
+      border: 1px solid #d8ccb4;
+      border-radius: 12px;
+      padding: 0.7rem 0.85rem;
+      background: #fff;
+      color: var(--ink);
+    }
+    #go {
+      width: 3.1rem;
+      border: 0;
+      border-radius: 12px;
+      background: var(--brass);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    #go:hover { background: var(--brass-deep); }
+    #go:disabled { opacity: 0.55; cursor: wait; }
+    .status { min-height: 1.3rem; margin: 0.55rem 0 1.1rem; color: var(--muted); font-size: 0.92rem; }
+    .answer-card, .details, .pipeline, .ev-card, .error-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+    .answer-card { padding: 1.05rem 1.15rem 1.2rem; }
+    .answer-text {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.28rem;
+      line-height: 1.45;
+    }
+    .copy, .save-demo {
+      float: right;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .save-demo {
+      margin-right: 0.75rem;
+      color: var(--brass-deep);
+    }
+    .save-demo:disabled { opacity: 0.5; cursor: wait; }
+    .save-note {
+      clear: both;
+      margin: 0.55rem 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      min-height: 1.1rem;
+    }
+    .details {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+    }
+    .details h3, .pipeline h3 {
+      margin: 0 0 0.65rem;
+      font-size: 0.95rem;
+      color: var(--navy-soft);
+      font-weight: 600;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.55rem 0.5rem;
+      background: #fffcf7;
+      min-width: 0;
+    }
+    .metric .k { display: block; color: var(--muted); font-size: 0.72rem; }
+    .metric .v { color: var(--navy); font-size: 0.98rem; }
+    .browser-wait { margin: 0.55rem 0 0; color: var(--muted); font-size: 0.82rem; }
+    .total-time {
+      margin-top: 0.85rem;
+      padding: 0.85rem 1rem 1rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+    .total-time h3 {
+      margin: 0 0 0.55rem;
+      font-size: 0.95rem;
+      color: var(--navy-soft);
+      font-weight: 600;
+    }
+    .total-time .total-main {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.35rem;
+      line-height: 1.25;
+    }
+    .total-time .total-breakdown {
+      margin: 0.4rem 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .pipeline {
+      margin-top: 0.85rem;
+      padding: 0.85rem 1rem 1rem;
+    }
+    .steps {
+      display: flex;
+      gap: 0.4rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .step { flex: 1 1 120px; min-width: 110px; }
+    .step .n {
+      display: inline-flex;
+      width: 1.35rem;
+      height: 1.35rem;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+      background: #f0e2bf;
+      color: var(--brass-deep);
+      font-size: 0.78rem;
+      margin-right: 0.25rem;
+    }
+    .step strong { color: var(--navy); font-size: 0.88rem; }
+    .step p { margin: 0.2rem 0 0 1.65rem; color: var(--muted); font-size: 0.78rem; }
+    .ev-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+    }
+    .cite-nav { display: flex; gap: 0.3rem; }
+    .orch-step.wait { color: var(--muted); }
+    .orch-step.active { color: var(--navy); font-weight: 600; }
+    .orch-step.done { color: var(--ok); }
+    .orch-step .mark {
+      display: inline-flex;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      margin-right: 0.35rem;
+      background: #f0e2bf;
+      color: var(--brass-deep);
+    }
+    .orch-step.active .mark { background: var(--brass); color: #fff; }
+    .orch-step.done .mark { background: var(--ok-bg); color: var(--ok); }
+    .orch-time {
+      margin: 0.15rem 0 0 1.65rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+    .orch-step.active .orch-time { color: var(--navy); }
+    .empty-lib { color: var(--muted); font-size: 0.85rem; margin: 0.4rem 0 0; }
+    .cite-nav button {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--navy);
+      cursor: pointer;
+    }
+    .cite-nav button:disabled { opacity: 0.35; cursor: default; }
+    .cite-id { color: var(--navy); font-size: 0.95rem; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.28rem 0.65rem;
+      font-size: 0.82rem;
+      margin-bottom: 0.7rem;
+    }
+    .badge.ok { background: var(--ok-bg); color: var(--ok); }
+    .badge.warn { background: var(--warn-bg); color: var(--warn); }
+    .badge.err { background: var(--err-bg); color: var(--err); }
+    .page-card {
+      background: var(--parchment);
+      border: 1px solid #e3d4b6;
+      border-radius: 12px;
+      padding: 0.85rem 1rem 1rem;
+      min-height: 12rem;
+    }
+    .page-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.78rem;
+      border-bottom: 1px solid #e0d2b6;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.7rem;
+    }
+    .excerpt {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 1.02rem;
+      background: var(--highlight);
+      padding: 0.15rem 0.1rem;
+    }
+    .excerpt-note { color: var(--muted); font-size: 0.85rem; margin: 0 0 0.5rem; }
+    .full {
+      margin-top: 0.75rem;
+      border-top: 1px solid var(--line);
+      padding-top: 0.4rem;
+    }
+    .full summary { cursor: pointer; color: var(--navy); }
+    .full pre {
+      white-space: pre-wrap;
+      font-family: Georgia, serif;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      margin: 0.5rem 0 0;
+    }
+    .pdf-link {
+      display: inline-block;
+      margin-top: 0.65rem;
+      color: var(--brass-deep);
+      font-size: 0.88rem;
+    }
+    .placeholder, .error-card { padding: 1rem; color: var(--muted); }
+    .error-card { color: var(--err); background: var(--err-bg); }
+    .busy .pulse { opacity: 0.7; }
+    @media (max-width: 1100px) {
+      .desk { grid-template-columns: 200px 1fr; }
+      .evidence { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      .desk { grid-template-columns: 1fr; }
+      .library, .main, .evidence { padding: 1rem; border: 0; }
+      .library { border-bottom: 1px solid var(--line); }
+      .book-list { flex-direction: row; overflow-x: auto; padding-bottom: 0.4rem; }
+      .book-card { min-width: 190px; background: #fff; border-color: var(--line); }
+      .answer-text { font-size: 1.12rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="desk">
+    <aside class="library">
+      <h1 class="brand">BookRAG</h1>
+      <div class="lib-head">
+        <span>Library</span>
+      </div>
+      <p class="lib-note">Attach a digital-text PDF. The pipeline indexes it, then you can ask.</p>
+      <label class="attach-label" for="pdf-file" id="attach">Choose PDF</label>
+      <input id="pdf-file" type="file" accept="application/pdf,.pdf" />
+      <p id="attach-status"></p>
+      <div class="lib-group" id="group-label-live" hidden>Attached</div>
+      <div class="book-list" id="list-live"></div>
+      <p class="empty-lib" id="empty-lib">No book attached yet.</p>
+    </aside>
+
+    <main class="main">
+      <h2>Ask a question</h2>
+      <div class="ask-row">
+        <textarea id="q" maxlength="{{ max_question_chars }}" placeholder="Attach a PDF, then ask about it"></textarea>
+        <button type="button" id="go" aria-label="Ask" disabled>→</button>
+      </div>
+      <p id="status" class="status"></p>
+      <div class="pipeline" id="orchestrator">
+        <h3>Attach pipeline</h3>
+        <div class="steps" id="orch-steps"></div>
+        <p class="browser-wait" id="orch-detail">Attach a PDF. The same steps run every time: extract, chunk, BGE-M3 hybrid index, then you can ask.</p>
+      </div>
+      <div class="total-time" id="total-time" aria-live="polite">
+        <h3>Total time</h3>
+        <p class="total-main" id="total-time-main">—</p>
+        <p class="total-breakdown" id="total-time-detail">One-time PDF indexing and latest question times appear here.</p>
+      </div>
+      <section>
+        <h2>Answer</h2>
+        <div id="answer-panel">
+          <div class="placeholder" id="answer-placeholder">Upload a PDF first. Then the answer from that book will appear here.</div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="evidence">
+      <div class="ev-head">
+        <h2>Evidence</h2>
+        <div class="cite-nav" id="cite-nav" hidden>
+          <button type="button" id="prev-cite" aria-label="Previous citation">‹</button>
+          <button type="button" id="next-cite" aria-label="Next citation">›</button>
+        </div>
+      </div>
+      <div id="evidence-panel">
+        <div class="placeholder">Cited passages, PDF pages, and excerpts will appear here.</div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const BOOKS = {{ books | tojson }};
+    const MAX_Q = {{ max_question_chars | int }};
+    const ORCH_DEFAULT = [
+      {id: "extract", label: "Extract text", status: "wait"},
+      {id: "chunk", label: "Chunk passages", status: "wait"},
+      {id: "store", label: "Store passages", status: "wait"},
+      {id: "dense", label: "Embed with BGE-M3", status: "wait"},
+      {id: "sparse", label: "Build hybrid index", status: "wait"},
+      {id: "ready", label: "Ready to ask", status: "wait"}
+    ];
+    const status = document.getElementById("status");
+    const answerPanel = document.getElementById("answer-panel");
+    const evidencePanel = document.getElementById("evidence-panel");
+    const go = document.getElementById("go");
+    const qEl = document.getElementById("q");
+    const citeNav = document.getElementById("cite-nav");
+    const attachBtn = document.getElementById("attach");
+    const pdfFile = document.getElementById("pdf-file");
+    const attachStatus = document.getElementById("attach-status");
+    const emptyLib = document.getElementById("empty-lib");
+    const totalTimeMain = document.getElementById("total-time-main");
+    const totalTimeDetail = document.getElementById("total-time-detail");
+    let selectedBookId = (BOOKS[0] || {}).id || "";
+    let busy = false;
+    let attaching = false;
+    let passages = [];
+    let citeIndex = 0;
+    let lastResult = null;
+    let lastAttachSeconds = null;
+    let lastReuseAttachSeconds = null;
+    let lastAnswerSeconds = null;
+    let lastBrowserWait = null;
+    let lastAttachWasReuse = false;
+    renderOrch({stages: ORCH_DEFAULT, detail: "Attach a PDF to run the pipeline."});
+    updateAskEnabled();
+    updateTotalTime();
+    setAnswerPlaceholder(Boolean(selectedBookId));
+    restoreFromServer();
+
+    function updateAskEnabled() {
+      go.disabled = Boolean(busy || attaching || !selectedBookId);
+    }
+
+    function setAnswerPlaceholder(hasBook) {
+      if (!answerPanel) return;
+      // Only replace the idle placeholder; never wipe a live answer/error card.
+      const idle = answerPanel.querySelector(".placeholder");
+      if (!idle && answerPanel.querySelector(".answer-card, .error-card")) return;
+      const msg = hasBook
+        ? "Ask a question about this PDF."
+        : "Upload a PDF first. Then the answer from that book will appear here.";
+      answerPanel.innerHTML = "<div class='placeholder' id='answer-placeholder'>" + msg + "</div>";
+    }
+
+    function fmtMin(seconds) {
+      if (seconds == null || seconds === "" || Number.isNaN(Number(seconds))) return "—";
+      const mins = Number(seconds) / 60;
+      if (mins < 0.01 && mins > 0) return "< 0.01 min";
+      return mins.toFixed(2) + " min";
+    }
+
+    function updateTotalTime() {
+      const hasIndex = lastAttachSeconds != null && !Number.isNaN(Number(lastAttachSeconds));
+      const hasReuseSeconds =
+        lastReuseAttachSeconds != null && !Number.isNaN(Number(lastReuseAttachSeconds));
+      const hasAnswer = lastAnswerSeconds != null && !Number.isNaN(Number(lastAnswerSeconds));
+      const parts = [];
+      if (hasIndex) {
+        parts.push(
+          hasReuseSeconds
+            ? ("Original one-time indexing: " + fmtMin(lastAttachSeconds) + " (earlier)")
+            : ("One-time PDF indexing: " + fmtMin(lastAttachSeconds))
+        );
+      } else {
+        parts.push("One-time PDF indexing: not available yet");
+      }
+      if (hasReuseSeconds) {
+        parts.push(
+          lastAttachWasReuse
+            ? ("This re-attach: " + fmtMin(lastReuseAttachSeconds))
+            : ("Last fast re-attach: " + fmtMin(lastReuseAttachSeconds))
+        );
+      }
+      parts.push(
+        hasAnswer
+          ? ("Latest question: " + fmtMin(lastAnswerSeconds))
+          : "Latest question: not asked yet"
+      );
+
+      if (!hasIndex && !hasReuseSeconds && !hasAnswer) {
+        totalTimeMain.textContent = "—";
+        totalTimeDetail.textContent = "One-time PDF indexing and latest question times appear here.";
+        return;
+      }
+
+      if (hasReuseSeconds && lastAttachWasReuse) {
+        // Fresh reuse response: do not present the original index wait as this wait.
+        totalTimeMain.textContent = fmtMin(lastReuseAttachSeconds) + " this re-attach";
+        totalTimeDetail.textContent = parts.join(" · ");
+        return;
+      }
+
+      if (hasIndex && hasAnswer) {
+        const total = Number(lastAttachSeconds) + Number(lastAnswerSeconds);
+        totalTimeMain.textContent = fmtMin(total) + " combined";
+        totalTimeDetail.textContent = parts.join(" · ");
+        return;
+      }
+
+      // Never present a "combined" figure that silently drops indexing.
+      totalTimeMain.textContent = hasIndex ? fmtMin(lastAttachSeconds) : fmtMin(lastAnswerSeconds);
+      totalTimeDetail.textContent =
+        parts.join(" · ") + " · Combined shown only when both indexing and a question are known";
+    }
+
+    function applyAttachStatus(attach, opts) {
+      const fromRestore = !!(opts && opts.fromRestore);
+      if (!attach || typeof attach !== "object") return;
+      renderOrch(attach);
+      const times = attach.timings_seconds || {};
+      if (times.total != null && times.total !== "") {
+        lastAttachSeconds = Number(times.total);
+      }
+      if (times.reuse_attach != null && times.reuse_attach !== "") {
+        lastReuseAttachSeconds = Number(times.reuse_attach);
+      }
+      if (fromRestore || attach.restored_from_disk) {
+        // Reload/restart: keep historical re-attach timing in the detail line only.
+        lastAttachWasReuse = false;
+      } else if (attach.reused_existing_index) {
+        lastAttachWasReuse = true;
+      } else if (attach.reused_existing_index === false) {
+        lastAttachWasReuse = false;
+        lastReuseAttachSeconds = null;
+      }
+      if (attach.detail) {
+        attachStatus.textContent = attach.detail;
+      }
+      updateTotalTime();
+    }
+
+    async function restoreFromServer() {
+      let data;
+      try {
+        data = await fetch("/ready").then(r => r.json());
+      } catch (err) {
+        return;
+      }
+      if (!data || !data.ok) return;
+      const lib = (data.catalog || []).filter(b => b && b.in_library).slice(0, 1);
+      BOOKS.splice(0, BOOKS.length, ...lib);
+      if (lib.length) {
+        addLiveBook(lib[0]);
+      } else if (!selectedBookId) {
+        clearLibraryUi();
+      } else {
+        setAnswerPlaceholder(false);
+      }
+      applyAttachStatus(data.attach, {fromRestore: true});
+    }
+
+    function escapeHtml(s) {
+      return (s || "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+      }[ch]));
+    }
+
+    function setAttachBusy(on) {
+      attachBtn.classList.toggle("is-busy", on);
+      attachBtn.style.pointerEvents = on ? "none" : "";
+      document.querySelectorAll(".book-remove").forEach(btn => {
+        btn.disabled = Boolean(on);
+      });
+    }
+
+    function clearLibraryUi() {
+      BOOKS.splice(0, BOOKS.length);
+      selectedBookId = "";
+      const list = document.getElementById("list-live");
+      const label = document.getElementById("group-label-live");
+      if (list) list.innerHTML = "";
+      if (label) label.hidden = true;
+      if (emptyLib) emptyLib.hidden = false;
+      setAnswerPlaceholder(false);
+      evidencePanel.innerHTML = "<div class='placeholder'>Cited passages, PDF pages, and excerpts will appear here.</div>";
+      citeNav.hidden = true;
+      status.textContent = "";
+      lastAttachSeconds = null;
+      lastReuseAttachSeconds = null;
+      lastAnswerSeconds = null;
+      lastAttachWasReuse = false;
+      updateTotalTime();
+      updateAskEnabled();
+    }
+
+    function renderOrch(s) {
+      const box = document.getElementById("orch-steps");
+      const detail = document.getElementById("orch-detail");
+      const stages = (s && s.stages) || ORCH_DEFAULT;
+      box.innerHTML = stages.map(st => {
+        const timed = st.seconds != null && st.seconds !== "";
+        const timeHtml = timed ? "<p class='orch-time'>" + fmtSec(st.seconds) + "</p>" : "";
+        return "<div class='step orch-step " + escapeHtml(st.status || "wait") + "'><strong><span class='mark'>" +
+          (st.status === "done" ? "✓" : st.status === "active" ? "…" : "•") +
+          "</span>" + escapeHtml(st.label) + "</strong>" + timeHtml + "</div>";
+      }).join("");
+      if (detail && s && s.detail) detail.textContent = s.detail;
+    }
+
+    function selectedBook() {
+      return BOOKS.find(b => b.id === selectedBookId) || {};
+    }
+
+    function bindBookCard(card) {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".book-card").forEach(c => {
+          c.classList.remove("active");
+          c.setAttribute("aria-pressed", "false");
+        });
+        card.classList.add("active");
+        card.setAttribute("aria-pressed", "true");
+        selectedBookId = card.getAttribute("data-book-id");
+      });
+    }
+    document.querySelectorAll(".book-card").forEach(bindBookCard);
+
+    function addLiveBook(book) {
+      if (!book || !book.id) return;
+      BOOKS.splice(0, BOOKS.length, book);
+      const list = document.getElementById("list-live");
+      const label = document.getElementById("group-label-live");
+      if (label) label.hidden = false;
+      if (list) list.innerHTML = "";
+      selectedBookId = book.id;
+      const row = document.createElement("div");
+      row.className = "book-row";
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "book-card";
+      card.setAttribute("data-book-id", book.id);
+      card.setAttribute("data-label", book.label);
+      card.setAttribute("data-excerpt", book.is_excerpt ? "1" : "0");
+      card.setAttribute("aria-pressed", "false");
+      card.innerHTML =
+        "<span class='spine' aria-hidden='true'>" + escapeHtml(book.spine || "+") + "</span>" +
+        "<span class='book-meta'><span class='book-name'>" + escapeHtml(book.short_label || book.label) +
+        "</span><span class='book-tag'>Attached</span></span>";
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "book-remove";
+      removeBtn.setAttribute("aria-label", "Remove attached book");
+      removeBtn.title = "Remove";
+      removeBtn.textContent = "×";
+      removeBtn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        removeLiveBook(book.id);
+      });
+      bindBookCard(card);
+      row.appendChild(card);
+      row.appendChild(removeBtn);
+      list.appendChild(row);
+      card.click();
+      if (emptyLib) emptyLib.hidden = true;
+      setAnswerPlaceholder(true);
+      updateAskEnabled();
+    }
+
+    async function removeLiveBook(bookId) {
+      if (!bookId || busy || attaching) return;
+      attaching = true;
+      setAttachBusy(true);
+      updateAskEnabled();
+      attachStatus.textContent = "Removing attached book…";
+      let data;
+      try {
+        const res = await fetch("/detach", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ book_id: bookId })
+        });
+        data = await res.json();
+      } catch (err) {
+        attaching = false;
+        setAttachBusy(false);
+        updateAskEnabled();
+        attachStatus.textContent = "Could not reach the local demo server.";
+        return;
+      }
+      attaching = false;
+      setAttachBusy(false);
+      if (!data.ok) {
+        attachStatus.textContent = data.error || "Could not remove that book.";
+        updateAskEnabled();
+        return;
+      }
+      clearLibraryUi();
+      attachStatus.textContent = "Removed from the desk. Indexed copy stays available if you re-attach the same PDF.";
+      renderOrch({stages: ORCH_DEFAULT, detail: "Attach a PDF to run the pipeline."});
+    }
+
+    // Seed from server-rendered catalog; restoreFromServer refreshes attach stages/timings.
+    const initial = BOOKS.filter(b => b && b.in_library).slice(0, 1);
+    BOOKS.splice(0, BOOKS.length, ...initial);
+    if (initial.length) {
+      initial.forEach(addLiveBook);
+    } else {
+      clearLibraryUi();
+    }
+
+    attachBtn.addEventListener("click", (ev) => {
+      if (busy || attaching) {
+        ev.preventDefault();
+        return;
+      }
+    });
+    pdfFile.addEventListener("change", async () => {
+      const file = pdfFile.files && pdfFile.files[0];
+      if (!file) return;
+      if (busy || attaching) return;
+      attaching = true;
+      setAttachBusy(true);
+      go.disabled = true;
+      attachStatus.textContent = "Selected " + file.name + ". Running the attach pipeline…";
+      const poll = setInterval(async () => {
+        try {
+          const s = await fetch("/attach/status").then(r => r.json());
+          if (s.detail) attachStatus.textContent = s.detail;
+          renderOrch(s);
+        } catch (e) {}
+      }, 600);
+      const body = new FormData();
+      body.append("file", file, file.name);
+      let data;
+      try {
+        const res = await fetch("/attach", { method: "POST", body });
+        data = await res.json();
+      } catch (err) {
+        clearInterval(poll);
+        attaching = false;
+        setAttachBusy(false);
+        pdfFile.value = "";
+        updateAskEnabled();
+        attachStatus.textContent = "Could not reach the local demo server.";
+        return;
+      }
+      clearInterval(poll);
+      attaching = false;
+      setAttachBusy(false);
+      pdfFile.value = "";
+      if (!data.ok) {
+        attachStatus.textContent = data.error || "Could not attach that PDF.";
+        renderOrch({stages: ORCH_DEFAULT, detail: data.error || "Attach did not finish."});
+        updateAskEnabled();
+        return;
+      }
+      const result = data.result || {};
+      addLiveBook(result.book);
+      const t = result.timings_seconds || {};
+      const reused = !!result.reused_existing_index;
+      lastAttachWasReuse = reused;
+      lastAttachSeconds = t.total != null ? Number(t.total) : null;
+      lastReuseAttachSeconds = reused && t.reuse_attach != null ? Number(t.reuse_attach) : null;
+      lastAnswerSeconds = null;
+      updateTotalTime();
+      if (reused) {
+        attachStatus.textContent =
+          (result.detail || "Reused existing index.") +
+          " Fast re-attach " + fmtSec(t.reuse_attach) +
+          " (original one-time indexing " + fmtSec(t.total) + "). Ask a question.";
+      } else {
+        attachStatus.textContent =
+          "Ready. Indexed " + result.chunk_count + " passages from " +
+          result.total_pages + " PDF pages in " + fmtSec(t.total) + ". Ask a question.";
+      }
+      renderOrch({
+        stages: ORCH_DEFAULT.map(st => ({...st, status: "done", seconds: t[st.id]})),
+        detail: attachStatus.textContent,
+        timings_seconds: t,
+        reused_existing_index: reused
+      });
+      updateAskEnabled();
+    });
+
+    go.addEventListener("click", ask);
+    qEl.addEventListener("keydown", (ev) => {
+      if ((ev.metaKey || ev.ctrlKey) && ev.key === "Enter") ask();
+    });
+    document.getElementById("prev-cite").onclick = () => showCite(citeIndex - 1);
+    document.getElementById("next-cite").onclick = () => showCite(citeIndex + 1);
+
+    async function ask() {
+      if (busy || attaching) return;
+      if (!selectedBookId) {
+        showError("Attach a PDF first.");
+        return;
+      }
+      const question = qEl.value.trim();
+      if (!question) {
+        showError("Please enter a question.");
+        return;
+      }
+      if (question.length > MAX_Q) {
+        showError("That question is too long for this local demo.");
+        return;
+      }
+      busy = true;
+      go.disabled = true;
+      setAttachBusy(true);
+      status.textContent = "Working… search, local Qwen rerank, then Sol. Startup load is not part of this wait.";
+      answerPanel.innerHTML = "<div class='placeholder pulse'>Finding passages, reranking, and writing an answer…</div>";
+      evidencePanel.innerHTML = "<div class='placeholder pulse'>Waiting for citations…</div>";
+      citeNav.hidden = true;
+      const t0 = performance.now();
+      let data;
+      try {
+        const res = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ book_id: selectedBookId, question })
+        });
+        data = await res.json();
+      } catch (err) {
+        finishBusy();
+        status.textContent = "Could not reach the local demo server.";
+        showError("Check that the demo is running on localhost.");
+        return;
+      }
+      const browserWait = ((performance.now() - t0) / 1000).toFixed(2);
+      finishBusy();
+      if (!data.ok) {
+        status.textContent = "Could not answer (" + browserWait + "s).";
+        showError(data.error || "Something went wrong.");
+        return;
+      }
+      renderResult(data.result, browserWait);
+    }
+
+    function finishBusy() {
+      busy = false;
+      setAttachBusy(attaching);
+      updateAskEnabled();
+    }
+
+    function showError(msg) {
+      answerPanel.innerHTML = "<div class='error-card'>" + escapeHtml(msg) + "</div>";
+      evidencePanel.innerHTML = "<div class='placeholder'>No evidence to show for this request.</div>";
+      citeNav.hidden = true;
+    }
+
+    function renderResult(r, browserWait) {
+      lastResult = r;
+      lastBrowserWait = Number(browserWait);
+      const t = r.timings_seconds || {};
+      lastAnswerSeconds = t.total_wait != null ? Number(t.total_wait) : Number(browserWait);
+      updateTotalTime();
+      status.textContent = "";
+      const answer = r.answer || "";
+      let html = "<div class='answer-card'>";
+      html += "<button type='button' class='copy' id='copy-ans'>Copy</button>";
+      html += "<button type='button' class='save-demo' id='save-demo'>Save for demo</button>";
+      html += "<p class='answer-text'>" + escapeHtml(answer) + "</p>";
+      html += "<p class='save-note' id='save-note'></p></div>";
+      html += "<div class='details'><h3>Response details</h3><div class='metrics'>";
+      html += metric("Total wait", fmtSec(t.total_wait));
+      html += metric("Search", fmtSec(t.retrieve_hybrid));
+      html += metric("Qwen rerank", fmtSec(t.qwen_rerank));
+      html += metric("Sol answer", fmtSec(t.sol_api));
+      html += "</div><p class='browser-wait'>Browser wait " + escapeHtml(browserWait) + " s</p></div>";
+      html += "<div class='pipeline'><h3>RAG pipeline (3 steps)</h3><div class='steps'>";
+      html += step("1", "Find passages", "Retrieve relevant passages from your library");
+      html += step("2", "Rerank 20", "Use Qwen to rerank top 20 passages");
+      html += step("3", "Answer from 5", "Generate answer using top 5 passages");
+      html += "</div></div>";
+      answerPanel.innerHTML = html;
+      document.getElementById("copy-ans").onclick = async () => {
+        try { await navigator.clipboard.writeText(answer); } catch (e) {}
+      };
+      document.getElementById("save-demo").onclick = () => saveShowcaseCase();
+      passages = r.supporting_passages || [];
+      citeIndex = 0;
+      renderEvidence(r);
+    }
+
+    async function saveShowcaseCase() {
+      if (!lastResult) return;
+      const btn = document.getElementById("save-demo");
+      const noteEl = document.getElementById("save-note");
+      if (btn) btn.disabled = true;
+      if (noteEl) noteEl.textContent = "Saving showcase case…";
+      let data;
+      try {
+        const res = await fetch("/showcase/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            result: lastResult,
+            index_seconds: lastAttachSeconds,
+            browser_wait_seconds: lastBrowserWait
+          })
+        });
+        data = await res.json();
+      } catch (err) {
+        if (btn) btn.disabled = false;
+        if (noteEl) noteEl.textContent = "Could not reach the local demo server.";
+        return;
+      }
+      if (!data.ok) {
+        if (btn) btn.disabled = false;
+        if (noteEl) noteEl.textContent = data.error || "Could not save that case.";
+        return;
+      }
+      if (noteEl) {
+        noteEl.textContent =
+          "Saved (" + data.n_cases + " total) → outputs/demo_showcase_cases.json";
+      }
+      if (btn) {
+        btn.textContent = "Saved";
+        btn.disabled = false;
+      }
+    }
+
+    function metric(k, v) {
+      return "<div class='metric'><span class='k'>" + escapeHtml(k) + "</span><span class='v'>" + escapeHtml(v) + "</span></div>";
+    }
+    function step(n, title, blurb) {
+      return "<div class='step'><strong><span class='n'>" + n + "</span> " + title + "</strong><p>" + blurb + "</p></div>";
+    }
+    function fmtSec(n) {
+      if (n === 0) return "0 s";
+      if (n == null || n === "") return "—";
+      return Number(n).toFixed(2) + " s";
+    }
+
+    function renderEvidence(r) {
+      if (!passages.length) {
+        citeNav.hidden = true;
+        const label = r.evidence_label || "The supplied passages do not answer this question.";
+        evidencePanel.innerHTML =
+          "<span class='badge err'>" + escapeHtml(label) + "</span>" +
+          "<div class='placeholder'>No cited passage was returned for this question.</div>";
+        return;
+      }
+      citeNav.hidden = passages.length < 2;
+      showCite(0);
+    }
+
+    function showCite(i) {
+      if (!passages.length) return;
+      citeIndex = Math.max(0, Math.min(passages.length - 1, i));
+      const p = passages[citeIndex];
+      const r = lastResult || {};
+      const enough = !!r.enough_evidence;
+      const reliable = !!p.excerpt_reliable;
+      const label = r.evidence_label || (enough
+        ? "Answer supported by this passage"
+        : "Related passage only");
+      let badgeClass = "warn";
+      if (enough && reliable) badgeClass = "ok";
+      if (!enough && !passages.length) badgeClass = "err";
+      if (!enough) badgeClass = "warn";
+      const book = selectedBook();
+      const page = p.page;
+      const excerpt = p.excerpt || "";
+      let body;
+      if (reliable && excerpt) {
+        body = "<p class='excerpt'>" + escapeHtml(excerpt) + "</p>";
+      } else {
+        body = (p.excerpt_note ? "<p class='excerpt-note'>" + escapeHtml(p.excerpt_note) + "</p>" : "") +
+          "<pre>" + escapeHtml(p.text || "") + "</pre>";
+      }
+      const pdfHref = r.pdf_available && page != null
+        ? "/pdf/" + encodeURIComponent(r.book_id) + "#page=" + encodeURIComponent(page)
+        : "";
+      evidencePanel.innerHTML =
+        "<p class='cite-id'>Passage " + escapeHtml(String(p.passage_id)) +
+        " · PDF page " + escapeHtml(String(page)) +
+        (passages.length > 1 ? " · " + (citeIndex + 1) + " of " + passages.length : "") +
+        "</p>" +
+        "<span class='badge " + badgeClass + "'>" + escapeHtml(label) + "</span>" +
+        "<div class='page-card'><div class='page-meta'><span>" + escapeHtml(String(page)) +
+        "</span><span>" + escapeHtml(book.short_label || r.book_label || "") +
+        (book.is_excerpt ? " · excerpt" : "") +
+        "</span></div>" + body + "</div>" +
+        "<details class='full'><summary>Show full passage</summary><pre>" +
+        escapeHtml(p.text || "") + "</pre></details>" +
+        (pdfHref ? "<a class='pdf-link' href='" + pdfHref + "' target='_blank' rel='noopener'>Open real PDF at this page</a>" : "");
+      document.getElementById("prev-cite").disabled = citeIndex <= 0;
+      document.getElementById("next-cite").disabled = citeIndex >= passages.length - 1;
+    }
+  </script>
+</body>
+</html>

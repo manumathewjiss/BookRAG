@@ -1,0 +1,98 @@
+{
+  "exp_book_id": "exp_usgs_volcanoes_ocr_v1",
+  "baseline_chunk_count": 54,
+  "experimental_chunk_count": 54,
+  "low_text_pages": [
+    1,
+    2,
+    21,
+    23,
+    25,
+    40
+  ],
+  "ocr_seconds_total": 4.641,
+  "ocr_pages": {
+    "1": {
+      "page": 1,
+      "baseline_letters": 44,
+      "baseline_preview": "'••\nS. Ckdartment of the Interior Geological Survey\n•\nE P.0- ..EA)",
+      "ocr_seconds": 0.775,
+      "ocr_letters": 9,
+      "ocr_text": "Volcanoes",
+      "source_kind": "ocr_low_text_page",
+      "uncertainty_note": "Recognized from page image; treat as OCR text, not a verified quotation."
+    },
+    "2": {
+      "page": 2,
+      "baseline_letters": 62,
+      "baseline_preview": "The eruption of Cerro Negro Volcano, near Leon, Nicaragua, during November 1968.\n0r-",
+      "ocr_seconds": 0.609,
+      "ocr_letters": 89,
+      "ocr_text": "\"Shy. ey ‘er &. et\nS es, '.\n—Ker> > x\n“ SBR\nJ z BR gy get\nThe eruption of Cerro Negro Volcano, near Leon, Nicaragua, during November 1968.",
+      "source_kind": "ocr_low_text_page",
+      "uncertainty_note": "Recognized from page image; treat as OCR text, not a verified quotation."
+    },
+    "21": {
+      "page": 21,
+      "baseline_letters": 0,
+      "baseline_preview": "23\n22",
+      "ocr_seconds": 1.117,
+      "ocr_letters": 106,
+      "ocr_text": "Ba ee - if Sat, he |\nee F a\nros R\n“ee: a ie, ~~ \\\ne& i ie |\nad Sepp. ws , oe gel . ee PS\nee athe . » fe TY sei Ve * 4 pe aa :\nSomer Es eS ae\nMount St. Heléns, about noon, May, 18, 1980: ‘ =p 4 : ? er, e\nJ \" aa, : .",
+      "source_kind": "ocr_low_text_page",
+      "uncertainty_note": "Recognized from page image; treat as OCR text, not a verified quotation."
+    },
+    "23": {
+      "page": 23,
+      "baseline_letters": 47,
+      "baseline_preview": "Paricutin Volcano, Mexico, 1947.\nMount Vesuvius Vol-\ncano, Italy, 1944.\n25",
+      "ocr_seconds": 0.649,
+      "ocr_letters": 115,
+      "ocr_text": "ais Mt Mary | a\ncal a\nParicutin Volcano, Mexico, 1947.\n: 7 - eS Bs oy Mount Vesuvius Vol-\n4 g ve ee cano, Italy, 1944.\nPa P\n/ ye, “i —\nsf £Y) Bae See\nA Lf 2OR, \\ bat Mas\n‘ Cae | 741 ; fe Hae  Seagame Re",
+      "source_kind": "ocr_low_text_page",
+      "uncertainty_note": "Recognized from page image; treat as OCR text, not a verified quotation."
+    },
+    "25": {
+      "page": 25,
+      "baseline_letters": 75,
+      "baseline_preview": "Mayon Volcano,\nPhilippines, 1968.\n.,„\n•\n- ---.....11511p,i; Zi.................s....\n. . .\nq. a ,.,.-ii. .--;.__L, •\n--:",
+      "ocr_seconds": 0.796,
+      "ocr_letters": 188,
+      "ocr_text": "i Mayon Volcano,\nad ig “ » Philippines, 1968.\n= Ys ae\n-.* Py “‘ » . al & .\nM4, oe”\nope al Pt oe\nee pes\nKi ia. >\nDaihe\na Pre . ° ee Pray,\nbs pe ee\n< ne ‘ ere NG SCR , Vag\na SS eee\n—_ oy . A es ee =r.\nmee Fee Reger st\n= ge ae SF Cen\n+ be ae pS Set\npn Oe,” ag ee ra\nKilauea Volcano, Hawaii, 1959. Taal Volcano, Philippines, 1965.",
+      "source_kind": "ocr_low_text_page",
+      "uncertainty_note": "Recognized from page image; treat as OCR text, not a verified quotation."
+    },
+    "40": {
+      "page": 40,
+      "baseline_letters": 71,
+      "baseline_preview": "The port city of St. Pierre on the island of Martinique: Mount Pelee is in\nthe background.\n45",
+      "ocr_seconds": 0.696,
+      "ocr_letters": 154,
+      "ocr_text": "SS WS topes\n\\ P: n sil », /\nLe ae ah . GBs os 4 3 “\nRe ee Re gt od ee,\nors be ot Py ; 3 ~ *\n— “~ i , ~ “ = on , ad\n' ed o* » * atesdt -* ’ i\nee ways ; “a ee ae |\n. eg . . 3 te © heme\n“7 q ‘ a a , a |\nThe port city of St. Pierre on the island of Martinique; Mount Pelée is in\nthe background.",
+      "source_kind": "ocr_low_text_page",
+      "uncertainty_note": "Recognized from page image; treat as OCR text, not a verified quotation."
+    }
+  },
+  "control_text_pages_checked": [
+    10,
+    16,
+    28
+  ],
+  "note": "Only low-text pages were OCR-replaced; text-heavy pages kept baseline extract.",
+  "index_times": {
+    "store_and_embed_seconds": 42.828,
+    "dense_s": 20.685,
+    "sparse_s": 19.292
+  },
+  "artifacts": {
+    "chunks": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/ocr_experiments/exp_usgs_volcanoes_ocr_v1/exp_usgs_volcanoes_ocr_v1_stage1_chunks.json",
+    "pdf_copy": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/ocr_experiments/exp_usgs_volcanoes_ocr_v1/usgs-volcanoes.pdf",
+    "report": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/ocr_experiments/exp_usgs_volcanoes_ocr_v1/exp_usgs_volcanoes_ocr_v1_ocr_report.json"
+  },
+  "manual_page21_check": {
+    "ocr_preview": "Ba ee - if Sat, he |\nee F a\nros R\n“ee: a ie, ~~ \\\ne& i ie |\nad Sepp. ws , oe gel . ee PS\nee athe . » fe TY sei Ve * 4 pe aa :\nSomer Es eS ae\nMount St. Heléns, about noon, May, 18, 1980: ‘ =p 4 : ? er, e\nJ \" aa, : .",
+    "mentions_helens": true,
+    "mentions_may_18": true,
+    "mentions_1980": true
+  }
+}

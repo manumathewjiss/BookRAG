@@ -1,0 +1,122 @@
+{
+  "artifact": "professor_demo_presentation_plan",
+  "books_ready": [
+    {
+      "book_id": "bhagavad_gita",
+      "label": "Bhagavad-gītā As It Is",
+      "pdf": "books/sample_pdfs/Bhagavad-gita_As_It_Is.pdf",
+      "reused_existing_index": true,
+      "chunks": 1788,
+      "pdf_pages": 1051
+    },
+    {
+      "book_id": "arthashastra",
+      "label": "Arthashastra (Temple Library excerpt)",
+      "pdf": "books/sample_pdfs/arthashastra.pdf",
+      "reused_existing_index": true,
+      "chunks": 10,
+      "pdf_pages": 8,
+      "note": "Short 8-page Q&A printout, not the full classical text."
+    },
+    {
+      "book_id": "thinkpython",
+      "label": "Think Python",
+      "reused_existing_index": true,
+      "chunks": 443,
+      "pdf_pages": 240
+    }
+  ],
+  "presentation_order": ["bhagavad_gita", "arthashastra", "thinkpython"],
+  "recommended_questions": [
+    {
+      "slot": 1,
+      "book_id": "bhagavad_gita",
+      "kind": "reliable",
+      "question": "What does this PDF say the Gita states about whether the living entity is born or dies?",
+      "expected_answer": "The living entity is never born and never dies; it is eternal and continues after the temporary body is destroyed.",
+      "expected_pdf_page": 26,
+      "point_out": "Answer supported; citation PDF page 26; short excerpt shows born/dies / eternal wording."
+    },
+    {
+      "slot": 2,
+      "book_id": "bhagavad_gita",
+      "kind": "reliable",
+      "question": "Which four kinds of pious men does this translation say begin to render devotional service unto Krishna?",
+      "expected_answer": "The distressed, the desirer of wealth, the inquisitive, and he who is searching for knowledge of the Absolute.",
+      "expected_pdf_page": 468,
+      "point_out": "Full four-fold list on PDF page 468; excerpt next to the citation."
+    },
+    {
+      "slot": 3,
+      "book_id": "bhagavad_gita",
+      "kind": "not_enough_evidence",
+      "question": "According to this book, what is Arjuna's email address?",
+      "expected_answer": "Honest refusal: the passages do not give an email address.",
+      "expected_pdf_page": null,
+      "point_out": "System says the supplied passages do not answer; no fake modern detail."
+    },
+    {
+      "slot": 4,
+      "book_id": "arthashastra",
+      "kind": "reliable",
+      "question": "According to Chapter 36, Text 13, how should wages be fixed?",
+      "expected_answer": "In proportion to the work done and the time spent in doing it.",
+      "expected_pdf_page": 2,
+      "point_out": "Short excerpt PDF; answer quotes the proportion rule; PDF page 2."
+    },
+    {
+      "slot": 5,
+      "book_id": "arthashastra",
+      "kind": "reliable",
+      "question": "What permitted profit margins does the Superintendent of Commerce allow on local goods versus imported goods?",
+      "expected_answer": "5% over the fixed price for local goods; 10% for imported goods.",
+      "expected_pdf_page": 3,
+      "point_out": "Clear numeric answer with PDF page 3."
+    },
+    {
+      "slot": 6,
+      "book_id": "arthashastra",
+      "kind": "not_enough_evidence",
+      "question": "According to this book, what was India's GDP growth rate last year?",
+      "expected_answer": "Refusal: not in the excerpt.",
+      "expected_pdf_page": null,
+      "point_out": "Honest gap; this PDF is only an 8-page Temple Library excerpt."
+    },
+    {
+      "slot": 7,
+      "book_id": "thinkpython",
+      "kind": "reliable",
+      "question": "What advantages of high-level languages does Think Python emphasize, and what does it mean for a language to be portable?",
+      "expected_answer": "Easier/shorter/more correct programs; portable means runs on different computers with few or no modifications.",
+      "expected_pdf_page": 23,
+      "point_out": "Technical book works with the same pipeline; PDF page 23."
+    },
+    {
+      "slot": 8,
+      "book_id": "thinkpython",
+      "kind": "reliable",
+      "question": "What do the + and * operators do when applied to strings, according to the book?",
+      "expected_answer": "+ concatenates; * repeats (other operand an integer).",
+      "expected_pdf_page": 38,
+      "point_out": "Concrete code explanation grounded in the passage."
+    },
+    {
+      "slot": 9,
+      "book_id": "thinkpython",
+      "kind": "not_enough_evidence",
+      "question": "According to this book, how do you install TensorFlow and PyTorch?",
+      "expected_answer": "Refusal or related-only (may mention Swampy install, not TF/PyTorch).",
+      "expected_pdf_page": null,
+      "point_out": "Does not invent ML tooling; may show an unrelated install note as related only."
+    }
+  ],
+  "avoid_in_presentation": [
+    {
+      "id": "arth_confusable_children",
+      "reason": "Gold was in Sol's five, but Sol cited a paraphrase chunk (6) while quoting 'mean avocations' from neighboring gold text. Quote check correctly refused overconfidence."
+    }
+  ],
+  "estimated_usd_rehearsal": 0.103996,
+  "estimated_usd_total_including_prior": 1.630996,
+  "org_balance_verified": false
+}

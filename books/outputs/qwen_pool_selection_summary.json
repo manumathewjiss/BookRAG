@@ -1,0 +1,785 @@
+{
+  "experiment": "qwen_pool_selection_offline_summary",
+  "did_not_overwrite_baselines": true,
+  "did_not_edit_frozen_questions": true,
+  "new_qwen_pass": false,
+  "pool_k": 20,
+  "methods_tested": {
+    "hybrid_rrf_top20": {
+      "label": "Baseline: BGE-M3 hybrid RRF top 20 (dense 30 + sparse 30, RRF k=60)"
+    },
+    "dense10_sparse10_fill_dense_then_sparse": {
+      "label": "First 10 meaning-search + first 10 word-search, skip duplicates, then fill leftover slots from remaining meaning ranks then remaining word ranks"
+    },
+    "interleave_dense_sparse_fill_dense_then_sparse": {
+      "label": "Alternate meaning rank 1, word rank 1, meaning rank 2, word rank 2, …; skip duplicates; fill leftover slots from remaining meaning then word ranks"
+    },
+    "dense15_sparse5_fill_dense_then_sparse": {
+      "label": "First 15 meaning-search + first 5 word-search, skip duplicates, then fill leftover slots from remaining meaning ranks then remaining word ranks"
+    }
+  },
+  "fill_documentation": {
+    "dense10_sparse10_fill_dense_then_sparse": [
+      "1. Append BGE-M3 dense ranks 1–10 in order, skipping duplicates.",
+      "2. Append BGE-M3 sparse ranks 1–10 in order, skipping duplicates.",
+      "3. If fewer than 20, append remaining dense ranks 11–30, skipping duplicates.",
+      "4. If still fewer than 20, append remaining sparse ranks 11–30, skipping duplicates."
+    ],
+    "interleave_dense_sparse_fill_dense_then_sparse": [
+      "1. Walk rank i = 1, 2, … adding dense[i] then sparse[i], skipping duplicates, until 20.",
+      "2. If fewer than 20, fill remaining dense ranks then remaining sparse ranks."
+    ],
+    "dense15_sparse5_fill_dense_then_sparse": [
+      "1. Append dense ranks 1–15, skipping duplicates.",
+      "2. Append sparse ranks 1–5, skipping duplicates.",
+      "3. Fill remaining dense ranks, then remaining sparse ranks."
+    ]
+  },
+  "coverage_out_of_30": {
+    "hybrid_rrf_top20": {
+      "thinkpython": 30,
+      "arthashastra": 30,
+      "bhagavad_gita": 30,
+      "pride_and_prejudice": 27
+    },
+    "dense10_sparse10_fill_dense_then_sparse": {
+      "thinkpython": 30,
+      "arthashastra": 30,
+      "bhagavad_gita": 29,
+      "pride_and_prejudice": 27
+    },
+    "interleave_dense_sparse_fill_dense_then_sparse": {
+      "thinkpython": 30,
+      "arthashastra": 30,
+      "bhagavad_gita": 29,
+      "pride_and_prejudice": 29
+    },
+    "dense15_sparse5_fill_dense_then_sparse": {
+      "thinkpython": 30,
+      "arthashastra": 30,
+      "bhagavad_gita": 28,
+      "pride_and_prejudice": 27
+    }
+  },
+  "coverage_total_out_of_120": {
+    "hybrid_rrf_top20": 117,
+    "dense10_sparse10_fill_dense_then_sparse": 116,
+    "interleave_dense_sparse_fill_dense_then_sparse": 118,
+    "dense15_sparse5_fill_dense_then_sparse": 115
+  },
+  "chosen_method": "interleave_dense_sparse_fill_dense_then_sparse",
+  "chosen_reason": "Interleaving meaning and word ranks gave the most gold passages across all four books (118/120). It is the only tested rule that brings both pp_003 and pp_021 into the 20 without dropping pp_019. bg_010 and bg_025 stay in the 20. Cost: bg_003 drops out (hybrid RRF rank 3, but dense 18 / sparse 17, so it is a fusion-only item). pp_028 never reaches any 20-list (dense 23, not in sparse 30).",
+  "focus": {
+    "pp_003": "Gold is sparse rank 12, not in dense 30, hybrid RRF 25. Only interleave puts it in the 20 (position 18).",
+    "pp_021": "Gold is dense rank 8, not in sparse 30, hybrid RRF 22. Hybrid top 20 misses it; 10+10, 15+5, and interleave all include it.",
+    "pp_028": "Gold is dense rank 23, not in sparse 30, hybrid RRF 33. No 20-passage rule in this test includes it.",
+    "bg_010": "Gold is sparse rank 9, not in dense 30, hybrid RRF 16. Hybrid, 10+10, and interleave keep it; 15+5 drops it.",
+    "bg_025": "Gold is dense rank 5, not in sparse 30, hybrid RRF 13. All four rules keep it."
+  },
+  "tradeoff_not_in_focus_list": {
+    "bg_003": "Hybrid RRF rank 3 so baseline 20 includes it. Dense 18 / sparse 17, so 10+10 and interleave drop it. Saved Qwen had put it at hit@1 on the hybrid pool."
+  },
+  "saved_qwen_hit_at_k_for_chosen_pool": {
+    "thinkpython": {
+      "complete_scores": true,
+      "hit@1_5_10": [
+        26,
+        30,
+        30
+      ],
+      "same_as_hybrid_pool20": true
+    },
+    "arthashastra": {
+      "complete_scores": true,
+      "hit@1_5_10": [
+        30,
+        30,
+        30
+      ],
+      "same_as_hybrid_pool20": true
+    },
+    "bhagavad_gita": {
+      "complete_scores": true,
+      "hybrid_pool20_hit@1_5_10": [
+        24,
+        30,
+        30
+      ],
+      "chosen_pool_hit@1_5_10": [
+        23,
+        29,
+        29
+      ],
+      "lost_question": "bg_003"
+    },
+    "pride_and_prejudice": {
+      "complete_scores": false,
+      "n_questions_with_every_selected_passage_already_scored": 1,
+      "complete_question_ids": [
+        "pp_017"
+      ],
+      "n_questions_with_missing_scores": 29,
+      "n_missing_passage_slots": 111,
+      "n_distinct_missing_chunk_indexes": 86,
+      "why": "Pride Qwen was scored only on the hybrid top 20, not on other dense/sparse passages.",
+      "hybrid_pool20_saved_hit@1_5_10": [
+        25,
+        26,
+        27
+      ],
+      "chosen_pool_hit@k": "not computed; ask before a new model pass"
+    }
+  },
+  "pride_missing_scores_by_question": [
+    {
+      "id": "pp_001",
+      "n_missing": 2,
+      "missing_chunk_indexes": [
+        48,
+        428
+      ]
+    },
+    {
+      "id": "pp_002",
+      "n_missing": 3,
+      "missing_chunk_indexes": [
+        223,
+        36,
+        68
+      ]
+    },
+    {
+      "id": "pp_003",
+      "n_missing": 6,
+      "missing_chunk_indexes": [
+        19,
+        223,
+        36,
+        2,
+        34,
+        72
+      ]
+    },
+    {
+      "id": "pp_004",
+      "n_missing": 2,
+      "missing_chunk_indexes": [
+        163,
+        3
+      ]
+    },
+    {
+      "id": "pp_005",
+      "n_missing": 5,
+      "missing_chunk_indexes": [
+        103,
+        225,
+        122,
+        214,
+        326
+      ]
+    },
+    {
+      "id": "pp_006",
+      "n_missing": 7,
+      "missing_chunk_indexes": [
+        116,
+        13,
+        461,
+        23,
+        113,
+        121,
+        61
+      ]
+    },
+    {
+      "id": "pp_007",
+      "n_missing": 2,
+      "missing_chunk_indexes": [
+        64,
+        332
+      ]
+    },
+    {
+      "id": "pp_008",
+      "n_missing": 5,
+      "missing_chunk_indexes": [
+        11,
+        415,
+        9,
+        460,
+        168
+      ]
+    },
+    {
+      "id": "pp_009",
+      "n_missing": 2,
+      "missing_chunk_indexes": [
+        325,
+        10
+      ]
+    },
+    {
+      "id": "pp_010",
+      "n_missing": 2,
+      "missing_chunk_indexes": [
+        407,
+        166
+      ]
+    },
+    {
+      "id": "pp_011",
+      "n_missing": 4,
+      "missing_chunk_indexes": [
+        91,
+        264,
+        168,
+        421
+      ]
+    },
+    {
+      "id": "pp_012",
+      "n_missing": 3,
+      "missing_chunk_indexes": [
+        191,
+        168,
+        38
+      ]
+    },
+    {
+      "id": "pp_013",
+      "n_missing": 5,
+      "missing_chunk_indexes": [
+        50,
+        42,
+        11,
+        65,
+        429
+      ]
+    },
+    {
+      "id": "pp_014",
+      "n_missing": 2,
+      "missing_chunk_indexes": [
+        263,
+        135
+      ]
+    },
+    {
+      "id": "pp_015",
+      "n_missing": 4,
+      "missing_chunk_indexes": [
+        139,
+        183,
+        263,
+        35
+      ]
+    },
+    {
+      "id": "pp_016",
+      "n_missing": 5,
+      "missing_chunk_indexes": [
+        169,
+        161,
+        183,
+        3,
+        163
+      ]
+    },
+    {
+      "id": "pp_018",
+      "n_missing": 4,
+      "missing_chunk_indexes": [
+        143,
+        176,
+        429,
+        154
+      ]
+    },
+    {
+      "id": "pp_019",
+      "n_missing": 3,
+      "missing_chunk_indexes": [
+        407,
+        34,
+        3
+      ]
+    },
+    {
+      "id": "pp_020",
+      "n_missing": 3,
+      "missing_chunk_indexes": [
+        148,
+        168,
+        283
+      ]
+    },
+    {
+      "id": "pp_021",
+      "n_missing": 5,
+      "missing_chunk_indexes": [
+        462,
+        236,
+        320,
+        90,
+        31
+      ]
+    },
+    {
+      "id": "pp_022",
+      "n_missing": 4,
+      "missing_chunk_indexes": [
+        333,
+        417,
+        219,
+        185
+      ]
+    },
+    {
+      "id": "pp_023",
+      "n_missing": 4,
+      "missing_chunk_indexes": [
+        73,
+        228,
+        417,
+        341
+      ]
+    },
+    {
+      "id": "pp_024",
+      "n_missing": 5,
+      "missing_chunk_indexes": [
+        107,
+        116,
+        280,
+        476,
+        305
+      ]
+    },
+    {
+      "id": "pp_025",
+      "n_missing": 5,
+      "missing_chunk_indexes": [
+        305,
+        351,
+        312,
+        270,
+        471
+      ]
+    },
+    {
+      "id": "pp_026",
+      "n_missing": 4,
+      "missing_chunk_indexes": [
+        340,
+        393,
+        266,
+        36
+      ]
+    },
+    {
+      "id": "pp_027",
+      "n_missing": 3,
+      "missing_chunk_indexes": [
+        107,
+        400,
+        335
+      ]
+    },
+    {
+      "id": "pp_028",
+      "n_missing": 3,
+      "missing_chunk_indexes": [
+        163,
+        208,
+        345
+      ]
+    },
+    {
+      "id": "pp_029",
+      "n_missing": 5,
+      "missing_chunk_indexes": [
+        223,
+        221,
+        333,
+        441,
+        439
+      ]
+    },
+    {
+      "id": "pp_030",
+      "n_missing": 4,
+      "missing_chunk_indexes": [
+        417,
+        324,
+        476,
+        13
+      ]
+    }
+  ],
+  "books": [
+    {
+      "book_id": "thinkpython",
+      "n_questions": 30,
+      "hashes": {
+        "eval_sha256": "14a35a59d5f222d894f8e451d54e512f234dbf120736da7ecdadf861ae754889",
+        "hybrid_sha256": "99d1e7979951e1e744c6bc001370150ca1ae930ed46ff46382195722ffc759c1",
+        "qwen_sha256": "05a31bd91e80c0d00d4d6166a28cb5672a0dd58a4f6f429dca2385d234fa884c"
+      },
+      "n_gold_in_pool": {
+        "hybrid_rrf_top20": 30,
+        "dense10_sparse10_fill_dense_then_sparse": 30,
+        "interleave_dense_sparse_fill_dense_then_sparse": 30,
+        "dense15_sparse5_fill_dense_then_sparse": 30
+      },
+      "gold_out_ids": {
+        "hybrid_rrf_top20": [],
+        "dense10_sparse10_fill_dense_then_sparse": [],
+        "interleave_dense_sparse_fill_dense_then_sparse": [],
+        "dense15_sparse5_fill_dense_then_sparse": []
+      },
+      "vs_hybrid_rrf_top20": {
+        "dense10_sparse10_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [],
+          "n_gained": 0,
+          "n_lost": 0
+        },
+        "interleave_dense_sparse_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [],
+          "n_gained": 0,
+          "n_lost": 0
+        },
+        "dense15_sparse5_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [],
+          "n_gained": 0,
+          "n_lost": 0
+        }
+      },
+      "focus_questions": {}
+    },
+    {
+      "book_id": "arthashastra",
+      "n_questions": 30,
+      "hashes": {
+        "eval_sha256": "0da18498a569a3f24c1275c09a04553f54bb325dfc1c3853b13ad8813e78c91b",
+        "hybrid_sha256": "39b1e440667c5f592ced1ea0b2419e8195455041d74430d10c89ddff3ba558bd",
+        "qwen_sha256": "d7aa8ddc7da1d4c6867c7495a196959cdb6387c5910270cd9119c84d74bac2ea"
+      },
+      "n_gold_in_pool": {
+        "hybrid_rrf_top20": 30,
+        "dense10_sparse10_fill_dense_then_sparse": 30,
+        "interleave_dense_sparse_fill_dense_then_sparse": 30,
+        "dense15_sparse5_fill_dense_then_sparse": 30
+      },
+      "gold_out_ids": {
+        "hybrid_rrf_top20": [],
+        "dense10_sparse10_fill_dense_then_sparse": [],
+        "interleave_dense_sparse_fill_dense_then_sparse": [],
+        "dense15_sparse5_fill_dense_then_sparse": []
+      },
+      "vs_hybrid_rrf_top20": {
+        "dense10_sparse10_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [],
+          "n_gained": 0,
+          "n_lost": 0
+        },
+        "interleave_dense_sparse_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [],
+          "n_gained": 0,
+          "n_lost": 0
+        },
+        "dense15_sparse5_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [],
+          "n_gained": 0,
+          "n_lost": 0
+        }
+      },
+      "focus_questions": {}
+    },
+    {
+      "book_id": "bhagavad_gita",
+      "n_questions": 30,
+      "hashes": {
+        "eval_sha256": "ba7f70e0d29fa96cc5ffbdac8a6dfc249bfcf98a51f5ecf1aab7a24537f795dd",
+        "hybrid_sha256": "4ab977a8b50c5d1f36b20e78da6da5bc2920e82f9d4999d6994811bcad113bc7",
+        "qwen_sha256": "a937c5b27e73c5a021b553233f66be73bcca9325c0262277f2034a618544d544"
+      },
+      "n_gold_in_pool": {
+        "hybrid_rrf_top20": 30,
+        "dense10_sparse10_fill_dense_then_sparse": 29,
+        "interleave_dense_sparse_fill_dense_then_sparse": 29,
+        "dense15_sparse5_fill_dense_then_sparse": 28
+      },
+      "gold_out_ids": {
+        "hybrid_rrf_top20": [],
+        "dense10_sparse10_fill_dense_then_sparse": [
+          "bg_003"
+        ],
+        "interleave_dense_sparse_fill_dense_then_sparse": [
+          "bg_003"
+        ],
+        "dense15_sparse5_fill_dense_then_sparse": [
+          "bg_003",
+          "bg_010"
+        ]
+      },
+      "vs_hybrid_rrf_top20": {
+        "dense10_sparse10_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [
+            "bg_003"
+          ],
+          "n_gained": 0,
+          "n_lost": 1
+        },
+        "interleave_dense_sparse_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [
+            "bg_003"
+          ],
+          "n_gained": 0,
+          "n_lost": 1
+        },
+        "dense15_sparse5_fill_dense_then_sparse": {
+          "gained_ids": [],
+          "lost_ids": [
+            "bg_003",
+            "bg_010"
+          ],
+          "n_gained": 0,
+          "n_lost": 2
+        }
+      },
+      "focus_questions": {
+        "bg_010": {
+          "hybrid_rrf_top20": {
+            "gold_in_pool": true,
+            "pool_position": 16,
+            "dense_gold_rank": null,
+            "sparse_gold_rank": 9,
+            "hybrid_rrf_gold_rank": 16
+          },
+          "dense10_sparse10_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 14,
+            "dense_gold_rank": null,
+            "sparse_gold_rank": 9,
+            "hybrid_rrf_gold_rank": 16
+          },
+          "interleave_dense_sparse_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 13,
+            "dense_gold_rank": null,
+            "sparse_gold_rank": 9,
+            "hybrid_rrf_gold_rank": 16
+          },
+          "dense15_sparse5_fill_dense_then_sparse": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": null,
+            "sparse_gold_rank": 9,
+            "hybrid_rrf_gold_rank": 16
+          }
+        },
+        "bg_025": {
+          "hybrid_rrf_top20": {
+            "gold_in_pool": true,
+            "pool_position": 13,
+            "dense_gold_rank": 5,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 13
+          },
+          "dense10_sparse10_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 5,
+            "dense_gold_rank": 5,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 13
+          },
+          "interleave_dense_sparse_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 9,
+            "dense_gold_rank": 5,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 13
+          },
+          "dense15_sparse5_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 5,
+            "dense_gold_rank": 5,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 13
+          }
+        }
+      }
+    },
+    {
+      "book_id": "pride_and_prejudice",
+      "n_questions": 30,
+      "hashes": {
+        "eval_sha256": "c258063bf54a326ef35ce661bd0e16c602a940ec47ef844e0598c013fb6328fc",
+        "hybrid_sha256": "93731700d69061988f263efacd3c7215f73b9fd29ca58bb4dd872a0f8ffd8710",
+        "qwen_sha256": "f64cbb011e89d642a751d46332de028d5cfc182957563e60de8c8b77054969ea"
+      },
+      "n_gold_in_pool": {
+        "hybrid_rrf_top20": 27,
+        "dense10_sparse10_fill_dense_then_sparse": 27,
+        "interleave_dense_sparse_fill_dense_then_sparse": 29,
+        "dense15_sparse5_fill_dense_then_sparse": 27
+      },
+      "gold_out_ids": {
+        "hybrid_rrf_top20": [
+          "pp_003",
+          "pp_021",
+          "pp_028"
+        ],
+        "dense10_sparse10_fill_dense_then_sparse": [
+          "pp_003",
+          "pp_019",
+          "pp_028"
+        ],
+        "interleave_dense_sparse_fill_dense_then_sparse": [
+          "pp_028"
+        ],
+        "dense15_sparse5_fill_dense_then_sparse": [
+          "pp_003",
+          "pp_019",
+          "pp_028"
+        ]
+      },
+      "vs_hybrid_rrf_top20": {
+        "dense10_sparse10_fill_dense_then_sparse": {
+          "gained_ids": [
+            "pp_021"
+          ],
+          "lost_ids": [
+            "pp_019"
+          ],
+          "n_gained": 1,
+          "n_lost": 1
+        },
+        "interleave_dense_sparse_fill_dense_then_sparse": {
+          "gained_ids": [
+            "pp_003",
+            "pp_021"
+          ],
+          "lost_ids": [],
+          "n_gained": 2,
+          "n_lost": 0
+        },
+        "dense15_sparse5_fill_dense_then_sparse": {
+          "gained_ids": [
+            "pp_021"
+          ],
+          "lost_ids": [
+            "pp_019"
+          ],
+          "n_gained": 1,
+          "n_lost": 1
+        }
+      },
+      "focus_questions": {
+        "pp_003": {
+          "hybrid_rrf_top20": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": null,
+            "sparse_gold_rank": 12,
+            "hybrid_rrf_gold_rank": 25
+          },
+          "dense10_sparse10_fill_dense_then_sparse": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": null,
+            "sparse_gold_rank": 12,
+            "hybrid_rrf_gold_rank": 25
+          },
+          "interleave_dense_sparse_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 18,
+            "dense_gold_rank": null,
+            "sparse_gold_rank": 12,
+            "hybrid_rrf_gold_rank": 25
+          },
+          "dense15_sparse5_fill_dense_then_sparse": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": null,
+            "sparse_gold_rank": 12,
+            "hybrid_rrf_gold_rank": 25
+          }
+        },
+        "pp_021": {
+          "hybrid_rrf_top20": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": 8,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 22
+          },
+          "dense10_sparse10_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 8,
+            "dense_gold_rank": 8,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 22
+          },
+          "interleave_dense_sparse_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 14,
+            "dense_gold_rank": 8,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 22
+          },
+          "dense15_sparse5_fill_dense_then_sparse": {
+            "gold_in_pool": true,
+            "pool_position": 8,
+            "dense_gold_rank": 8,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 22
+          }
+        },
+        "pp_028": {
+          "hybrid_rrf_top20": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": 23,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 33
+          },
+          "dense10_sparse10_fill_dense_then_sparse": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": 23,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 33
+          },
+          "interleave_dense_sparse_fill_dense_then_sparse": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": 23,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 33
+          },
+          "dense15_sparse5_fill_dense_then_sparse": {
+            "gold_in_pool": false,
+            "pool_position": null,
+            "dense_gold_rank": 23,
+            "sparse_gold_rank": null,
+            "hybrid_rrf_gold_rank": 33
+          }
+        }
+      }
+    }
+  ],
+  "detail_files": {
+    "coverage": "books/outputs/qwen_pool_selection_coverage_comparison.json",
+    "score_gaps": "books/outputs/qwen_pool_selection_chosen_rule_saved_score_gaps.json"
+  }
+}

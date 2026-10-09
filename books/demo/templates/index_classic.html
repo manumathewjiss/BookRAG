@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>BookRAG local demo</title>
+  <style>
+    :root { color-scheme: light; }
+    html, body { background: #faf8f4; color: #1a1a1a; }
+    body { font-family: Georgia, serif; max-width: 980px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.4rem; }
+    select, textarea, button {
+      font: inherit; width: 100%; box-sizing: border-box;
+      background: #fff; color: #1a1a1a; border: 1px solid #888;
+    }
+    textarea { min-height: 5rem; }
+    button { width: auto; padding: 0.4rem 1rem; margin-top: 0.6rem; cursor: pointer; }
+    .muted { color: #444; font-size: 0.95rem; }
+    .card { border: 1px solid #bbb; background: #fff; padding: 0.8rem 1rem; margin-top: 1rem; }
+    .row { display: flex; gap: 1rem; align-items: stretch; flex-wrap: wrap; margin-top: 1rem; }
+    .row .card { flex: 1 1 280px; margin-top: 0; }
+    pre { white-space: pre-wrap; font-size: 0.92rem; }
+    details { margin-top: 0.6rem; }
+    summary { cursor: pointer; color: #333; }
+    .err { color: #7a1f1f; }
+  </style>
+</head>
+<body>
+  <h1>BookRAG local demo</h1>
+  <p class="muted">Localhost only. Hybrid top-20 search, local Qwen rerank, then Sol. Citations use PDF page numbers from Stage 1 metadata (not necessarily printed-book pagination). A short excerpt is chosen around the supporting sentence when possible.</p>
+  <label>Book
+    <select id="book">
+      {% for b in books %}
+      <option value="{{ b.id }}">{{ b.label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <p>
+    <label>Question
+      <textarea id="q" placeholder="Ask a question about the selected book" maxlength="1200"></textarea>
+    </label>
+  </p>
+  <button type="button" id="go">Ask</button>
+  <p id="status" class="muted"></p>
+  <div id="out"></div>
+  <script>
+    const status = document.getElementById("status");
+    const out = document.getElementById("out");
+    document.getElementById("go").onclick = async () => {
+      const q = document.getElementById("q").value.trim();
+      if (!q) {
+        status.textContent = "Please enter a question.";
+        out.innerHTML = "";
+        return;
+      }
+      if (q.length > 1200) {
+        status.textContent = "That question is too long for this local demo.";
+        out.innerHTML = "";
+        return;
+      }
+      status.textContent = "Working… total wait includes search, rerank, and Sol (startup load is separate).";
+      out.innerHTML = "";
+      const t0 = performance.now();
+      let data;
+      try {
+        const res = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            book_id: document.getElementById("book").value,
+            question: document.getElementById("q").value
+          })
+        });
+        data = await res.json();
+      } catch (err) {
+        status.textContent = "Could not reach the local demo server.";
+        out.innerHTML = "<p class='err'>Check that the demo is running on localhost.</p>";
+        return;
+      }
+      const waited = ((performance.now() - t0) / 1000).toFixed(2);
+      if (!data.ok) {
+        status.textContent = "Could not answer (" + waited + "s).";
+        out.innerHTML = "<div class='card err'>" + escapeHtml(data.error || "Something went wrong.") + "</div>";
+        return;
+      }
+      const r = data.result;
+      status.textContent = "Total wait " + r.timings_seconds.total_wait + "s (browser " + waited +
+        "s). Search " + r.timings_seconds.retrieve_hybrid + "s · Qwen " +
+        r.timings_seconds.qwen_rerank + "s · Sol " + r.timings_seconds.sol_api + "s.";
+      const cites = (r.citations || []).map(c =>
+        "passage " + c.passage_id + ", PDF page " + c.page
+      ).join("; ") || "none";
+      const label = r.evidence_label || (r.enough_evidence
+        ? "Answer supported by this passage"
+        : ((r.supporting_passages || []).length ? "Related passage only" : "The supplied passages do not answer this question"));
+      let html = "<div class='card'><strong>Answer</strong><p>" + escapeHtml(r.answer) + "</p>";
+      html += "<p class='muted'>" + escapeHtml(label) + ". Citations: " + escapeHtml(cites) + "</p></div>";
+      const passages = r.supporting_passages || [];
+      if (passages.length) {
+        for (const p of passages) {
+          const reliable = !!p.excerpt_reliable;
+          const excerpt = p.excerpt || "";
+          let passageLabel;
+          if (r.enough_evidence && reliable) {
+            passageLabel = "Supporting excerpt";
+          } else if (r.enough_evidence && !reliable) {
+            passageLabel = "Full passage for inspection";
+          } else {
+            passageLabel = "Related excerpt";
+          }
+          html += "<div class='row'>";
+          html += "<div class='card'><strong>Citation</strong><p>Passage " +
+            p.passage_id + " · PDF page " + p.page + "</p></div>";
+          html += "<div class='card'><strong>" + passageLabel + "</strong>";
+          if (reliable && excerpt) {
+            html += "<p>" + escapeHtml(excerpt) + "</p>";
+            html += "<details><summary>Show full passage</summary><pre>" +
+              escapeHtml(p.text || "") + "</pre></details>";
+          } else {
+            if (p.excerpt_note) {
+              html += "<p class='muted'>" + escapeHtml(p.excerpt_note) + "</p>";
+            }
+            html += "<pre>" + escapeHtml(p.text || "") + "</pre>";
+          }
+          html += "</div></div>";
+        }
+      } else if (!r.enough_evidence) {
+        html += "<div class='card'>The supplied passages do not answer this question.</div>";
+      }
+      out.innerHTML = html;
+    };
+    function escapeHtml(s) {
+      return (s || "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
+    }
+  </script>
+</body>
+</html>

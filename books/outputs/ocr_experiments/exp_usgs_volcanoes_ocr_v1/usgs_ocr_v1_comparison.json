@@ -1,0 +1,2385 @@
+{
+  "artifact": "usgs_ocr_v1_comparison",
+  "created_at": "2026-10-07T15:35:23Z",
+  "baseline_book_id": "live_usgs_volcanoes_b2967ed2",
+  "ocr_book_id": "exp_usgs_volcanoes_ocr_v1",
+  "cases_file": "/Users/manumathewjiss/Documents/Pramod Gupta Project/books/outputs/usgs_volcanoes_frozen_cases.json",
+  "with_sol": true,
+  "sol_case_ids": [
+    "usgs_current_alert_unanswerable",
+    "usgs_four_types",
+    "usgs_page21_photo_caption",
+    "usgs_page23_paricutin",
+    "usgs_page23_vesuvius"
+  ],
+  "estimated_usd_this_run": 0.111116,
+  "results": [
+    {
+      "id": "usgs_four_types",
+      "question": "According to this PDF, what are the four main kinds of volcanoes?",
+      "expects_answerable": true,
+      "systems": {
+        "baseline_text": {
+          "book_id": "live_usgs_volcanoes_b2967ed2",
+          "retrieval": {
+            "retrieve_wait_s": 13.373,
+            "timings_seconds": {
+              "retrieve_hybrid": 5.432896583000911,
+              "qwen_rerank": 7.9397117079988675
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 38,
+                "page": 31
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 42,
+                "page": 33
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 7,
+                "page": 7
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 51,
+                "page": 39
+              },
+              {
+                "passage_id": 16,
+                "page": 15
+              },
+              {
+                "passage_id": 46,
+                "page": 36
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 51,
+                "page": 39
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 13.074,
+            "answer": "The four main kinds of volcanoes are cinder cones, composite volcanoes, shield volcanoes, and lava domes.",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "citations": [
+              {
+                "passage_id": 11,
+                "page": 10,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 11,
+                "page": 10,
+                "excerpt": "Principal Types of Volcanoes Geologists generally group volcanoes into four main kinds— cinder cones, composite volcanoes, shield volcanoes, and lava domes. Cinder cones Cinder cones are the simplest type of volcano. They are built from particles and blobs of congealed lava ejected from a single vent. As the gas-charged lava is blown violently into the air, it breaks into small fragments that soli",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 0.49,
+              "qwen_rerank": 7.664,
+              "sol_api": 4.917,
+              "total_wait": 13.073
+            },
+            "cost": {
+              "input_tokens": 2324,
+              "output_tokens": 80,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2321,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.011251,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": true,
+            "refusal_or_qualification_appropriate": null,
+            "each_cited_passage_supports_answer": true
+          }
+        },
+        "ocr_low_text_v1": {
+          "book_id": "exp_usgs_volcanoes_ocr_v1",
+          "retrieval": {
+            "retrieve_wait_s": 8.294,
+            "timings_seconds": {
+              "retrieve_hybrid": 0.5323738330007473,
+              "qwen_rerank": 7.761630708000666
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 39,
+                "page": 31
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 42,
+                "page": 33
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 7,
+                "page": 7
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 51,
+                "page": 39
+              },
+              {
+                "passage_id": 16,
+                "page": 15
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 45,
+                "page": 36
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 51,
+                "page": 39
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 13.348,
+            "answer": "The four main kinds of volcanoes are cinder cones, composite volcanoes, shield volcanoes, and lava domes.",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "citations": [
+              {
+                "passage_id": 11,
+                "page": 10,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 11,
+                "page": 10,
+                "excerpt": "Principal Types of Volcanoes Geologists generally group volcanoes into four main kinds— cinder cones, composite volcanoes, shield volcanoes, and lava domes. Cinder cones Cinder cones are the simplest type of volcano. They are built from particles and blobs of congealed lava ejected from a single vent. As the gas-charged lava is blown violently into the air, it breaks into small fragments that soli",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 0.738,
+              "qwen_rerank": 7.737,
+              "sol_api": 4.869,
+              "total_wait": 13.347
+            },
+            "cost": {
+              "input_tokens": 2324,
+              "output_tokens": 80,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2321,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.011251,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": true,
+            "refusal_or_qualification_appropriate": null,
+            "each_cited_passage_supports_answer": true
+          }
+        }
+      }
+    },
+    {
+      "id": "usgs_shield_broad_slopes",
+      "question": "Why are shield volcanoes broad and gently sloping?",
+      "expects_answerable": true,
+      "systems": {
+        "baseline_text": {
+          "book_id": "live_usgs_volcanoes_b2967ed2",
+          "retrieval": {
+            "retrieve_wait_s": 9.662,
+            "timings_seconds": {
+              "retrieve_hybrid": 0.2364105409997137,
+              "qwen_rerank": 9.42447941699902
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 38,
+                "page": 31
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 22,
+                "page": 18
+              },
+              {
+                "passage_id": 16,
+                "page": 15
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 15,
+                "page": 14
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 5,
+                "page": 5
+              },
+              {
+                "passage_id": 24,
+                "page": 20
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              }
+            ]
+          },
+          "ask": null,
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": false
+          }
+        },
+        "ocr_low_text_v1": {
+          "book_id": "exp_usgs_volcanoes_ocr_v1",
+          "retrieval": {
+            "retrieve_wait_s": 13.44,
+            "timings_seconds": {
+              "retrieve_hybrid": 2.123154834000161,
+              "qwen_rerank": 11.312567584000135
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 39,
+                "page": 31
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 22,
+                "page": 18
+              },
+              {
+                "passage_id": 16,
+                "page": 15
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 15,
+                "page": 14
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 5,
+                "page": 5
+              },
+              {
+                "passage_id": 24,
+                "page": 20
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              }
+            ]
+          },
+          "ask": null,
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": false
+          }
+        }
+      }
+    },
+    {
+      "id": "usgs_geysers_hot_springs",
+      "question": "Why do geysers and hot springs occur near young volcanoes?",
+      "expects_answerable": true,
+      "systems": {
+        "baseline_text": {
+          "book_id": "live_usgs_volcanoes_b2967ed2",
+          "retrieval": {
+            "retrieve_wait_s": 14.074,
+            "timings_seconds": {
+              "retrieve_hybrid": 0.6931875829995988,
+              "qwen_rerank": 13.381119958999989
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 34,
+                "page": 28
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 38,
+                "page": 31
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 35,
+                "page": 29
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 19,
+                "page": 17
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 23,
+                "page": 19
+              },
+              {
+                "passage_id": 24,
+                "page": 20
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 5,
+                "page": 5
+              },
+              {
+                "passage_id": 33,
+                "page": 27
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 34,
+                "page": 28
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              }
+            ]
+          },
+          "ask": null,
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": false
+          }
+        },
+        "ocr_low_text_v1": {
+          "book_id": "exp_usgs_volcanoes_ocr_v1",
+          "retrieval": {
+            "retrieve_wait_s": 14.951,
+            "timings_seconds": {
+              "retrieve_hybrid": 0.19471599999997125,
+              "qwen_rerank": 14.755892291999771
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 34,
+                "page": 28
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 39,
+                "page": 31
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 35,
+                "page": 29
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 19,
+                "page": 17
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 23,
+                "page": 19
+              },
+              {
+                "passage_id": 24,
+                "page": 20
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 5,
+                "page": 5
+              },
+              {
+                "passage_id": 33,
+                "page": 27
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 34,
+                "page": 28
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              }
+            ]
+          },
+          "ask": null,
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": false
+          }
+        }
+      }
+    },
+    {
+      "id": "usgs_visible_monitoring",
+      "question": "What visible changes do scientists watch between eruptions?",
+      "expects_answerable": true,
+      "systems": {
+        "baseline_text": {
+          "book_id": "live_usgs_volcanoes_b2967ed2",
+          "retrieval": {
+            "retrieve_wait_s": 18.932,
+            "timings_seconds": {
+              "retrieve_hybrid": 1.101229207999495,
+              "qwen_rerank": 17.8304205000004
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 45,
+                "page": 36
+              },
+              {
+                "passage_id": 46,
+                "page": 36
+              },
+              {
+                "passage_id": 47,
+                "page": 37
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 33,
+                "page": 27
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 34,
+                "page": 28
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 38,
+                "page": 31
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 40,
+                "page": 32
+              },
+              {
+                "passage_id": 10,
+                "page": 9
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 45,
+                "page": 36
+              },
+              {
+                "passage_id": 46,
+                "page": 36
+              },
+              {
+                "passage_id": 47,
+                "page": 37
+              },
+              {
+                "passage_id": 33,
+                "page": 27
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              }
+            ]
+          },
+          "ask": null,
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": false
+          }
+        },
+        "ocr_low_text_v1": {
+          "book_id": "exp_usgs_volcanoes_ocr_v1",
+          "retrieval": {
+            "retrieve_wait_s": 20.349,
+            "timings_seconds": {
+              "retrieve_hybrid": 1.6953772500000923,
+              "qwen_rerank": 18.65307829199992
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 45,
+                "page": 36
+              },
+              {
+                "passage_id": 46,
+                "page": 36
+              },
+              {
+                "passage_id": 47,
+                "page": 37
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 33,
+                "page": 27
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 34,
+                "page": 28
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 39,
+                "page": 31
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 40,
+                "page": 32
+              },
+              {
+                "passage_id": 10,
+                "page": 9
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 46,
+                "page": 36
+              },
+              {
+                "passage_id": 45,
+                "page": 36
+              },
+              {
+                "passage_id": 47,
+                "page": 37
+              },
+              {
+                "passage_id": 33,
+                "page": 27
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              }
+            ]
+          },
+          "ask": null,
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": false
+          }
+        }
+      }
+    },
+    {
+      "id": "usgs_current_alert_unanswerable",
+      "question": "Which volcano is erupting today, and at what alert level?",
+      "expects_answerable": false,
+      "systems": {
+        "baseline_text": {
+          "book_id": "live_usgs_volcanoes_b2967ed2",
+          "retrieval": {
+            "retrieve_wait_s": 17.197,
+            "timings_seconds": {
+              "retrieve_hybrid": 2.306146249999074,
+              "qwen_rerank": 14.890185791999102
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 38,
+                "page": 31
+              },
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 45,
+                "page": 36
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 1,
+                "page": 2
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 47,
+                "page": 37
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 45,
+                "page": 36
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 1,
+                "page": 2
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 25.045,
+            "answer": "The passages do not establish which volcano is erupting today or its alert level. They report that Mount St. Helens was still experiencing eruptive activity as of June 1981, not today [49].",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "citations": [
+              {
+                "passage_id": 49,
+                "page": 38,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 49,
+                "page": 38,
+                "excerpt": "1980. As of this writing (June 1981), the Mount St. Helens eruptive activity continues and is characterized by periodic explosive ejection of ash and steam and/or the formation of lava domes within the crater. Each explosive event may partly or wholly destroy the previously formed dome. By analogy to its past history, Mount St. Helens can be expected to remain intermittently active for years, poss",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 1.248,
+              "qwen_rerank": 20.056,
+              "sol_api": 3.705,
+              "total_wait": 25.041
+            },
+            "cost": {
+              "input_tokens": 2338,
+              "output_tokens": 113,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2335,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.011644,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": null,
+            "answer_bearing_page_in_qwen_top5": null,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": null,
+            "refusal_or_qualification_appropriate": true,
+            "each_cited_passage_supports_answer": null
+          }
+        },
+        "ocr_low_text_v1": {
+          "book_id": "exp_usgs_volcanoes_ocr_v1",
+          "retrieval": {
+            "retrieve_wait_s": 19.852,
+            "timings_seconds": {
+              "retrieve_hybrid": 3.4259130419995927,
+              "qwen_rerank": 16.42587249999997
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 39,
+                "page": 31
+              },
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 46,
+                "page": 36
+              },
+              {
+                "passage_id": 1,
+                "page": 2
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 32,
+                "page": 26
+              },
+              {
+                "passage_id": 47,
+                "page": 37
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 46,
+                "page": 36
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 21.911,
+            "answer": "The passages do not identify a volcano erupting today or its alert level. Passage 48 reports continuing eruptive activity at Mount St. Helens as of June 1981, not today.",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "citations": [
+              {
+                "passage_id": 48,
+                "page": 38,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 48,
+                "page": 38,
+                "excerpt": "1980. As of this writing (June 1981), the Mount St. Helens eruptive activity continues and is characterized by periodic explosive ejection of ash and steam and/or the formation of lava domes within the crater. Each explosive event may partly or wholly destroy the previously formed dome. By analogy to its past history, Mount St. Helens can be expected to remain intermittently active for years, poss",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 2.198,
+              "qwen_rerank": 15.517,
+              "sol_api": 4.191,
+              "total_wait": 21.909
+            },
+            "cost": {
+              "input_tokens": 2750,
+              "output_tokens": 110,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2747,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.013468,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": null,
+            "answer_bearing_page_in_qwen_top5": null,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": null,
+            "refusal_or_qualification_appropriate": true,
+            "each_cited_passage_supports_answer": null
+          }
+        }
+      }
+    },
+    {
+      "id": "usgs_page21_photo_caption",
+      "question": "What volcano and date are shown in the photograph on PDF page 21?",
+      "expects_answerable": true,
+      "systems": {
+        "baseline_text": {
+          "book_id": "live_usgs_volcanoes_b2967ed2",
+          "retrieval": {
+            "retrieve_wait_s": 15.667,
+            "timings_seconds": {
+              "retrieve_hybrid": 1.0333566249992145,
+              "qwen_rerank": 14.633905999999115
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 42,
+                "page": 33
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 7,
+                "page": 7
+              },
+              {
+                "passage_id": 38,
+                "page": 31
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 51,
+                "page": 39
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 24,
+                "page": 20
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 45,
+                "page": 36
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 45,
+                "page": 36
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 20.027,
+            "answer": "The supplied passages do not identify the volcano and date in the photograph on PDF page 21.",
+            "enough_evidence": false,
+            "evidence_label": "The supplied passages do not answer this question",
+            "citations": [],
+            "supporting_passages": [],
+            "timings_seconds": {
+              "retrieve_hybrid": 1.105,
+              "qwen_rerank": 16.043,
+              "sol_api": 2.872,
+              "total_wait": 20.025
+            },
+            "cost": {
+              "input_tokens": 2121,
+              "output_tokens": 89,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2118,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.010427,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": false,
+            "answer_bearing_page_in_qwen_top5": false,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": false,
+            "refusal_or_qualification_appropriate": null,
+            "each_cited_passage_supports_answer": false
+          }
+        },
+        "ocr_low_text_v1": {
+          "book_id": "exp_usgs_volcanoes_ocr_v1",
+          "retrieval": {
+            "retrieve_wait_s": 17.268,
+            "timings_seconds": {
+              "retrieve_hybrid": 1.2027405419994466,
+              "qwen_rerank": 16.064994375001334
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 42,
+                "page": 33
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 7,
+                "page": 7
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 39,
+                "page": 31
+              },
+              {
+                "passage_id": 14,
+                "page": 13
+              },
+              {
+                "passage_id": 51,
+                "page": 39
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 24,
+                "page": 20
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 46,
+                "page": 36
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 46,
+                "page": 36
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 21.189,
+            "answer": "The supplied passages do not identify the photograph on PDF page 21. Passage 29 contains a caption, “Mauna Loa Volcano, Hawaii, 1950,” but does not establish that it belongs to the requested page.",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "citations": [
+              {
+                "passage_id": 29,
+                "page": 24,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 29,
+                "page": 24,
+                "excerpt": "blasted to a height of several thousand feet. This type of violent eruption is believed to occur when a large quantity of ground or surface water comes in contact with hot rock or magma in a volcanic vent and is instantly and explosively flashed to steam. Mauna Loa Volcano, Hawaii, 1950. 26",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 1.254,
+              "qwen_rerank": 16.806,
+              "sol_api": 3.12,
+              "total_wait": 21.186
+            },
+            "cost": {
+              "input_tokens": 2121,
+              "output_tokens": 117,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2118,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.010707,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": false,
+            "answer_bearing_page_in_qwen_top5": false,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": false,
+            "refusal_or_qualification_appropriate": null,
+            "each_cited_passage_supports_answer": false
+          }
+        }
+      }
+    },
+    {
+      "id": "usgs_page23_paricutin",
+      "question": "According to this PDF, which volcano in Mexico is shown for 1947?",
+      "expects_answerable": true,
+      "systems": {
+        "baseline_text": {
+          "book_id": "live_usgs_volcanoes_b2967ed2",
+          "retrieval": {
+            "retrieve_wait_s": 15.439,
+            "timings_seconds": {
+              "retrieve_hybrid": 0.8977190409987088,
+              "qwen_rerank": 14.540778665999824
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 28,
+                "page": 23
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 22,
+                "page": 18
+              },
+              {
+                "passage_id": 12,
+                "page": 11
+              },
+              {
+                "passage_id": 42,
+                "page": 33
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 24,
+                "page": 20
+              },
+              {
+                "passage_id": 31,
+                "page": 25
+              },
+              {
+                "passage_id": 1,
+                "page": 2
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 28,
+                "page": 23
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 1,
+                "page": 2
+              },
+              {
+                "passage_id": 12,
+                "page": 11
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 18.538,
+            "answer": "The volcano shown for 1947 is Paricutin Volcano, Mexico.",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "citations": [
+              {
+                "passage_id": 28,
+                "page": 23,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 28,
+                "page": 23,
+                "excerpt": "Paricutin Volcano, Mexico, 1947. Mount Vesuvius Volcano, Italy, 1944. 25",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 0.782,
+              "qwen_rerank": 14.669,
+              "sol_api": 3.085,
+              "total_wait": 18.537
+            },
+            "cost": {
+              "input_tokens": 1637,
+              "output_tokens": 70,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 1634,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.008059,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": true,
+            "refusal_or_qualification_appropriate": null,
+            "each_cited_passage_supports_answer": true
+          }
+        },
+        "ocr_low_text_v1": {
+          "book_id": "exp_usgs_volcanoes_ocr_v1",
+          "retrieval": {
+            "retrieve_wait_s": 17.061,
+            "timings_seconds": {
+              "retrieve_hybrid": 1.266586166999332,
+              "qwen_rerank": 15.793593000000328
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 28,
+                "page": 23
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 17,
+                "page": 16
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 22,
+                "page": 18
+              },
+              {
+                "passage_id": 12,
+                "page": 11
+              },
+              {
+                "passage_id": 42,
+                "page": 33
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 24,
+                "page": 20
+              },
+              {
+                "passage_id": 1,
+                "page": 2
+              },
+              {
+                "passage_id": 2,
+                "page": 3
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 28,
+                "page": 23
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 11,
+                "page": 10
+              },
+              {
+                "passage_id": 12,
+                "page": 11
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 19.805,
+            "answer": "The volcano shown is Paricutin Volcano, Mexico, in 1947.",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "citations": [
+              {
+                "passage_id": 28,
+                "page": 23,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 28,
+                "page": 23,
+                "excerpt": "ais Mt Mary | a cal Paricutin Volcano, Mexico, 1947. : 7eS Bs oy Mount Vesuvius Vol4 g ve ee cano, Italy, 1944. Pa P / ye, “i — sf £Y) Bae See A Lf 2OR, \\ bat Mas ‘ Cae | 741 ; fe Hae Seagame Re",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 0.906,
+              "qwen_rerank": 16.208,
+              "sol_api": 2.688,
+              "total_wait": 19.803
+            },
+            "cost": {
+              "input_tokens": 2149,
+              "output_tokens": 71,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2146,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.010373,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": true,
+            "refusal_or_qualification_appropriate": null,
+            "each_cited_passage_supports_answer": true
+          }
+        }
+      }
+    },
+    {
+      "id": "usgs_page23_vesuvius",
+      "question": "According to this PDF, which Italian volcano is shown for 1944?",
+      "expects_answerable": true,
+      "systems": {
+        "baseline_text": {
+          "book_id": "live_usgs_volcanoes_b2967ed2",
+          "retrieval": {
+            "retrieve_wait_s": 24.846,
+            "timings_seconds": {
+              "retrieve_hybrid": 2.416532624996762,
+              "qwen_rerank": 22.42852929199944
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 28,
+                "page": 23
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 38,
+                "page": 31
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 5,
+                "page": 5
+              },
+              {
+                "passage_id": 42,
+                "page": 33
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 48,
+                "page": 38
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 22,
+                "page": 18
+              },
+              {
+                "passage_id": 7,
+                "page": 7
+              },
+              {
+                "passage_id": 19,
+                "page": 17
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 28,
+                "page": 23
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 36,
+                "page": 30
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 21.954,
+            "answer": "Mount Vesuvius is the Italian volcano shown for 1944 (passage 28).",
+            "enough_evidence": true,
+            "evidence_label": "Answer supported by this passage",
+            "citations": [
+              {
+                "passage_id": 28,
+                "page": 23,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 28,
+                "page": 23,
+                "excerpt": "Paricutin Volcano, Mexico, 1947. Mount Vesuvius Volcano, Italy, 1944. 25",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 2.834,
+              "qwen_rerank": 15.322,
+              "sol_api": 3.794,
+              "total_wait": 21.951
+            },
+            "cost": {
+              "input_tokens": 2458,
+              "output_tokens": 75,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2455,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.011804,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": true,
+            "refusal_or_qualification_appropriate": null,
+            "each_cited_passage_supports_answer": true
+          }
+        },
+        "ocr_low_text_v1": {
+          "book_id": "exp_usgs_volcanoes_ocr_v1",
+          "retrieval": {
+            "retrieve_wait_s": 14.76,
+            "timings_seconds": {
+              "retrieve_hybrid": 0.7476177920034388,
+              "qwen_rerank": 14.011074584002927
+            },
+            "hybrid_pool20": [
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 28,
+                "page": 23
+              },
+              {
+                "passage_id": 39,
+                "page": 31
+              },
+              {
+                "passage_id": 6,
+                "page": 6
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 5,
+                "page": 5
+              },
+              {
+                "passage_id": 3,
+                "page": 4
+              },
+              {
+                "passage_id": 42,
+                "page": 33
+              },
+              {
+                "passage_id": 50,
+                "page": 39
+              },
+              {
+                "passage_id": 18,
+                "page": 16
+              },
+              {
+                "passage_id": 49,
+                "page": 38
+              },
+              {
+                "passage_id": 43,
+                "page": 34
+              },
+              {
+                "passage_id": 13,
+                "page": 12
+              },
+              {
+                "passage_id": 30,
+                "page": 24
+              },
+              {
+                "passage_id": 29,
+                "page": 24
+              },
+              {
+                "passage_id": 22,
+                "page": 18
+              },
+              {
+                "passage_id": 7,
+                "page": 7
+              },
+              {
+                "passage_id": 19,
+                "page": 17
+              }
+            ],
+            "qwen_top5": [
+              {
+                "passage_id": 28,
+                "page": 23
+              },
+              {
+                "passage_id": 4,
+                "page": 5
+              },
+              {
+                "passage_id": 37,
+                "page": 30
+              },
+              {
+                "passage_id": 27,
+                "page": 22
+              },
+              {
+                "passage_id": 44,
+                "page": 35
+              }
+            ]
+          },
+          "ask": {
+            "ask_wait_s": 28.262,
+            "answer": "Mount Vesuvius is shown, captioned “Mount Vesuvius Volcano, Italy, 1944.” The quoted wording above could not be fully verified in the cited passage text.",
+            "enough_evidence": false,
+            "evidence_label": "Related passage only",
+            "citations": [
+              {
+                "passage_id": 28,
+                "page": 23,
+                "page_source": "stage1_chunk_metadata",
+                "page_label": "PDF page"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "passage_id": 28,
+                "page": 23,
+                "excerpt": "ais Mt Mary | a cal Paricutin Volcano, Mexico, 1947. : 7eS Bs oy Mount Vesuvius Vol4 g ve ee cano, Italy, 1944. Pa P / ye, “i — sf £Y) Bae See A Lf 2OR, \\ bat Mas ‘ Cae | 741 ; fe Hae Seagame Re",
+                "excerpt_reliable": true
+              }
+            ],
+            "timings_seconds": {
+              "retrieve_hybrid": 0.876,
+              "qwen_rerank": 24.194,
+              "sol_api": 3.183,
+              "total_wait": 28.259
+            },
+            "cost": {
+              "input_tokens": 2522,
+              "output_tokens": 79,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 2519,
+              "long_context_rates": false,
+              "processing": "standard",
+              "estimated_usd": 0.012132,
+              "pricing_note": "Standard gpt-6.1-sol list rates: $2 / $0.10 cached / $2.50 cache write / $10 output per 1M tokens; 2x input and 1.5x output if input > 272K."
+            }
+          },
+          "scores": {
+            "answer_bearing_page_in_hybrid20": true,
+            "answer_bearing_page_in_qwen_top5": true,
+            "sol_run": true,
+            "final_answer_correct_for_asked_question": false,
+            "refusal_or_qualification_appropriate": null,
+            "each_cited_passage_supports_answer": true
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    "OCR text is experimental and may contain recognition errors (e.g. Heléns).",
+    "Do not treat OCR snippets as verified quotations without checking the PDF page.",
+    "NIST/Apollo regression scoring is separate if run."
+  ]
+}
