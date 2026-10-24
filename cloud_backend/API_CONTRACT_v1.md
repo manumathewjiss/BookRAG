@@ -15,6 +15,7 @@ Base path: `/api/v1`. JSON uses UTF-8. This contract is for the Next.js frontend
 | `POST /api/v1/documents` | `multipart/form-data`, field `file` (PDF), optional `title`; maximum configured bytes | 202 `{ "document": Document }` |
 | `GET /api/v1/documents` | Bearer token | `{ "documents": [Document] }` |
 | `GET /api/v1/documents/{document_id}` | Bearer token | `{ "document": Document }` |
+| `GET /api/v1/documents/{document_id}/pdf` | Bearer token | `application/pdf` bytes, private/no-store; 404 for another user's or deleted file |
 | `DELETE /api/v1/documents/{document_id}` | Bearer token | 204 on deletion; 404 for deleted, nonexistent, or another user's document |
 | `POST /api/v1/documents/{document_id}/chat` | `{ "question": "8–1200 characters" }` | 200 `Answer` |
 
@@ -30,4 +31,4 @@ If an embedding request has an uncertain outcome after a worker crash or timeout
 
 Initial trial limits are configurable on the server: five uploads/day, 50 questions/day, 10 questions/minute, and $5/day estimated usage per user. A question reserves $0.05 of that estimate before making hosted calls. These are application controls; the provider account must have its own billing controls.
 
-Auth account creation and sign-in remain in Supabase Auth/Next.js. The backend owns only token verification and user-scoped data access. Private PDF downloads are not exposed by this API in v1.
+Auth account creation and sign-in remain in Supabase Auth/Next.js. The backend owns token verification and user-scoped data access. The PDF viewer fetches the private source file with the same bearer token used for document and chat requests. No browser cache or public storage URL is required.

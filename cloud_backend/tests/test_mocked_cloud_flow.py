@@ -209,6 +209,12 @@ def test_mocked_upload_worker_chat_delete_and_two_user_isolation(monkeypatch):
         assert uploaded.status_code == 202, uploaded.text
         doc = UUID(uploaded.json()["document"]["id"])
         assert client.get(f"/api/v1/documents/{doc}", headers=auth_b).status_code == 404
+        assert client.get(f"/api/v1/documents/{doc}/pdf", headers=auth_b).status_code == 404
+        assert client.get(f"/api/v1/documents/{doc}/pdf").status_code == 401
+        pdf_reply = client.get(f"/api/v1/documents/{doc}/pdf", headers=auth_a)
+        assert pdf_reply.status_code == 200 and pdf_reply.content == pdf
+        assert pdf_reply.headers["cache-control"] == "private, no-store"
+        assert pdf_reply.headers["content-type"] == "application/pdf"
         assert client.get("/api/v1/documents", headers=auth_b).json()["documents"] == []
         assert client.post(f"/api/v1/documents/{doc}/chat", headers=auth_a,
                            json={"question": "What color is on the second page?"}).status_code == 409
@@ -225,6 +231,7 @@ def test_mocked_upload_worker_chat_delete_and_two_user_isolation(monkeypatch):
         assert client.delete(f"/api/v1/documents/{doc}", headers=auth_a).status_code == 204
         assert objects == {} and repo.rows.get(doc) is None
         assert client.get(f"/api/v1/documents/{doc}", headers=auth_a).status_code == 404
+        assert client.get(f"/api/v1/documents/{doc}/pdf", headers=auth_a).status_code == 404
         assert client.get("/api/v1/me", headers={"Authorization": "Bearer bad"}).status_code == 401
         assert calls == {"embed": 2, "rerank": 1, "sol": 1}
     finally:

@@ -125,6 +125,25 @@ def get_document(document_id: UUID, owner: UUID = Depends(verify_access_token), 
     return {"document": Document.model_validate(row)}
 
 
+@app.get("/api/v1/documents/{document_id}/pdf")
+def get_document_pdf(document_id: UUID, owner: UUID = Depends(verify_access_token),
+                     repo: Repository = Depends(get_repo), storage: PrivateStorage = Depends(get_storage)):
+    """Return a private PDF only after token verification and owner-scoped lookup."""
+    row = repo.document(owner, document_id)
+    if not row:
+        raise HTTPException(404, "Document not found")
+    try:
+        data = storage.download(row["storage_path"])
+    except StorageError:
+        raise HTTPException(503, "PDF is temporarily unavailable") from None
+    if not data.startswith(b"%PDF-"):
+        raise HTTPException(503, "PDF is temporarily unavailable")
+    return Response(content=data, media_type="application/pdf", headers={
+        "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff",
+        "Content-Disposition": "inline; filename=\"document.pdf\"",
+    })
+
+
 @app.delete("/api/v1/documents/{document_id}", status_code=204)
 def delete_document(document_id: UUID, owner: UUID = Depends(verify_access_token),
                     repo: Repository = Depends(get_repo), storage: PrivateStorage = Depends(get_storage)):
