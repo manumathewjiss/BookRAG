@@ -306,6 +306,7 @@ class Repository:
                 conn.execute("update documents set status='failed',error=%s,updated_at=now() where id=%s and status <> 'deleted'", (safe, document_id))
             else:
                 conn.execute("update ingestion_jobs set status='queued',available_at=now()+(%s * interval '1 minute'),last_error=%s,updated_at=now() where document_id=%s", (2 ** attempts, safe, document_id))
+                conn.execute("update documents set status='queued',error=null,updated_at=now() where id=%s and status <> 'deleted'", (document_id,))
 
     def record_usage(self, owner: UUID, document_id: UUID, operation: str, provider: str, input_tokens: int = 0, output_tokens: int = 0, estimated_usd: float = 0):
         with self.connection() as conn:

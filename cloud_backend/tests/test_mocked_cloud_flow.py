@@ -103,7 +103,10 @@ class MemoryRepository:
         self.jobs[doc]["status"] = "queued"
         self.docs[doc]["status"] = "queued"
         return True
-    def job_failure(self, doc, token, attempts, message): self.jobs[doc]["status"] = "failed" if attempts >= 3 else "queued"
+    def job_failure(self, doc, token, attempts, message):
+        new_status = "failed" if attempts >= 3 else "queued"
+        self.jobs[doc]["status"] = new_status
+        self.docs[doc]["status"] = new_status
 
     def store_passages(self, owner, doc, token, rows, page_count, expected_batches):
         assert self.jobs[doc]["claim_token"] == token

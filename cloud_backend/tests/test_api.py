@@ -129,3 +129,14 @@ def test_upload_queues_pdf_with_server_generated_owner_path():
     assert response.status_code == 202, response.text
     assert response.json()["document"]["status"] == "queued"
     assert storage.uploaded[0].startswith(str(OWNER) + "/")
+
+
+def test_atomic_upload_limit_cleans_storage_object():
+    from bookrag_cloud.repository import UsageLimitReached
+    class Full(FakeRepo):
+        def create_document(self, *args):
+            raise UsageLimitReached("Limit reached after concurrent upload")
+    client, _, storage = client_for(OWNER, repo=Full())
+    response = client.post("/api/v1/documents", files={"file": ("a.pdf", b"%PDF-1.7\n", "application/pdf")})
+    assert response.status_code == 429
+    assert storage.deleted == [storage.uploaded[0]]

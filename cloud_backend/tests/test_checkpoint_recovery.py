@@ -37,6 +37,7 @@ def test_definite_429_retries_only_unsaved_batch(monkeypatch):
     cfg = Settings()
     assert work_once(repo, storage, models, cfg) is True
     assert repo.jobs[doc]["status"] == "queued"
+    assert repo.docs[doc]["status"] == "queued"
     assert repo.batches[(doc, 0)]["status"] == "complete"
     assert (doc, 1) not in repo.batches
     assert work_once(repo, storage, models, cfg) is True
