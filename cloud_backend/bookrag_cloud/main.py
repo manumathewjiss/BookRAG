@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse, Response
 
 from .config import settings
 from .providers import HostedModels, ProviderError
-from .repository import Repository
+from .repository import Repository, UsageLimitReached
 from .retrieval import bm25_top, fuse
 from .schemas import Answer, ChatRequest, Citation, Document, Timings, Usage
 from .security import verify_access_token
@@ -93,9 +93,16 @@ async def upload_document(file: UploadFile = File(...), title: str | None = Form
         raise HTTPException(400, "A title is required")
     try:
         storage.upload(path, data)
-        row = repo.create_document(owner, document_id, safe_title, name[:255], path, hashlib.sha256(data).hexdigest())
+        row = repo.create_document(owner, document_id, safe_title, name[:255], path,
+                                   hashlib.sha256(data).hexdigest(), cfg.daily_upload_limit)
     except StorageError:
         raise HTTPException(503, "PDF storage is temporarily unavailable") from None
+    except UsageLimitReached:
+        try:
+            storage.delete(path)
+        except StorageError:
+            pass
+        raise HTTPException(429, "Daily PDF upload limit reached") from None
     except Exception:
         try:
             storage.delete(path)
@@ -143,8 +150,12 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":
         raise HTTPException(409, "Document is not ready to answer questions")
-    if not repo.reserve_question(owner, document_id, settings().daily_question_limit):
-        raise HTTPException(429, "Daily question limit reached")
+    cfg = settings()
+    usage_event = repo.reserve_question(owner, document_id, cfg.daily_question_limit,
+                                        cfg.daily_estimated_usd_limit, cfg.question_reserve_usd,
+                                        cfg.questions_per_minute_limit)
+    if not usage_event:
+        raise HTTPException(429, "Daily question or estimated usage limit reached")
     try:
         start = time.perf_counter()
         vector, embed_tokens = models.embed([question], "query")
@@ -186,8 +197,7 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
     in_tokens = int(usage.get("input_tokens", 0))
     out_tokens = int(usage.get("output_tokens", 0))
     estimate = round((embed_tokens * .12 + rerank_tokens * .05 + in_tokens * 2 + out_tokens * 10) / 1_000_000, 6)
-    repo.record_usage(owner, document_id, "embedding", "voyage-4-large+rerank-3+gpt-6.1-sol",
-                      embed_tokens + rerank_tokens + in_tokens, out_tokens, estimate)
+    repo.settle_question(owner, usage_event, embed_tokens + rerank_tokens + in_tokens, out_tokens, estimate)
     return Answer(answer=raw["answer"] if enough else "The supplied passages do not confirm the answer to this question.",
                   enough_evidence=enough, evidence_status="unverified" if unverified_citation else match,
                   citations=citations, timings_ms=Timings(search=search_ms, rerank=rerank_ms, answer=answer_ms),

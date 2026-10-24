@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     max_passages: int = 3000
     daily_upload_limit: int = 5
     daily_question_limit: int = 50
+    questions_per_minute_limit: int = 10
+    daily_estimated_usd_limit: float = 5.0
+    question_reserve_usd: float = 0.05
     worker_poll_seconds: float = 2.0
 
     def origins(self) -> list[str]:

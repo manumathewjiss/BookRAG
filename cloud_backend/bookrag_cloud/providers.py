@@ -11,6 +11,14 @@ class ProviderError(RuntimeError):
     pass
 
 
+class ProviderRejected(ProviderError):
+    """Definite no-result HTTP response; this attempt can be retried safely."""
+
+    def __init__(self, status_code: int):
+        self.status_code = status_code
+        super().__init__(f"Provider rejected request ({status_code})")
+
+
 ANSWER_SCHEMA = {
     "type": "object",
     "properties": {
@@ -36,11 +44,15 @@ For direct_answer, cite only passage IDs whose text directly supports each claim
 def _json_post(url: str, key: str, body: dict, timeout: float = 60) -> dict:
     try:
         response = httpx.post(url, headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"}, json=body, timeout=timeout)
+        if response.status_code in (400, 401, 403, 404, 413, 429):
+            raise ProviderRejected(response.status_code)
         response.raise_for_status()
         data = response.json()
         if not isinstance(data, dict):
             raise ValueError("Invalid provider response")
         return data
+    except ProviderRejected:
+        raise
     except (httpx.HTTPError, ValueError) as exc:
         # Never include provider response body: it may contain a prompt or sensitive data.
         raise ProviderError("Hosted model request failed") from exc

@@ -1,8 +1,17 @@
 """Page-aware text extraction and deterministic token chunks. No local model is loaded."""
 from io import BytesIO
+import re
 
 import tiktoken
 from pypdf import PdfReader
+
+
+def clean_page_text(text: str) -> str:
+    """Match the research pipeline's light whitespace cleanup, without changing meaning."""
+    text = (text or "").replace("\x00", " ").replace("\r\n", "\n").replace("\r", "\n")
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r" *\n *", "\n", text)
+    return re.sub(r"\n{3,}", "\n\n", text).strip()
 
 
 def extract_chunks(pdf_bytes: bytes, max_pages: int, max_passages: int) -> tuple[int, list[dict]]:
@@ -12,7 +21,7 @@ def extract_chunks(pdf_bytes: bytes, max_pages: int, max_passages: int) -> tuple
     codec = tiktoken.get_encoding("cl100k_base")
     chunks: list[dict] = []
     for page_no, page in enumerate(reader.pages, start=1):
-        text = page.extract_text() or ""
+        text = clean_page_text(page.extract_text() or "")
         if not text.strip():
             continue
         ids = codec.encode(text)

@@ -28,8 +28,11 @@ class FakeRepo:
     def list_documents(self, owner):
         return [self.row] if owner == OWNER else []
 
-    def reserve_question(self, owner, doc, limit):
-        return True
+    def reserve_question(self, owner, doc, limit, daily_usd_limit, reserve_usd, minute_limit):
+        return uuid4()
+
+    def settle_question(self, *args):
+        self.counters.append(args)
 
     def dense_top(self, owner, doc, vector, limit):
         return self.passages(owner, doc)
@@ -43,7 +46,7 @@ class FakeRepo:
     def delete_document(self, owner, doc):
         return {"storage_path": self.row["storage_path"]}
 
-    def create_document(self, owner, document_id, title, filename, path, digest):
+    def create_document(self, owner, document_id, title, filename, path, digest, daily_limit):
         return {**self.row, "id": document_id, "owner_id": owner, "title": title,
                 "filename": filename, "storage_path": path, "status": "queued"}
 
