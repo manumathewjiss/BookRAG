@@ -3,3 +3,5 @@
 __pycache__/
 .pytest_cache/
 *.pyc
+verification_runs/
+verification_approval.json

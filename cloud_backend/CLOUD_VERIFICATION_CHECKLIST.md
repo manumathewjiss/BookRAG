@@ -3,7 +3,7 @@
 This is an execution checklist, **not authorization** to deploy or spend. Use a separate test project and an explicitly approved low-cost run.
 
 1. **Secrets and origin.** Enter `DATABASE_URL`, Supabase URL and service role key, Voyage key, OpenAI key, and the exact frontend origin in server-only secrets. Keep them out of browser builds and logs. Disable automatic provider top-ups if that is the intended budget control.
-2. **Database and Storage.** Apply migrations `001_initial.sql` and `002_embedding_checkpoints.sql` in order. Confirm pgvector 1024-d works. Confirm the `bookrag-pdfs` bucket is private and only the backend service credential can upload, download, or delete.
+2. **Database and Storage.** Apply migrations `001_initial.sql`, `002_embedding_checkpoints.sql`, and `003_cloud_readiness.sql` in order. Run `python -m scripts.supabase_preflight --execute` in the separate test project. Confirm pgvector 1024-d works. Confirm the `bookrag-pdfs` bucket is private and only the backend service credential can upload, download, or delete.
 3. **Two-user isolation.** Sign in as A and B. Upload A's PDF. Confirm B cannot list, read status, chat with, or delete A's document. Check direct Supabase table access under B's token cannot read A's rows. Try an invalid/expired token.
 4. **Page accuracy.** Upload a small known two-page digital-text PDF. Confirm status becomes ready, both pages are indexed separately, and a page-2 answer cites PDF page 2 with matching source text. Reject an image-only/encrypted or oversized PDF cleanly.
 5. **Search and answer.** Ask one answerable question and one genuinely unanswerable question. Check the answerable citation ID is in Sol's five supplied passages and its page comes from stored metadata. Confirm the unanswerable answer has no citation presented as proof of absence.
@@ -13,3 +13,8 @@ This is an execution checklist, **not authorization** to deploy or spend. Use a 
 9. **Deployment behavior.** Check API health, worker startup, cold start, memory, PDF upload size, PostgreSQL connection pooling, browser CORS, and the frontend's queued/processing/failed/ready views. Keep auto-deploy off until the review is complete.
 
 Record results and costs under a **new** verification directory. Do not overwrite the frozen benchmark or prior evaluation results.
+
+The first live test is the guarded two-page smoke in `CLOUD_SETUP_RUNBOOK.md`.
+It exercises items 2–5 and 8 with a maximum of five Voyage and two OpenAI
+requests. Items 6, 7, and 9 need their own controlled cloud verification after
+the small test succeeds. This checklist does not authorize those later tests.
