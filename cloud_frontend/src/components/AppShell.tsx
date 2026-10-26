@@ -11,8 +11,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !session) router.replace("/login");
-  }, [loading, router, session]);
+    if (!loading && !session) {
+      const next = encodeURIComponent(pathname || "/library");
+      router.replace(`/login?next=${next}`);
+    }
+  }, [loading, pathname, router, session]);
 
   if (loading) {
     return (
@@ -22,6 +25,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     );
   }
   if (!session) return null;
+
+  async function onLogout() {
+    await signOut();
+    router.replace("/login");
+  }
 
   return (
     <div className="app-shell">
@@ -33,8 +41,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Link href="/library" aria-current={pathname.startsWith("/library") ? "page" : undefined}>
             Library
           </Link>
-          <span className="user-meta">{session.user.email}</span>
-          <button type="button" className="ghost" onClick={() => void signOut()}>
+          <span className="user-meta" title={session.user.email}>
+            {session.user.email}
+          </span>
+          <button type="button" className="ghost" onClick={() => void onLogout()}>
             Log out
           </button>
         </nav>

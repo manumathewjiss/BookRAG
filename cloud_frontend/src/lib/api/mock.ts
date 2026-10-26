@@ -61,6 +61,17 @@ function refusalAnswer(): Answer {
   };
 }
 
+function unverifiedAnswer(): Answer {
+  return {
+    answer: "This text would have been shown if a citation had been returned.",
+    enough_evidence: true,
+    evidence_status: "unverified",
+    citations: [],
+    timings_ms: { search: 20, rerank: 10, answer: 40 },
+    usage: { input_tokens: 400, output_tokens: 40, estimated_usd: 0.001 },
+  };
+}
+
 function supportedAnswer(): Answer {
   return {
     answer:
@@ -142,8 +153,10 @@ function buildMockClient(): BookragClient {
       return clone(doc);
     },
     async getPdf(id: string) {
-      if (!docs.has(id)) throw new BookragApiError("Document not found.", "not_found", 404);
-      return Uint8Array.from(mockPdfBytes()).buffer;
+      maybeAdvance();
+      const doc = docs.get(id);
+      if (!doc) throw new BookragApiError("Document not found.", "not_found", 404);
+      return mockPdfBytes().buffer.slice(0) as ArrayBuffer;
     },
     async uploadDocument(file: File, title?: string) {
       if (file.size > MAX_PDF_BYTES) {
@@ -212,6 +225,7 @@ function buildMockClient(): BookragClient {
       }
       questionsUsed += 1;
       await new Promise((resolve) => window.setTimeout(resolve, 350));
+      if (/unverified/i.test(trimmed)) return unverifiedAnswer();
       return isRefusal(trimmed) ? refusalAnswer() : supportedAnswer();
     },
   };

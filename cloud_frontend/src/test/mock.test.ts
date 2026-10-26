@@ -31,6 +31,23 @@ describe("mock BookRAG client", () => {
     expect(answer.citations[0]?.excerpt.length).toBeGreaterThan(20);
   });
 
+  it("serves private mock PDF bytes without a live token", async () => {
+    const client = createMockClient();
+    const docs = await client.listDocuments();
+    const ready = docs.find((d) => d.status === "ready")!;
+    const bytes = new Uint8Array(await client.getPdf(ready.id));
+    expect(String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3], bytes[4])).toBe("%PDF-");
+  });
+
+  it("returns unverified evidence when Sol would claim support without a citation", async () => {
+    const client = createMockClient();
+    const docs = await client.listDocuments();
+    const ready = docs.find((d) => d.status === "ready")!;
+    const answer = await client.chat(ready.id, "Please give an unverified answer now");
+    expect(answer.evidence_status).toBe("unverified");
+    expect(answer.citations).toEqual([]);
+  });
+
   it("rejects chat while a document is still processing", async () => {
     const client = createMockClient();
     const docs = await client.listDocuments();

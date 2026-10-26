@@ -11,6 +11,7 @@ import {
 } from "react";
 import { isMockMode, isLocalTestAuth, isSupabaseConfigured, mockEmail } from "@/lib/config";
 import { createSupabaseBrowser } from "@/lib/auth/supabase";
+import { isMockAccessToken, jwtShouldRefresh } from "@/lib/auth/token";
 import {
   clearMockSession,
   readMockSession,
@@ -39,6 +40,18 @@ function mockSessionFor(email: string): BookragSession {
   };
 }
 
+function toSession(
+  userId: string,
+  email: string,
+  accessToken: string,
+): BookragSession {
+  return {
+    user: { id: userId, email },
+    accessToken,
+    source: "supabase",
+  };
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const supabaseReady = isSupabaseConfigured();
   const [session, setSession] = useState<BookragSession | null>(null);
@@ -55,25 +68,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         const { data } = await supabase.auth.getSession();
         if (!cancelled && data.session) {
-          setSession({
-            user: {
-              id: data.session.user.id,
-              email: data.session.user.email || "",
-            },
-            accessToken: data.session.access_token,
-            source: "supabase",
-          });
+          setSession(
+            toSession(data.session.user.id, data.session.user.email || "", data.session.access_token),
+          );
         }
         const { data: listener } = supabase.auth.onAuthStateChange((_event, next) => {
           if (!next) {
             setSession(null);
             return;
           }
-          setSession({
-            user: { id: next.user.id, email: next.user.email || "" },
-            accessToken: next.access_token,
-            source: "supabase",
-          });
+          setSession(toSession(next.user.id, next.user.email || "", next.access_token));
         });
         if (!cancelled) setLoading(false);
         return () => listener.subscription.unsubscribe();
@@ -102,7 +106,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
       if (!isMockMode() && !isLocalTestAuth()) {
-        throw new Error("Supabase Auth is not configured. Add the anon URL and key, or enable mock mode.");
+        throw new Error(
+          "Supabase Auth is not configured. Add NEXT_PUBLIC_SUPABASE_URL and the anon key.",
+        );
       }
       if (password.trim().length < 6) {
         throw new Error("Password must be at least 6 characters.");
@@ -144,12 +150,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const getAccessToken = useCallback(async () => {
     if (supabaseReady) {
       const supabase = createSupabaseBrowser();
-      const { data } = (await supabase?.auth.getSession()) || { data: { session: null } };
-      return data.session?.access_token ?? null;
+      if (!supabase) return null;
+      const { data } = await supabase.auth.getSession();
+      let token = data.session?.access_token ?? null;
+      if (token && jwtShouldRefresh(token)) {
+        const { data: refreshed } = await supabase.auth.refreshSession();
+        token = refreshed.session?.access_token ?? token;
+        if (refreshed.session) {
+          setSession(
+            toSession(refreshed.session.user.id, refreshed.session.user.email || "", token),
+          );
+        }
+      }
+      if (isMockAccessToken(token)) return null;
+      return token;
     }
-    return isMockMode() || isLocalTestAuth()
-      ? session?.accessToken ?? readMockSession()?.accessToken ?? null
-      : null;
+    if (!(isMockMode() || isLocalTestAuth())) return null;
+    return session?.accessToken ?? readMockSession()?.accessToken ?? null;
   }, [session, supabaseReady]);
 
   const value = useMemo(

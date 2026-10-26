@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { BookragClient } from "@/lib/api";
+import { errorMessage } from "@/lib/api";
 
 export function PdfViewer({
   documentId,
@@ -24,10 +25,8 @@ export function PdfViewer({
       setMessage("Opening PDF…");
       const data = await client.getPdf(documentId);
       const pdfjs = await import("pdfjs-dist");
-      pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-        "pdfjs-dist/build/pdf.worker.min.mjs",
-        import.meta.url,
-      ).toString();
+      // Served from public/; next.config copies pdfjs-dist's worker so Next does not bundle it.
+      pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
       const bytes = new Uint8Array(data).slice();
       const task = pdfjs.getDocument({ data: bytes });
       const pdf = await task.promise;
@@ -35,7 +34,8 @@ export function PdfViewer({
       setPageCount(pdf.numPages);
       const target = Math.min(Math.max(1, page), pdf.numPages);
       const pdfPage = await pdf.getPage(target);
-      const viewport = pdfPage.getViewport({ scale: 1.2 });
+      const narrow = typeof window !== "undefined" && window.innerWidth < 720;
+      const viewport = pdfPage.getViewport({ scale: narrow ? 0.95 : 1.2 });
       const canvas = canvasRef.current;
       if (!canvas) return;
       const context = canvas.getContext("2d");
@@ -47,8 +47,8 @@ export function PdfViewer({
         setMessage(`${filename} · PDF page ${target}${pdf.numPages ? ` of ${pdf.numPages}` : ""}`);
       }
     }
-    void render().catch(() => {
-      if (!cancelled) setMessage("Could not render that PDF page in this browser.");
+    void render().catch((err) => {
+      if (!cancelled) setMessage(errorMessage(err));
     });
     return () => {
       cancelled = true;

@@ -6,14 +6,16 @@ import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { EmptyState } from "@/components/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge";
 import { UploadDropzone } from "@/components/UploadDropzone";
-import { errorMessage, getClient } from "@/lib/api";
+import { getClient } from "@/lib/api";
 import type { Document, MeResponse } from "@/lib/api/types";
 import { useAuth } from "@/lib/auth/AuthProvider";
+import { useApiGuard } from "@/lib/auth/useApiGuard";
 import { DAILY_QUESTION_LIMIT, DAILY_UPLOAD_LIMIT, DOCUMENT_POLL_MS } from "@/lib/config";
 
 export function DocumentLibrary() {
   const { getAccessToken, session } = useAuth();
   const client = useMemo(() => getClient(getAccessToken), [getAccessToken]);
+  const guard = useApiGuard();
   const [docs, setDocs] = useState<Document[]>([]);
   const [me, setMe] = useState<MeResponse | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
@@ -32,8 +34,8 @@ export function DocumentLibrary() {
   useEffect(() => {
     let cancelled = false;
     void refresh()
-      .catch((err) => {
-        if (!cancelled) setError(errorMessage(err));
+      .catch(async (err) => {
+        if (!cancelled) setError(await guard(err));
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -41,7 +43,7 @@ export function DocumentLibrary() {
     return () => {
       cancelled = true;
     };
-  }, [refresh]);
+  }, [guard, refresh]);
 
   useEffect(() => {
     const busy = docs.some((d) => d.status === "queued" || d.status === "processing");
@@ -56,9 +58,13 @@ export function DocumentLibrary() {
 
   async function onUpload(file: File) {
     setError("");
-    const created = await client.uploadDocument(file);
-    await refresh();
-    setSelected(created.id);
+    try {
+      const created = await client.uploadDocument(file);
+      await refresh();
+      setSelected(created.id);
+    } catch (err) {
+      throw new Error(await guard(err));
+    }
   }
 
   async function confirmDelete() {
@@ -69,7 +75,7 @@ export function DocumentLibrary() {
       setPendingDelete(null);
       await refresh();
     } catch (err) {
-      setError(errorMessage(err));
+      setError(await guard(err));
     } finally {
       setDeleting(false);
     }

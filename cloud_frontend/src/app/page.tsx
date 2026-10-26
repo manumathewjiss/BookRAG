@@ -11,9 +11,12 @@ export default function HomePage() {
           PDF page, and supporting excerpt. The model may refuse when the selected document does not
           contain the answer.
         </p>
-        <p>
-          <Link className="primary" href="/login" style={{ display: "inline-block" }}>
+        <p style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
+          <Link className="primary" href="/login">
             Sign in
+          </Link>
+          <Link className="ghost" href="/signup">
+            Create an account
           </Link>
         </p>
       </section>

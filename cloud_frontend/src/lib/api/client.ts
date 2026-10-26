@@ -1,12 +1,21 @@
 import { apiBaseUrl, isMockMode, MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "@/lib/config";
 import { BookragApiError, parseApiError } from "@/lib/api/errors";
 import { createMockClient } from "@/lib/api/mock";
+import { isMockAccessToken } from "@/lib/auth/token";
 import type { Answer, BookragClient, Document, HealthResponse, MeResponse } from "@/lib/api/types";
 import { isDocumentStatus, isEvidenceStatus } from "@/lib/api/types";
 
 export type { BookragClient } from "@/lib/api/types";
 
 export type AccessTokenProvider = () => Promise<string | null>;
+
+async function requireLiveToken(getToken: AccessTokenProvider): Promise<string> {
+  const token = await getToken();
+  if (!token || isMockAccessToken(token)) {
+    throw new BookragApiError("Sign in to continue.", "unauthenticated", 401);
+  }
+  return token;
+}
 
 function assertDocument(value: unknown): Document {
   const rec = value && typeof value === "object" ? (value as Record<string, unknown>) : null;
@@ -86,10 +95,7 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
   const base = apiBaseUrl();
 
   async function request(path: string, init: RequestInit = {}): Promise<{ status: number; body: unknown }> {
-    const token = await getToken();
-    if (!token) {
-      throw new BookragApiError("Sign in to continue.", "unauthenticated", 401);
-    }
+    const token = await requireLiveToken(getToken);
     const headers = new Headers(init.headers);
     headers.set("Authorization", `Bearer ${token}`);
     if (init.body && !(init.body instanceof FormData) && !headers.has("Content-Type")) {
@@ -139,8 +145,7 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       return assertDocument((body as { document: unknown }).document);
     },
     async getPdf(id: string) {
-      const token = await getToken();
-      if (!token) throw new BookragApiError("Sign in to continue.", "unauthenticated", 401);
+      const token = await requireLiveToken(getToken);
       let response: Response;
       try {
         response = await fetch(`${base}/api/v1/documents/${encodeURIComponent(id)}/pdf`, {
@@ -168,7 +173,9 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       const { status, body } = await request(`/api/v1/documents/${encodeURIComponent(id)}`, {
         method: "DELETE",
       });
-      if (status !== 204 && status !== 200) throw parseApiError(status, body);
+      // Contract: 204 on deletion. 404 means the document is already gone from this account.
+      if (status === 204 || status === 404) return;
+      throw parseApiError(status, body);
     },
     async chat(documentId: string, question: string) {
       const trimmed = question.trim();

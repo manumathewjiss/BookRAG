@@ -1,13 +1,16 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { isSupabaseConfigured, supabaseAnonKey, supabaseUrl } from "@/lib/config";
+import { isSupabaseConfigured, safeNextPath, supabaseAnonKey, supabaseUrl } from "@/lib/config";
 
 const PROTECTED = ["/library", "/chat"];
+const AUTH_PAGES = ["/login", "/signup"];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const needsAuth = PROTECTED.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
-  if (!needsAuth || !isSupabaseConfigured()) {
+  const isAuthPage = AUTH_PAGES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+
+  if (!isSupabaseConfigured()) {
     return NextResponse.next();
   }
 
@@ -25,15 +28,24 @@ export async function middleware(request: NextRequest) {
     },
   });
   const { data } = await supabase.auth.getUser();
-  if (!data.user) {
+
+  if (needsAuth && !data.user) {
     const login = request.nextUrl.clone();
     login.pathname = "/login";
     login.searchParams.set("next", pathname);
     return NextResponse.redirect(login);
   }
+
+  if (isAuthPage && data.user) {
+    const dest = request.nextUrl.clone();
+    dest.pathname = safeNextPath(request.nextUrl.searchParams.get("next"));
+    dest.search = "";
+    return NextResponse.redirect(dest);
+  }
+
   return response;
 }
 
 export const config = {
-  matcher: ["/library", "/library/:path*", "/chat/:path*"],
+  matcher: ["/library", "/library/:path*", "/chat", "/chat/:path*", "/login", "/signup"],
 };

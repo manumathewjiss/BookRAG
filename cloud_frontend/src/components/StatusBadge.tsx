@@ -18,6 +18,9 @@ export function EvidenceBadge({
   enough: boolean;
   status: EvidenceStatus;
 }) {
+  if (status === "unverified") {
+    return <span className="badge warn">Answer withheld — missing citation</span>;
+  }
   if (!enough || status === "absent") {
     return <span className="badge err">Not in this PDF</span>;
   }

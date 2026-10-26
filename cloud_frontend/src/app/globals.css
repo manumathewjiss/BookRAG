@@ -89,6 +89,10 @@ h1, h2, h3 { font-family: var(--serif); color: var(--navy); font-weight: 600; }
   border-radius: 999px;
   border: 1px solid var(--line);
   padding: 0.35rem 0.8rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: #fff;
   color: var(--navy);
   text-decoration: none;
@@ -336,4 +340,24 @@ h1, h2, h3 { font-family: var(--serif); color: var(--navy); font-weight: 600; }
   .library-grid, .chat-desk { grid-template-columns: 1fr; }
   .metrics { grid-template-columns: 1fr 1fr; }
   .topbar { flex-wrap: wrap; }
+}
+@media (max-width: 720px) {
+  .page { padding: 0.9rem 0.9rem calc(1.2rem + env(safe-area-inset-bottom)); }
+  .user-meta {
+    max-width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .ask-row {
+    position: sticky;
+    bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    background: var(--ivory);
+    z-index: 2;
+  }
+  .ask-row button { min-width: 44px; min-height: 44px; }
+  .pdf-frame { min-height: 14rem; max-height: 55vh; }
+  .hero { padding: 1.1rem 1rem; }
+  .doc-row { grid-template-columns: 1fr 44px; }
 }

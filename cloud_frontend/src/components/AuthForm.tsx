@@ -1,19 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth/AuthProvider";
-import { isLocalTestAuth, isMockMode, isSupabaseConfigured } from "@/lib/config";
+import { isLocalTestAuth, isMockMode, isSupabaseConfigured, safeNextPath } from "@/lib/config";
 
 export function AuthForm({ mode }: { mode: "login" | "signup" }) {
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, session, loading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const nextPath = safeNextPath(searchParams.get("next"));
+  const expired = searchParams.get("reason") === "expired";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
+  const [notice, setNotice] = useState(expired ? "Your session ended. Sign in again." : "");
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (!loading && session) router.replace(nextPath);
+  }, [loading, nextPath, router, session]);
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -30,7 +37,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       } else {
         await signIn(email, password);
       }
-      router.replace("/library");
+      router.replace(nextPath);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not continue.");
     } finally {
@@ -48,7 +55,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         <p>
           Private PDF library and RAG chat.{" "}
           {isSupabaseConfigured()
-            ? "Accounts are stored in Supabase Auth."
+            ? "Accounts are stored in Supabase Auth. The API receives only your access token."
             : isMockMode()
               ? "Supabase is not configured, so this local session is mock-only."
               : isLocalTestAuth()
@@ -80,7 +87,11 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        {error ? <p className="error-card">{error}</p> : null}
+        {error ? (
+          <p className="error-card" role="alert">
+            {error}
+          </p>
+        ) : null}
         {notice ? <p className="empty">{notice}</p> : null}
         <div className="auth-actions">
           <button className="primary" type="submit" disabled={busy}>
@@ -88,11 +99,13 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
           </button>
           {mode === "login" ? (
             <p>
-              Need an account? <Link href="/signup">Sign up</Link>
+              Need an account?{" "}
+              <Link href={`/signup?next=${encodeURIComponent(nextPath)}`}>Sign up</Link>
             </p>
           ) : (
             <p>
-              Already registered? <Link href="/login">Sign in</Link>
+              Already registered?{" "}
+              <Link href={`/login?next=${encodeURIComponent(nextPath)}`}>Sign in</Link>
             </p>
           )}
         </div>

@@ -25,6 +25,12 @@ describe("live API client", () => {
             headers: { "content-type": "application/pdf" },
           });
         }
+        if (url.includes("/api/v1/documents/doc-1") && init?.method === "DELETE") {
+          return new Response(null, { status: 204 });
+        }
+        if (url.includes("/api/v1/documents/gone") && init?.method === "DELETE") {
+          return new Response(null, { status: 404 });
+        }
         if (url.endsWith("/api/v1/documents") && init?.method === "POST") {
           return new Response(
             JSON.stringify({
@@ -72,5 +78,21 @@ describe("live API client", () => {
     const call = vi.mocked(fetch).mock.calls[0];
     expect(new Headers(call[1]?.headers).get("Authorization")).toBe("Bearer test-token");
     expect(call[1]?.cache).toBe("no-store");
+  });
+
+  it("treats DELETE 204 as success", async () => {
+    const client = createLiveClient(async () => "test-token");
+    await expect(client.deleteDocument("doc-1")).resolves.toBeUndefined();
+  });
+
+  it("treats DELETE 404 as already gone", async () => {
+    const client = createLiveClient(async () => "test-token");
+    await expect(client.deleteDocument("gone")).resolves.toBeUndefined();
+  });
+
+  it("refuses to send a mock.local token to the live API", async () => {
+    const client = createLiveClient(async () => "mock.local.not-a-session");
+    await expect(client.me()).rejects.toMatchObject({ httpStatus: 401, code: "unauthenticated" });
+    expect(vi.mocked(fetch)).not.toHaveBeenCalled();
   });
 });

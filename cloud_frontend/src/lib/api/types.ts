@@ -86,6 +86,10 @@ export function isEvidenceStatus(value: string): value is EvidenceStatus {
   return (EVIDENCE_STATUSES as readonly string[]).includes(value);
 }
 
+export function isWithheldAnswer(answer: Pick<Answer, "evidence_status">): boolean {
+  return answer.evidence_status === "unverified";
+}
+
 export interface BookragClient {
   readonly mode: "mock" | "live";
   health(): Promise<HealthResponse>;

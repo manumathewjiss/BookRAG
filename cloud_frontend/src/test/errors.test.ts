@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseApiError } from "@/lib/api/errors";
+import { isUnauthorized, parseApiError } from "@/lib/api/errors";
 
 describe("parseApiError", () => {
   it("reads the Codex contract error object", () => {
@@ -22,5 +22,16 @@ describe("parseApiError", () => {
     expect(parseApiError(429, null).retryable).toBe(true);
     expect(parseApiError(503, null).retryable).toBe(true);
     expect(parseApiError(400, null).retryable).toBe(false);
+  });
+
+  it("maps 403 to forbidden rather than a CORS/origin code", () => {
+    const err = parseApiError(403, { error: { code: "forbidden", message: "Not allowed." } });
+    expect(err.code).toBe("forbidden");
+    expect(err.code).not.toBe("forbidden_origin");
+  });
+
+  it("detects expired sessions from 401", () => {
+    expect(isUnauthorized(parseApiError(401, { detail: "Sign in to continue" }))).toBe(true);
+    expect(isUnauthorized(parseApiError(404, null))).toBe(false);
   });
 });

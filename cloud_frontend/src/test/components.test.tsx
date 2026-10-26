@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { CitationPanel } from "@/components/CitationPanel";
 import { EmptyState } from "@/components/EmptyState";
-import { StatusBadge } from "@/components/StatusBadge";
+import { EvidenceBadge, StatusBadge } from "@/components/StatusBadge";
 import type { Answer } from "@/lib/api/types";
 
 const grounded: Answer = {
@@ -56,6 +56,26 @@ describe("UI pieces", () => {
     expect(screen.getByText(/high-level language/)).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: /thinkpython\.pdf/i }));
     expect(onSelect).toHaveBeenCalledWith(grounded.citations[0]);
+  });
+
+  it("labels unverified Sol answers as withheld", () => {
+    render(<EvidenceBadge enough={false} status="unverified" />);
+    expect(screen.getByText(/Answer withheld/)).toBeInTheDocument();
+  });
+
+  it("does not offer citations when evidence is unverified", () => {
+    const unverified: Answer = {
+      ...grounded,
+      enough_evidence: true,
+      evidence_status: "unverified",
+      citations: [],
+      answer: "This claimed answer must not be treated as cited support.",
+    };
+    render(
+      <CitationPanel answer={unverified} filename="thinkpython.pdf" selected={null} onSelect={() => undefined} />,
+    );
+    expect(screen.getByText(/Answer withheld/)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /thinkpython\.pdf/i })).not.toBeInTheDocument();
   });
 
   it("shows refusal copy when evidence is absent", () => {

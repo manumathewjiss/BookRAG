@@ -6,16 +6,18 @@ import { CitationPanel } from "@/components/CitationPanel";
 import { EmptyState } from "@/components/EmptyState";
 import { EvidenceBadge, StatusBadge } from "@/components/StatusBadge";
 import { PdfViewer } from "@/components/PdfViewer";
-import { errorMessage, getClient } from "@/lib/api";
-import type { Citation, Document } from "@/lib/api/types";
+import { getClient } from "@/lib/api";
+import { isWithheldAnswer, type Citation, type Document } from "@/lib/api/types";
 import { useAuth } from "@/lib/auth/AuthProvider";
+import { useApiGuard } from "@/lib/auth/useApiGuard";
 import { loadHistory, saveHistory, type ChatTurn } from "@/lib/chat/history";
-import { MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "@/lib/config";
+import { DOCUMENT_POLL_MS, MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "@/lib/config";
 import { validateQuestion } from "@/lib/pdf/validate";
 
 export function ChatWorkspace({ documentId }: { documentId: string }) {
   const { getAccessToken, session } = useAuth();
   const client = useMemo(() => getClient(getAccessToken), [getAccessToken]);
+  const guard = useApiGuard();
   const userId = session?.user.id || "anon";
   const [doc, setDoc] = useState<Document | null>(null);
   const [turns, setTurns] = useState<ChatTurn[] | null>(null);
@@ -44,8 +46,16 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   }, [client, documentId]);
 
   useEffect(() => {
-    void loadDoc().catch((err) => setError(errorMessage(err)));
-  }, [loadDoc]);
+    void loadDoc().catch(async (err) => setError(await guard(err)));
+  }, [guard, loadDoc]);
+
+  useEffect(() => {
+    if (!doc || (doc.status !== "queued" && doc.status !== "processing")) return;
+    const timer = window.setInterval(() => {
+      void loadDoc().catch(async (err) => setError(await guard(err)));
+    }, DOCUMENT_POLL_MS);
+    return () => window.clearInterval(timer);
+  }, [doc, guard, loadDoc]);
 
   async function ask() {
     const check = validateQuestion(question, MIN_QUESTION_CHARS, MAX_QUESTION_CHARS);
@@ -76,7 +86,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
       setQuestion("");
       setStatus("");
     } catch (err) {
-      const message = errorMessage(err);
+      const message = await guard(err);
       setTurns((prev) =>
         (prev ?? []).map((item) =>
           item.id === turn.id ? { ...item, status: "error" as const, error: message } : item,
@@ -161,7 +171,11 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
                       enough={turn.answer.enough_evidence}
                       status={turn.answer.evidence_status}
                     />
-                    <p className="answer-text">{turn.answer.answer}</p>
+                    <p className="answer-text">
+                      {isWithheldAnswer(turn.answer)
+                        ? "The model claimed support without a valid citation, so this answer is withheld."
+                        : turn.answer.answer}
+                    </p>
                     <div className="metrics">
                       <div className="metric">
                         <span className="k">Search</span>
@@ -194,10 +208,10 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
           {activeCite ? (
             <div style={{ marginTop: "1rem" }}>
               <PdfViewer
-                client={client}
                 documentId={documentId}
                 filename={doc?.filename || "document.pdf"}
                 page={activeCite.pdf_page}
+                client={client}
               />
             </div>
           ) : (

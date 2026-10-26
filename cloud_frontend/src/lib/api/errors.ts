@@ -15,7 +15,7 @@ export class BookragApiError extends Error {
 const STATUS_CODES: Record<number, string> = {
   400: "invalid_input",
   401: "unauthenticated",
-  403: "forbidden_origin",
+  403: "forbidden",
   404: "not_found",
   409: "still_processing",
   413: "payload_too_large",
@@ -67,4 +67,8 @@ export function errorMessage(err: unknown): string {
   if (err instanceof BookragApiError) return err.message;
   if (err instanceof Error && err.message) return err.message;
   return "Something went wrong. Please try again.";
+}
+
+export function isUnauthorized(err: unknown): boolean {
+  return err instanceof BookragApiError && err.httpStatus === 401;
 }

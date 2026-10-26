@@ -21,7 +21,7 @@ export function CitationPanel({
       </div>
     );
   }
-  if (!answer.enough_evidence || answer.citations.length === 0) {
+  if (answer.evidence_status === "unverified" || !answer.enough_evidence || answer.citations.length === 0) {
     return (
       <div>
         <EvidenceBadge enough={false} status={answer.evidence_status} />
