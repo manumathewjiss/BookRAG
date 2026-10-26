@@ -80,6 +80,22 @@ def teardown_function():
     app.dependency_overrides.clear()
 
 
+def test_cors_allows_configured_local_origin_only():
+    client = TestClient(app)
+    allowed = client.options(
+        "/api/v1/documents",
+        headers={"Origin": "http://localhost:3000", "Access-Control-Request-Method": "POST"},
+    )
+    assert allowed.status_code == 200
+    assert allowed.headers["access-control-allow-origin"] == "http://localhost:3000"
+    blocked = client.options(
+        "/api/v1/documents",
+        headers={"Origin": "https://unlisted.example", "Access-Control-Request-Method": "POST"},
+    )
+    assert blocked.status_code == 400
+    assert "access-control-allow-origin" not in blocked.headers
+
+
 def test_other_user_cannot_read_delete_or_chat():
     client, repo, storage = client_for(OTHER)
     assert client.get(f"/api/v1/documents/{DOC}").status_code == 404

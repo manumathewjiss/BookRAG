@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 verification_runs/
 verification_approval.json
+verification_sessions.env

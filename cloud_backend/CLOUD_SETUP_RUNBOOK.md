@@ -83,6 +83,22 @@ environment, not in Render. The two access tokens must belong to different users
 in the test project. The script reports only IDs, counts, and synthetic test
 content; it never prints the tokens or keys.
 
+To obtain those sessions without typing a password into chat or a shell command,
+run this from a private interactive terminal in `cloud_backend/`:
+
+```bash
+.venv/bin/python -m scripts.prepare_smoke_sessions
+```
+
+Enter each existing test user's email and password at the prompts. Passwords
+are hidden. The helper signs in through Supabase Auth, checks both access tokens
+through `/auth/v1/user`, requires distinct user IDs, and saves only the access
+tokens to ignored `verification_sessions.env` with mode 600. No refresh tokens
+or passwords are stored. Access tokens expire, so repeat this step if the live
+test happens later. After separate approval for the live test, load the tokens
+in the same terminal with `source verification_sessions.env` before running the
+smoke command. Never paste the file contents into chat, logs, or Git.
+
 ## 3. Real-service smoke, separately approved
 
 The script is safe by default:

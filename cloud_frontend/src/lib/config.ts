@@ -53,6 +53,23 @@ export function assertPublicBrowserEnv(): void {
     if (isEnabled(process.env.NEXT_PUBLIC_BOOKRAG_LOCAL_TEST_AUTH)) {
       throw new Error("NEXT_PUBLIC_BOOKRAG_LOCAL_TEST_AUTH cannot be enabled for a production build.");
     }
+    for (const [name, value] of [
+      ["NEXT_PUBLIC_SUPABASE_URL", supabaseUrl()],
+      ["NEXT_PUBLIC_SUPABASE_ANON_KEY", supabaseAnonKey()],
+      ["NEXT_PUBLIC_BOOKRAG_API_URL", process.env.NEXT_PUBLIC_BOOKRAG_API_URL || ""],
+    ]) {
+      if (!value.trim() || /YOUR_PROJECT|replace-with|<[^>]+>/i.test(value)) {
+        throw new Error(`${name} must be configured for a production build.`);
+      }
+    }
+    for (const name of ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_BOOKRAG_API_URL"] as const) {
+      try {
+        const url = new URL(process.env[name] || "");
+        if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) throw new Error("unsafe URL");
+      } catch {
+        throw new Error(`${name} must be a public HTTPS origin for a production build.`);
+      }
+    }
   }
   if (looksLikeServiceRoleKey(supabaseAnonKey())) {
     throw new Error("NEXT_PUBLIC_SUPABASE_ANON_KEY must be the anon/public key, not a service-role JWT.");
@@ -69,6 +86,7 @@ export function assertPublicBrowserEnv(): void {
 export function looksLikeServiceRoleKey(key: string): boolean {
   const trimmed = key.trim();
   if (!trimmed) return false;
+  if (trimmed.startsWith("sb_secret_")) return true;
   if (/service_role|supabase_admin/i.test(trimmed)) return true;
   const parts = trimmed.split(".");
   if (parts.length < 2) return false;
@@ -108,6 +126,6 @@ export function safeNextPath(raw: string | null | undefined): string {
   if (!raw) return "/library";
   if (!raw.startsWith("/")) return "/library";
   if (raw.startsWith("//") || raw.includes("://") || raw.includes("\\")) return "/library";
-  if (raw.startsWith("/library") || raw.startsWith("/chat")) return raw;
+  if (/^\/(library|chat)(\/|\?|#|$)/.test(raw)) return raw;
   return "/library";
 }

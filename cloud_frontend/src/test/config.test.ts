@@ -35,6 +35,7 @@ describe("production-safe config", () => {
     expect(safeNextPath("https://evil.example/phish")).toBe("/library");
     expect(safeNextPath("//evil.example")).toBe("/library");
     expect(safeNextPath("/login")).toBe("/library");
+    expect(safeNextPath("/libraryevil")).toBe("/library");
   });
 
   it("detects a service-role JWT so it never becomes the anon browser key", () => {
@@ -62,6 +63,21 @@ describe("production-safe config", () => {
     const payload = Buffer.from(JSON.stringify({ role: "service_role" })).toString("base64url");
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", `eyJhbGciOiJub25lIn0.${payload}.sig`);
     expect(() => assertPublicBrowserEnv()).toThrow(/anon\/public key/);
+  });
+
+  it("refuses secret Supabase keys and incomplete production configuration", () => {
+    vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "sb_secret_private");
+    expect(() => assertPublicBrowserEnv()).toThrow(/anon\/public key/);
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "sb_publishable_public");
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "");
+    expect(() => assertPublicBrowserEnv()).toThrow(/NEXT_PUBLIC_SUPABASE_URL/);
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://sample.supabase.co");
+    vi.stubEnv("NEXT_PUBLIC_BOOKRAG_API_URL", "http://sample.example");
+    expect(() => assertPublicBrowserEnv()).toThrow(/public HTTPS origin/);
+    vi.stubEnv("NEXT_PUBLIC_BOOKRAG_API_URL", "https://api.example");
+    expect(() => assertPublicBrowserEnv()).not.toThrow();
   });
 
   it("refreshes JWTs inside the one-minute skew window", () => {

@@ -1,8 +1,7 @@
-# Frontend–backend contract notes (25 Oct 2026)
+# Frontend–backend contract notes (26 Oct 2026)
 
 Canonical contract: Codex `cloud_backend/API_CONTRACT_v1.md`.
-Frontend worktree: `feat/bookrag-cloud-frontend-readiness` from integration `5c2e63c`.
-Backend files were not modified here.
+Consolidated worktree: `feat/bookrag-cloud-deployment-readiness`.
 
 ## Aligned in this frontend
 
@@ -14,12 +13,12 @@ Backend files were not modified here.
 - Chat 409 `still_processing` is shown as an error; the UI polls document status,
   not chat.
 
-## Confirmed gaps (Codex / infra)
+## Resolved integration points
 
-1. **Private PDF download.** This frontend calls
-   `GET /api/v1/documents/{id}/pdf` with Bearer + `cache: no-store`. Codex's current
-   backend contract still says private PDF downloads are not exposed in v1. If that
-   route is missing in production, the viewer cannot open cited pages.
+1. **Private PDF download.** The backend implements and documents
+   `GET /api/v1/documents/{id}/pdf`. The frontend sends Bearer + `cache: no-store`.
+   Backend tests confirm the owner receives the original bytes and another user
+   receives 404. No IndexedDB copy is required after a reload or on another device.
 2. **CORS vs 403.** Disallowed origins are blocked by CORS, not a 403 JSON body.
    The frontend maps HTTP 403 to `forbidden` if a body appears.
 3. **`ALLOWED_ORIGINS`.** Must include `http://localhost:3000` and the eventual
@@ -29,7 +28,10 @@ Backend files were not modified here.
 5. **Token refresh.** Frontend refreshes when JWT `exp` is within 60 seconds.
    Backend still validates the token it receives.
 6. **Local integration auth** (`NEXT_PUBLIC_BOOKRAG_LOCAL_TEST_AUTH`) is
-   development-only. The test FastAPI server must not be deployed.
+   development-only. Production builds reject it and mock mode; the test FastAPI
+   server must not be deployed.
+7. **Production configuration.** The production build requires the Supabase URL,
+   public key, and HTTPS FastAPI origin; missing or placeholder values fail the build.
 
 ## Browser secrets
 

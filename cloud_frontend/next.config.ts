@@ -24,8 +24,28 @@ function assertPublicBrowserEnv(): void {
   if (production && enabled(localAuth)) {
     throw new Error("NEXT_PUBLIC_BOOKRAG_LOCAL_TEST_AUTH cannot be enabled for a production build.");
   }
+  if (production) {
+    for (const name of ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY", "NEXT_PUBLIC_BOOKRAG_API_URL"]) {
+      const value = (process.env[name] || "").trim();
+      if (!value || /YOUR_PROJECT|replace-with|<[^>]+>/i.test(value)) {
+        throw new Error(`${name} must be configured for a production build.`);
+      }
+    }
+    for (const name of ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_BOOKRAG_API_URL"]) {
+      try {
+        const url = new URL(process.env[name] || "");
+        if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) throw new Error("unsafe URL");
+      } catch {
+        throw new Error(`${name} must be a public HTTPS origin for a production build.`);
+      }
+    }
+  }
   const anon = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "").trim();
-  if (/service_role|supabase_admin/i.test(anon)) {
+  let role = "";
+  try {
+    role = JSON.parse(Buffer.from(anon.split(".")[1] || "", "base64url").toString("utf8")).role || "";
+  } catch { /* publishable keys are not JWTs */ }
+  if (/service_role|supabase_admin/i.test(anon) || anon.startsWith("sb_secret_") || role === "service_role" || role === "supabase_admin") {
     throw new Error("NEXT_PUBLIC_SUPABASE_ANON_KEY must be the anon/public key, not a service-role JWT.");
   }
   for (const [name, value] of Object.entries(process.env)) {
