@@ -16,7 +16,7 @@ Apply `migrations/001_initial.sql` in the target Supabase project only when depl
 
 The production candidate pool copies the frozen benchmark's tokenization (`Unicode \w+`, casefold), BM25 constants (`k1=1.2`, `b=0.75`), dense top 30 + BM25 top 30, reciprocal-rank score with 60, and final top 20. The API computes BM25 over the selected document's passages in memory at question time. This is an exact ranking formula, not PostgreSQL full-text scoring. At a 3,000-passage document cap, it is suitable for an initial small trial; profile before expanding limits. The index uses pgvector exact cosine distance. Voyage reranks the same 20 full passages and Sol receives five.
 
-PDF extraction uses pypdf and 450-token chunks with 50-token overlap, split separately within each PDF page. This is intentionally page-aware for citations, but differs from historical Stage 1 chunks; it requires a new evaluation before claiming the frozen benchmark's accuracy on newly uploaded files. Image-only PDFs have no OCR and fail with a clear status.
+PDF extraction uses pypdf and 450-token chunks with 50-token overlap, split separately within each PDF page. This is intentionally page-aware for citations, but differs from historical Stage 1 chunks; it requires a new evaluation before claiming the frozen benchmark's accuracy on newly uploaded files. PDFs encrypted with an empty user password are opened automatically; PDFs requiring a nonempty password fail with an instruction to upload an unlocked copy. The existing page and passage limits still apply after opening. Image-only PDFs have no OCR and fail with a clear status.
 
 ## Reliability and security notes
 

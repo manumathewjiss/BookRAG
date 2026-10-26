@@ -160,7 +160,7 @@ export function DocumentLibrary() {
                   Open chat
                 </Link>
               ) : selectedDoc.status === "failed" ? (
-                <p>This PDF failed to index. Remove it and try a digital-text PDF.</p>
+                <p>{selectedDoc.error ? "Remove this PDF and upload a corrected copy." : "This PDF failed to index. Remove it and try a digital-text PDF."}</p>
               ) : (
                 <p className="status pulse">Indexing… chat unlocks when this document is ready.</p>
               )}

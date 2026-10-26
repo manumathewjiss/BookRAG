@@ -6,6 +6,10 @@ import tiktoken
 from pypdf import PdfReader
 
 
+class PasswordProtectedPdfError(ValueError):
+    """The PDF cannot be read without a password supplied by its owner."""
+
+
 def clean_page_text(text: str) -> str:
     """Match the research pipeline's light whitespace cleanup, without changing meaning."""
     text = (text or "").replace("\x00", " ").replace("\r\n", "\n").replace("\r", "\n")
@@ -16,8 +20,17 @@ def clean_page_text(text: str) -> str:
 
 def extract_chunks(pdf_bytes: bytes, max_pages: int, max_passages: int) -> tuple[int, list[dict]]:
     reader = PdfReader(BytesIO(pdf_bytes))
-    if reader.is_encrypted or len(reader.pages) > max_pages:
-        raise ValueError("PDF is encrypted or exceeds the page limit")
+    if reader.is_encrypted:
+        # Some publishers mark readable PDFs as encrypted with an empty user
+        # password. Unlock only those; never guess or store a nonempty password.
+        try:
+            unlocked = reader.decrypt("")
+        except Exception as exc:
+            raise PasswordProtectedPdfError("This PDF requires a password. Upload an unlocked copy.") from exc
+        if not unlocked:
+            raise PasswordProtectedPdfError("This PDF requires a password. Upload an unlocked copy.")
+    if len(reader.pages) > max_pages:
+        raise ValueError("PDF exceeds the page limit")
     codec = tiktoken.get_encoding("cl100k_base")
     chunks: list[dict] = []
     for page_no, page in enumerate(reader.pages, start=1):

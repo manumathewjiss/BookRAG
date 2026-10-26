@@ -3,6 +3,7 @@ import logging
 import time
 
 from .config import settings
+from .chunking import PasswordProtectedPdfError
 from .ingestion import ingest_document
 from .providers import HostedModels, ProviderRejected
 from .repository import LostJobLease, Repository, UncertainEmbeddingBatch
@@ -26,6 +27,9 @@ def work_once(repo: Repository, storage: PrivateStorage, models: HostedModels, c
         log.warning("Job lease changed for document %s", job["document_id"])
     except UncertainEmbeddingBatch:
         repo.flag_uncertain_job(job["document_id"], job["claim_token"])
+    except PasswordProtectedPdfError:
+        repo.job_failure(job["document_id"], job["claim_token"], 3,
+                         "This PDF requires a password. Upload an unlocked copy.")
     except ProviderRejected as exc:
         attempts = 3 if exc.status_code != 429 else job["attempts"]
         repo.job_failure(job["document_id"], job["claim_token"], attempts,
