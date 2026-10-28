@@ -1,12 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { useAuth } from "@/lib/auth/AuthProvider";
 
 export default function HomePage() {
+  const { session, loading } = useAuth();
+  const destination = session ? "/library" : "/signup";
+  const actionLabel = session ? "Open my library" : "Create an account";
+
   return (
     <div className="landing">
       <header className="landing-header">
         <Link className="landing-brand" href="/" aria-label="BookRAG home">Book<span>RAG</span></Link>
         <nav aria-label="Account">
-          <Link className="landing-signin" href="/login">Sign in</Link>
+          {!loading && <Link className="landing-signin" href={session ? "/library" : "/login"}>{session ? "My library" : "Sign in"}</Link>}
         </nav>
       </header>
 
@@ -20,7 +27,7 @@ export default function HomePage() {
               and open the original PDF page behind it.
             </p>
             <div className="landing-actions">
-              <Link className="landing-primary" href="/signup">Create an account <span aria-hidden="true">→</span></Link>
+              {!loading && <Link className="landing-primary" href={destination}>{actionLabel} <span aria-hidden="true">→</span></Link>}
             </div>
             <p className="landing-assurance">Private documents. Answers you can check against the original page.</p>
           </div>
