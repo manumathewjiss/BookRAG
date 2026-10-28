@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { AskIcon } from "@/components/AskIcon";
 
@@ -10,6 +10,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { session, loading, signOut } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+  const [lastChatId, setLastChatId] = useState<string | null>(null);
+  const userId = session?.user.id;
+
+  useEffect(() => {
+    if (!userId) {
+      setLastChatId(null);
+      return;
+    }
+    const key = `bookrag-last-chat:${userId}`;
+    const chatId = /^\/chat\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.exec(pathname)?.[1];
+    if (chatId) {
+      sessionStorage.setItem(key, chatId);
+      setLastChatId(chatId);
+    } else {
+      const saved = sessionStorage.getItem(key);
+      setLastChatId(saved && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(saved) ? saved : null);
+    }
+  }, [pathname, userId]);
 
   useEffect(() => {
     if (!loading && !session) {
@@ -47,7 +65,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             {pathname.startsWith("/chat/") ? (
               <span className="side-nav-current"><span className="side-nav-icon"><AskIcon /></span> Ask</span>
             ) : (
-              <Link href="/library#books"><span className="side-nav-icon"><AskIcon /></span> Ask</Link>
+              <Link href={lastChatId ? `/chat/${lastChatId}` : "/library#books"}><span className="side-nav-icon"><AskIcon /></span> Ask</Link>
             )}
           </nav>
         </div>
