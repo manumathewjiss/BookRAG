@@ -33,23 +33,36 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="app-shell">
-      <header className="topbar">
-        <Link className="brand" href="/library">
-          BookRAG
-        </Link>
-        <nav className="top-nav" aria-label="Main">
-          <Link href="/library" aria-current={pathname.startsWith("/library") ? "page" : undefined}>
-            Library
+      <aside className="sidebar">
+        <div>
+          <Link className="brand" href="/library" aria-label="BookRAG library">
+            Book<span>RAG</span>
           </Link>
-          <span className="user-meta" title={session.user.email}>
-            {session.user.email}
-          </span>
-          <button type="button" className="ghost" onClick={() => void onLogout()}>
+          <p className="brand-subtitle">Your books.<br />Deeper answers.</p>
+          <nav className="side-nav" aria-label="Main">
+            <Link href="/library" aria-current={pathname.startsWith("/library") ? "page" : undefined}>
+              <span aria-hidden="true">▤</span> Library
+            </Link>
+            {pathname.startsWith("/chat/") ? (
+              <span className="side-nav-current"><span aria-hidden="true">✦</span> Ask</span>
+            ) : null}
+          </nav>
+        </div>
+        <div className="sidebar-account">
+          <span className="user-meta" title={session.user.email}>{session.user.email}</span>
+          <button type="button" className="sidebar-logout" onClick={() => void onLogout()}>
             Log out
           </button>
-        </nav>
-      </header>
-      {children}
+        </div>
+      </aside>
+      <div className="shell-content">
+        <header className="mobile-topbar">
+          <Link className="brand" href="/library">Book<span>RAG</span></Link>
+          <Link href="/library">Library</Link>
+          <button type="button" aria-label="Mobile sign out" onClick={() => void onLogout()}>Log out</button>
+        </header>
+        {children}
+      </div>
     </div>
   );
 }

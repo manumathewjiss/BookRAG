@@ -13,7 +13,7 @@ import { useApiGuard } from "@/lib/auth/useApiGuard";
 import { DAILY_QUESTION_LIMIT, DAILY_UPLOAD_LIMIT, DOCUMENT_POLL_MS } from "@/lib/config";
 
 export function DocumentLibrary() {
-  const { getAccessToken, session } = useAuth();
+  const { getAccessToken } = useAuth();
   const client = useMemo(() => getClient(getAccessToken), [getAccessToken]);
   const guard = useApiGuard();
   const [docs, setDocs] = useState<Document[]>([]);
@@ -23,6 +23,8 @@ export function DocumentLibrary() {
   const [pendingDelete, setPendingDelete] = useState<Document | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<"all" | "ready" | "processing">("all");
 
   const refresh = useCallback(async () => {
     const [nextDocs, nextMe] = await Promise.all([client.listDocuments(), client.me()]);
@@ -55,6 +57,11 @@ export function DocumentLibrary() {
   }, [docs, refresh]);
 
   const selectedDoc = docs.find((d) => d.id === selected) || null;
+  const visibleDocs = docs.filter((doc) => {
+    const matchesSearch = `${doc.title} ${doc.filename}`.toLowerCase().includes(search.trim().toLowerCase());
+    const matchesFilter = filter === "all" || (filter === "ready" ? doc.status === "ready" : doc.status === "queued" || doc.status === "processing");
+    return matchesSearch && matchesFilter;
+  });
 
   async function onUpload(file: File) {
     setError("");
@@ -82,92 +89,94 @@ export function DocumentLibrary() {
   }
 
   return (
-    <div className="page">
-      <section className="hero">
-        <h1>Your library</h1>
-        <p>
-          Private PDFs for {session?.user.email}. Select a ready document to chat. Indexing status
-          updates automatically.
-        </p>
-        <div className="usage">
-          <span>
-            Uploads today: {me?.daily_uploads_used ?? "—"} / {DAILY_UPLOAD_LIMIT}
-          </span>
-          <span>
-            Questions today: {me?.daily_questions_used ?? "—"} / {DAILY_QUESTION_LIMIT}
-          </span>
-          <span>API: {client.mode === "mock" ? "mock (not live)" : "live FastAPI"}</span>
-        </div>
-      </section>
-
-      <div className="library-grid">
+    <div className="page library-page">
+      <div className="page-heading">
         <div>
-          <UploadDropzone onFile={onUpload} />
-          {error ? (
-            <p className="error-card" role="alert">
-              {error}
-            </p>
-          ) : null}
+          <p className="eyebrow">YOUR PRIVATE COLLECTION</p>
+          <h1>Personal Library</h1>
+          <p>Upload a PDF, then ask questions with passages and page citations from that book.</p>
         </div>
-        <div>
-          {loading ? (
-            <p className="status pulse">Loading documents…</p>
-          ) : docs.length === 0 ? (
-            <EmptyState title="No PDFs yet">
-              Drop a PDF on the left. When status is Ready, open chat and ask a question grounded in
-              that file.
-            </EmptyState>
-          ) : (
-            <div className="doc-list" role="list">
-              {docs.map((doc) => (
-                <div className="doc-row" key={doc.id} role="listitem">
-                  <button
-                    type="button"
-                    className={`doc-card ${selected === doc.id ? "active" : ""}`}
-                    aria-pressed={selected === doc.id}
-                    onClick={() => setSelected(doc.id)}
-                  >
-                    <span className="spine" aria-hidden="true">
-                      {doc.title.slice(0, 3).toUpperCase()}
-                    </span>
-                    <span>
-                      <span className="doc-name">{doc.title}</span>
-                      <span className="doc-tag">
-                        {doc.filename} · {doc.page_count} pages · {doc.passage_count} passages
-                      </span>
-                    </span>
-                    <StatusBadge status={doc.status} />
-                  </button>
-                  <button
-                    type="button"
-                    className="danger"
-                    aria-label={`Delete ${doc.title}`}
-                    onClick={() => setPendingDelete(doc)}
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {selectedDoc ? (
-            <div className="card" style={{ marginTop: "1rem" }}>
-              <h2 style={{ marginTop: 0 }}>{selectedDoc.title}</h2>
-              {selectedDoc.error ? <p className="error-card">{selectedDoc.error}</p> : null}
-              {selectedDoc.status === "ready" ? (
-                <Link className="primary" href={`/chat/${selectedDoc.id}`} style={{ display: "inline-block" }}>
-                  Open chat
-                </Link>
-              ) : selectedDoc.status === "failed" ? (
-                <p>{selectedDoc.error ? "Remove this PDF and upload a corrected copy." : "This PDF failed to index. Remove it and try a digital-text PDF."}</p>
-              ) : (
-                <p className="status pulse">Indexing… chat unlocks when this document is ready.</p>
-              )}
-            </div>
-          ) : null}
+        <div className="usage" aria-label="Daily usage">
+          <span>Uploads {me?.daily_uploads_used ?? "—"}/{DAILY_UPLOAD_LIMIT}</span>
+          <span>Questions {me?.daily_questions_used ?? "—"}/{DAILY_QUESTION_LIMIT}</span>
+          <span>{client.mode === "mock" ? "Mock preview" : "Private library"}</span>
         </div>
       </div>
+
+      {error ? <p className="error-card" role="alert">{error}</p> : null}
+
+      <div className="library-toolbar">
+        <label className="library-search">
+          <span className="sr-only">Search your library</span>
+          <span aria-hidden="true">⌕</span>
+          <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search your library…" />
+        </label>
+        <div className="library-filters" role="group" aria-label="Filter PDFs">
+          <button type="button" className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>All books ({docs.length})</button>
+          <button type="button" className={filter === "ready" ? "active" : ""} onClick={() => setFilter("ready")}>Ready</button>
+          <button type="button" className={filter === "processing" ? "active" : ""} onClick={() => setFilter("processing")}>Processing</button>
+        </div>
+      </div>
+
+      {loading ? <p className="status pulse">Loading documents…</p> : null}
+      {!loading && docs.length === 0 ? (
+        <EmptyState title="No PDFs yet">Upload a PDF below. When it is ready, you can ask questions about that book.</EmptyState>
+      ) : null}
+
+      <div className="book-grid" role="list">
+        {visibleDocs.map((doc, index) => (
+          <article className={`book-card ${selected === doc.id ? "selected" : ""}`} key={doc.id} role="listitem">
+            <button type="button" className="book-select" aria-pressed={selected === doc.id} onClick={() => setSelected(doc.id)}>
+              <span className={`book-cover cover-${index % 4}`} aria-hidden="true">
+                <span className="book-cover-mark">BookRAG</span>
+                <span className="book-cover-title">{doc.title}</span>
+                <span className="book-cover-bottom">PDF</span>
+              </span>
+              <span className="book-name">{doc.title}</span>
+              <span className="book-file">{doc.filename}</span>
+            </button>
+            <div className="book-card-footer">
+              <StatusBadge status={doc.status} />
+              {doc.page_count > 0 ? <span>{doc.page_count} PDF pages</span> : null}
+            </div>
+            <button type="button" className="book-delete" aria-label={`Delete ${doc.title}`} onClick={() => setPendingDelete(doc)}>Remove</button>
+          </article>
+        ))}
+        <div className="book-upload" role="listitem">
+          <span className="upload-icon" aria-hidden="true">＋</span>
+          <h2>Upload another PDF</h2>
+          <UploadDropzone onFile={onUpload} />
+        </div>
+      </div>
+      {!loading && docs.length > 0 && visibleDocs.length === 0 ? <p className="empty">No PDFs match this search or filter.</p> : null}
+
+      {selectedDoc ? (
+        <section className="document-detail" aria-label="Selected PDF details">
+          <div>
+            <p className="eyebrow">SELECTED PDF</p>
+            <h2>{selectedDoc.title}</h2>
+            <p className="document-detail-meta">{selectedDoc.filename}{selectedDoc.page_count > 0 ? ` · ${selectedDoc.page_count} PDF pages` : ""}{selectedDoc.passage_count > 0 ? ` · ${selectedDoc.passage_count} passages` : ""}</p>
+            {selectedDoc.error ? <p className="error-card">{selectedDoc.error}</p> : null}
+            {selectedDoc.status === "ready" ? <p>Your PDF is ready. Open it to ask a question and check the cited page.</p> : null}
+            {selectedDoc.status === "queued" || selectedDoc.status === "processing" ? (
+              <div className="processing-summary" aria-label="PDF processing progress">
+                <p>We are preparing this PDF. You can leave this page and return later; the status updates automatically.</p>
+                <ol>
+                  <li className="done"><span>1</span> PDF received</li>
+                  <li className="current"><span>2</span> Preparing text and search index</li>
+                  <li><span>3</span> Ready for questions</li>
+                </ol>
+                <small>Detailed stage times are not available from the server yet.</small>
+              </div>
+            ) : null}
+            {selectedDoc.status === "failed" ? <p>We could not prepare this PDF. Remove it and try a digital-text PDF.</p> : null}
+          </div>
+          <div className="document-detail-action">
+            <StatusBadge status={selectedDoc.status} />
+            {selectedDoc.status === "ready" ? <Link className="primary" href={`/chat/${selectedDoc.id}`}>Ask a question <span aria-hidden="true">→</span></Link> : null}
+          </div>
+        </section>
+      ) : null}
 
       {pendingDelete ? (
         <ConfirmDialog

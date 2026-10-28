@@ -100,125 +100,67 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   }
 
   return (
-    <div className="page">
-      <p>
-        <Link href="/library">← Library</Link>
-      </p>
-      <section className="hero">
-        <h1>{doc?.title || "Chat"}</h1>
-        <p>
-          {doc ? (
-            <>
-              {doc.filename} <StatusBadge status={doc.status} />
-            </>
-          ) : (
-            "Loading document…"
-          )}
-        </p>
-      </section>
+    <div className="page chat-page">
+      <div className="chat-heading">
+        <div>
+          <p className="eyebrow"><Link href="/library">Library</Link> <span aria-hidden="true">›</span> {doc?.title || "PDF"}</p>
+          <h1>Ask your book</h1>
+          <p>Get an answer grounded in the pages of your PDF.</p>
+        </div>
+        <Link className="ghost" href="/library">View library</Link>
+      </div>
+      <div className="chat-document-label">
+        <span className="chat-document-icon" aria-hidden="true">▤</span>
+        <span><strong>{doc?.title || "Loading PDF…"}</strong><small>{doc?.filename || ""}</small></span>
+        {doc ? <StatusBadge status={doc.status} /> : null}
+      </div>
 
       <div className="chat-desk">
-        <div>
+        <main className="chat-main">
+          <div className="section-heading"><h2>Ask a question</h2><span>One PDF at a time</span></div>
           <div className="ask-row">
             <textarea
               value={question}
               maxLength={MAX_QUESTION_CHARS}
               disabled={busy || doc?.status !== "ready"}
-              placeholder={
-                doc?.status === "ready"
-                  ? "Ask a question about this PDF"
-                  : "Indexing must finish before you can ask"
-              }
+              placeholder={doc?.status === "ready" ? "What does this PDF say about…?" : "The PDF must finish processing before you can ask"}
               onChange={(e) => setQuestion(e.target.value)}
-              onKeyDown={(e) => {
-                if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void ask();
-              }}
+              onKeyDown={(e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void ask(); }}
               aria-label="Question"
             />
-            <button type="button" onClick={() => void ask()} disabled={busy || doc?.status !== "ready"} aria-label="Ask">
-              →
-            </button>
+            <button type="button" onClick={() => void ask()} disabled={busy || doc?.status !== "ready"} aria-label="Ask">Ask <span aria-hidden="true">→</span></button>
           </div>
-          <p className="status" aria-live="polite">
-            {status}
-            {question.trim().length > 0 && question.trim().length < MIN_QUESTION_CHARS
-              ? ` ${MIN_QUESTION_CHARS - question.trim().length} more characters needed.`
-              : ""}
-          </p>
-          {error ? (
-            <p className="error-card" role="alert">
-              {error}
-            </p>
-          ) : null}
+          <p className="status" aria-live="polite">{status}{question.trim().length > 0 && question.trim().length < MIN_QUESTION_CHARS ? ` ${MIN_QUESTION_CHARS - question.trim().length} more characters needed.` : ""}</p>
+          {error ? <p className="error-card" role="alert">{error}</p> : null}
 
+          <div className="section-heading answers-heading"><h2>Answers</h2><span>{visibleTurns.length} {visibleTurns.length === 1 ? "question" : "questions"}</span></div>
           <div className="history">
-            {visibleTurns.length === 0 ? (
-              <EmptyState title="No questions yet">
-                Ask something the PDF can actually answer. Try a refusal such as “What is Arjuna’s
-                email address?” to see honest ungrounded handling.
-              </EmptyState>
-            ) : null}
+            {visibleTurns.length === 0 ? <EmptyState title="No questions yet">Ask a question that this PDF might answer. The cited page and supporting text will appear beside the answer.</EmptyState> : null}
             {visibleTurns.map((turn) => (
-              <article key={turn.id}>
-                <div className="bubble-q">{turn.question}</div>
-                {turn.status === "pending" ? (
-                  <div className="empty pulse">Finding passages and writing an answer…</div>
-                ) : null}
+              <article key={turn.id} className="turn-card">
+                <p className="turn-question">{turn.question}</p>
+                {turn.status === "pending" ? <div className="empty pulse">Finding passages and writing an answer…</div> : null}
                 {turn.status === "error" ? <div className="error-card">{turn.error}</div> : null}
                 {turn.answer ? (
                   <div className="answer-card">
-                    <EvidenceBadge
-                      enough={turn.answer.enough_evidence}
-                      status={turn.answer.evidence_status}
-                    />
-                    <p className="answer-text">
-                      {isWithheldAnswer(turn.answer)
-                        ? "The model claimed support without a valid citation, so this answer is withheld."
-                        : turn.answer.answer}
-                    </p>
-                    <div className="metrics">
-                      <div className="metric">
-                        <span className="k">Search</span>
-                        <span>{turn.answer.timings_ms.search} ms</span>
-                      </div>
-                      <div className="metric">
-                        <span className="k">Rerank</span>
-                        <span>{turn.answer.timings_ms.rerank} ms</span>
-                      </div>
-                      <div className="metric">
-                        <span className="k">Answer</span>
-                        <span>{turn.answer.timings_ms.answer} ms</span>
-                      </div>
+                    <div className="answer-topline"><EvidenceBadge enough={turn.answer.enough_evidence} status={turn.answer.evidence_status} /><span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span></div>
+                    <p className="answer-text">{isWithheldAnswer(turn.answer) ? "The model claimed support without a valid citation, so this answer is withheld." : turn.answer.answer}</p>
+                    <div className="metrics" aria-label="Time breakdown">
+                      <div className="metric"><span className="k">Search</span><span>{(turn.answer.timings_ms.search / 1000).toFixed(1)}s</span></div>
+                      <div className="metric"><span className="k">Rerank</span><span>{(turn.answer.timings_ms.rerank / 1000).toFixed(1)}s</span></div>
+                      <div className="metric"><span className="k">Answer</span><span>{(turn.answer.timings_ms.answer / 1000).toFixed(1)}s</span></div>
                     </div>
                   </div>
                 ) : null}
               </article>
             ))}
           </div>
-        </div>
+        </main>
 
-        <aside>
-          <h2>Evidence</h2>
-          <CitationPanel
-            answer={lastOk?.answer || null}
-            filename={doc?.filename || "document.pdf"}
-            selected={activeCite}
-            onSelect={setActiveCite}
-          />
-          {activeCite ? (
-            <div style={{ marginTop: "1rem" }}>
-              <PdfViewer
-                documentId={documentId}
-                filename={doc?.filename || "document.pdf"}
-                page={activeCite.pdf_page}
-                client={client}
-              />
-            </div>
-          ) : (
-            <p className="empty" style={{ marginTop: "1rem" }}>
-              Click a citation to open that PDF page.
-            </p>
-          )}
+        <aside className="evidence-panel">
+          <div className="section-heading"><h2>Evidence</h2><span>From your PDF</span></div>
+          <CitationPanel answer={lastOk?.answer || null} filename={doc?.filename || "document.pdf"} selected={activeCite} onSelect={setActiveCite} />
+          {activeCite ? <div className="pdf-panel"><PdfViewer documentId={documentId} filename={doc?.filename || "document.pdf"} page={activeCite.pdf_page} client={client} /></div> : <p className="empty evidence-empty">Select a citation to view the original PDF page.</p>}
         </aside>
       </div>
     </div>
