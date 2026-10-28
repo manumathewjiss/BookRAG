@@ -224,7 +224,7 @@ h1, h2, h3 { font-family: var(--serif); color: var(--navy); font-weight: 600; }
   padding: 0.22rem 0.6rem;
   font-size: 0.78rem;
 }
-.badge.ok { background: var(--ok-bg); color: var(--ok); }
+.badge.ok { background: #eeeae2; color: #514b43; border: 1px solid #d9d2c6; }
 .badge.warn { background: var(--warn-bg); color: var(--warn); }
 .badge.err { background: var(--err-bg); color: var(--err); }
 .badge.idle { background: #ece6d8; color: var(--muted); }
