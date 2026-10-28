@@ -27,5 +27,5 @@ export function EvidenceBadge({
   if (status === "nearby_only") {
     return <span className="badge warn">Related passage only</span>;
   }
-  return <span className="badge ok">Supports this answer</span>;
+  return <span className="badge ok">Cited passage</span>;
 }

@@ -11,6 +11,7 @@ import { isWithheldAnswer, type Citation, type Document } from "@/lib/api/types"
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { useApiGuard } from "@/lib/auth/useApiGuard";
 import { loadHistory, saveHistory, type ChatTurn } from "@/lib/chat/history";
+import { answerParts } from "@/lib/chat/display";
 import { DOCUMENT_POLL_MS, MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "@/lib/config";
 import { validateQuestion } from "@/lib/pdf/validate";
 
@@ -144,7 +145,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
                 {turn.answer ? (
                   <div className="answer-card">
                     <div className="answer-topline"><span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span></div>
-                    <p className="answer-text">{isWithheldAnswer(turn.answer) ? "The model claimed support without a valid citation, so this answer is withheld." : turn.answer.answer}</p>
+                    <p className="answer-text">{isWithheldAnswer(turn.answer) ? "The model claimed support without a valid citation, so this answer is withheld." : answerParts(turn.answer.answer).map((part, index) => part.bold ? <strong key={index}>{part.text}</strong> : <span key={index}>{part.text}</span>)}</p>
                     <div className="metrics" aria-label="Time breakdown">
                       <div className="metric"><span className="k">Search</span><span>{(turn.answer.timings_ms.search / 1000).toFixed(1)}s</span></div>
                       <div className="metric"><span className="k">Rerank</span><span>{(turn.answer.timings_ms.rerank / 1000).toFixed(1)}s</span></div>
@@ -159,7 +160,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
 
         <aside className="evidence-panel">
           <div className="section-heading"><h2>Evidence</h2><span>From your PDF</span></div>
-          <CitationPanel answer={lastOk?.answer || null} filename={doc?.filename || "document.pdf"} selected={activeCite} onSelect={setActiveCite} />
+          <CitationPanel answer={lastOk?.answer || null} question={lastOk?.question || ""} filename={doc?.filename || "document.pdf"} selected={activeCite} onSelect={setActiveCite} />
           {activeCite ? <div className="pdf-panel"><PdfViewer documentId={documentId} filename={doc?.filename || "document.pdf"} page={activeCite.pdf_page} client={client} /></div> : <p className="empty evidence-empty">Select a citation to view the original PDF page.</p>}
         </aside>
       </div>

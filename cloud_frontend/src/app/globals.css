@@ -407,6 +407,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .book-name { font-family:var(--serif); color:var(--navy); font-weight:700; font-size:1.05rem; margin-top:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .book-file { color:var(--muted); font-size:.74rem; margin-top:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .book-card-footer { display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap; margin:8px 0 5px; font-size:.72rem; color:var(--muted); }
+.book-ask { display:inline-flex; align-items:center; gap:5px; margin:7px 0 4px; color:var(--brass-deep); font-size:.78rem; font-weight:700; text-decoration:none; }
+.book-ask:hover { text-decoration:underline; }
 .book-delete { border:0; background:none; padding:3px 0; color:var(--muted); font-size:.72rem; text-decoration:underline; }.book-delete:hover { color:var(--err); }
 .book-upload { border-style:dashed; border-color:#d4bd8d; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:320px; background:#fffcf5; }
 .book-upload h2 { margin:8px 0; font-size:1rem; }.upload-icon { font-size:2.5rem; color:var(--brass); line-height:1; }
@@ -427,6 +429,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .answer-topline { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; color:var(--muted); font-size:.75rem; }.answer-text { font-size:1.1rem; line-height:1.55; }
 .metrics { border-top:1px solid var(--line); padding-top:14px; margin-top:20px; }.metric { border:0; background:#f7f6f2; border-radius:5px; display:flex; justify-content:space-between; gap:6px; font-size:.8rem; }
 .evidence-panel { border-left:1px solid var(--line); padding-left:24px; }.cite-card { border-radius:7px; box-shadow:none; }.cite-card strong { font-size:.84rem; overflow-wrap:anywhere; }.cite-card .excerpt { font-family:var(--serif); font-size:.93rem; line-height:1.45; background:#fcf2d6; padding:9px; border-radius:3px; }
+.cite-select { display:block; width:100%; border:0; background:none; color:inherit; text-align:left; padding:0; cursor:pointer; }
+.cite-heading { display:flex; justify-content:space-between; gap:8px; margin-bottom:8px; }
+.cite-select .excerpt,.cite-select .excerpt-note { display:block; margin-top:9px; }
+.cite-select .excerpt { max-height:12em; overflow:hidden; }
+.excerpt-note { color:var(--muted); font-size:.8rem; line-height:1.45; }
+.full-passage { margin-top:10px; border-top:1px solid var(--line); padding-top:8px; font-size:.8rem; }
+.full-passage summary { color:var(--brass-deep); cursor:pointer; font-weight:600; }
+.full-passage p { max-height:260px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.5; }
 .pdf-panel { margin-top:16px; padding:12px; background:white; border:1px solid var(--line); border-radius:7px; }.pdf-panel h2 { font-size:1.1rem; margin:2px 0; }.pdf-frame { border-radius:4px; max-height:600px; }.evidence-empty { margin-top:16px; }
 @media(max-width:1100px) { .chat-desk { grid-template-columns:minmax(0,1fr); } .evidence-panel { border-left:0; border-top:1px solid var(--line); padding:22px 0 0; } }
 @media(max-width:760px) { .app-shell { display:block; } .sidebar { display:none; } .mobile-topbar { display:flex; align-items:center; gap:12px; justify-content:space-between; padding:11px 16px; border-bottom:1px solid var(--line); background:white; } .mobile-topbar .brand { margin-right:auto; } .mobile-topbar a:not(.brand),.mobile-topbar button { border:0; background:none; color:var(--navy); text-decoration:none; font-size:.8rem; } .page { padding:24px 16px 50px; } .page-heading,.chat-heading { flex-direction:column; } .page-heading .usage { justify-content:flex-start; } .book-grid { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; } .book-card,.book-upload { padding:10px; } .book-cover { height:150px; } .document-detail { flex-direction:column; } .document-detail-action { align-items:flex-start; } .ask-row { position:relative; } }

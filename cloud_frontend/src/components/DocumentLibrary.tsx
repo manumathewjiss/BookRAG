@@ -100,7 +100,7 @@ export function DocumentLibrary() {
         <div className="usage" aria-label="Daily usage">
           <span>Uploads {me?.daily_uploads_used ?? "—"}/{DAILY_UPLOAD_LIMIT}</span>
           <span>Questions {me?.daily_questions_used ?? "—"}/{DAILY_QUESTION_LIMIT}</span>
-          <span>{client.mode === "mock" ? "Mock preview" : "Private library"}</span>
+          {client.mode === "mock" ? <span>Mock preview</span> : null}
         </div>
       </div>
 
@@ -131,7 +131,7 @@ export function DocumentLibrary() {
         </div>
       ) : null}
 
-      {!loading && docs.length > 0 ? <div className="book-grid" role="list">
+      {!loading && docs.length > 0 ? <div className="book-grid" role="list" id="books">
         {visibleDocs.map((doc, index) => (
           <article className={`book-card ${selected === doc.id ? "selected" : ""}`} key={doc.id} role="listitem">
             <button type="button" className="book-select" aria-pressed={selected === doc.id} onClick={() => setSelected(doc.id)}>
@@ -147,6 +147,7 @@ export function DocumentLibrary() {
               <StatusBadge status={doc.status} />
               {doc.page_count > 0 ? <span>{doc.page_count} PDF pages</span> : null}
             </div>
+            {doc.status === "ready" ? <Link className="book-ask" href={`/chat/${doc.id}`}>Ask about this PDF <span aria-hidden="true">→</span></Link> : null}
             <button type="button" className="book-delete" aria-label={`Delete ${doc.title}`} onClick={() => setPendingDelete(doc)}>Remove</button>
           </article>
         ))}

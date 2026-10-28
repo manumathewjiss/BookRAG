@@ -46,7 +46,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
             {pathname.startsWith("/chat/") ? (
               <span className="side-nav-current"><span className="side-nav-icon"><AskIcon /></span> Ask</span>
-            ) : null}
+            ) : (
+              <Link href="/library#books"><span className="side-nav-icon"><AskIcon /></span> Ask</Link>
+            )}
           </nav>
         </div>
         <div className="sidebar-account">

@@ -47,6 +47,7 @@ describe("UI pieces", () => {
     render(
       <CitationPanel
         answer={grounded}
+        question="What is a high-level language?"
         filename="thinkpython.pdf"
         selected={null}
         onSelect={onSelect}
@@ -72,7 +73,7 @@ describe("UI pieces", () => {
       answer: "This claimed answer must not be treated as cited support.",
     };
     render(
-      <CitationPanel answer={unverified} filename="thinkpython.pdf" selected={null} onSelect={() => undefined} />,
+      <CitationPanel answer={unverified} question="What is a high-level language?" filename="thinkpython.pdf" selected={null} onSelect={() => undefined} />,
     );
     expect(screen.getByText(/Answer withheld/)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /thinkpython\.pdf/i })).not.toBeInTheDocument();
@@ -80,7 +81,7 @@ describe("UI pieces", () => {
 
   it("shows refusal copy when evidence is absent", () => {
     render(
-      <CitationPanel answer={refusal} filename="thinkpython.pdf" selected={null} onSelect={() => undefined} />,
+      <CitationPanel answer={refusal} question="What is a high-level language?" filename="thinkpython.pdf" selected={null} onSelect={() => undefined} />,
     );
     expect(screen.getByText("Not in this PDF")).toBeInTheDocument();
     expect(screen.getByText(/No cited passage was returned/)).toBeInTheDocument();

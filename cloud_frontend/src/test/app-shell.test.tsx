@@ -29,6 +29,7 @@ describe("AppShell", () => {
       </AppShell>,
     );
     expect(screen.getByText("reader@bookrag.local")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Ask" })).toHaveAttribute("href", "/library#books");
     await user.click(screen.getByRole("button", { name: /log out/i }));
     expect(signOut).toHaveBeenCalled();
     expect(replace).toHaveBeenCalledWith("/login");
