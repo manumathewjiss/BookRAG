@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "@/lib/auth/AuthProvider";
+import { AskIcon } from "@/components/AskIcon";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { session, loading, signOut } = useAuth();
@@ -44,7 +45,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <span aria-hidden="true">▤</span> Library
             </Link>
             {pathname.startsWith("/chat/") ? (
-              <span className="side-nav-current"><span aria-hidden="true">✦</span> Ask</span>
+              <span className="side-nav-current"><span className="side-nav-icon"><AskIcon /></span> Ask</span>
             ) : null}
           </nav>
         </div>

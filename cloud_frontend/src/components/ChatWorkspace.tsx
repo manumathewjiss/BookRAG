@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { CitationPanel } from "@/components/CitationPanel";
 import { EmptyState } from "@/components/EmptyState";
-import { EvidenceBadge, StatusBadge } from "@/components/StatusBadge";
+import { StatusBadge } from "@/components/StatusBadge";
 import { PdfViewer } from "@/components/PdfViewer";
 import { getClient } from "@/lib/api";
 import { isWithheldAnswer, type Citation, type Document } from "@/lib/api/types";
@@ -143,7 +143,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
                 {turn.status === "error" ? <div className="error-card">{turn.error}</div> : null}
                 {turn.answer ? (
                   <div className="answer-card">
-                    <div className="answer-topline"><EvidenceBadge enough={turn.answer.enough_evidence} status={turn.answer.evidence_status} /><span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span></div>
+                    <div className="answer-topline"><span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span></div>
                     <p className="answer-text">{isWithheldAnswer(turn.answer) ? "The model claimed support without a valid citation, so this answer is withheld." : turn.answer.answer}</p>
                     <div className="metrics" aria-label="Time breakdown">
                       <div className="metric"><span className="k">Search</span><span>{(turn.answer.timings_ms.search / 1000).toFixed(1)}s</span></div>

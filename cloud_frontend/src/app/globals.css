@@ -442,3 +442,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .welcome-upload .dropzone { padding:26px 20px; border-color:#c9ae7d; background:#fffaf0; }
 .welcome-upload .dropzone .ghost { border-radius:6px; background:var(--brass); border-color:var(--brass); color:white; }
 @media(max-width:760px) { .library-welcome { grid-template-columns:1fr; margin:24px 0 0; padding:24px; } }
+
+/* Ask icon and concise answer timing. */
+.side-nav .side-nav-icon { display:inline-flex; align-items:center; justify-content:center; }
+.side-nav-icon svg { width:18px; height:18px; }
+.answer-topline { justify-content:flex-end; }
