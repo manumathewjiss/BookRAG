@@ -30,6 +30,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }, [pathname, userId]);
 
   useEffect(() => {
+    if (!userId) return;
+    function syncAvailableDocuments(event: Event) {
+      const { userId: loadedUserId, documentIds } = (event as CustomEvent<{ userId: string; documentIds: string[] }>).detail;
+      if (loadedUserId !== userId) return;
+      const key = `bookrag-last-chat:${userId}`;
+      const saved = sessionStorage.getItem(key);
+      if (saved && !documentIds.includes(saved)) {
+        sessionStorage.removeItem(key);
+        setLastChatId(null);
+      }
+    }
+    window.addEventListener("bookrag-documents-loaded", syncAvailableDocuments);
+    return () => window.removeEventListener("bookrag-documents-loaded", syncAvailableDocuments);
+  }, [userId]);
+
+  useEffect(() => {
     if (!loading && !session) {
       const next = encodeURIComponent(pathname || "/library");
       router.replace(`/login?next=${next}`);

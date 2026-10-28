@@ -12,7 +12,7 @@ import { useApiGuard } from "@/lib/auth/useApiGuard";
 import { DAILY_QUESTION_LIMIT, DAILY_UPLOAD_LIMIT, DOCUMENT_POLL_MS } from "@/lib/config";
 
 export function DocumentLibrary() {
-  const { getAccessToken } = useAuth();
+  const { getAccessToken, session } = useAuth();
   const client = useMemo(() => getClient(getAccessToken), [getAccessToken]);
   const guard = useApiGuard();
   const [docs, setDocs] = useState<Document[]>([]);
@@ -30,7 +30,10 @@ export function DocumentLibrary() {
     setDocs(nextDocs);
     setMe(nextMe);
     setSelected((current) => nextDocs.some((doc) => doc.id === current) ? current : nextDocs[0]?.id || null);
-  }, [client]);
+    window.dispatchEvent(new CustomEvent("bookrag-documents-loaded", {
+      detail: { userId: session?.user.id, documentIds: nextDocs.map((doc) => doc.id) },
+    }));
+  }, [client, session?.user.id]);
 
   useEffect(() => {
     let cancelled = false;
@@ -121,7 +124,7 @@ export function DocumentLibrary() {
 
       {loading ? <p className="status pulse">Loading documents…</p> : null}
       {!loading && docs.length === 0 ? (
-        <div className="library-welcome">
+        <div className="library-welcome" id="books">
           <div>
             <p className="eyebrow">START HERE</p>
             <h2>Your library starts with a PDF</h2>

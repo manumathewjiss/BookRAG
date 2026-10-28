@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
@@ -32,6 +32,21 @@ describe("AppShell", () => {
     view.unmount();
     sessionStorage.clear();
     pathname = "/library";
+  });
+
+  it("forgets an Ask page when its PDF is no longer in the library", () => {
+    const documentId = "fedb7c1a-3ee9-4c58-9cfb-4875af378569";
+    sessionStorage.setItem("bookrag-last-chat:user-1", documentId);
+    pathname = "/library";
+    render(<AppShell><p>Library body</p></AppShell>);
+    expect(screen.getByRole("link", { name: "Ask" })).toHaveAttribute("href", `/chat/${documentId}`);
+    act(() => {
+      window.dispatchEvent(new CustomEvent("bookrag-documents-loaded", {
+        detail: { userId: "user-1", documentIds: [] },
+      }));
+    });
+    expect(screen.getByRole("link", { name: "Ask" })).toHaveAttribute("href", "/library#books");
+    expect(sessionStorage.getItem("bookrag-last-chat:user-1")).toBeNull();
   });
 
   it("logs out and returns to sign-in", async () => {
