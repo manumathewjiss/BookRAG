@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
-import { EmptyState } from "@/components/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge";
 import { UploadDropzone } from "@/components/UploadDropzone";
 import { getClient } from "@/lib/api";
@@ -30,7 +29,7 @@ export function DocumentLibrary() {
     const [nextDocs, nextMe] = await Promise.all([client.listDocuments(), client.me()]);
     setDocs(nextDocs);
     setMe(nextMe);
-    setSelected((current) => current || nextDocs[0]?.id || null);
+    setSelected((current) => nextDocs.some((doc) => doc.id === current) ? current : nextDocs[0]?.id || null);
   }, [client]);
 
   useEffect(() => {
@@ -56,18 +55,20 @@ export function DocumentLibrary() {
     return () => window.clearInterval(timer);
   }, [docs, refresh]);
 
-  const selectedDoc = docs.find((d) => d.id === selected) || null;
   const visibleDocs = docs.filter((doc) => {
     const matchesSearch = `${doc.title} ${doc.filename}`.toLowerCase().includes(search.trim().toLowerCase());
     const matchesFilter = filter === "all" || (filter === "ready" ? doc.status === "ready" : doc.status === "queued" || doc.status === "processing");
     return matchesSearch && matchesFilter;
   });
+  const selectedDoc = visibleDocs.find((d) => d.id === selected) || null;
 
   async function onUpload(file: File) {
     setError("");
     try {
       const created = await client.uploadDocument(file);
       await refresh();
+      setSearch("");
+      setFilter("all");
       setSelected(created.id);
     } catch (err) {
       throw new Error(await guard(err));
@@ -105,7 +106,7 @@ export function DocumentLibrary() {
 
       {error ? <p className="error-card" role="alert">{error}</p> : null}
 
-      <div className="library-toolbar">
+      {docs.length > 0 ? <div className="library-toolbar">
         <label className="library-search">
           <span className="sr-only">Search your library</span>
           <span aria-hidden="true">⌕</span>
@@ -116,14 +117,21 @@ export function DocumentLibrary() {
           <button type="button" className={filter === "ready" ? "active" : ""} onClick={() => setFilter("ready")}>Ready</button>
           <button type="button" className={filter === "processing" ? "active" : ""} onClick={() => setFilter("processing")}>Processing</button>
         </div>
-      </div>
+      </div> : null}
 
       {loading ? <p className="status pulse">Loading documents…</p> : null}
       {!loading && docs.length === 0 ? (
-        <EmptyState title="No PDFs yet">Upload a PDF below. When it is ready, you can ask questions about that book.</EmptyState>
+        <div className="library-welcome">
+          <div>
+            <p className="eyebrow">START HERE</p>
+            <h2>Your library starts with a PDF</h2>
+            <p>Upload a digital-text PDF. BookRAG will prepare it for search, then you can ask questions and check answers against the original pages.</p>
+          </div>
+          <div className="welcome-upload"><UploadDropzone onFile={onUpload} /></div>
+        </div>
       ) : null}
 
-      <div className="book-grid" role="list">
+      {!loading && docs.length > 0 ? <div className="book-grid" role="list">
         {visibleDocs.map((doc, index) => (
           <article className={`book-card ${selected === doc.id ? "selected" : ""}`} key={doc.id} role="listitem">
             <button type="button" className="book-select" aria-pressed={selected === doc.id} onClick={() => setSelected(doc.id)}>
@@ -147,7 +155,7 @@ export function DocumentLibrary() {
           <h2>Upload another PDF</h2>
           <UploadDropzone onFile={onUpload} />
         </div>
-      </div>
+      </div> : null}
       {!loading && docs.length > 0 && visibleDocs.length === 0 ? <p className="empty">No PDFs match this search or filter.</p> : null}
 
       {selectedDoc ? (

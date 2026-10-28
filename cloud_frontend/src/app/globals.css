@@ -436,3 +436,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .processing-summary li span { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:#e7e2d6; margin-right:5px; }
 .processing-summary li.done { color:#315942; background:#edf4ed; }.processing-summary li.current { color:var(--brass-deep); background:#fbf2df; border-color:#ddc795; }
 .processing-summary small { color:var(--muted); }
+.library-welcome { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,390px); align-items:center; gap:28px; max-width:940px; margin:40px auto 0; padding:38px; border:1px solid var(--line); background:var(--paper); border-radius:10px; box-shadow:var(--shadow); }
+.library-welcome h2 { font-size:clamp(1.7rem,2.5vw,2.3rem); margin:8px 0 12px; }
+.library-welcome p:not(.eyebrow) { color:var(--muted); line-height:1.6; max-width:460px; }
+.welcome-upload .dropzone { padding:26px 20px; border-color:#c9ae7d; background:#fffaf0; }
+.welcome-upload .dropzone .ghost { border-radius:6px; background:var(--brass); border-color:var(--brass); color:white; }
+@media(max-width:760px) { .library-welcome { grid-template-columns:1fr; margin:24px 0 0; padding:24px; } }
