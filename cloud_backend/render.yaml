@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: bookrag-api
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./cloud_backend/Dockerfile
+    dockerContext: ./cloud_backend
+    healthCheckPath: /api/v1/health
+    autoDeploy: false
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: VOYAGE_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+  - type: worker
+    name: bookrag-ingestion
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./cloud_backend/Dockerfile
+    dockerContext: ./cloud_backend
+    dockerCommand: python -m bookrag_cloud.worker
+    autoDeploy: false
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: VOYAGE_API_KEY
+        sync: false
