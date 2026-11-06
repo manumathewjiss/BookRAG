@@ -41,6 +41,7 @@ export interface Answer {
   citations: Citation[];
   timings_ms: Timings;
   usage: Usage;
+  reused_answer?: boolean;
 }
 
 export interface MeResponse {

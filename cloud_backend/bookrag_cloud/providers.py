@@ -12,11 +12,15 @@ class ProviderError(RuntimeError):
 
 
 class ProviderRejected(ProviderError):
-    """Definite no-result HTTP response; this attempt can be retried safely."""
+    """Definite no-result HTTP response; this attempt was not billed."""
 
     def __init__(self, status_code: int):
         self.status_code = status_code
         super().__init__(f"Provider rejected request ({status_code})")
+
+
+class ProviderUncertainCharge(ProviderError):
+    """The provider may have billed this attempt (timeout, transport drop, or 5xx)."""
 
 
 ANSWER_SCHEMA = {
@@ -44,18 +48,26 @@ For direct_answer, cite only passage IDs whose text directly supports each claim
 def _json_post(url: str, key: str, body: dict, timeout: float = 60) -> dict:
     try:
         response = httpx.post(url, headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"}, json=body, timeout=timeout)
-        if response.status_code in (400, 401, 403, 404, 413, 429):
-            raise ProviderRejected(response.status_code)
+    except httpx.TimeoutException as exc:
+        raise ProviderUncertainCharge("Hosted model request timed out") from exc
+    except httpx.HTTPError as exc:
+        # A dropped connection can happen after the provider accepted the request.
+        raise ProviderUncertainCharge("Hosted model request failed in transit") from exc
+    if response.status_code in (400, 401, 403, 404, 413, 429):
+        raise ProviderRejected(response.status_code)
+    if response.status_code >= 500:
+        raise ProviderUncertainCharge("Hosted model returned a server error")
+    try:
         response.raise_for_status()
         data = response.json()
         if not isinstance(data, dict):
             raise ValueError("Invalid provider response")
         return data
-    except ProviderRejected:
+    except ProviderUncertainCharge:
         raise
     except (httpx.HTTPError, ValueError) as exc:
         # Never include provider response body: it may contain a prompt or sensitive data.
-        raise ProviderError("Hosted model request failed") from exc
+        raise ProviderUncertainCharge("Hosted model response was unusable") from exc
 
 
 class HostedModels:

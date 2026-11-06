@@ -26,11 +26,15 @@ These are application estimates, **not provider billing hard stops**.
 1. In [Supabase](https://supabase.com/dashboard), create a **new test project**.
    Do not point this code at the local BookRAG database or an existing project
    with user documents. Check its plan and region before confirming any paid plan.
-2. In SQL Editor, apply these files in order, once:
+2. In SQL Editor, apply these files in order, once, on that empty project only:
    `migrations/001_initial.sql`, `migrations/002_embedding_checkpoints.sql`,
-   `migrations/003_cloud_readiness.sql`. The first adds pgvector, tables, owner
-   policies, and the private `bookrag-pdfs` bucket. The third restricts browser
-   table grants and prevents a passage from claiming another document's owner.
+   `migrations/003_cloud_readiness.sql`, and `migrations/004_saved_answers.sql`.
+   The first adds pgvector, tables, owner policies, and the private
+   `bookrag-pdfs` bucket. The third restricts browser table grants and prevents
+   a passage from claiming another document's owner. The fourth creates
+   `saved_answers`. Production already has `004_saved_answers.sql`. A production
+   release verifies that table and stops if it is missing. It does not reapply
+   `004` and it does not apply any migration after `004`.
 3. In Auth settings, enable email/password sign-in for a controlled test. Create
    **two distinct test users** and obtain short-lived access tokens through the
    normal sign-in flow. Never put these tokens in Git or chat.

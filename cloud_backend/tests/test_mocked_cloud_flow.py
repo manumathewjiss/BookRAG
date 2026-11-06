@@ -2,6 +2,7 @@
 import hashlib
 import json
 import re
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 
@@ -24,6 +25,14 @@ class MemoryRepository:
         self.batches = {}
         self.usages = []
         self.questions = 0
+        self.saved = []
+
+    @contextmanager
+    def answer_lock(self, owner, doc):
+        yield
+
+    def delete_saved_answers(self, owner, doc):
+        self.saved = [item for item in self.saved if item["owner_id"] != owner or item["document_id"] != doc]
 
     def count_today(self, owner, operation):
         if operation == "upload":
@@ -54,6 +63,41 @@ class MemoryRepository:
             self.jobs.pop(doc, None)
             return {"storage_path": row["storage_path"]}
         return None
+
+    def list_saved_answers(self, owner, document_id, document_sha256, pipeline_version):
+        return [
+            row for row in self.saved
+            if row["owner_id"] == owner and row["document_id"] == document_id
+            and row["document_sha256"] == document_sha256
+            and row["pipeline_version"] == pipeline_version
+        ]
+
+    def find_exact_saved_answer(self, owner, document_id, question_canonical, document_sha256, pipeline_version):
+        for row in self.list_saved_answers(owner, document_id, document_sha256, pipeline_version):
+            if row["question_canonical"] == question_canonical:
+                return row
+        return None
+
+    def save_answer(self, owner, document_id, question_original, question_canonical, question_signature,
+                    answer_text, enough_evidence, evidence_status, citations, document_sha256, pipeline_version):
+        existing = self.find_exact_saved_answer(
+            owner, document_id, question_canonical, document_sha256, pipeline_version
+        )
+        if existing:
+            return existing
+        row = {
+            "id": uuid4(), "owner_id": owner, "document_id": document_id,
+            "question_original": question_original, "question_canonical": question_canonical,
+            "question_signature": question_signature, "answer_text": answer_text,
+            "enough_evidence": enough_evidence, "evidence_status": evidence_status,
+            "citations": citations,             "document_sha256": document_sha256,
+            "pipeline_version": pipeline_version,
+        }
+        self.saved.append(row)
+        return row
+
+    def settle_reused_question(self, owner, event_id):
+        self.usages.append((owner, event_id, "reuse"))
 
     def flag_stale_pending(self): pass
     def fail_exhausted_jobs(self): pass
@@ -129,7 +173,7 @@ class MemoryRepository:
         self.questions += 1
         return uuid4()
 
-    def settle_question(self, *args): self.usages.append(args)
+    def settle_question(self, *args, **kwargs): self.usages.append((args, kwargs))
 
 
 class MockResponse:
@@ -225,14 +269,21 @@ def test_mocked_upload_worker_chat_delete_and_two_user_isolation(monkeypatch):
         assert answer.status_code == 200, answer.text
         assert answer.json()["citations"][0]["pdf_page"] == 2
         assert "cobalt blue" in answer.json()["citations"][0]["excerpt"]
+        assert answer.json()["reused_answer"] is False
+        reused = client.post(f"/api/v1/documents/{doc}/chat", headers=auth_a,
+                             json={"question": "What color is on the second page?"})
+        assert reused.status_code == 200
+        assert reused.json()["reused_answer"] is True
+        assert reused.json()["answer"] == answer.json()["answer"]
+        assert reused.json()["citations"] == answer.json()["citations"]
+        assert calls == {"embed": 2, "rerank": 1, "sol": 1}
         assert client.post(f"/api/v1/documents/{doc}/chat", headers=auth_b,
                            json={"question": "What is on the second page?"}).status_code == 404
         assert client.delete(f"/api/v1/documents/{doc}", headers=auth_b).status_code == 404
         assert client.delete(f"/api/v1/documents/{doc}", headers=auth_a).status_code == 204
-        assert objects == {} and repo.rows.get(doc) is None
+        assert objects == {} and repo.rows.get(doc) is None and repo.saved == []
         assert client.get(f"/api/v1/documents/{doc}", headers=auth_a).status_code == 404
         assert client.get(f"/api/v1/documents/{doc}/pdf", headers=auth_a).status_code == 404
         assert client.get("/api/v1/me", headers={"Authorization": "Bearer bad"}).status_code == 401
-        assert calls == {"embed": 2, "rerank": 1, "sol": 1}
     finally:
         app.dependency_overrides.clear()

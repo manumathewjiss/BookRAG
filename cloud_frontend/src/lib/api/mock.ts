@@ -49,30 +49,36 @@ function isRefusal(question: string): boolean {
   return refusalTriggers.some((re) => re.test(question));
 }
 
-function refusalAnswer(): Answer {
+function refusalAnswer(reused = false): Answer {
   return {
     answer:
       "The uploaded PDF does not confirm that. I can only answer from the selected document, and these pages do not contain that fact.",
     enough_evidence: false,
     evidence_status: "absent",
     citations: [],
-    timings_ms: { search: 42, rerank: 18, answer: 90 },
-    usage: { input_tokens: 800, output_tokens: 60, estimated_usd: 0.002 },
+    timings_ms: reused ? { search: 1, rerank: 0, answer: 0 } : { search: 42, rerank: 18, answer: 90 },
+    usage: reused
+      ? { input_tokens: 0, output_tokens: 0, estimated_usd: 0 }
+      : { input_tokens: 800, output_tokens: 60, estimated_usd: 0.002 },
+    reused_answer: reused,
   };
 }
 
-function unverifiedAnswer(): Answer {
+function unverifiedAnswer(reused = false): Answer {
   return {
     answer: "This text would have been shown if a citation had been returned.",
     enough_evidence: true,
     evidence_status: "unverified",
     citations: [],
-    timings_ms: { search: 20, rerank: 10, answer: 40 },
-    usage: { input_tokens: 400, output_tokens: 40, estimated_usd: 0.001 },
+    timings_ms: reused ? { search: 1, rerank: 0, answer: 0 } : { search: 20, rerank: 10, answer: 40 },
+    usage: reused
+      ? { input_tokens: 0, output_tokens: 0, estimated_usd: 0 }
+      : { input_tokens: 400, output_tokens: 40, estimated_usd: 0.001 },
+    reused_answer: reused,
   };
 }
 
-function supportedAnswer(): Answer {
+function supportedAnswer(reused = false): Answer {
   return {
     answer:
       "A high-level language is one that is designed to be easy for humans to read and write. Think Python also notes that Python is portable: the same program can run on different operating systems.",
@@ -91,8 +97,11 @@ function supportedAnswer(): Answer {
         excerpt: "Portable means that the program can run on different kinds of computers with few or no changes.",
       },
     ],
-    timings_ms: { search: 110, rerank: 240, answer: 820 },
-    usage: { input_tokens: 1400, output_tokens: 180, estimated_usd: 0.012 },
+    timings_ms: reused ? { search: 1, rerank: 0, answer: 0 } : { search: 110, rerank: 240, answer: 820 },
+    usage: reused
+      ? { input_tokens: 0, output_tokens: 0, estimated_usd: 0 }
+      : { input_tokens: 1400, output_tokens: 180, estimated_usd: 0.012 },
+    reused_answer: reused,
   };
 }
 
@@ -116,6 +125,8 @@ function buildMockClient(): BookragClient {
   let questionsUsed = 3;
   let uploadsUsed = 1;
   const processingStarted = Date.now();
+  /** Mock only: per-document exact question text → prior answer. Not browser localStorage. */
+  const savedAnswers = new Map<string, Answer>();
 
   function maybeAdvance(): void {
     const processing = docs.get(PROCESSING_ID);
@@ -224,9 +235,25 @@ function buildMockClient(): BookragClient {
         throw new BookragApiError(doc.error || "This PDF failed to index.", "invalid_input", 400);
       }
       questionsUsed += 1;
+      const cacheKey = `${documentId}::${trimmed.toLowerCase()}`;
+      const prior = savedAnswers.get(cacheKey);
+      if (prior) {
+        await new Promise((resolve) => window.setTimeout(resolve, 40));
+        return clone({
+          ...prior,
+          reused_answer: true,
+          timings_ms: { search: 1, rerank: 0, answer: 0 },
+          usage: { input_tokens: 0, output_tokens: 0, estimated_usd: 0 },
+        });
+      }
       await new Promise((resolve) => window.setTimeout(resolve, 350));
-      if (/unverified/i.test(trimmed)) return unverifiedAnswer();
-      return isRefusal(trimmed) ? refusalAnswer() : supportedAnswer();
+      const next = /unverified/i.test(trimmed)
+        ? unverifiedAnswer()
+        : isRefusal(trimmed)
+          ? refusalAnswer()
+          : supportedAnswer();
+      savedAnswers.set(cacheKey, clone(next));
+      return next;
     },
   };
 }

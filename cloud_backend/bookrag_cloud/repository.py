@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 from datetime import datetime, timezone
+import time
 from uuid import UUID
 
 import psycopg
@@ -22,6 +23,10 @@ class UsageLimitReached(RuntimeError):
     """An atomic user limit would be exceeded."""
 
 
+class AnswerBusy(RuntimeError):
+    """Another request is still preparing an answer for this document."""
+
+
 class Repository:
     def __init__(self, dsn: str):
         self.dsn = dsn
@@ -30,6 +35,31 @@ class Repository:
     def connection(self):
         with psycopg.connect(self.dsn, row_factory=dict_row) as conn:
             yield conn
+
+    @contextmanager
+    def answer_lock(self, owner: UUID, document_id: UUID):
+        """Serialize answers and deletion for one owner's PDF across API processes.
+
+        A session advisory lock is released on normal exit or connection loss.
+        Waiting callers never dispatch a hosted model request.
+        """
+        with psycopg.connect(self.dsn, autocommit=True) as conn:
+            deadline = time.monotonic() + 60
+            key = (str(owner), str(document_id))
+            while not conn.execute(
+                "select pg_try_advisory_lock(hashtext(%s), hashtext(%s)) as acquired", key
+            ).fetchone()[0]:
+                if time.monotonic() >= deadline:
+                    raise AnswerBusy("Answer preparation is still in progress")
+                time.sleep(0.25)
+            try:
+                yield
+            finally:
+                try:
+                    conn.execute("select pg_advisory_unlock(hashtext(%s), hashtext(%s))", key)
+                except psycopg.Error:
+                    # A dead session has already released its advisory lock.
+                    pass
 
     def count_today(self, owner: UUID, operation: str) -> int:
         with self.connection() as conn:
@@ -60,13 +90,24 @@ class Repository:
             """, (owner, document_id, reserve_usd)).fetchone()
             return row["id"]
 
-    def settle_question(self, owner: UUID, event_id: UUID, input_tokens: int, output_tokens: int, estimated_usd: float):
+    def settle_question(self, owner: UUID, event_id: UUID, input_tokens: int, output_tokens: int,
+                        estimated_usd: float, *, provider: str = "voyage-4-large+rerank-3+gpt-6.1-sol"):
+        """Replace the $0.05 hold with the caller's estimate. Uses migration 001 columns only."""
         with self.connection() as conn:
             conn.execute("""
-                update usage_events set provider='voyage-4-large+rerank-3+gpt-6.1-sol',
-                    input_tokens=%s,output_tokens=%s,estimated_usd=greatest(estimated_usd,%s)
+                update usage_events set provider=%s,
+                    input_tokens=%s, output_tokens=%s, estimated_usd=%s
                 where id=%s and owner_id=%s and operation='question'
-            """, (input_tokens, output_tokens, estimated_usd, event_id, owner))
+            """, (provider, input_tokens, output_tokens, estimated_usd, event_id, owner))
+
+    def settle_reused_question(self, owner: UUID, event_id: UUID):
+        """Reuse incurred no hosted calls; keep the usage row truthful at zero cost."""
+        with self.connection() as conn:
+            conn.execute("""
+                update usage_events set provider='saved-answer-reuse',
+                    input_tokens=0,output_tokens=0,estimated_usd=0
+                where id=%s and owner_id=%s and operation='question'
+            """, (event_id, owner))
 
     def create_document(self, owner: UUID, document_id: UUID, title: str, filename: str,
                         path: str, digest: str, daily_limit: int = 5):
@@ -108,6 +149,66 @@ class Repository:
                 conn.execute("delete from embedding_batches where document_id=%s", (document_id,))
                 conn.execute("delete from ingestion_jobs where document_id=%s", (document_id,))
             return row
+
+    def delete_saved_answers(self, owner: UUID, document_id: UUID):
+        """Purge cache before removing PDF bytes; failure leaves the PDF intact."""
+        with self.connection() as conn:
+            conn.execute(
+                "delete from saved_answers where owner_id=%s and document_id=%s",
+                (owner, document_id),
+            )
+
+    def list_saved_answers(self, owner: UUID, document_id: UUID, document_sha256: str, pipeline_version: str):
+        with self.connection() as conn:
+            return conn.execute("""
+                select * from saved_answers
+                where owner_id=%s and document_id=%s and document_sha256=%s and pipeline_version=%s
+                order by created_at asc
+            """, (owner, document_id, document_sha256, pipeline_version)).fetchall()
+
+    def find_exact_saved_answer(self, owner: UUID, document_id: UUID, question_canonical: str,
+                                document_sha256: str, pipeline_version: str):
+        with self.connection() as conn:
+            return conn.execute("""
+                select * from saved_answers
+                where owner_id=%s and document_id=%s and question_canonical=%s
+                  and document_sha256=%s and pipeline_version=%s
+                limit 1
+            """, (owner, document_id, question_canonical, document_sha256, pipeline_version)).fetchone()
+
+    def save_answer(self, owner: UUID, document_id: UUID, question_original: str, question_canonical: str,
+                    question_signature: dict, answer_text: str, enough_evidence: bool, evidence_status: str,
+                    citations: list, document_sha256: str, pipeline_version: str):
+        """Insert once per strict canonical question. Concurrent writers keep the first row.
+
+        The insert lists only columns from 004_saved_answers.sql.
+        """
+        with self.connection() as conn:
+            conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (f"{owner}:{document_id}:{question_canonical}",))
+            existing = conn.execute("""
+                select * from saved_answers
+                where owner_id=%s and document_id=%s and question_canonical=%s
+                  and document_sha256=%s and pipeline_version=%s
+                limit 1
+            """, (owner, document_id, question_canonical, document_sha256, pipeline_version)).fetchone()
+            if existing:
+                return existing
+            return conn.execute("""
+                insert into saved_answers(
+                  owner_id, document_id, question_original, question_canonical, question_signature,
+                  answer_text, enough_evidence, evidence_status, citations, document_sha256, pipeline_version
+                ) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                on conflict (owner_id, document_id, question_canonical, document_sha256, pipeline_version)
+                do nothing
+                returning *
+            """, (owner, document_id, question_original, question_canonical, Jsonb(question_signature),
+                  answer_text, enough_evidence, evidence_status, Jsonb(citations), document_sha256,
+                  pipeline_version)).fetchone() or conn.execute("""
+                select * from saved_answers
+                where owner_id=%s and document_id=%s and question_canonical=%s
+                  and document_sha256=%s and pipeline_version=%s
+                limit 1
+            """, (owner, document_id, question_canonical, document_sha256, pipeline_version)).fetchone()
 
     def passages(self, owner: UUID, document_id: UUID):
         with self.connection() as conn:

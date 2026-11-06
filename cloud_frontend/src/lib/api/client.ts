@@ -78,6 +78,7 @@ function assertAnswer(value: unknown): Answer {
       output_tokens: Number(usage.output_tokens || 0),
       estimated_usd: Number(usage.estimated_usd || 0),
     },
+    reused_answer: Boolean(rec.reused_answer),
   };
 }
 

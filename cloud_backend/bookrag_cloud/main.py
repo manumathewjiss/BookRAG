@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import logging
 import time
 from uuid import UUID, uuid4
 
@@ -8,14 +9,53 @@ from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, Upload
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
+from psycopg import Error as DatabaseError
 
 from .config import settings
-from .providers import HostedModels, ProviderError
-from .repository import Repository, UsageLimitReached
+from .providers import HostedModels, ProviderError, ProviderUncertainCharge
+from .question_match import ANSWER_PIPELINE_VERSION, canonicalize_question, question_signature
+from .repository import AnswerBusy, Repository, UsageLimitReached
 from .retrieval import bm25_top, fuse
 from .schemas import Answer, ChatRequest, Citation, Document, Timings, Usage
 from .security import verify_access_token
 from .storage import PrivateStorage, StorageError
+
+
+def _citations_from_saved(raw) -> list[Citation]:
+    rows = raw if isinstance(raw, list) else []
+    return [Citation.model_validate(item) for item in rows]
+
+
+def _find_exact_saved_answer(repo: Repository, owner: UUID, document_id: UUID, question: str,
+                             document_sha256: str) -> dict | None:
+    """Indexed lookup of the strict canonical key. No scan and no model call."""
+    return repo.find_exact_saved_answer(
+        owner, document_id, canonicalize_question(question), document_sha256, ANSWER_PIPELINE_VERSION,
+    )
+
+
+def _usage_from_provider(usage: dict | None) -> tuple[int, int]:
+    raw = usage or {}
+    inp = int(raw.get("input_tokens") or raw.get("prompt_tokens") or 0)
+    out = int(raw.get("output_tokens") or raw.get("completion_tokens") or 0)
+    return inp, out
+
+
+def _estimate_usd(embed_tokens: int, rerank_tokens: int, input_tokens: int, output_tokens: int) -> float:
+    return round((embed_tokens * .12 + rerank_tokens * .05 + input_tokens * 2 + output_tokens * 10) / 1_000_000, 6)
+
+
+def _answer_from_saved(row: dict, *, reused: bool, search_ms: int = 0, rerank_ms: int = 0,
+                       answer_ms: int = 0, usage: Usage | None = None) -> Answer:
+    return Answer(
+        answer=row["answer_text"],
+        enough_evidence=bool(row["enough_evidence"]),
+        evidence_status=row["evidence_status"],
+        citations=_citations_from_saved(row["citations"]),
+        timings_ms=Timings(search=search_ms, rerank=rerank_ms, answer=answer_ms),
+        usage=usage or Usage(),
+        reused_answer=reused,
+    )
 
 
 def get_repo() -> Repository:
@@ -31,6 +71,7 @@ def get_models() -> HostedModels:
 
 
 app = FastAPI(title="BookRAG Cloud API", version="1.0.0", docs_url="/api/v1/docs", openapi_url="/api/v1/openapi.json")
+logger = logging.getLogger(__name__)
 app.add_middleware(CORSMiddleware, allow_origins=settings().origins(), allow_credentials=False,
                    allow_methods=["GET", "POST", "DELETE"], allow_headers=["Authorization", "Content-Type"])
 
@@ -151,11 +192,20 @@ def delete_document(document_id: UUID, owner: UUID = Depends(verify_access_token
     if not row:
         raise HTTPException(404, "Document not found")
     try:
-        storage.delete(row["storage_path"])
-    except StorageError:
-        raise HTTPException(503, "Document could not be deleted yet") from None
-    repo.delete_document(owner, document_id)
-    return Response(status_code=204)
+        with repo.answer_lock(owner, document_id):
+            row = repo.document(owner, document_id)
+            if not row:
+                raise HTTPException(404, "Document not found")
+            # A cache purge must succeed before deleting the irreplaceable PDF bytes.
+            repo.delete_saved_answers(owner, document_id)
+            try:
+                storage.delete(row["storage_path"])
+            except StorageError:
+                raise HTTPException(503, "Document could not be deleted yet") from None
+            repo.delete_document(owner, document_id)
+            return Response(status_code=204)
+    except AnswerBusy:
+        raise HTTPException(503, "Document is busy; please retry") from None
 
 
 @app.post("/api/v1/documents/{document_id}/chat", response_model=Answer)
@@ -164,21 +214,48 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
     question = payload.question.strip()
     if len(question) < 8:
         raise HTTPException(400, "Question is too short")
+    # Ownership and readiness before any saved-answer lookup or hosted call.
     row = repo.document(owner, document_id)
     if not row:
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":
         raise HTTPException(409, "Document is not ready to answer questions")
+    try:
+        with repo.answer_lock(owner, document_id):
+            # A waiting request must recheck ownership and status after deletion.
+            return _chat_locked(document_id, question, owner, repo, models)
+    except AnswerBusy:
+        raise HTTPException(503, "An answer is still being prepared; please retry") from None
+
+
+def _chat_locked(document_id: UUID, question: str, owner: UUID,
+                 repo: Repository, models: HostedModels) -> Answer:
+    row = repo.document(owner, document_id)
+    if not row:
+        raise HTTPException(404, "Document not found")
+    if row["status"] != "ready":
+        raise HTTPException(409, "Document is not ready to answer questions")
+    document_sha256 = str(row.get("sha256") or "")
+    lookup_started = time.perf_counter()
+    saved = _find_exact_saved_answer(repo, owner, document_id, question, document_sha256)
+    lookup_ms = round((time.perf_counter() - lookup_started) * 1000)
     cfg = settings()
     usage_event = repo.reserve_question(owner, document_id, cfg.daily_question_limit,
                                         cfg.daily_estimated_usd_limit, cfg.question_reserve_usd,
                                         cfg.questions_per_minute_limit)
     if not usage_event:
         raise HTTPException(429, "Daily question or estimated usage limit reached")
+    if saved:
+        # Exact hit: no Voyage or OpenAI call. Release the $0.05 hold.
+        repo.settle_reused_question(owner, usage_event)
+        return _answer_from_saved(saved, reused=True, search_ms=lookup_ms)
+    embed_tokens = 0
+    rerank_tokens = 0
     try:
         start = time.perf_counter()
-        vector, embed_tokens = models.embed([question], "query")
-        dense = repo.dense_top(owner, document_id, vector[0], 30)
+        vectors, embed_tokens = models.embed([question], "query")
+        query_vector = vectors[0]
+        dense = repo.dense_top(owner, document_id, query_vector, 30)
         lexical = bm25_top(repo.passages(owner, document_id), question, 30)
         pool = fuse(dense, lexical, 20)
         search_ms = round((time.perf_counter() - start) * 1000)
@@ -189,7 +266,21 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
         start = time.perf_counter()
         raw, usage = models.answer(question, top_five)
         answer_ms = round((time.perf_counter() - start) * 1000)
+    except ProviderUncertainCharge:
+        # The provider may have billed the in-flight call. Keep at least the hold.
+        known = _estimate_usd(embed_tokens, rerank_tokens, 0, 0)
+        repo.settle_question(
+            owner, usage_event, embed_tokens + rerank_tokens, 0,
+            max(known, cfg.question_reserve_usd),
+            provider="uncertain",
+        )
+        raise HTTPException(503, "Answer service is temporarily unavailable") from None
     except ProviderError:
+        known = _estimate_usd(embed_tokens, rerank_tokens, 0, 0)
+        repo.settle_question(
+            owner, usage_event, embed_tokens + rerank_tokens, 0, known,
+            provider="rejected",
+        )
         raise HTTPException(503, "Answer service is temporarily unavailable") from None
     sent = {str(p["id"]): p for p in top_five}
     match = raw.get("event_match")
@@ -213,11 +304,32 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
             unverified_citation = True
     if not enough:
         citations = []
-    in_tokens = int(usage.get("input_tokens", 0))
-    out_tokens = int(usage.get("output_tokens", 0))
-    estimate = round((embed_tokens * .12 + rerank_tokens * .05 + in_tokens * 2 + out_tokens * 10) / 1_000_000, 6)
-    repo.settle_question(owner, usage_event, embed_tokens + rerank_tokens + in_tokens, out_tokens, estimate)
-    return Answer(answer=raw["answer"] if enough else "The supplied passages do not confirm the answer to this question.",
-                  enough_evidence=enough, evidence_status="unverified" if unverified_citation else match,
+    answer_text = raw["answer"] if enough else "The supplied passages do not confirm the answer to this question."
+    evidence_status = "unverified" if unverified_citation else match
+    citation_payload = [c.model_dump(mode="json") for c in citations]
+    signature = question_signature(question)
+    answer_in, answer_out = _usage_from_provider(usage if isinstance(usage, dict) else {})
+    estimate = _estimate_usd(embed_tokens, rerank_tokens, answer_in, answer_out)
+    repo.settle_question(
+        owner, usage_event, embed_tokens + rerank_tokens + answer_in, answer_out, estimate,
+        provider="voyage-4-large+rerank-3+gpt-6.1-sol",
+    )
+    reported = Usage(input_tokens=answer_in, output_tokens=answer_out, estimated_usd=estimate)
+    try:
+        stored = repo.save_answer(
+            owner, document_id, question, signature["canonical"], signature,
+            answer_text, enough, evidence_status, citation_payload, document_sha256, ANSWER_PIPELINE_VERSION,
+        )
+    except DatabaseError as exc:
+        # An optional cache write must not discard an answer already paid for.
+        logger.warning("Saved-answer cache write failed: %s", type(exc).__name__)
+        stored = None
+    if stored:
+        return _answer_from_saved(
+            stored, reused=False, search_ms=search_ms, rerank_ms=rerank_ms, answer_ms=answer_ms,
+            usage=reported,
+        )
+    return Answer(answer=answer_text, enough_evidence=enough, evidence_status=evidence_status,
                   citations=citations, timings_ms=Timings(search=search_ms, rerank=rerank_ms, answer=answer_ms),
-                  usage=Usage(input_tokens=in_tokens, output_tokens=out_tokens, estimated_usd=estimate))
+                  usage=reported,
+                  reused_answer=False)

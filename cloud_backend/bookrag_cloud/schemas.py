@@ -45,3 +45,4 @@ class Answer(BaseModel):
     citations: list[Citation]
     timings_ms: Timings
     usage: Usage
+    reused_answer: bool = False

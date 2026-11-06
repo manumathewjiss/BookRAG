@@ -144,7 +144,10 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
                 {turn.status === "error" ? <div className="error-card">{turn.error}</div> : null}
                 {turn.answer ? (
                   <div className="answer-card">
-                    <div className="answer-topline"><span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span></div>
+                    <div className="answer-topline">
+                      <span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span>
+                      {turn.answer.reused_answer ? <span className="badge idle">Previously answered</span> : null}
+                    </div>
                     <p className="answer-text">{isWithheldAnswer(turn.answer) ? "The model claimed support without a valid citation, so this answer is withheld." : answerParts(turn.answer.answer).map((part, index) => part.bold ? <strong key={index}>{part.text}</strong> : <span key={index}>{part.text}</span>)}</p>
                     <div className="metrics" aria-label="Time breakdown">
                       <div className="metric"><span className="k">Search</span><span>{(turn.answer.timings_ms.search / 1000).toFixed(1)}s</span></div>
