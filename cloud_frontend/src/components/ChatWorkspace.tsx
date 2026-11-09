@@ -29,7 +29,8 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   const [activeCite, setActiveCite] = useState<Citation | null>(null);
 
   const visibleTurns = turns ?? [];
-  const lastOk = [...visibleTurns].reverse().find((t) => t.status === "ok" && t.answer);
+  const newestFirstTurns = [...visibleTurns].reverse();
+  const lastOk = newestFirstTurns.find((t) => t.status === "ok" && t.answer);
 
   useEffect(() => {
     setTurns(loadHistory(userId, documentId));
@@ -137,7 +138,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
           <div className="section-heading answers-heading"><h2>Answers</h2><span>{visibleTurns.length} {visibleTurns.length === 1 ? "question" : "questions"}</span></div>
           <div className="history">
             {visibleTurns.length === 0 ? <EmptyState title="No questions yet">Ask a question that this PDF might answer. The cited page and supporting text will appear beside the answer.</EmptyState> : null}
-            {visibleTurns.map((turn) => (
+            {newestFirstTurns.map((turn) => (
               <article key={turn.id} className="turn-card">
                 <p className="turn-question">{turn.question}</p>
                 {turn.status === "pending" ? <div className="empty pulse">Finding passages and writing an answer…</div> : null}
