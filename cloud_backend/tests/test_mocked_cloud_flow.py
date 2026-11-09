@@ -113,6 +113,14 @@ class MemoryRepository:
         row = self.docs.get(doc)
         return row if row and row["status"] != "deleted" else None
 
+    def embedding_batch_size(self, doc):
+        row = self.batches.get((doc, 0))
+        if not row:
+            return None
+        if row["status"] != "complete" or not isinstance(row["vectors"], list):
+            raise UncertainEmbeddingBatch("First embedding batch is not complete")
+        return len(row["vectors"])
+
     def mark_processing(self, doc, token):
         assert self.jobs[doc]["claim_token"] == token
         self.docs[doc]["status"] = "processing"

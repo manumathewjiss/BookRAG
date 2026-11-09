@@ -244,6 +244,23 @@ class Repository:
         with self.connection() as conn:
             return conn.execute("select * from documents where id=%s and status <> 'deleted'", (document_id,)).fetchone()
 
+    def embedding_batch_size(self, document_id: UUID) -> int | None:
+        """Infer a resumable job's batch size from its first completed checkpoint."""
+        with self.connection() as conn:
+            row = conn.execute(
+                "select status, case when status='complete' then jsonb_array_length(vectors) end as batch_size "
+                "from embedding_batches where document_id=%s and batch_index=0",
+                (document_id,),
+            ).fetchone()
+        if not row:
+            return None
+        if row["status"] != "complete":
+            raise UncertainEmbeddingBatch("First embedding batch is not complete")
+        size = row["batch_size"]
+        if not 1 <= size <= 128:
+            raise UncertainEmbeddingBatch("First embedding batch has invalid size")
+        return size
+
     def fail_exhausted_jobs(self):
         """A worker killed during its final attempt must not leave a document processing forever."""
         with self.connection() as conn:

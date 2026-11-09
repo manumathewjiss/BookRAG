@@ -29,9 +29,12 @@ def ingest_document(document: dict, claim_token: UUID, repo: Repository,
     if not repo.job_document(document_id):
         return
     repo.mark_processing(document_id, claim_token)
-    expected_batches = (len(rows) + 31) // 32
-    for batch_index, start in enumerate(range(0, len(rows), 32)):
-        batch = rows[start:start + 32]
+    # Preserve the size of any completed checkpoint when resuming an older job.
+    # New jobs use fewer provider requests without changing passage boundaries.
+    batch_size = repo.embedding_batch_size(document_id) or 128
+    expected_batches = (len(rows) + batch_size - 1) // batch_size
+    for batch_index, start in enumerate(range(0, len(rows), batch_size)):
+        batch = rows[start:start + batch_size]
         digest = batch_digest(batch)
         repo.renew_job_lease(document_id, claim_token)
         saved_vectors = repo.begin_embedding_batch(document_id, claim_token, batch_index, digest)

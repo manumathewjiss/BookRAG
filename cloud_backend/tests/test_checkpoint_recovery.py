@@ -25,7 +25,7 @@ def rows(count):
 def test_definite_429_retries_only_unsaved_batch(monkeypatch):
     import bookrag_cloud.ingestion as ingestion
     repo, storage, doc = setup_job()
-    monkeypatch.setattr(ingestion, "extract_chunks", lambda *args: (2, rows(33)))
+    monkeypatch.setattr(ingestion, "extract_chunks", lambda *args: (5, rows(129)))
     class Models:
         def __init__(self): self.calls = 0
         def embed(self, texts, mode):
@@ -39,11 +39,31 @@ def test_definite_429_retries_only_unsaved_batch(monkeypatch):
     assert repo.jobs[doc]["status"] == "queued"
     assert repo.docs[doc]["status"] == "queued"
     assert repo.batches[(doc, 0)]["status"] == "complete"
+    assert len(repo.batches[(doc, 0)]["vectors"]) == 128
     assert (doc, 1) not in repo.batches
     assert work_once(repo, storage, models, cfg) is True
     assert repo.docs[doc]["status"] == "ready"
     assert models.calls == 3  # first batch was reused; only second was resent
     assert len([event for event in repo.usages if event[1] == "embedding"]) == 2
+
+
+def test_legacy_32_passage_checkpoint_resumes_without_reembedding(monkeypatch):
+    import bookrag_cloud.ingestion as ingestion
+    repo, storage, doc = setup_job()
+    monkeypatch.setattr(ingestion, "extract_chunks", lambda *args: (2, rows(33)))
+    repo.batches[(doc, 0)] = {
+        "digest": ingestion.batch_digest(rows(33)[:32]),
+        "status": "complete", "vectors": [[1.0] * 1024 for _ in range(32)],
+    }
+    class Models:
+        def __init__(self): self.calls = []
+        def embed(self, texts, mode):
+            self.calls.append(len(texts))
+            return [[1.0] * 1024 for _ in texts], len(texts) * 10
+    models = Models()
+    assert work_once(repo, storage, models, Settings()) is True
+    assert repo.docs[doc]["status"] == "ready"
+    assert models.calls == [1]
 
 
 def test_ambiguous_timeout_never_auto_retries(monkeypatch):
