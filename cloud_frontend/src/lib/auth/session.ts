@@ -1,6 +1,7 @@
 export interface BookragUser {
   id: string;
   email: string;
+  isAnonymous?: boolean;
 }
 
 export interface BookragSession {

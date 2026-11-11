@@ -62,6 +62,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   if (!session) return null;
 
   async function onLogout() {
+    if (session?.user.isAnonymous && !window.confirm(
+      "Signing out will remove access to this guest library. Your PDFs will remain private, but you cannot recover them without this browser session. Sign out anyway?",
+    )) return;
     await signOut();
     router.replace("/login");
   }
@@ -86,7 +89,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
         <div className="sidebar-account">
-          <span className="user-meta" title={session.user.email}>{session.user.email}</span>
+          <span className="user-meta" title={session.user.isAnonymous ? "Guest library" : session.user.email}>
+            {session.user.isAnonymous ? "Guest library" : session.user.email}
+          </span>
+          {session.user.isAnonymous && <p className="guest-session-note">This library stays available in this browser. Signing out or clearing site data loses access.</p>}
           <button type="button" className="sidebar-logout" onClick={() => void onLogout()}>
             Log out
           </button>

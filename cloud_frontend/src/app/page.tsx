@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import { useAuth } from "@/lib/auth/AuthProvider";
+import { GuestAccessButton } from "@/components/GuestAccessButton";
+import { isSupabaseConfigured } from "@/lib/config";
 
 export default function HomePage() {
   const { session, loading } = useAuth();
   const destination = session ? "/library" : "/signup";
   const actionLabel = session ? "Open my library" : "Create an account";
+  const guestAvailable = isSupabaseConfigured();
 
   return (
     <div className="landing">
@@ -27,8 +30,11 @@ export default function HomePage() {
               and open the original PDF page behind it.
             </p>
             <div className="landing-actions">
-              {!loading && <Link className="landing-primary" href={destination}>{actionLabel} <span aria-hidden="true">→</span></Link>}
+              {!loading && session && <Link className="landing-primary" href={destination}>{actionLabel} <span aria-hidden="true">→</span></Link>}
+              {!loading && !session && guestAvailable && <GuestAccessButton className="landing-primary" />}
+              {!loading && !session && <Link className={guestAvailable ? "landing-secondary" : "landing-primary"} href={destination}>{actionLabel}{!guestAvailable && <span aria-hidden="true">→</span>}</Link>}
             </div>
+            {!loading && !session && guestAvailable && <p className="landing-guest-note">No account needed. Your guest library stays in this browser.</p>}
             <p className="landing-assurance">Private documents. Answers you can check against the original page.</p>
           </div>
         </section>

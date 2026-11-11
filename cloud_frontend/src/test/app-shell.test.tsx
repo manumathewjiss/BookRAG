@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 const replace = vi.fn();
 const signOut = vi.fn(async () => undefined);
 let pathname = "/library";
+let anonymous = false;
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ replace, push: vi.fn() }),
@@ -13,7 +14,7 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("@/lib/auth/AuthProvider", () => ({
   useAuth: () => ({
-    session: { user: { id: "user-1", email: "reader@bookrag.local" }, accessToken: "tok", source: "supabase" },
+    session: { user: { id: "user-1", email: anonymous ? "" : "reader@bookrag.local", isAnonymous: anonymous }, accessToken: "tok", source: "supabase" },
     loading: false,
     signOut,
   }),
@@ -61,5 +62,22 @@ describe("AppShell", () => {
     await user.click(screen.getByRole("button", { name: /log out/i }));
     expect(signOut).toHaveBeenCalled();
     expect(replace).toHaveBeenCalledWith("/login");
+  });
+
+  it("warns a guest before losing access to the library", async () => {
+    anonymous = true;
+    signOut.mockClear();
+    const confirm = vi.spyOn(window, "confirm").mockReturnValue(false);
+    const user = userEvent.setup();
+    render(<AppShell><p>Guest content</p></AppShell>);
+    expect(screen.getByText("Guest library")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /log out/i }));
+    expect(confirm).toHaveBeenCalled();
+    expect(signOut).not.toHaveBeenCalled();
+    confirm.mockReturnValue(true);
+    await user.click(screen.getByRole("button", { name: /log out/i }));
+    expect(signOut).toHaveBeenCalledTimes(1);
+    confirm.mockRestore();
+    anonymous = false;
   });
 });
