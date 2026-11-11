@@ -151,7 +151,9 @@ export function DocumentLibrary() {
               {doc.page_count > 0 ? <span>{doc.page_count} PDF pages</span> : null}
             </div>
             {doc.status === "ready" ? <Link className="book-ask" href={`/chat/${doc.id}`}>Ask about this PDF <span aria-hidden="true">→</span></Link> : null}
-            <button type="button" className="book-delete" aria-label={`Delete ${doc.title}`} onClick={() => setPendingDelete(doc)}>Remove</button>
+            <div className="book-remove-row">
+              <button type="button" className="book-delete" aria-label={`Remove ${doc.title}`} onClick={() => setPendingDelete(doc)}>Remove PDF</button>
+            </div>
           </article>
         ))}
         <div className="book-upload" role="listitem">

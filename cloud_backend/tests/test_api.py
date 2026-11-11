@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from contextlib import contextmanager
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
@@ -15,9 +16,17 @@ class FakeRepo:
     def __init__(self):
         self.row = {"id": DOC, "owner_id": OWNER, "title": "My book", "filename": "book.pdf",
                     "status": "ready", "page_count": 1, "passage_count": 1, "error": None,
-                    "storage_path": f"{OWNER}/{DOC}/source.pdf",
+                    "storage_path": f"{OWNER}/{DOC}/source.pdf", "sha256": "testdigest",
                     "created_at": datetime.now(timezone.utc), "updated_at": datetime.now(timezone.utc)}
         self.counters = []
+        self.saved = []
+
+    @contextmanager
+    def answer_lock(self, owner, doc):
+        yield
+
+    def delete_saved_answers(self, owner, doc):
+        self.saved = [row for row in self.saved if row["owner_id"] != owner or row["document_id"] != doc]
 
     def count_today(self, owner, op):
         return 0
@@ -31,8 +40,11 @@ class FakeRepo:
     def reserve_question(self, owner, doc, limit, daily_usd_limit, reserve_usd, minute_limit):
         return uuid4()
 
-    def settle_question(self, *args):
+    def settle_question(self, *args, **kwargs):
         self.counters.append(args)
+
+    def settle_reused_question(self, owner, event_id):
+        self.counters.append(("reuse", owner, event_id))
 
     def dense_top(self, owner, doc, vector, limit):
         return self.passages(owner, doc)
@@ -44,11 +56,44 @@ class FakeRepo:
         self.counters.append(args)
 
     def delete_document(self, owner, doc):
+        self.saved = [row for row in self.saved if row["document_id"] != doc]
         return {"storage_path": self.row["storage_path"]}
 
     def create_document(self, owner, document_id, title, filename, path, digest, daily_limit):
         return {**self.row, "id": document_id, "owner_id": owner, "title": title,
-                "filename": filename, "storage_path": path, "status": "queued"}
+                "filename": filename, "storage_path": path, "status": "queued", "sha256": digest}
+
+    def list_saved_answers(self, owner, document_id, document_sha256, pipeline_version):
+        return [
+            row for row in self.saved
+            if row["owner_id"] == owner and row["document_id"] == document_id
+            and row["document_sha256"] == document_sha256
+            and row["pipeline_version"] == pipeline_version
+        ]
+
+    def find_exact_saved_answer(self, owner, document_id, question_canonical, document_sha256, pipeline_version):
+        for row in self.list_saved_answers(owner, document_id, document_sha256, pipeline_version):
+            if row["question_canonical"] == question_canonical:
+                return row
+        return None
+
+    def save_answer(self, owner, document_id, question_original, question_canonical, question_signature,
+                    answer_text, enough_evidence, evidence_status, citations, document_sha256, pipeline_version):
+        existing = self.find_exact_saved_answer(
+            owner, document_id, question_canonical, document_sha256, pipeline_version
+        )
+        if existing:
+            return existing
+        row = {
+            "id": uuid4(), "owner_id": owner, "document_id": document_id,
+            "question_original": question_original, "question_canonical": question_canonical,
+            "question_signature": question_signature, "answer_text": answer_text,
+            "enough_evidence": enough_evidence, "evidence_status": evidence_status,
+            "citations": citations,             "document_sha256": document_sha256,
+            "pipeline_version": pipeline_version,
+        }
+        self.saved.append(row)
+        return row
 
 
 class FakeStorage:

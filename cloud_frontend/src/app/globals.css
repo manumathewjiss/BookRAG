@@ -158,6 +158,15 @@ h1, h2, h3 { font-family: var(--serif); color: var(--navy); font-weight: 600; }
 }
 .auth-actions { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1rem; }
 .auth-actions .primary { padding: 0.7rem 1rem; text-align: center; }
+.auth-guest-option { border-top:1px solid var(--line); margin-top:1.3rem; padding-top:1rem; display:grid; gap:.55rem; }
+.auth-guest-option > span { color:var(--muted); font-size:.82rem; text-align:center; }
+.auth-guest-option p { margin:.15rem 0 0; font-size:.78rem; line-height:1.5; }
+.guest-access { display:grid; gap:.5rem; }
+.guest-access button { cursor:pointer; font:inherit; }
+.guest-access button:disabled { cursor:wait; opacity:.7; }
+.guest-access .error-card { margin:0; font-size:.82rem; }
+.guest-secondary { width:100%; border:1px solid var(--navy); border-radius:8px; background:transparent; color:var(--navy); padding:.7rem 1rem; font-weight:650; }
+.guest-secondary:hover { background:#edf1ef; }
 
 .library-grid {
   display: grid;
@@ -378,6 +387,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .side-nav a:hover { background:rgba(249,241,220,.1); }
 .sidebar-account { border-top:1px solid rgba(255,255,255,.18); padding:16px 9px 0; display:grid; gap:10px; }
 .sidebar-account .user-meta { color:#b8c5c7; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.guest-session-note { margin:0; color:#b8c5c7; font-size:.72rem; line-height:1.4; }
 .sidebar-logout { border:1px solid rgba(255,255,255,.24); background:transparent; color:white; border-radius:7px; padding:8px 10px; text-align:left; }
 .shell-content { min-width:0; }.mobile-topbar { display:none; }
 .page { max-width:1360px; padding:36px 40px 60px; }
@@ -396,6 +406,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .library-filters button.active { color:var(--navy); border-color:var(--brass); font-weight:700; }
 .book-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:16px; }
 .book-card,.book-upload { min-width:0; background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:13px; box-shadow:var(--shadow); }
+.book-card { display:flex; flex-direction:column; }
 .book-card.selected { border-color:#c6aa70; box-shadow:0 0 0 2px rgba(179,138,60,.14); }
 .book-select { display:flex; flex-direction:column; align-items:stretch; width:100%; min-height:265px; border:0; background:transparent; text-align:left; padding:0; color:var(--ink); }
 .book-cover { width:100%; height:175px; border-radius:3px 7px 7px 3px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:15px 12px; text-align:center; background:radial-gradient(circle at 50% 65%,rgba(255,255,255,.13) 0 21%,transparent 22%),linear-gradient(140deg,#d8b77c,#8a6836); color:#30291d; box-shadow:inset 7px 0 rgba(39,25,12,.13),1px 3px 6px rgba(0,0,0,.15); }
@@ -407,8 +418,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .book-name { font-family:var(--serif); color:var(--navy); font-weight:700; font-size:1.05rem; margin-top:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .book-file { color:var(--muted); font-size:.74rem; margin-top:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .book-card-footer { display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap; margin:8px 0 5px; font-size:.72rem; color:var(--muted); }
-.book-ask { display:inline-flex; align-items:center; gap:5px; margin:7px 0 4px; color:var(--brass-deep); font-size:.78rem; font-weight:700; text-decoration:none; }
+.book-ask { display:flex; align-items:center; justify-content:space-between; gap:5px; margin:10px 0 0; padding:9px 10px; border-radius:5px; background:#f6efdf; color:#76561d; font-size:.8rem; font-weight:700; text-decoration:none; }
 .book-ask:hover { text-decoration:underline; }
+.book-remove-row { display:flex; justify-content:flex-end; margin-top:14px; padding-top:9px; border-top:1px solid var(--line); }
 .book-delete { border:0; background:none; padding:3px 0; color:var(--muted); font-size:.72rem; text-decoration:underline; }.book-delete:hover { color:var(--err); }
 .book-upload { border-style:dashed; border-color:#d4bd8d; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:320px; background:#fffcf5; }
 .book-upload h2 { margin:8px 0; font-size:1rem; }.upload-icon { font-size:2.5rem; color:var(--brass); line-height:1; }
@@ -424,6 +436,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .chat-desk { grid-template-columns:minmax(0,1fr) minmax(300px,420px); gap:28px; }.chat-main,.evidence-panel { min-width:0; }
 .section-heading { display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:12px; }.section-heading h2 { margin:0; font-size:1.5rem; }.section-heading span { color:var(--muted); font-size:.75rem; }
 .ask-row { background:white; border:1px solid var(--line); padding:7px; border-radius:8px; box-shadow:var(--shadow); }.ask-row textarea { border:0; box-shadow:none; min-height:50px; resize:vertical; outline:none; }.ask-row button { align-self:flex-start; width:auto; min-width:76px; padding:9px 14px; border-radius:5px; font-size:.85rem; }
+.answer-wait { display:flex; align-items:center; gap:12px; margin-top:12px; padding:12px 14px; border:1px solid #e4d7bc; border-radius:8px; background:#fbf8f0; color:var(--navy); }
+.answer-wait-mark { width:12px; height:12px; flex:none; border-radius:50%; background:var(--brass); box-shadow:0 0 0 5px rgba(179,138,60,.13); animation:answer-wait-pulse 1.8s ease-in-out infinite; }
+.answer-wait-copy { display:flex; flex:1; min-width:0; flex-direction:column; gap:2px; font-size:.84rem; line-height:1.35; }
+.answer-wait-copy span { color:var(--muted); }
+.answer-wait-time { align-self:flex-start; flex:none; color:var(--brass-deep); font-size:.76rem; font-variant-numeric:tabular-nums; }
+.turn-pending { padding:16px 18px; color:var(--muted); font-size:.85rem; }
+@keyframes answer-wait-pulse { 50% { box-shadow:0 0 0 8px rgba(179,138,60,.06); } }
+@media(prefers-reduced-motion:reduce) { .answer-wait-mark { animation:none; } }
 .answers-heading { margin-top:28px; }.history { margin-top:0; }.turn-card { border:1px solid var(--line); background:var(--paper); border-radius:8px; overflow:hidden; box-shadow:var(--shadow); }
 .turn-question { margin:0; padding:14px 18px; background:#f1f0eb; color:var(--navy); font-weight:650; }.answer-card { border:0; border-radius:0; box-shadow:none; padding:18px; }
 .answer-topline { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; color:var(--muted); font-size:.75rem; }.answer-text { font-size:1.1rem; line-height:1.55; }
@@ -477,8 +497,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .landing-intro { max-width:570px; margin:31px 0 30px; color:#50616a; font-size:clamp(1.03rem,1.45vw,1.22rem); line-height:1.7; }
 .landing-actions { display:flex; align-items:center; flex-wrap:wrap; gap:22px; }
 .landing-actions a { min-height:48px; display:inline-flex; align-items:center; text-decoration:none; font-size:.92rem; font-weight:650; }
+.landing-actions .guest-access button { min-height:48px; font-size:.92rem; font-weight:650; }
 .landing-primary { gap:24px; padding:0 20px; color:white; background:var(--navy); border-radius:5px; }
 .landing-primary:hover { background:#294553; }
+.landing-secondary { color:var(--navy); }
+.landing-guest-note { margin:14px 0 0; color:var(--muted); font-size:.79rem; }
 .landing-assurance { max-width:510px; margin:28px 0 0; color:var(--muted); font-size:.79rem; line-height:1.55; }
 .landing-footer { display:flex; justify-content:space-between; gap:18px; padding:20px 42px 25px; border-top:1px solid var(--line); color:var(--muted); font-size:.75rem; }.landing-footer span:first-child { color:var(--navy); font-family:var(--serif); font-size:.95rem; font-weight:700; }
 @media(max-width:900px) { .landing-copy h1 { font-size:clamp(3.3rem,9vw,5.5rem); } }

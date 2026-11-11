@@ -23,13 +23,26 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   const [doc, setDoc] = useState<Document | null>(null);
   const [turns, setTurns] = useState<ChatTurn[] | null>(null);
   const [question, setQuestion] = useState("");
-  const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [waitSeconds, setWaitSeconds] = useState(0);
   const [activeCite, setActiveCite] = useState<Citation | null>(null);
 
   const visibleTurns = turns ?? [];
-  const lastOk = [...visibleTurns].reverse().find((t) => t.status === "ok" && t.answer);
+  const newestFirstTurns = [...visibleTurns].reverse();
+  const lastOk = newestFirstTurns.find((t) => t.status === "ok" && t.answer);
+  const waitingNotes = [
+    "BookRAG first checks whether this question was answered before.",
+    "For new questions, BookRAG searches passages in this PDF.",
+    "If support is found, you can open the cited PDF pages.",
+  ];
+
+  useEffect(() => {
+    if (!busy) return;
+    const started = Date.now();
+    const timer = window.setInterval(() => setWaitSeconds(Math.floor((Date.now() - started) / 1000)), 1000);
+    return () => window.clearInterval(timer);
+  }, [busy]);
 
   useEffect(() => {
     setTurns(loadHistory(userId, documentId));
@@ -76,8 +89,8 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
     };
     setTurns((prev) => [...(prev ?? []), turn]);
     setBusy(true);
+    setWaitSeconds(0);
     setError("");
-    setStatus("Searching, reranking, and writing an answer…");
     try {
       const answer = await client.chat(documentId, question.trim());
       setTurns((prev) =>
@@ -85,7 +98,6 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
       );
       setActiveCite(answer.citations[0] || null);
       setQuestion("");
-      setStatus("");
     } catch (err) {
       const message = await guard(err);
       setTurns((prev) =>
@@ -94,7 +106,6 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
         ),
       );
       setError(message);
-      setStatus("");
     } finally {
       setBusy(false);
     }
@@ -131,20 +142,34 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
             />
             <button type="button" onClick={() => void ask()} disabled={busy || doc?.status !== "ready"} aria-label="Ask">Ask <span aria-hidden="true">→</span></button>
           </div>
-          <p className="status" aria-live="polite">{status}{question.trim().length > 0 && question.trim().length < MIN_QUESTION_CHARS ? ` ${MIN_QUESTION_CHARS - question.trim().length} more characters needed.` : ""}</p>
+          {busy ? (
+            <div className="answer-wait" role="status" aria-live="polite">
+              <span className="answer-wait-mark" aria-hidden="true" />
+              <div className="answer-wait-copy">
+                <strong>Finding your answer</strong>
+                <span>{waitingNotes[Math.floor(waitSeconds / 5) % waitingNotes.length]}</span>
+              </div>
+              <span className="answer-wait-time" aria-label={`${waitSeconds} seconds elapsed`} aria-live="off">{waitSeconds}s</span>
+            </div>
+          ) : question.trim().length > 0 && question.trim().length < MIN_QUESTION_CHARS ? (
+            <p className="status">{MIN_QUESTION_CHARS - question.trim().length} more characters needed.</p>
+          ) : null}
           {error ? <p className="error-card" role="alert">{error}</p> : null}
 
           <div className="section-heading answers-heading"><h2>Answers</h2><span>{visibleTurns.length} {visibleTurns.length === 1 ? "question" : "questions"}</span></div>
           <div className="history">
             {visibleTurns.length === 0 ? <EmptyState title="No questions yet">Ask a question that this PDF might answer. The cited page and supporting text will appear beside the answer.</EmptyState> : null}
-            {visibleTurns.map((turn) => (
+            {newestFirstTurns.map((turn) => (
               <article key={turn.id} className="turn-card">
                 <p className="turn-question">{turn.question}</p>
-                {turn.status === "pending" ? <div className="empty pulse">Finding passages and writing an answer…</div> : null}
+                {turn.status === "pending" ? <div className="turn-pending">Answer in progress · Please keep this page open.</div> : null}
                 {turn.status === "error" ? <div className="error-card">{turn.error}</div> : null}
                 {turn.answer ? (
                   <div className="answer-card">
-                    <div className="answer-topline"><span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span></div>
+                    <div className="answer-topline">
+                      <span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span>
+                      {turn.answer.reused_answer ? <span className="badge idle">Previously answered</span> : null}
+                    </div>
                     <p className="answer-text">{isWithheldAnswer(turn.answer) ? "The model claimed support without a valid citation, so this answer is withheld." : answerParts(turn.answer.answer).map((part, index) => part.bold ? <strong key={index}>{part.text}</strong> : <span key={index}>{part.text}</span>)}</p>
                     <div className="metrics" aria-label="Time breakdown">
                       <div className="metric"><span className="k">Search</span><span>{(turn.answer.timings_ms.search / 1000).toFixed(1)}s</span></div>

@@ -29,6 +29,20 @@ describe("mock BookRAG client", () => {
     expect(answer.enough_evidence).toBe(true);
     expect(answer.citations[0]?.pdf_page).toBe(23);
     expect(answer.citations[0]?.excerpt.length).toBeGreaterThan(20);
+    expect(answer.reused_answer).toBeFalsy();
+  });
+
+  it("reuses the exact prior mock answer for a repeated question", async () => {
+    const client = createMockClient();
+    const docs = await client.listDocuments();
+    const ready = docs.find((d) => d.status === "ready")!;
+    const question = "What is a high-level language in this book?";
+    const first = await client.chat(ready.id, question);
+    const second = await client.chat(ready.id, question);
+    expect(second.reused_answer).toBe(true);
+    expect(second.answer).toBe(first.answer);
+    expect(second.citations).toEqual(first.citations);
+    expect(second.usage.estimated_usd).toBe(0);
   });
 
   it("serves private mock PDF bytes without a live token", async () => {

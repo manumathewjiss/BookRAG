@@ -25,6 +25,7 @@ interface AuthContextValue {
   supabaseReady: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string) => Promise<string | null>;
+  signInGuest: () => Promise<void>;
   signOut: () => Promise<void>;
   getAccessToken: () => Promise<string | null>;
 }
@@ -44,9 +45,10 @@ function toSession(
   userId: string,
   email: string,
   accessToken: string,
+  isAnonymous = false,
 ): BookragSession {
   return {
-    user: { id: userId, email },
+    user: { id: userId, email, isAnonymous },
     accessToken,
     source: "supabase",
   };
@@ -69,7 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const { data } = await supabase.auth.getSession();
         if (!cancelled && data.session) {
           setSession(
-            toSession(data.session.user.id, data.session.user.email || "", data.session.access_token),
+            toSession(data.session.user.id, data.session.user.email || "", data.session.access_token, data.session.user.is_anonymous),
           );
         }
         const { data: listener } = supabase.auth.onAuthStateChange((_event, next) => {
@@ -77,7 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setSession(null);
             return;
           }
-          setSession(toSession(next.user.id, next.user.email || "", next.access_token));
+          setSession(toSession(next.user.id, next.user.email || "", next.access_token, next.user.is_anonymous));
         });
         if (!cancelled) setLoading(false);
         return () => listener.subscription.unsubscribe();
@@ -138,6 +140,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [signIn, supabaseReady],
   );
 
+  const signInGuest = useCallback(async () => {
+    if (!supabaseReady) throw new Error("Guest access is unavailable right now.");
+    const supabase = createSupabaseBrowser();
+    if (!supabase) throw new Error("Guest access is unavailable right now.");
+    const { data, error } = await supabase.auth.signInAnonymously();
+    if (error) throw new Error(error.message);
+    if (!data.session || !data.user) throw new Error("Guest session could not be created. Please try again.");
+    setSession(toSession(data.user.id, "", data.session.access_token, true));
+  }, [supabaseReady]);
+
   const signOut = useCallback(async () => {
     if (supabaseReady) {
       const supabase = createSupabaseBrowser();
@@ -158,7 +170,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         token = refreshed.session?.access_token ?? token;
         if (refreshed.session) {
           setSession(
-            toSession(refreshed.session.user.id, refreshed.session.user.email || "", token),
+            toSession(refreshed.session.user.id, refreshed.session.user.email || "", token, refreshed.session.user.is_anonymous),
           );
         }
       }
@@ -175,11 +187,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loading,
       supabaseReady,
       signIn,
+      signInGuest,
       signUp,
       signOut,
       getAccessToken,
     }),
-    [getAccessToken, loading, session, signIn, signOut, signUp, supabaseReady],
+    [getAccessToken, loading, session, signIn, signInGuest, signOut, signUp, supabaseReady],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

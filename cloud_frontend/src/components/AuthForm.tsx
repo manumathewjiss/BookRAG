@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { isLocalTestAuth, isMockMode, isSupabaseConfigured, safeNextPath } from "@/lib/config";
+import { GuestAccessButton } from "@/components/GuestAccessButton";
 
 export function AuthForm({ mode }: { mode: "login" | "signup" }) {
   const { signIn, signUp, session, loading } = useAuth();
@@ -109,6 +110,13 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
             </p>
           )}
         </div>
+        {isSupabaseConfigured() && (
+          <div className="auth-guest-option">
+            <span>or</span>
+            <GuestAccessButton nextPath={nextPath} className="guest-secondary" />
+            <p>No email needed. Keep this browser’s site data to return to your guest library.</p>
+          </div>
+        )}
       </form>
     </div>
   );

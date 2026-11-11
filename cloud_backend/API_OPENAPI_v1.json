@@ -412,6 +412,11 @@
           },
           "usage": {
             "$ref": "#/components/schemas/Usage"
+          },
+          "reused_answer": {
+            "type": "boolean",
+            "title": "Reused Answer",
+            "default": false
           }
         },
         "type": "object",

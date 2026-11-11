@@ -10,7 +10,7 @@ The stable browser contract is [API_CONTRACT_v1.md](API_CONTRACT_v1.md). Send th
 
 Copy `.env.example` to a local `.env` and fill it privately. Run `pip install -r requirements.txt`, then `uvicorn bookrag_cloud.main:app --reload`. Start a separate worker with `python -m bookrag_cloud.worker`. The application will not work end-to-end until the Supabase project, private Storage bucket, and SQL migration exist. The code does not provision them.
 
-Apply `migrations/001_initial.sql` in the target Supabase project only when deployment is approved. Configure a direct/pooled PostgreSQL URL with SSL. Keep its credential, the Supabase service role key, and provider keys on the server only. Use `pytest` for offline tests.
+Production already has `migrations/001_initial.sql` through `migrations/004_saved_answers.sql`. A release verifies `saved_answers` and does not reapply `004`. Apply `001` through `004` once only on a new empty project. Configure a direct/pooled PostgreSQL URL with SSL. Keep its credential, the Supabase service role key, and provider keys on the server only. Use `pytest` for offline tests.
 
 ## Retrieval fidelity
 
@@ -20,7 +20,7 @@ PDF extraction uses pypdf and 450-token chunks with 50-token overlap, split sepa
 
 ## Reliability and security notes
 
-The worker claims durable PostgreSQL jobs and records each Voyage embedding batch before the hosted request. Completed batches are reused after restart. An uncertain pending request enters operator review and is never automatically resent. A definite 429 response permits retry of that batch. See `python -m bookrag_cloud.recovery --help` for operator-only recovery after confirming provider usage. Apply both SQL migrations in order. Deleting a document removes its private source and indexed passages; document IDs are scoped to the authenticated Supabase user. Server-side question/upload limits and estimated usage reservations are trial safeguards, not provider billing caps. Citations are only from the five sent passage IDs, with pages from database metadata. When Sol says evidence is missing, the API returns no citations.
+The worker claims durable PostgreSQL jobs and records each Voyage embedding batch before the hosted request. Completed batches are reused after restart. An uncertain pending request enters operator review and is never automatically resent. A definite 429 response permits retry of that batch. See `python -m bookrag_cloud.recovery --help` for operator-only recovery after confirming provider usage. Deleting a document removes its saved answers, private source, and indexed passages; document IDs are scoped to the authenticated Supabase user. Server-side question/upload limits and estimated usage reservations are trial safeguards, not provider billing caps. Citations are only from the five sent passage IDs, with pages from database metadata. When Sol says evidence is missing, the API returns no citations.
 
 See [CHUNKING_COMPARISON.md](CHUNKING_COMPARISON.md) for the exact difference between frozen research chunks and newly uploaded PDF chunks.
 
