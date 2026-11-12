@@ -234,7 +234,7 @@ def get_document_pdf(document_id: UUID, owner: UUID = Depends(verify_access_toke
     if not row:
         raise HTTPException(404, "Document not found")
     if row.get("is_sample"):
-        raise HTTPException(403, "The shared sample can only be viewed one cited page at a time")
+        raise HTTPException(403, "PDF pages are not available for the shared sample")
     try:
         data = storage.download(row["storage_path"])
     except StorageError:
