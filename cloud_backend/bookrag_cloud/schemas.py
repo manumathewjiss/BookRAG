@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 
 class Document(BaseModel):
     id: UUID
+    is_sample: bool = False
     title: str
     filename: str
     status: str

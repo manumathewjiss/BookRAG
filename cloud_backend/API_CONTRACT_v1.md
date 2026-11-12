@@ -16,10 +16,11 @@ Base path: `/api/v1`. JSON uses UTF-8. This contract is for the Next.js frontend
 | `GET /api/v1/documents` | Bearer token | `{ "documents": [Document] }` |
 | `GET /api/v1/documents/{document_id}` | Bearer token | `{ "document": Document }` |
 | `GET /api/v1/documents/{document_id}/pdf` | Bearer token | `application/pdf` bytes, private/no-store; 404 for another user's or deleted file |
+| `GET /api/v1/documents/{document_id}/citations/{passage_id}/page` | Bearer token | One cited page of a configured shared sample as a one-page PDF; 404 for unknown citations |
 | `DELETE /api/v1/documents/{document_id}` | Bearer token | 204 on deletion; 404 for deleted, nonexistent, or another user's document |
 | `POST /api/v1/documents/{document_id}/chat` | `{ "question": "8–1200 characters" }` | 200 `Answer` |
 
-`Document`: `{ "id": "uuid", "title": "string", "filename": "string.pdf", "status": "queued|processing|ready|failed", "page_count": 0, "passage_count": 0, "error": null, "created_at": "ISO-8601", "updated_at": "ISO-8601" }`. `error` contains a safe short message only. Poll the document route while status is queued or processing. Chat is allowed only when ready.
+`Document`: `{ "id": "uuid", "title": "string", "filename": "string.pdf", "status": "queued|processing|ready|failed", "is_sample": false, "page_count": 0, "passage_count": 0, "error": null, "created_at": "ISO-8601", "updated_at": "ISO-8601" }`. `error` contains a safe short message only. Poll the document route while status is queued or processing. Chat is allowed only when ready. A configured, ready shared sample has `is_sample=true` for visitors other than its owner; visitors may ask about it and view cited pages, but cannot download the full PDF or delete it. It is disabled unless `GUEST_SAMPLE_DOCUMENT_ID` and matching `GUEST_SAMPLE_SHA256` are set.
 
 If an embedding request has an uncertain outcome after a worker crash or timeout, document status becomes `failed` with a short review message. The server does not automatically repeat that potentially billable batch; operator recovery happens outside the public API.
 

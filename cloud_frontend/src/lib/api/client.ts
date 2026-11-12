@@ -28,6 +28,7 @@ function assertDocument(value: unknown): Document {
   }
   return {
     id: rec.id,
+    is_sample: rec.is_sample === true,
     title: String(rec.title || rec.filename),
     filename: rec.filename,
     status,
@@ -159,6 +160,23 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       if (!response.ok) throw parseApiError(response.status, await readJson(response));
       if (!(response.headers.get("content-type") || "").includes("application/pdf")) {
         throw new BookragApiError("The server did not return a PDF.", "invalid_response", 503);
+      }
+      return response.arrayBuffer();
+    },
+    async getCitationPagePdf(id: string, passageId: string) {
+      const token = await requireLiveToken(getToken);
+      let response: Response;
+      try {
+        response = await fetch(`${base}/api/v1/documents/${encodeURIComponent(id)}/citations/${encodeURIComponent(passageId)}/page`, {
+          headers: { Authorization: `Bearer ${token}` },
+          cache: "no-store",
+        });
+      } catch {
+        throw new BookragApiError("Could not reach the BookRAG API.", "network", 503);
+      }
+      if (!response.ok) throw parseApiError(response.status, await readJson(response));
+      if (!(response.headers.get("content-type") || "").includes("application/pdf")) {
+        throw new BookragApiError("The server did not return a PDF page.", "invalid_response", 503);
       }
       return response.arrayBuffer();
     },

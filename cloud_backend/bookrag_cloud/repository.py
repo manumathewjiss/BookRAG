@@ -70,9 +70,20 @@ class Repository:
 
     def reserve_question(self, owner: UUID, document_id: UUID, daily_limit: int,
                          daily_usd_limit: float = 5.0, reserve_usd: float = 0.05,
-                         minute_limit: int = 10):
+                         minute_limit: int = 10, sample_daily_usd_limit: float | None = None):
         """Serialize daily limit checks across concurrent requests for the same user."""
         with self.connection() as conn:
+            if sample_daily_usd_limit is not None:
+                # One lock across every guest identity prevents simultaneous requests
+                # from bypassing the shared sample's daily spending guard.
+                conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (f"sample:{document_id}",))
+                sample_total = conn.execute("""
+                    select coalesce(sum(estimated_usd),0) as usd
+                    from usage_events where document_id=%s and operation='question'
+                      and created_at >= date_trunc('day', now() at time zone 'UTC') at time zone 'UTC'
+                """, (document_id,)).fetchone()
+                if float(sample_total["usd"]) + reserve_usd > sample_daily_usd_limit:
+                    return None
             conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (str(owner),))
             totals = conn.execute("""
                 select count(*) filter (where operation='question') as questions,
@@ -138,6 +149,31 @@ class Repository:
             return conn.execute(
                 "select * from documents where owner_id=%s and id=%s and status <> 'deleted'", (owner, document_id)
             ).fetchone()
+
+    def ready_sample_document(self, document_id: UUID):
+        """Only the configured, ready document may be exposed as a shared sample."""
+        with self.connection() as conn:
+            return conn.execute(
+                "select * from documents where id=%s and status='ready'", (document_id,)
+            ).fetchone()
+
+    def cited_sample_page(self, source_owner: UUID, document_id: UUID, passage_id: UUID,
+                          document_sha256: str, pipeline_version: str) -> int | None:
+        """Only passages present in a saved, supported answer may reveal a sample page."""
+        with self.connection() as conn:
+            row = conn.execute("""
+                select p.pdf_page from passages p
+                where p.id=%s and p.document_id=%s and p.owner_id=%s
+                  and exists (
+                    select 1 from saved_answers a
+                    where a.owner_id=%s and a.document_id=%s
+                      and a.document_sha256=%s and a.pipeline_version=%s
+                      and a.enough_evidence=true
+                      and a.citations @> %s::jsonb
+                  )
+            """, (passage_id, document_id, source_owner, source_owner, document_id,
+                  document_sha256, pipeline_version, Jsonb([{"passage_id": str(passage_id)}]))).fetchone()
+            return int(row["pdf_page"]) if row else None
 
     def delete_document(self, owner: UUID, document_id: UUID):
         with self.connection() as conn:

@@ -169,6 +169,13 @@ function buildMockClient(): BookragClient {
       if (!doc) throw new BookragApiError("Document not found.", "not_found", 404);
       return mockPdfBytes().buffer.slice(0) as ArrayBuffer;
     },
+    async getCitationPagePdf(id: string, passageId: string) {
+      maybeAdvance();
+      const doc = docs.get(id);
+      if (!doc) throw new BookragApiError("Document not found.", "not_found", 404);
+      if (!passageId) throw new BookragApiError("Citation not found.", "not_found", 404);
+      return mockPdfBytes().buffer.slice(0) as ArrayBuffer;
+    },
     async uploadDocument(file: File, title?: string) {
       if (file.size > MAX_PDF_BYTES) {
         throw new BookragApiError("That PDF is too large.", "payload_too_large", 413);

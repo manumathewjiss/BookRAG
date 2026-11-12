@@ -143,7 +143,7 @@ export function DocumentLibrary() {
                 <span className="book-cover-title">{doc.title}</span>
                 <span className="book-cover-bottom">PDF</span>
               </span>
-              <span className="book-name">{doc.title}</span>
+              <span className="book-name">{doc.title}{doc.is_sample ? " · Sample" : ""}</span>
               <span className="book-file">{doc.filename}</span>
             </button>
             <div className="book-card-footer">
@@ -151,9 +151,9 @@ export function DocumentLibrary() {
               {doc.page_count > 0 ? <span>{doc.page_count} PDF pages</span> : null}
             </div>
             {doc.status === "ready" ? <Link className="book-ask" href={`/chat/${doc.id}`}>Ask about this PDF <span aria-hidden="true">→</span></Link> : null}
-            <div className="book-remove-row">
+            {!doc.is_sample ? <div className="book-remove-row">
               <button type="button" className="book-delete" aria-label={`Remove ${doc.title}`} onClick={() => setPendingDelete(doc)}>Remove PDF</button>
-            </div>
+            </div> : null}
           </article>
         ))}
         <div className="book-upload" role="listitem">
@@ -168,10 +168,10 @@ export function DocumentLibrary() {
         <section className="document-detail" aria-label="Selected PDF details">
           <div>
             <p className="eyebrow">SELECTED PDF</p>
-            <h2>{selectedDoc.title}</h2>
+            <h2>{selectedDoc.title}{selectedDoc.is_sample ? " · Sample" : ""}</h2>
             <p className="document-detail-meta">{selectedDoc.filename}{selectedDoc.page_count > 0 ? ` · ${selectedDoc.page_count} PDF pages` : ""}{selectedDoc.passage_count > 0 ? ` · ${selectedDoc.passage_count} passages` : ""}</p>
             {selectedDoc.error ? <p className="error-card">{selectedDoc.error}</p> : null}
-            {selectedDoc.status === "ready" ? <p>Your PDF is ready. Open it to ask a question and check the cited page.</p> : null}
+            {selectedDoc.status === "ready" ? <p>{selectedDoc.is_sample ? "This sample is ready. Ask a question and check the cited page." : "Your PDF is ready. Open it to ask a question and check the cited page."}</p> : null}
             {selectedDoc.status === "queued" || selectedDoc.status === "processing" ? (
               <div className="processing-summary" aria-label="PDF processing progress">
                 <p>We are preparing this PDF. You can leave this page and return later; the status updates automatically.</p>

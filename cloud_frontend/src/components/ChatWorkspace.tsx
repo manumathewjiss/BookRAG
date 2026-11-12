@@ -186,7 +186,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
         <aside className="evidence-panel">
           <div className="section-heading"><h2>Evidence</h2><span>From your PDF</span></div>
           <CitationPanel answer={lastOk?.answer || null} question={lastOk?.question || ""} filename={doc?.filename || "document.pdf"} selected={activeCite} onSelect={setActiveCite} />
-          {activeCite ? <div className="pdf-panel"><PdfViewer documentId={documentId} filename={doc?.filename || "document.pdf"} page={activeCite.pdf_page} client={client} /></div> : <p className="empty evidence-empty">Select a citation to view the original PDF page.</p>}
+          {activeCite ? <div className="pdf-panel"><PdfViewer documentId={documentId} filename={doc?.filename || "document.pdf"} page={activeCite.pdf_page} samplePassageId={doc?.is_sample ? activeCite.passage_id : undefined} client={client} /></div> : <p className="empty evidence-empty">Select a citation to view the original PDF page.</p>}
         </aside>
       </div>
     </div>

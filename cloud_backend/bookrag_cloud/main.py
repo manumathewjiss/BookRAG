@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import logging
 import time
 from uuid import UUID, uuid4
@@ -10,6 +11,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from psycopg import Error as DatabaseError
+from pypdf import PdfReader, PdfWriter
 
 from .config import settings
 from .providers import HostedModels, ProviderError, ProviderUncertainCharge
@@ -68,6 +70,34 @@ def get_storage() -> PrivateStorage:
 
 def get_models() -> HostedModels:
     return HostedModels(settings())
+
+
+def _sample_id() -> UUID | None:
+    configured = settings().guest_sample_document_id.strip()
+    expected_digest = settings().guest_sample_sha256.strip().lower()
+    if not configured or len(expected_digest) != 64 or any(ch not in "0123456789abcdef" for ch in expected_digest):
+        return None
+    try:
+        return UUID(configured)
+    except ValueError:
+        logger.error("Invalid GUEST_SAMPLE_DOCUMENT_ID; shared sample disabled")
+        return None
+
+
+def _approved_sample(row: dict) -> bool:
+    return row["sha256"].lower() == settings().guest_sample_sha256.strip().lower()
+
+
+def _readable_document(repo: Repository, owner: UUID, document_id: UUID) -> dict | None:
+    """Private document first; only one explicitly configured sample is shared."""
+    row = repo.document(owner, document_id)
+    if row:
+        return dict(row, is_sample=False)
+    if document_id == _sample_id():
+        sample = repo.ready_sample_document(document_id)
+        if sample and _approved_sample(sample):
+            return dict(sample, is_sample=True)
+    return None
 
 
 app = FastAPI(title="BookRAG Cloud API", version="1.0.0", docs_url="/api/v1/docs", openapi_url="/api/v1/openapi.json")
@@ -155,12 +185,18 @@ async def upload_document(file: UploadFile = File(...), title: str | None = Form
 
 @app.get("/api/v1/documents")
 def list_documents(owner: UUID = Depends(verify_access_token), repo: Repository = Depends(get_repo)):
-    return {"documents": [Document.model_validate(row) for row in repo.list_documents(owner)]}
+    rows = [dict(row, is_sample=False) for row in repo.list_documents(owner)]
+    sample_id = _sample_id()
+    if sample_id and not any(row["id"] == sample_id for row in rows):
+        sample = repo.ready_sample_document(sample_id)
+        if sample and _approved_sample(sample):
+            rows.insert(0, dict(sample, is_sample=True))
+    return {"documents": [Document.model_validate(row) for row in rows]}
 
 
 @app.get("/api/v1/documents/{document_id}")
 def get_document(document_id: UUID, owner: UUID = Depends(verify_access_token), repo: Repository = Depends(get_repo)):
-    row = repo.document(owner, document_id)
+    row = _readable_document(repo, owner, document_id)
     if not row:
         raise HTTPException(404, "Document not found")
     return {"document": Document.model_validate(row)}
@@ -170,9 +206,11 @@ def get_document(document_id: UUID, owner: UUID = Depends(verify_access_token), 
 def get_document_pdf(document_id: UUID, owner: UUID = Depends(verify_access_token),
                      repo: Repository = Depends(get_repo), storage: PrivateStorage = Depends(get_storage)):
     """Return a private PDF only after token verification and owner-scoped lookup."""
-    row = repo.document(owner, document_id)
+    row = _readable_document(repo, owner, document_id)
     if not row:
         raise HTTPException(404, "Document not found")
+    if row.get("is_sample"):
+        raise HTTPException(403, "The shared sample can only be viewed one cited page at a time")
     try:
         data = storage.download(row["storage_path"])
     except StorageError:
@@ -185,9 +223,40 @@ def get_document_pdf(document_id: UUID, owner: UUID = Depends(verify_access_toke
     })
 
 
+@app.get("/api/v1/documents/{document_id}/citations/{passage_id}/page")
+def get_sample_citation_page(document_id: UUID, passage_id: UUID,
+                             owner: UUID = Depends(verify_access_token),
+                             repo: Repository = Depends(get_repo),
+                             storage: PrivateStorage = Depends(get_storage)):
+    row = _readable_document(repo, owner, document_id)
+    if not row or not row.get("is_sample"):
+        raise HTTPException(404, "Citation page not found")
+    pdf_page = repo.cited_sample_page(row["owner_id"], document_id, passage_id,
+                                     row["sha256"], ANSWER_PIPELINE_VERSION)
+    if pdf_page is None:
+        raise HTTPException(404, "Citation page not found")
+    try:
+        original = storage.download(row["storage_path"])
+        reader = PdfReader(io.BytesIO(original), strict=False)
+        if not 1 <= pdf_page <= len(reader.pages):
+            raise ValueError("Invalid page number")
+        writer = PdfWriter()
+        writer.add_page(reader.pages[pdf_page - 1])
+        output = io.BytesIO()
+        writer.write(output)
+    except Exception as exc:
+        logger.warning("Could not prepare sample citation page: %s", type(exc).__name__)
+        raise HTTPException(503, "Citation page is temporarily unavailable") from None
+    return Response(content=output.getvalue(), media_type="application/pdf", headers={
+        "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff",
+        "Content-Disposition": "inline; filename=\"cited-page.pdf\"",
+    })
+
+
 @app.delete("/api/v1/documents/{document_id}", status_code=204)
 def delete_document(document_id: UUID, owner: UUID = Depends(verify_access_token),
                     repo: Repository = Depends(get_repo), storage: PrivateStorage = Depends(get_storage)):
+    # Shared samples are readable but never deletable by another account.
     row = repo.document(owner, document_id)
     if not row:
         raise HTTPException(404, "Document not found")
@@ -215,13 +284,16 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
     if len(question) < 8:
         raise HTTPException(400, "Question is too short")
     # Ownership and readiness before any saved-answer lookup or hosted call.
-    row = repo.document(owner, document_id)
+    row = _readable_document(repo, owner, document_id)
     if not row:
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":
         raise HTTPException(409, "Document is not ready to answer questions")
     try:
-        with repo.answer_lock(owner, document_id):
+        # A shared sample uses one lock so identical guest questions cannot
+        # launch duplicate paid generations at the same time.
+        lock_owner = row["owner_id"] if row.get("is_sample") else owner
+        with repo.answer_lock(lock_owner, document_id):
             # A waiting request must recheck ownership and status after deletion.
             return _chat_locked(document_id, question, owner, repo, models)
     except AnswerBusy:
@@ -230,19 +302,26 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
 
 def _chat_locked(document_id: UUID, question: str, owner: UUID,
                  repo: Repository, models: HostedModels) -> Answer:
-    row = repo.document(owner, document_id)
+    row = _readable_document(repo, owner, document_id)
     if not row:
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":
         raise HTTPException(409, "Document is not ready to answer questions")
     document_sha256 = str(row.get("sha256") or "")
     lookup_started = time.perf_counter()
-    saved = _find_exact_saved_answer(repo, owner, document_id, question, document_sha256)
+    cache_owner = row["owner_id"] if row.get("is_sample") else owner
+    saved = _find_exact_saved_answer(repo, cache_owner, document_id, question, document_sha256)
     lookup_ms = round((time.perf_counter() - lookup_started) * 1000)
     cfg = settings()
-    usage_event = repo.reserve_question(owner, document_id, cfg.daily_question_limit,
-                                        cfg.daily_estimated_usd_limit, cfg.question_reserve_usd,
-                                        cfg.questions_per_minute_limit)
+    reserve_args = (owner, document_id, cfg.daily_question_limit,
+                    cfg.daily_estimated_usd_limit, cfg.question_reserve_usd,
+                    cfg.questions_per_minute_limit)
+    if row.get("is_sample") and not saved:
+        usage_event = repo.reserve_question(
+            *reserve_args, sample_daily_usd_limit=cfg.guest_sample_daily_usd_limit
+        )
+    else:
+        usage_event = repo.reserve_question(*reserve_args)
     if not usage_event:
         raise HTTPException(429, "Daily question or estimated usage limit reached")
     if saved:
@@ -255,8 +334,9 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
         start = time.perf_counter()
         vectors, embed_tokens = models.embed([question], "query")
         query_vector = vectors[0]
-        dense = repo.dense_top(owner, document_id, query_vector, 30)
-        lexical = bm25_top(repo.passages(owner, document_id), question, 30)
+        passage_owner = row["owner_id"] if row.get("is_sample") else owner
+        dense = repo.dense_top(passage_owner, document_id, query_vector, 30)
+        lexical = bm25_top(repo.passages(passage_owner, document_id), question, 30)
         pool = fuse(dense, lexical, 20)
         search_ms = round((time.perf_counter() - start) * 1000)
         start = time.perf_counter()
@@ -317,7 +397,7 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     reported = Usage(input_tokens=answer_in, output_tokens=answer_out, estimated_usd=estimate)
     try:
         stored = repo.save_answer(
-            owner, document_id, question, signature["canonical"], signature,
+            cache_owner, document_id, question, signature["canonical"], signature,
             answer_text, enough, evidence_status, citation_payload, document_sha256, ANSWER_PIPELINE_VERSION,
         )
     except DatabaseError as exc:

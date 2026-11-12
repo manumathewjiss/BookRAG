@@ -6,6 +6,7 @@ export type EvidenceStatus = "direct_answer" | "nearby_only" | "absent" | "unver
 
 export interface Document {
   id: string;
+  is_sample?: boolean;
   title: string;
   filename: string;
   status: DocumentStatus;
@@ -98,6 +99,7 @@ export interface BookragClient {
   listDocuments(): Promise<Document[]>;
   getDocument(id: string): Promise<Document>;
   getPdf(id: string): Promise<ArrayBuffer>;
+  getCitationPagePdf(id: string, passageId: string): Promise<ArrayBuffer>;
   uploadDocument(file: File, title?: string): Promise<Document>;
   deleteDocument(id: string): Promise<void>;
   chat(documentId: string, question: string): Promise<Answer>;
