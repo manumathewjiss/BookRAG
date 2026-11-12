@@ -157,24 +157,6 @@ class Repository:
                 "select * from documents where id=%s and status='ready'", (document_id,)
             ).fetchone()
 
-    def cited_sample_page(self, source_owner: UUID, document_id: UUID, passage_id: UUID,
-                          document_sha256: str, pipeline_version: str) -> int | None:
-        """Only passages present in a saved, supported answer may reveal a sample page."""
-        with self.connection() as conn:
-            row = conn.execute("""
-                select p.pdf_page from passages p
-                where p.id=%s and p.document_id=%s and p.owner_id=%s
-                  and exists (
-                    select 1 from saved_answers a
-                    where a.owner_id=%s and a.document_id=%s
-                      and a.document_sha256=%s and a.pipeline_version=%s
-                      and a.enough_evidence=true
-                      and a.citations @> %s::jsonb
-                  )
-            """, (passage_id, document_id, source_owner, source_owner, document_id,
-                  document_sha256, pipeline_version, Jsonb([{"passage_id": str(passage_id)}]))).fetchone()
-            return int(row["pdf_page"]) if row else None
-
     def delete_document(self, owner: UUID, document_id: UUID):
         with self.connection() as conn:
             row = conn.execute(

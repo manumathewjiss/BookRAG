@@ -1,13 +1,10 @@
 """The configured sample is readable, but remains owned by its uploader."""
-import io
 from uuid import uuid4
-
-from pypdf import PdfReader
 
 from bookrag_cloud import main
 from bookrag_cloud.main import app
+from bookrag_cloud.schemas import Answer, Citation, Timings, Usage
 from tests.test_api import FakeRepo, OWNER, OTHER, DOC, client_for
-from tests.pdf_fixture import two_page_pdf
 
 
 def teardown_function():
@@ -33,25 +30,18 @@ class SampleRepo(FakeRepo):
         return super().dense_top(owner, doc, vector, limit)
 
     def passages(self, owner, doc):
-        return [dict(row, pdf_page=1) for row in super().passages(owner, doc)]
-
-    def cited_sample_page(self, source_owner, document_id, passage_id, digest, pipeline_version):
-        for saved in self.saved:
-            if saved["owner_id"] == source_owner and saved["document_id"] == document_id:
-                if any(str(c["passage_id"]) == str(passage_id) for c in saved["citations"]):
-                    return 1
-        return None
+        return [dict(row, pdf_page=1, text="The answer is seven. " * 40)
+                for row in super().passages(owner, doc)]
 
 
 def test_shared_sample_is_ready_and_uses_source_passages_but_guest_usage(monkeypatch):
     monkeypatch.setattr(main, "_sample_id", lambda: DOC)
     monkeypatch.setattr(main, "_approved_sample", lambda row: True)
     repo = SampleRepo()
-    guest, _, storage = client_for(OTHER, repo)
+    guest, _, _ = client_for(OTHER, repo)
     listed = guest.get("/api/v1/documents")
     assert listed.status_code == 200
     assert listed.json()["documents"][0]["is_sample"] is True
-    storage.download = lambda path: two_page_pdf("Page one sample.", "Page two stays private.")
     viewed = guest.get(f"/api/v1/documents/{DOC}/pdf")
     assert viewed.status_code == 403
     answered = guest.post(f"/api/v1/documents/{DOC}/chat", json={"question": "What is the answer?"})
@@ -63,13 +53,12 @@ def test_shared_sample_is_ready_and_uses_source_passages_but_guest_usage(monkeyp
     repeat = guest.post(f"/api/v1/documents/{DOC}/chat", json={"question": "What is the answer?"})
     assert repeat.status_code == 200
     assert repeat.json()["reused_answer"] is True
+    assert len(repeat.json()["citations"][0]["excerpt"]) <= 282
     assert repo.retrieval_owners == [OWNER]
     assert repo.sample_reservations == 1
-    citation_id = repo.saved[0]["citations"][0]["passage_id"]
-    cited_page = guest.get(f"/api/v1/documents/{DOC}/citations/{citation_id}/page")
-    assert cited_page.status_code == 200
-    assert len(PdfReader(io.BytesIO(cited_page.content)).pages) == 1
-    assert guest.get(f"/api/v1/documents/{DOC}/citations/{uuid4()}/page").status_code == 404
+    assert len(answered.json()["citations"][0]["excerpt"]) <= 282
+    assert len(repo.saved[0]["citations"][0]["excerpt"]) > 282
+    assert answered.json()["citations"][0]["pdf_page"] == 1
     another_guest, _, _ = client_for(uuid4(), repo)
     cross_guest_repeat = another_guest.post(
         f"/api/v1/documents/{DOC}/chat", json={"question": "What is the answer?"}
@@ -98,3 +87,15 @@ def test_mismatched_file_digest_keeps_sample_private(monkeypatch):
     guest, _, _ = client_for(OTHER, repo)
     assert guest.get("/api/v1/documents").json()["documents"] == []
     assert guest.get(f"/api/v1/documents/{DOC}").status_code == 404
+
+
+def test_multiple_cited_pages_keep_references_without_full_passages():
+    citations = [Citation(passage_id=uuid4(), pdf_page=page, excerpt="Relevant source text. " * 80)
+                 for page in (7, 11, 23, 40)]
+    answer = Answer(answer="The explanation uses four passages.", enough_evidence=True,
+                    evidence_status="direct_answer", citations=citations,
+                    timings_ms=Timings(search=0, rerank=0, answer=0), usage=Usage())
+    guest_view = main._sample_answer_view(answer, "Explain the topic")
+    assert [c.pdf_page for c in guest_view.citations] == [7, 11, 23, 40]
+    assert all(len(c.excerpt) <= 282 for c in guest_view.citations)
+    assert all(len(c.excerpt) > 282 for c in answer.citations)

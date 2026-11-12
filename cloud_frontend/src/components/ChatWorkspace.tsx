@@ -158,7 +158,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
 
           <div className="section-heading answers-heading"><h2>Answers</h2><span>{visibleTurns.length} {visibleTurns.length === 1 ? "question" : "questions"}</span></div>
           <div className="history">
-            {visibleTurns.length === 0 ? <EmptyState title="No questions yet">Ask a question that this PDF might answer. The cited page and supporting text will appear beside the answer.</EmptyState> : null}
+            {visibleTurns.length === 0 ? <EmptyState title="No questions yet">{doc?.is_sample ? "Ask a question about this sample. Page references and short supporting excerpts will appear beside the answer." : "Ask a question that this PDF might answer. The cited page and supporting text will appear beside the answer."}</EmptyState> : null}
             {newestFirstTurns.map((turn) => (
               <article key={turn.id} className="turn-card">
                 <p className="turn-question">{turn.question}</p>
@@ -184,9 +184,9 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
         </main>
 
         <aside className="evidence-panel">
-          <div className="section-heading"><h2>Evidence</h2><span>From your PDF</span></div>
-          <CitationPanel answer={lastOk?.answer || null} question={lastOk?.question || ""} filename={doc?.filename || "document.pdf"} selected={activeCite} onSelect={setActiveCite} />
-          {activeCite ? <div className="pdf-panel"><PdfViewer documentId={documentId} filename={doc?.filename || "document.pdf"} page={activeCite.pdf_page} samplePassageId={doc?.is_sample ? activeCite.passage_id : undefined} client={client} /></div> : <p className="empty evidence-empty">Select a citation to view the original PDF page.</p>}
+          <div className="section-heading"><h2>Evidence</h2><span>{doc?.is_sample ? "Page references" : "From your PDF"}</span></div>
+          <CitationPanel answer={lastOk?.answer || null} question={lastOk?.question || ""} filename={doc?.filename || "document.pdf"} sampleMode={doc?.is_sample} selected={activeCite} onSelect={setActiveCite} />
+          {doc?.is_sample ? <p className="empty evidence-empty">The shared sample shows page references and short excerpts. PDF pages are available for your own uploads.</p> : activeCite ? <div className="pdf-panel"><PdfViewer documentId={documentId} filename={doc?.filename || "document.pdf"} page={activeCite.pdf_page} client={client} /></div> : <p className="empty evidence-empty">Select a citation to view the original PDF page.</p>}
         </aside>
       </div>
     </div>

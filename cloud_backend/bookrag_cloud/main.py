@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import hashlib
-import io
 import logging
+import re
 import time
 from uuid import UUID, uuid4
 
@@ -11,7 +11,6 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from psycopg import Error as DatabaseError
-from pypdf import PdfReader, PdfWriter
 
 from .config import settings
 from .providers import HostedModels, ProviderError, ProviderUncertainCharge
@@ -98,6 +97,31 @@ def _readable_document(repo: Repository, owner: UUID, document_id: UUID) -> dict
         if sample and _approved_sample(sample):
             return dict(sample, is_sample=True)
     return None
+
+
+def _sample_excerpt(text: str, question: str, answer_text: str) -> str:
+    """Send a brief source excerpt, never the complete passage, to sample guests."""
+    words = list(re.finditer(r"\S+", text))
+    if not words:
+        return ""
+    terms = {w.lower() for w in re.findall(r"[\w]+", question + " " + answer_text) if len(w) >= 4}
+    best_start, best_score = 0, -1
+    window = 35
+    for start in range(max(1, len(words) - window + 1)):
+        candidate = text[words[start].start():words[min(start + window - 1, len(words) - 1)].end()]
+        score = len(terms.intersection(w.lower() for w in re.findall(r"[\w]+", candidate)))
+        if score > best_score:
+            best_start, best_score = start, score
+    selected = text[words[best_start].start():words[min(best_start + window - 1, len(words) - 1)].end()]
+    selected = selected[:280].rstrip()
+    return ("…" if best_start else "") + selected + ("…" if len(text) > words[min(best_start + window - 1, len(words) - 1)].end() else "")
+
+
+def _sample_answer_view(answer: Answer, question: str) -> Answer:
+    return answer.model_copy(update={"citations": [
+        citation.model_copy(update={"excerpt": _sample_excerpt(citation.excerpt, question, answer.answer)})
+        for citation in answer.citations
+    ]})
 
 
 app = FastAPI(title="BookRAG Cloud API", version="1.0.0", docs_url="/api/v1/docs", openapi_url="/api/v1/openapi.json")
@@ -223,36 +247,6 @@ def get_document_pdf(document_id: UUID, owner: UUID = Depends(verify_access_toke
     })
 
 
-@app.get("/api/v1/documents/{document_id}/citations/{passage_id}/page")
-def get_sample_citation_page(document_id: UUID, passage_id: UUID,
-                             owner: UUID = Depends(verify_access_token),
-                             repo: Repository = Depends(get_repo),
-                             storage: PrivateStorage = Depends(get_storage)):
-    row = _readable_document(repo, owner, document_id)
-    if not row or not row.get("is_sample"):
-        raise HTTPException(404, "Citation page not found")
-    pdf_page = repo.cited_sample_page(row["owner_id"], document_id, passage_id,
-                                     row["sha256"], ANSWER_PIPELINE_VERSION)
-    if pdf_page is None:
-        raise HTTPException(404, "Citation page not found")
-    try:
-        original = storage.download(row["storage_path"])
-        reader = PdfReader(io.BytesIO(original), strict=False)
-        if not 1 <= pdf_page <= len(reader.pages):
-            raise ValueError("Invalid page number")
-        writer = PdfWriter()
-        writer.add_page(reader.pages[pdf_page - 1])
-        output = io.BytesIO()
-        writer.write(output)
-    except Exception as exc:
-        logger.warning("Could not prepare sample citation page: %s", type(exc).__name__)
-        raise HTTPException(503, "Citation page is temporarily unavailable") from None
-    return Response(content=output.getvalue(), media_type="application/pdf", headers={
-        "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff",
-        "Content-Disposition": "inline; filename=\"cited-page.pdf\"",
-    })
-
-
 @app.delete("/api/v1/documents/{document_id}", status_code=204)
 def delete_document(document_id: UUID, owner: UUID = Depends(verify_access_token),
                     repo: Repository = Depends(get_repo), storage: PrivateStorage = Depends(get_storage)):
@@ -295,7 +289,8 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
         lock_owner = row["owner_id"] if row.get("is_sample") else owner
         with repo.answer_lock(lock_owner, document_id):
             # A waiting request must recheck ownership and status after deletion.
-            return _chat_locked(document_id, question, owner, repo, models)
+            answer = _chat_locked(document_id, question, owner, repo, models)
+            return _sample_answer_view(answer, question) if row.get("is_sample") else answer
     except AnswerBusy:
         raise HTTPException(503, "An answer is still being prepared; please retry") from None
 
