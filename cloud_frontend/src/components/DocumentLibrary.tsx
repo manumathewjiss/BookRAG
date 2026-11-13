@@ -171,7 +171,7 @@ export function DocumentLibrary() {
             <h2>{selectedDoc.title}{selectedDoc.is_sample ? " · Sample" : ""}</h2>
             <p className="document-detail-meta">{selectedDoc.filename}{selectedDoc.page_count > 0 ? ` · ${selectedDoc.page_count} PDF pages` : ""}{selectedDoc.passage_count > 0 ? ` · ${selectedDoc.passage_count} passages` : ""}</p>
             {selectedDoc.error ? <p className="error-card">{selectedDoc.error}</p> : null}
-            {selectedDoc.status === "ready" ? <p>{selectedDoc.is_sample ? "This sample is ready. Ask a question and check the cited page." : "Your PDF is ready. Open it to ask a question and check the cited page."}</p> : null}
+            {selectedDoc.status === "ready" ? <p>{selectedDoc.is_sample ? "This sample is ready. Ask a question and check page references and short excerpts." : "Your PDF is ready. Open it to ask a question and check the cited page."}</p> : null}
             {selectedDoc.status === "queued" || selectedDoc.status === "processing" ? (
               <div className="processing-summary" aria-label="PDF processing progress">
                 <p>We are preparing this PDF. You can leave this page and return later; the status updates automatically.</p>
