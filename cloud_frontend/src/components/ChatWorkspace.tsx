@@ -34,7 +34,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   const waitingNotes = [
     "BookRAG first checks whether this question was answered before.",
     "For new questions, BookRAG searches passages in this PDF.",
-    "If support is found, you can open the cited PDF pages.",
+    doc?.is_sample ? "If support is found, page references and short excerpts will appear." : "If support is found, you can open the cited PDF pages.",
   ];
 
   useEffect(() => {
@@ -117,7 +117,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
         <div>
           <p className="eyebrow"><Link href="/library">Library</Link> <span aria-hidden="true">›</span> {doc?.title || "PDF"}</p>
           <h1>Ask your book</h1>
-          <p>Get an answer grounded in the pages of your PDF.</p>
+          <p>{doc?.is_sample ? "Get answers with page references and short supporting excerpts." : "Get an answer grounded in the pages of your PDF."}</p>
         </div>
         <Link className="ghost" href="/library">View library</Link>
       </div>
