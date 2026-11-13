@@ -34,9 +34,11 @@ export function evidencePreview(passage: string, question: string, answer: strin
   return `${bestStart ? "…" : ""}${preview}${bestStart + windowSize < words.length ? "…" : ""}`;
 }
 
-export function answerParts(text: string): Array<{ text: string; bold: boolean }> {
-  return text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).map((part) => ({
-    text: part.replace(/\*\*/g, ""),
-    bold: part.startsWith("**") && part.endsWith("**"),
-  }));
+/** Clean model formatting for display without changing saved answers or cited passages. */
+export function displayAnswerText(text: string): string {
+  return text
+    .replace(/\*\*([^*\n]+)\*\*/g, "$1")
+    .replace(/(^|[^\w*])\*([^*\n]+)\*(?=$|[^\w*])/g, "$1$2")
+    .replace(/^(\s*)\*\s+/gm, "$1• ")
+    .replace(/\s*—\s*/g, ", ");
 }
