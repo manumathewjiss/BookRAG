@@ -90,15 +90,22 @@ def _approved_sample(row: dict) -> bool:
     return row["sha256"].lower() == settings().guest_sample_sha256.strip().lower()
 
 
-def _readable_document(repo: Repository, owner: UUID, document_id: UUID) -> dict | None:
+def _is_guest(request: Request | None) -> bool:
+    return getattr(getattr(request, "state", None), "is_guest", False) is True
+
+
+def _readable_document(repo: Repository, owner: UUID, document_id: UUID, *, is_guest: bool) -> dict | None:
     """Private document first; only one explicitly configured sample is shared."""
-    row = repo.document(owner, document_id)
-    if row:
-        return dict(row, is_sample=False)
     if document_id == _sample_id():
+        if not is_guest:
+            return None
         sample = repo.ready_sample_document(document_id)
         if sample and _approved_sample(sample):
             return dict(sample, is_sample=True)
+        return None
+    row = repo.document(owner, document_id)
+    if row:
+        return dict(row, is_sample=False)
     return None
 
 
@@ -211,10 +218,10 @@ async def upload_document(file: UploadFile = File(...), title: str | None = Form
 
 
 @app.get("/api/v1/documents")
-def list_documents(owner: UUID = Depends(verify_access_token), repo: Repository = Depends(get_repo)):
-    rows = [dict(row, is_sample=False) for row in repo.list_documents(owner)]
+def list_documents(request: Request, owner: UUID = Depends(verify_access_token), repo: Repository = Depends(get_repo)):
     sample_id = _sample_id()
-    if sample_id and not any(row["id"] == sample_id for row in rows):
+    rows = [dict(row, is_sample=False) for row in repo.list_documents(owner) if row["id"] != sample_id]
+    if _is_guest(request) and sample_id:
         sample = repo.ready_sample_document(sample_id)
         if sample and _approved_sample(sample):
             rows.insert(0, dict(sample, is_sample=True))
@@ -222,18 +229,18 @@ def list_documents(owner: UUID = Depends(verify_access_token), repo: Repository 
 
 
 @app.get("/api/v1/documents/{document_id}")
-def get_document(document_id: UUID, owner: UUID = Depends(verify_access_token), repo: Repository = Depends(get_repo)):
-    row = _readable_document(repo, owner, document_id)
+def get_document(document_id: UUID, request: Request, owner: UUID = Depends(verify_access_token), repo: Repository = Depends(get_repo)):
+    row = _readable_document(repo, owner, document_id, is_guest=_is_guest(request))
     if not row:
         raise HTTPException(404, "Document not found")
     return {"document": Document.model_validate(row)}
 
 
 @app.get("/api/v1/documents/{document_id}/pdf")
-def get_document_pdf(document_id: UUID, owner: UUID = Depends(verify_access_token),
+def get_document_pdf(document_id: UUID, request: Request, owner: UUID = Depends(verify_access_token),
                      repo: Repository = Depends(get_repo), storage: PrivateStorage = Depends(get_storage)):
     """Return a private PDF only after token verification and owner-scoped lookup."""
-    row = _readable_document(repo, owner, document_id)
+    row = _readable_document(repo, owner, document_id, is_guest=_is_guest(request))
     if not row:
         raise HTTPException(404, "Document not found")
     if row.get("is_sample"):
@@ -253,7 +260,8 @@ def get_document_pdf(document_id: UUID, owner: UUID = Depends(verify_access_toke
 @app.delete("/api/v1/documents/{document_id}", status_code=204)
 def delete_document(document_id: UUID, owner: UUID = Depends(verify_access_token),
                     repo: Repository = Depends(get_repo), storage: PrivateStorage = Depends(get_storage)):
-    # Shared samples are readable but never deletable by another account.
+    if document_id == _sample_id():
+        raise HTTPException(403, "The demo PDF cannot be removed")
     row = repo.document(owner, document_id)
     if not row:
         raise HTTPException(404, "Document not found")
@@ -276,12 +284,12 @@ def delete_document(document_id: UUID, owner: UUID = Depends(verify_access_token
 
 @app.post("/api/v1/documents/{document_id}/chat", response_model=Answer)
 def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_access_token),
-         repo: Repository = Depends(get_repo), models: HostedModels = Depends(get_models)):
+         repo: Repository = Depends(get_repo), models: HostedModels = Depends(get_models), request: Request = None):
     question = payload.question.strip()
     if len(question) < 8:
         raise HTTPException(400, "Question is too short")
     # Ownership and readiness before any saved-answer lookup or hosted call.
-    row = _readable_document(repo, owner, document_id)
+    row = _readable_document(repo, owner, document_id, is_guest=_is_guest(request))
     if not row:
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":
@@ -292,15 +300,17 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
         lock_owner = row["owner_id"] if row.get("is_sample") else owner
         with repo.answer_lock(lock_owner, document_id):
             # A waiting request must recheck ownership and status after deletion.
-            answer = _chat_locked(document_id, question, owner, repo, models, payload.answer_language)
+            answer = _chat_locked(document_id, question, owner, repo, models, payload.answer_language,
+                                  is_guest=_is_guest(request))
             return _sample_answer_view(answer, question) if row.get("is_sample") else answer
     except AnswerBusy:
         raise HTTPException(503, "An answer is still being prepared; please retry") from None
 
 
 def _chat_locked(document_id: UUID, question: str, owner: UUID,
-                 repo: Repository, models: HostedModels, language: AnswerLanguage = "en") -> Answer:
-    row = _readable_document(repo, owner, document_id)
+                 repo: Repository, models: HostedModels, language: AnswerLanguage = "en",
+                 *, is_guest: bool = False) -> Answer:
+    row = _readable_document(repo, owner, document_id, is_guest=is_guest)
     if not row:
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":

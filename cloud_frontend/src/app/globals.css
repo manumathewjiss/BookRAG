@@ -425,6 +425,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .book-ask { display:flex; align-items:center; justify-content:space-between; gap:5px; margin:10px 0 0; padding:9px 10px; border-radius:5px; background:#f6efdf; color:#76561d; font-size:.8rem; font-weight:700; text-decoration:none; }
 .book-ask:hover { text-decoration:underline; }
 .book-remove-row { display:flex; justify-content:flex-end; margin-top:14px; padding-top:9px; border-top:1px solid var(--line); }
+.book-demo-note { color:var(--muted); font-size:.76rem; line-height:1.45; margin:14px 0 0; padding-top:9px; border-top:1px solid var(--line); }
 .book-delete { border:0; background:none; padding:3px 0; color:var(--muted); font-size:.72rem; text-decoration:underline; }.book-delete:hover { color:var(--err); }
 .book-upload { border-style:dashed; border-color:#d4bd8d; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:320px; background:#fffcf5; }
 .book-upload h2 { margin:8px 0; font-size:1rem; }.upload-icon { font-size:2.5rem; color:var(--brass); line-height:1; }

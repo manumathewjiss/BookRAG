@@ -37,6 +37,7 @@ class SampleRepo(FakeRepo):
 def test_shared_sample_is_ready_and_uses_source_passages_but_guest_usage(monkeypatch):
     monkeypatch.setattr(main, "_sample_id", lambda: DOC)
     monkeypatch.setattr(main, "_approved_sample", lambda row: True)
+    monkeypatch.setattr(main, "_is_guest", lambda request: True)
     repo = SampleRepo()
     guest, _, _ = client_for(OTHER, repo)
     listed = guest.get("/api/v1/documents")
@@ -66,8 +67,24 @@ def test_shared_sample_is_ready_and_uses_source_passages_but_guest_usage(monkeyp
     assert cross_guest_repeat.status_code == 200
     assert cross_guest_repeat.json()["reused_answer"] is True
     assert repo.retrieval_owners == [OWNER]
-    assert guest.delete(f"/api/v1/documents/{DOC}").status_code == 404
+    assert guest.delete(f"/api/v1/documents/{DOC}").status_code == 403
     assert repo.row["status"] == "ready"
+
+
+def test_demo_pdf_is_hidden_from_registered_accounts_and_cannot_be_deleted(monkeypatch):
+    monkeypatch.setattr(main, "_sample_id", lambda: DOC)
+    monkeypatch.setattr(main, "_approved_sample", lambda row: True)
+    repo = SampleRepo()
+    owner, _, storage = client_for(OWNER, repo)
+    assert owner.get("/api/v1/documents").json()["documents"] == []
+    assert owner.get(f"/api/v1/documents/{DOC}").status_code == 404
+    assert owner.get(f"/api/v1/documents/{DOC}/pdf").status_code == 404
+    assert owner.delete(f"/api/v1/documents/{DOC}").status_code == 403
+    assert storage.deleted == []
+    other, _, _ = client_for(OTHER, repo)
+    assert other.get("/api/v1/documents").json()["documents"] == []
+    assert other.get(f"/api/v1/documents/{DOC}").status_code == 404
+    assert other.post(f"/api/v1/documents/{DOC}/chat", json={"question": "What is the answer?"}).status_code == 404
 
 
 def test_no_other_private_document_becomes_visible(monkeypatch):
@@ -83,6 +100,7 @@ def test_no_other_private_document_becomes_visible(monkeypatch):
 def test_mismatched_file_digest_keeps_sample_private(monkeypatch):
     monkeypatch.setattr(main, "_sample_id", lambda: DOC)
     monkeypatch.setattr(main, "_approved_sample", lambda row: False)
+    monkeypatch.setattr(main, "_is_guest", lambda request: True)
     repo = SampleRepo()
     guest, _, _ = client_for(OTHER, repo)
     assert guest.get("/api/v1/documents").json()["documents"] == []
