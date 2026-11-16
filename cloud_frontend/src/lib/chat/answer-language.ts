@@ -3,6 +3,10 @@ export const ANSWER_LANGUAGES = {
   hi: "Hindi",
   sa: "Sanskrit",
   es: "Spanish",
+  ta: "Tamil",
+  te: "Telugu",
+  ml: "Malayalam",
+  bn: "Bengali",
 } as const;
 
 export type AnswerLanguage = keyof typeof ANSWER_LANGUAGES;

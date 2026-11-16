@@ -60,6 +60,15 @@ describe("mock BookRAG client", () => {
     expect(repeatedHindi.answer).toBe(hindi.answer);
   });
 
+  it.each(["ta", "te", "ml", "bn"] as const)("returns a non-empty %s mock answer", async (language) => {
+    const client = createMockClient();
+    const ready = (await client.listDocuments()).find((d) => d.status === "ready")!;
+    const answer = await client.chat(ready.id, "What is a high-level language in this book?", language);
+    expect(answer.answer_language).toBe(language);
+    expect(answer.answer.length).toBeGreaterThan(20);
+    expect(answer.citations.length).toBeGreaterThan(0);
+  });
+
   it("serves private mock PDF bytes without a live token", async () => {
     const client = createMockClient();
     const docs = await client.listDocuments();
