@@ -220,6 +220,21 @@ def test_answer_language_separates_saved_answers_without_changing_citations():
     assert models.answer_calls == models.embed_calls == models.rerank_calls == 2
 
 
+@pytest.mark.parametrize("language", ["ta", "te", "ml", "bn"])
+def test_new_answer_languages_keep_saved_answer_and_citations(language):
+    repo, models = MemorySavedRepo(), TrackingModels()
+    client = _client(OWNER, repo, models)
+    payload = {"question": "Who is Neil Armstrong?", "answer_language": language}
+    first = client.post(f"/api/v1/documents/{DOC}/chat", json=payload)
+    second = client.post(f"/api/v1/documents/{DOC}/chat", json=payload)
+    assert first.status_code == second.status_code == 200
+    assert first.json()["answer_language"] == second.json()["answer_language"] == language
+    assert second.json()["reused_answer"] is True
+    assert second.json()["answer"] == first.json()["answer"]
+    assert second.json()["citations"] == first.json()["citations"]
+    assert models.answer_calls == models.embed_calls == models.rerank_calls == 1
+
+
 def test_unsupported_answer_language_is_rejected_before_models():
     repo, models = MemorySavedRepo(), TrackingModels()
     client = _client(OWNER, repo, models)

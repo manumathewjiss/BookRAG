@@ -424,7 +424,11 @@
               "en",
               "hi",
               "sa",
-              "es"
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn"
             ],
             "title": "Answer Language",
             "default": "en"
@@ -480,7 +484,11 @@
               "en",
               "hi",
               "sa",
-              "es"
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn"
             ],
             "title": "Answer Language",
             "default": "en"

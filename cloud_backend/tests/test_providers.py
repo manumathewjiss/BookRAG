@@ -38,11 +38,15 @@ def test_sol_request_does_not_send_gold_or_page_claim(monkeypatch):
     assert answer["supporting_passage_ids"] == [passage_id] and usage["input_tokens"] == 10
 
 
-def test_sol_is_instructed_to_answer_in_selected_language_without_changing_evidence(monkeypatch):
+@pytest.mark.parametrize("code,name", [
+    ("sa", "Sanskrit"), ("ta", "Tamil"), ("te", "Telugu"),
+    ("ml", "Malayalam"), ("bn", "Bengali"),
+])
+def test_sol_is_instructed_to_answer_in_selected_language_without_changing_evidence(monkeypatch, code, name):
     import bookrag_cloud.providers as module
     passage_id = str(uuid4())
     def fake(url, key, body, timeout=60):
-        assert "Sanskrit" in body["instructions"]
+        assert name in body["instructions"]
         assert "Do not translate or alter passage IDs" in body["instructions"]
         assert passage_id in body["input"]
         return {"status": "completed", "output": [{"content": [{"type": "output_text", "text":
@@ -50,5 +54,5 @@ def test_sol_is_instructed_to_answer_in_selected_language_without_changing_evide
     monkeypatch.setattr(module, "_json_post", fake)
     answer, _ = HostedModels(Settings()).answer("What happened?", [{
         "id": passage_id, "text": "It happened.", "pdf_page": 2,
-    }], "sa")
+    }], code)
     assert answer["answer"] == "उत्तरम्" and answer["supporting_passage_ids"] == [passage_id]
