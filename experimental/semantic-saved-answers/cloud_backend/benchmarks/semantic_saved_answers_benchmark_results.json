@@ -1,0 +1,358 @@
+{
+  "result_kind": "SIMULATED_OFFLINE",
+  "paid_api_calls": 0,
+  "rule_based": {
+    "matcher": "rules_v1",
+    "mode": "SIMULATED_OFFLINE",
+    "sample_size": 18,
+    "exact_answer_reuse_precision": 1.0,
+    "paraphrase_recognition_recall": 0.3333,
+    "false_reuse_count": 0,
+    "false_reuse_rate": 0.0,
+    "true_reuse_count": 2,
+    "missed_reuse_count": 4,
+    "hard_negative_count": 12,
+    "hard_negative_false_reuse_count": 0,
+    "latency_total_ms": 0.43,
+    "latency_avg_ms": 0.024,
+    "cases": [
+      {
+        "id": "exact-repeat",
+        "category": "exact",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "REUSE_EXACT_ANSWER",
+        "ok": true,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "simple-paraphrase-was-is",
+        "category": "simple_paraphrase",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "RUN_FULL_RAG",
+        "ok": false,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "professor-lunar-paraphrase",
+        "category": "difficult_paraphrase",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "RUN_FULL_RAG",
+        "ok": false,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "synonym-human",
+        "category": "synonym",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "RUN_FULL_RAG",
+        "ok": false,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "first-vs-second",
+        "category": "ordinal",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "different-entity",
+        "category": "entity",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "negation",
+        "category": "negation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "who-vs-when",
+        "category": "wh_mismatch",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "who-vs-why",
+        "category": "wh_mismatch",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "date-quantity",
+        "category": "quantity",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "similar-subject-different-fact",
+        "category": "different_fact",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "multi-citation-paraphrase",
+        "category": "multi_citation",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "RUN_FULL_RAG",
+        "ok": false,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "refusal-different-question",
+        "category": "refusal",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "refusal-same-question",
+        "category": "refusal",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "REUSE_EXACT_ANSWER",
+        "ok": true,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "different-pdf",
+        "category": "isolation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "different-user",
+        "category": "isolation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "sha-changed",
+        "category": "invalidation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "pipeline-changed",
+        "category": "invalidation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      }
+    ],
+    "hard_negative_failures": []
+  },
+  "semantic": {
+    "matcher": "semantic_v1_offline_oracle",
+    "mode": "SIMULATED_OFFLINE",
+    "sample_size": 18,
+    "exact_answer_reuse_precision": 1.0,
+    "paraphrase_recognition_recall": 1.0,
+    "false_reuse_count": 0,
+    "false_reuse_rate": 0.0,
+    "true_reuse_count": 6,
+    "missed_reuse_count": 0,
+    "hard_negative_count": 12,
+    "hard_negative_false_reuse_count": 0,
+    "latency_total_ms": 0.46,
+    "latency_avg_ms": 0.026,
+    "cases": [
+      {
+        "id": "exact-repeat",
+        "category": "exact",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "REUSE_EXACT_ANSWER",
+        "ok": true,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "simple-paraphrase-was-is",
+        "category": "simple_paraphrase",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "REUSE_EXACT_ANSWER",
+        "ok": true,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "professor-lunar-paraphrase",
+        "category": "difficult_paraphrase",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "REUSE_EXACT_ANSWER",
+        "ok": true,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "synonym-human",
+        "category": "synonym",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "REUSE_EXACT_ANSWER",
+        "ok": true,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "first-vs-second",
+        "category": "ordinal",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "different-entity",
+        "category": "entity",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "negation",
+        "category": "negation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "who-vs-when",
+        "category": "wh_mismatch",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "who-vs-why",
+        "category": "wh_mismatch",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "date-quantity",
+        "category": "quantity",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "similar-subject-different-fact",
+        "category": "different_fact",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "multi-citation-paraphrase",
+        "category": "multi_citation",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "REUSE_EXACT_ANSWER",
+        "ok": true,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "refusal-different-question",
+        "category": "refusal",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "refusal-same-question",
+        "category": "refusal",
+        "expected": "REUSE_EXACT_ANSWER",
+        "got": "REUSE_EXACT_ANSWER",
+        "ok": true,
+        "critical_hard_negative": false
+      },
+      {
+        "id": "different-pdf",
+        "category": "isolation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "different-user",
+        "category": "isolation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "sha-changed",
+        "category": "invalidation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      },
+      {
+        "id": "pipeline-changed",
+        "category": "invalidation",
+        "expected": "RUN_FULL_RAG",
+        "got": "RUN_FULL_RAG",
+        "ok": true,
+        "critical_hard_negative": true
+      }
+    ],
+    "hard_negative_failures": []
+  },
+  "cost_estimates": {
+    "mode": "ESTIMATED_NOT_MEASURED_LIVE",
+    "assumptions": {
+      "probe_rate": 0.7,
+      "embed_tokens": 25,
+      "verify_in_tokens": 350,
+      "verify_out_tokens": 60,
+      "model": "gpt-6-luna",
+      "prices": {
+        "voyage_embed_per_mtok": 0.12,
+        "gpt_6_luna_in_per_mtok": 0.1,
+        "gpt_6_luna_out_per_mtok": 0.4,
+        "gpt_5_nano_in_per_mtok": 0.05,
+        "gpt_5_nano_out_per_mtok": 0.2,
+        "verify_in_tokens": 350,
+        "verify_out_tokens": 60,
+        "embed_tokens": 25
+      }
+    },
+    "usd_per_probe": 6.2e-05,
+    "usd_per_100_questions": 0.00434,
+    "usd_per_1000_questions": 0.0434,
+    "benchmark_sample_size": 18,
+    "alt_gpt_5_nano_usd_per_1000": 0.02275,
+    "note": "Cheapest model is not automatically selected; accuracy on hard negatives comes first."
+  },
+  "release_gate": {
+    "hard_negative_false_reuse_must_be_zero": true,
+    "passing_benchmark_does_not_guarantee_perfect_accuracy": true
+  }
+}

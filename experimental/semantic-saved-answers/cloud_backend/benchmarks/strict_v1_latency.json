@@ -1,0 +1,10 @@
+{
+  "mode": "in_memory_lock",
+  "paid_api_calls": 0,
+  "cache_miss_ms": 0.061,
+  "cache_hit_without_contention_ms": 0.015,
+  "holder_ms": 125.273,
+  "waiter_ms": 103.486,
+  "waiter_reused": true,
+  "duplicate_paid_answers": 0
+}
