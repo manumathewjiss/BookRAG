@@ -431,7 +431,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .book-upload .dropzone { padding:8px; border:0; background:transparent; font-size:.78rem; }.book-upload .dropzone p { margin:4px 0 8px; }
 .book-upload .dropzone .ghost { background:var(--brass); border-color:var(--brass); color:white; min-height:34px; padding:4px 10px; border-radius:5px; }
 .document-detail { display:flex; justify-content:space-between; gap:20px; margin-top:22px; padding:23px 25px; border:1px solid var(--line); background:white; border-radius:8px; box-shadow:var(--shadow); }
-.document-detail h2 { margin:3px 0 5px; }.document-detail p { color:var(--muted); line-height:1.45; }.document-detail-meta { font-size:.82rem; }
+.document-detail > div:first-child { min-width:0; }
+.document-detail h2 { margin:3px 0 5px; overflow-wrap:anywhere; }
+.document-detail p { color:var(--muted); line-height:1.45; }
+.document-detail-meta { font-size:.82rem; overflow-wrap:anywhere; }
 .document-detail-action { display:flex; flex-direction:column; align-items:flex-end; justify-content:space-between; gap:12px; flex-shrink:0; }
 .primary,.ghost,.danger { border-radius:6px; }
 .chat-heading { margin-bottom:20px; }.chat-heading .ghost { font-size:.85rem; border-color:#ccb27e; color:var(--brass-deep); }
