@@ -5,6 +5,7 @@ import math
 import httpx
 
 from .config import Settings
+from .answer_language import AnswerLanguage, LANGUAGE_NAMES
 
 
 class ProviderError(RuntimeError):
@@ -118,11 +119,17 @@ class HostedModels:
             ordered.append(passages[idx])
         return ordered, int(raw.get("usage", {}).get("total_tokens", 0))
 
-    def answer(self, question: str, passages: list[dict]) -> tuple[dict, dict]:
+    def answer(self, question: str, passages: list[dict], language: AnswerLanguage = "en") -> tuple[dict, dict]:
         block = "\n\n".join(f"[passage_id={p['id']}; PDF page={p['pdf_page']}]\n{p['text']}" for p in passages)
+        language_instruction = (
+            "" if language == "en" else
+            f"\nWrite the answer text in {LANGUAGE_NAMES[language]}. Keep names and technical terms accurate. "
+            "Do not translate or alter passage IDs. The source passages may be in another language; "
+            "cite them only when they directly support the answer."
+        )
         raw = _json_post("https://api.openai.com/v1/responses", self.cfg.openai_api_key, {
             "model": "gpt-6.1-sol", "store": False, "service_tier": "default",
-            "reasoning": {"effort": "low"}, "instructions": INSTRUCTIONS,
+            "reasoning": {"effort": "low"}, "instructions": INSTRUCTIONS + language_instruction,
             "input": f"Question:\n{question}\n\nPDF passages:\n{block}",
             "max_output_tokens": 1024,
             "text": {"format": {"type": "json_schema", "name": "bookrag_grounded_answer", "strict": True, "schema": ANSWER_SCHEMA}},

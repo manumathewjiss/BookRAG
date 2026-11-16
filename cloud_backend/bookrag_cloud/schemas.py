@@ -3,6 +3,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
+from .answer_language import AnswerLanguage
+
 
 class Document(BaseModel):
     id: UUID
@@ -19,6 +21,7 @@ class Document(BaseModel):
 
 class ChatRequest(BaseModel):
     question: str = Field(min_length=8, max_length=1200)
+    answer_language: AnswerLanguage = "en"
 
 
 class Citation(BaseModel):
@@ -47,3 +50,4 @@ class Answer(BaseModel):
     timings_ms: Timings
     usage: Usage
     reused_answer: bool = False
+    answer_language: AnswerLanguage = "en"

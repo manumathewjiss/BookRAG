@@ -17,7 +17,7 @@ Base path: `/api/v1`. JSON uses UTF-8. This contract is for the Next.js frontend
 | `GET /api/v1/documents/{document_id}` | Bearer token | `{ "document": Document }` |
 | `GET /api/v1/documents/{document_id}/pdf` | Bearer token | `application/pdf` bytes, private/no-store; 404 for another user's or deleted file |
 | `DELETE /api/v1/documents/{document_id}` | Bearer token | 204 on deletion; 404 for deleted, nonexistent, or another user's document |
-| `POST /api/v1/documents/{document_id}/chat` | `{ "question": "8–1200 characters" }` | 200 `Answer` |
+| `POST /api/v1/documents/{document_id}/chat` | `{ "question": "8–1200 characters", "answer_language": "en|hi|sa|es" }`; language defaults to `en` | 200 `Answer` |
 
 `Document`: `{ "id": "uuid", "title": "string", "filename": "string.pdf", "status": "queued|processing|ready|failed", "is_sample": false, "page_count": 0, "passage_count": 0, "error": null, "created_at": "ISO-8601", "updated_at": "ISO-8601" }`. `error` contains a safe short message only. Poll the document route while status is queued or processing. Chat is allowed only when ready. A configured, ready shared sample has `is_sample=true` for visitors other than its owner; visitors may ask about it and see page numbers with short excerpts, but cannot access the PDF or delete it. It is disabled unless `GUEST_SAMPLE_DOCUMENT_ID` and matching `GUEST_SAMPLE_SHA256` are set.
 
@@ -32,3 +32,7 @@ If an embedding request has an uncertain outcome after a worker crash or timeout
 Initial trial limits are configurable on the server: five uploads/day, 50 questions/day, 10 questions/minute, and $5/day estimated usage per user. A question reserves $0.05 of that estimate before making hosted calls. These are application controls; the provider account must have its own billing controls.
 
 Auth account creation and sign-in remain in Supabase Auth/Next.js. The backend owns token verification and user-scoped data access. The PDF viewer fetches the private source file with the same bearer token used for document and chat requests. No browser cache or public storage URL is required.
+
+## Answer language
+
+`answer_language` defaults to `en` for existing clients. Supported choices are `en` (English), `hi` (Hindi), `sa` (Sanskrit), and `es` (Spanish). The response echoes `answer_language`. The same PDF retrieval and citation validation run for every choice; the model writes only the answer in the requested language. Source excerpts and PDF page numbers remain in their original form. Saved answers use distinct pipeline versions by language, with the existing English version preserved. This needs no database migration. The frontend remembers the choice per user in that browser.

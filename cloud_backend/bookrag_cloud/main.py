@@ -13,8 +13,9 @@ from fastapi.responses import JSONResponse, Response
 from psycopg import Error as DatabaseError
 
 from .config import settings
+from .answer_language import AnswerLanguage, REFUSALS, answer_pipeline_version
 from .providers import HostedModels, ProviderError, ProviderUncertainCharge
-from .question_match import ANSWER_PIPELINE_VERSION, canonicalize_question, question_signature
+from .question_match import canonicalize_question, question_signature
 from .repository import AnswerBusy, Repository, UsageLimitReached
 from .retrieval import bm25_top, fuse
 from .schemas import Answer, ChatRequest, Citation, Document, Timings, Usage
@@ -28,10 +29,10 @@ def _citations_from_saved(raw) -> list[Citation]:
 
 
 def _find_exact_saved_answer(repo: Repository, owner: UUID, document_id: UUID, question: str,
-                             document_sha256: str) -> dict | None:
+                             document_sha256: str, language: AnswerLanguage = "en") -> dict | None:
     """Indexed lookup of the strict canonical key. No scan and no model call."""
     return repo.find_exact_saved_answer(
-        owner, document_id, canonicalize_question(question), document_sha256, ANSWER_PIPELINE_VERSION,
+        owner, document_id, canonicalize_question(question), document_sha256, answer_pipeline_version(language),
     )
 
 
@@ -47,7 +48,8 @@ def _estimate_usd(embed_tokens: int, rerank_tokens: int, input_tokens: int, outp
 
 
 def _answer_from_saved(row: dict, *, reused: bool, search_ms: int = 0, rerank_ms: int = 0,
-                       answer_ms: int = 0, usage: Usage | None = None) -> Answer:
+                       answer_ms: int = 0, usage: Usage | None = None,
+                       language: AnswerLanguage = "en") -> Answer:
     return Answer(
         answer=row["answer_text"],
         enough_evidence=bool(row["enough_evidence"]),
@@ -56,6 +58,7 @@ def _answer_from_saved(row: dict, *, reused: bool, search_ms: int = 0, rerank_ms
         timings_ms=Timings(search=search_ms, rerank=rerank_ms, answer=answer_ms),
         usage=usage or Usage(),
         reused_answer=reused,
+        answer_language=language,
     )
 
 
@@ -289,14 +292,14 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
         lock_owner = row["owner_id"] if row.get("is_sample") else owner
         with repo.answer_lock(lock_owner, document_id):
             # A waiting request must recheck ownership and status after deletion.
-            answer = _chat_locked(document_id, question, owner, repo, models)
+            answer = _chat_locked(document_id, question, owner, repo, models, payload.answer_language)
             return _sample_answer_view(answer, question) if row.get("is_sample") else answer
     except AnswerBusy:
         raise HTTPException(503, "An answer is still being prepared; please retry") from None
 
 
 def _chat_locked(document_id: UUID, question: str, owner: UUID,
-                 repo: Repository, models: HostedModels) -> Answer:
+                 repo: Repository, models: HostedModels, language: AnswerLanguage = "en") -> Answer:
     row = _readable_document(repo, owner, document_id)
     if not row:
         raise HTTPException(404, "Document not found")
@@ -305,7 +308,7 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     document_sha256 = str(row.get("sha256") or "")
     lookup_started = time.perf_counter()
     cache_owner = row["owner_id"] if row.get("is_sample") else owner
-    saved = _find_exact_saved_answer(repo, cache_owner, document_id, question, document_sha256)
+    saved = _find_exact_saved_answer(repo, cache_owner, document_id, question, document_sha256, language)
     lookup_ms = round((time.perf_counter() - lookup_started) * 1000)
     cfg = settings()
     reserve_args = (owner, document_id, cfg.daily_question_limit,
@@ -322,7 +325,7 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     if saved:
         # Exact hit: no Voyage or OpenAI call. Release the $0.05 hold.
         repo.settle_reused_question(owner, usage_event)
-        return _answer_from_saved(saved, reused=True, search_ms=lookup_ms)
+        return _answer_from_saved(saved, reused=True, search_ms=lookup_ms, language=language)
     embed_tokens = 0
     rerank_tokens = 0
     try:
@@ -339,7 +342,10 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
         top_five = reranked[:5]
         rerank_ms = round((time.perf_counter() - start) * 1000)
         start = time.perf_counter()
-        raw, usage = models.answer(question, top_five)
+        # Preserve the established English provider call, including test and
+        # verification wrappers that implement its original two-arg interface.
+        raw, usage = (models.answer(question, top_five) if language == "en"
+                      else models.answer(question, top_five, language))
         answer_ms = round((time.perf_counter() - start) * 1000)
     except ProviderUncertainCharge:
         # The provider may have billed the in-flight call. Keep at least the hold.
@@ -379,7 +385,7 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
             unverified_citation = True
     if not enough:
         citations = []
-    answer_text = raw["answer"] if enough else "The supplied passages do not confirm the answer to this question."
+    answer_text = raw["answer"] if enough else REFUSALS[language]
     evidence_status = "unverified" if unverified_citation else match
     citation_payload = [c.model_dump(mode="json") for c in citations]
     signature = question_signature(question)
@@ -393,7 +399,7 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     try:
         stored = repo.save_answer(
             cache_owner, document_id, question, signature["canonical"], signature,
-            answer_text, enough, evidence_status, citation_payload, document_sha256, ANSWER_PIPELINE_VERSION,
+            answer_text, enough, evidence_status, citation_payload, document_sha256, answer_pipeline_version(language),
         )
     except DatabaseError as exc:
         # An optional cache write must not discard an answer already paid for.
@@ -402,9 +408,9 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     if stored:
         return _answer_from_saved(
             stored, reused=False, search_ms=search_ms, rerank_ms=rerank_ms, answer_ms=answer_ms,
-            usage=reported,
+            usage=reported, language=language,
         )
     return Answer(answer=answer_text, enough_evidence=enough, evidence_status=evidence_status,
                   citations=citations, timings_ms=Timings(search=search_ms, rerank=rerank_ms, answer=answer_ms),
                   usage=reported,
-                  reused_answer=False)
+                  reused_answer=False, answer_language=language)

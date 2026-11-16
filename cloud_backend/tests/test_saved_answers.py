@@ -39,7 +39,7 @@ class TrackingModels:
         self.rerank_calls += 1
         return passages, 5
 
-    def answer(self, question, passages):
+    def answer(self, question, passages, language="en"):
         self.answer_calls += 1
         return (
             {
@@ -196,6 +196,55 @@ def test_exact_repeat_returns_stored_answer_without_provider_calls():
     assert body["usage"] == {"input_tokens": 0, "output_tokens": 0, "estimated_usd": 0.0}
     assert models.embed_calls == 1 and models.rerank_calls == 1 and models.answer_calls == 1
     assert len(repo.reused_settled) == 1
+
+
+def test_answer_language_separates_saved_answers_without_changing_citations():
+    repo, models = MemorySavedRepo(), TrackingModels()
+    client = _client(OWNER, repo, models)
+    question = "Who is Neil Armstrong?"
+    english = client.post(f"/api/v1/documents/{DOC}/chat", json={"question": question}).json()
+    models.answer_text = "नील आर्मस्ट्रांग चंद्रमा पर चलने वाले पहले व्यक्ति थे।"
+    hindi = client.post(f"/api/v1/documents/{DOC}/chat", json={
+        "question": question, "answer_language": "hi",
+    }).json()
+    assert hindi["answer_language"] == "hi" and hindi["reused_answer"] is False
+    assert hindi["answer"] != english["answer"]
+    assert hindi["citations"] == english["citations"]
+    assert len(repo.saved) == 2 and repo.saved[0]["pipeline_version"] != repo.saved[1]["pipeline_version"]
+    assert client.post(f"/api/v1/documents/{DOC}/chat", json={
+        "question": question, "answer_language": "hi",
+    }).json()["reused_answer"] is True
+    assert client.post(f"/api/v1/documents/{DOC}/chat", json={
+        "question": question, "answer_language": "en",
+    }).json()["answer"] == english["answer"]
+    assert models.answer_calls == models.embed_calls == models.rerank_calls == 2
+
+
+def test_unsupported_answer_language_is_rejected_before_models():
+    repo, models = MemorySavedRepo(), TrackingModels()
+    client = _client(OWNER, repo, models)
+    response = client.post(f"/api/v1/documents/{DOC}/chat", json={
+        "question": "Who is Neil Armstrong?", "answer_language": "fr",
+    })
+    assert response.status_code == 400 and models.answer_calls == 0
+
+
+def test_unsupported_answer_uses_selected_language_without_false_citations():
+    class NoEvidence(TrackingModels):
+        def answer(self, question, passages, language="en"):
+            self.answer_calls += 1
+            return ({"answer": "model text", "enough_evidence": False,
+                     "event_match": "absent", "supporting_passage_ids": []}, {} )
+
+    repo, models = MemorySavedRepo(), NoEvidence()
+    client = _client(OWNER, repo, models)
+    response = client.post(f"/api/v1/documents/{DOC}/chat", json={
+        "question": "What is the author's email address?", "answer_language": "es",
+    })
+    assert response.status_code == 200
+    assert response.json()["answer"].startswith("Los pasajes proporcionados")
+    assert response.json()["citations"] == []
+    assert response.json()["answer_language"] == "es"
 
 
 def test_whitespace_and_question_mark_reuse_without_provider_calls():
