@@ -254,6 +254,10 @@ h1, h2, h3 { font-family: var(--serif); color: var(--navy); font-weight: 600; }
   align-items: start;
 }
 .ask-row { display: flex; gap: 0.5rem; align-items: stretch; }
+.answer-language-picker { display:flex; align-items:center; gap:12px; margin:0 0 12px; color:var(--muted); font-size:.85rem; font-weight:600; }
+.answer-language-picker select { min-width:150px; padding:8px 12px; border:1px solid var(--line); border-radius:7px; background:#fff; color:var(--navy); cursor:pointer; }
+.answer-language-picker select:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
+.answer-language-note { margin:-4px 0 12px; color:var(--muted); font-size:.75rem; }
 .ask-row textarea {
   flex: 1;
   min-height: 3.1rem;

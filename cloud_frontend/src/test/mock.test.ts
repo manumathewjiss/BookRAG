@@ -45,6 +45,21 @@ describe("mock BookRAG client", () => {
     expect(second.usage.estimated_usd).toBe(0);
   });
 
+  it("keeps saved answers separate by answer language", async () => {
+    const client = createMockClient();
+    const ready = (await client.listDocuments()).find((d) => d.status === "ready")!;
+    const question = "What is a high-level language in this book?";
+    const english = await client.chat(ready.id, question, "en");
+    const hindi = await client.chat(ready.id, question, "hi");
+    const repeatedHindi = await client.chat(ready.id, question, "hi");
+    expect(english.answer_language).toBe("en");
+    expect(hindi.answer_language).toBe("hi");
+    expect(hindi.answer).not.toBe(english.answer);
+    expect(hindi.citations).toEqual(english.citations);
+    expect(repeatedHindi.reused_answer).toBe(true);
+    expect(repeatedHindi.answer).toBe(hindi.answer);
+  });
+
   it("serves private mock PDF bytes without a live token", async () => {
     const client = createMockClient();
     const docs = await client.listDocuments();

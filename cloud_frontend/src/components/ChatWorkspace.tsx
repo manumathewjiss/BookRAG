@@ -12,6 +12,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { useApiGuard } from "@/lib/auth/useApiGuard";
 import { loadHistory, saveHistory, type ChatTurn } from "@/lib/chat/history";
 import { displayAnswerText } from "@/lib/chat/display";
+import { ANSWER_LANGUAGES, loadAnswerLanguage, saveAnswerLanguage, type AnswerLanguage } from "@/lib/chat/answer-language";
 import { DOCUMENT_POLL_MS, MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "@/lib/config";
 import { validateQuestion } from "@/lib/pdf/validate";
 
@@ -23,6 +24,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   const [doc, setDoc] = useState<Document | null>(null);
   const [turns, setTurns] = useState<ChatTurn[] | null>(null);
   const [question, setQuestion] = useState("");
+  const [answerLanguage, setAnswerLanguage] = useState<AnswerLanguage>("en");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [waitSeconds, setWaitSeconds] = useState(0);
@@ -47,6 +49,10 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   useEffect(() => {
     setTurns(loadHistory(userId, documentId));
   }, [documentId, userId]);
+
+  useEffect(() => {
+    setAnswerLanguage(loadAnswerLanguage(userId));
+  }, [userId]);
 
   useEffect(() => {
     if (turns === null) return;
@@ -84,6 +90,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
     const turn: ChatTurn = {
       id: crypto.randomUUID(),
       question: question.trim(),
+      answer_language: answerLanguage,
       createdAt: new Date().toISOString(),
       status: "pending",
     };
@@ -92,7 +99,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
     setWaitSeconds(0);
     setError("");
     try {
-      const answer = await client.chat(documentId, question.trim());
+      const answer = await client.chat(documentId, question.trim(), answerLanguage);
       setTurns((prev) =>
         (prev ?? []).map((item) => (item.id === turn.id ? { ...item, status: "ok" as const, answer } : item)),
       );
@@ -130,6 +137,17 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
       <div className="chat-desk">
         <main className="chat-main">
           <div className="section-heading"><h2>Ask a question</h2><span>One PDF at a time</span></div>
+          <label className="answer-language-picker" htmlFor="answer-language">
+            <span>Answer language</span>
+            <select id="answer-language" value={answerLanguage} disabled={busy} onChange={(event) => {
+              const next = event.target.value as AnswerLanguage;
+              setAnswerLanguage(next);
+              saveAnswerLanguage(userId, next);
+            }}>
+              {Object.entries(ANSWER_LANGUAGES).map(([code, name]) => <option key={code} value={code}>{name}</option>)}
+            </select>
+          </label>
+          <p className="answer-language-note">Only the answer language changes. PDF evidence stays in its original language.</p>
           <div className="ask-row">
             <textarea
               value={question}
@@ -168,6 +186,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
                   <div className="answer-card">
                     <div className="answer-topline">
                       <span>Pipeline time {((turn.answer.timings_ms.search + turn.answer.timings_ms.rerank + turn.answer.timings_ms.answer) / 1000).toFixed(1)}s</span>
+                      <span>{ANSWER_LANGUAGES[turn.answer.answer_language ?? turn.answer_language ?? "en"]}</span>
                       {turn.answer.reused_answer ? <span className="badge idle">Previously answered</span> : null}
                     </div>
                     <p className="answer-text">{isWithheldAnswer(turn.answer) ? "The model claimed support without a valid citation, so this answer is withheld." : displayAnswerText(turn.answer.answer)}</p>

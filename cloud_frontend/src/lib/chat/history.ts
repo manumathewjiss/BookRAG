@@ -1,8 +1,10 @@
 import type { Answer } from "@/lib/api/types";
+import type { AnswerLanguage } from "@/lib/chat/answer-language";
 
 export interface ChatTurn {
   id: string;
   question: string;
+  answer_language?: AnswerLanguage;
   createdAt: string;
   status: "pending" | "ok" | "error";
   answer?: Answer;

@@ -4,6 +4,7 @@ import { createMockClient } from "@/lib/api/mock";
 import { isMockAccessToken } from "@/lib/auth/token";
 import type { Answer, BookragClient, Document, HealthResponse, MeResponse } from "@/lib/api/types";
 import { isDocumentStatus, isEvidenceStatus } from "@/lib/api/types";
+import { isAnswerLanguage, type AnswerLanguage } from "@/lib/chat/answer-language";
 
 export type { BookragClient } from "@/lib/api/types";
 
@@ -80,6 +81,7 @@ function assertAnswer(value: unknown): Answer {
       estimated_usd: Number(usage.estimated_usd || 0),
     },
     reused_answer: Boolean(rec.reused_answer),
+    answer_language: isAnswerLanguage(rec.answer_language) ? rec.answer_language : "en",
   };
 }
 
@@ -179,7 +181,7 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       if (status === 204 || status === 404) return;
       throw parseApiError(status, body);
     },
-    async chat(documentId: string, question: string) {
+    async chat(documentId: string, question: string, language: AnswerLanguage = "en") {
       const trimmed = question.trim();
       if (trimmed.length < MIN_QUESTION_CHARS || trimmed.length > MAX_QUESTION_CHARS) {
         throw new BookragApiError(
@@ -190,7 +192,7 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       }
       const { status, body } = await request(
         `/api/v1/documents/${encodeURIComponent(documentId)}/chat`,
-        { method: "POST", body: JSON.stringify({ question: trimmed }) },
+        { method: "POST", body: JSON.stringify({ question: trimmed, answer_language: language }) },
       );
       if (status !== 200) throw parseApiError(status, body);
       return assertAnswer(body);

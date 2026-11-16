@@ -1,6 +1,7 @@
 import { BookragApiError } from "@/lib/api/errors";
 import type { Answer, BookragClient, Document, MeResponse } from "@/lib/api/types";
 import { MAX_PDF_BYTES, MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "@/lib/config";
+import type { AnswerLanguage } from "@/lib/chat/answer-language";
 
 const READY_ID = "11111111-1111-4111-8111-111111111111";
 const PROCESSING_ID = "22222222-2222-4222-8222-222222222222";
@@ -216,7 +217,7 @@ function buildMockClient(): BookragClient {
       }
       docs.delete(id);
     },
-    async chat(documentId: string, question: string) {
+    async chat(documentId: string, question: string, language: AnswerLanguage = "en") {
       maybeAdvance();
       const trimmed = question.trim();
       if (trimmed.length < MIN_QUESTION_CHARS || trimmed.length > MAX_QUESTION_CHARS) {
@@ -235,7 +236,7 @@ function buildMockClient(): BookragClient {
         throw new BookragApiError(doc.error || "This PDF failed to index.", "invalid_input", 400);
       }
       questionsUsed += 1;
-      const cacheKey = `${documentId}::${trimmed.toLowerCase()}`;
+      const cacheKey = `${documentId}::${language}::${trimmed.toLowerCase()}`;
       const prior = savedAnswers.get(cacheKey);
       if (prior) {
         await new Promise((resolve) => window.setTimeout(resolve, 40));
@@ -252,6 +253,20 @@ function buildMockClient(): BookragClient {
         : isRefusal(trimmed)
           ? refusalAnswer()
           : supportedAnswer();
+      next.answer_language = language;
+      if (language !== "en" && next.evidence_status !== "unverified") {
+        next.answer = next.enough_evidence
+          ? {
+              hi: "उच्च स्तरीय भाषा मनुष्यों के लिए पढ़ना और लिखना आसान बनाती है। थिंक पाइथन यह भी बताती है कि पाइथन अलग-अलग कंप्यूटरों पर चल सकती है।",
+              sa: "उच्चस्तरीया भाषा मनुष्याणां पठनलेखनाय सुलभा भवति। थिंक पाइथन इति पुस्तके पाइथन विविधेषु सङ्गणकेषु चलति इति अपि कथ्यते।",
+              es: "Un lenguaje de alto nivel está diseñado para que las personas puedan leerlo y escribirlo con facilidad. Think Python también explica que Python puede ejecutarse en distintos tipos de computadoras.",
+            }[language]
+          : {
+              hi: "दिए गए अंशों से इस प्रश्न के उत्तर की पुष्टि नहीं होती।",
+              sa: "प्रदत्ताः पाठांशाः अस्य प्रश्नस्य उत्तरं न पुष्टयन्ति।",
+              es: "Los pasajes proporcionados no confirman la respuesta a esta pregunta.",
+            }[language];
+      }
       savedAnswers.set(cacheKey, clone(next));
       return next;
     },
