@@ -1,11 +1,14 @@
 /** Types aligned with Codex `cloud_backend/API_CONTRACT_v1.md` and `schemas.py`. */
 
+import type { AnswerLanguage } from "@/lib/chat/answer-language";
+
 export type DocumentStatus = "queued" | "processing" | "ready" | "failed";
 
 export type EvidenceStatus = "direct_answer" | "nearby_only" | "absent" | "unverified";
 
 export interface Document {
   id: string;
+  is_sample?: boolean;
   title: string;
   filename: string;
   status: DocumentStatus;
@@ -42,6 +45,7 @@ export interface Answer {
   timings_ms: Timings;
   usage: Usage;
   reused_answer?: boolean;
+  answer_language?: AnswerLanguage;
 }
 
 export interface MeResponse {
@@ -63,6 +67,18 @@ export interface ApiErrorBody {
 
 export interface ChatRequest {
   question: string;
+  answer_language?: AnswerLanguage;
+  question_language?: AnswerLanguage;
+  preview_token?: string;
+}
+
+export interface QuestionPreview {
+  original_question: string;
+  question_language: AnswerLanguage;
+  native_script: string;
+  english_meaning: string;
+  needs_clarification: boolean;
+  preview_token: string | null;
 }
 
 export const DOCUMENT_STATUSES: readonly DocumentStatus[] = [
@@ -100,5 +116,8 @@ export interface BookragClient {
   getPdf(id: string): Promise<ArrayBuffer>;
   uploadDocument(file: File, title?: string): Promise<Document>;
   deleteDocument(id: string): Promise<void>;
-  chat(documentId: string, question: string): Promise<Answer>;
+  prepareQuestion(documentId: string, question: string, language: AnswerLanguage): Promise<QuestionPreview>;
+  transcribeQuestion(documentId: string, audio: File, language: AnswerLanguage): Promise<string>;
+  chat(documentId: string, question: string, language?: AnswerLanguage,
+       questionLanguage?: AnswerLanguage, previewToken?: string | null): Promise<Answer>;
 }

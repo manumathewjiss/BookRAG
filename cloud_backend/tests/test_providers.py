@@ -30,9 +30,31 @@ def test_sol_request_does_not_send_gold_or_page_claim(monkeypatch):
     passage_id = str(uuid4())
     def fake(url, key, body, timeout=60):
         assert url.endswith("/responses") and body["store"] is False
+        assert "Write the answer text in English" in body["instructions"]
         assert "gold" not in body["input"].lower()
         assert passage_id in body["input"]
         return {"status": "completed", "output": [{"content": [{"type": "output_text", "text": '{"answer":"yes","supporting_passage_ids":["'+passage_id+'"],"enough_evidence":true,"event_match":"direct_answer"}'}]}], "usage": {"input_tokens": 10, "output_tokens": 2}}
     monkeypatch.setattr(module, "_json_post", fake)
     answer, usage = HostedModels(Settings()).answer("What happened?", [{"id": passage_id, "text": "It happened.", "pdf_page": 2}])
     assert answer["supporting_passage_ids"] == [passage_id] and usage["input_tokens"] == 10
+
+
+@pytest.mark.parametrize("code,name", [
+    ("sa", "Sanskrit"), ("ta", "Tamil"), ("te", "Telugu"),
+    ("ml", "Malayalam"), ("bn", "Bengali"),
+    ("fr", "French"), ("it", "Italian"), ("gu", "Gujarati"), ("kn", "Kannada"),
+])
+def test_sol_is_instructed_to_answer_in_selected_language_without_changing_evidence(monkeypatch, code, name):
+    import bookrag_cloud.providers as module
+    passage_id = str(uuid4())
+    def fake(url, key, body, timeout=60):
+        assert name in body["instructions"]
+        assert "Do not translate or alter passage IDs" in body["instructions"]
+        assert passage_id in body["input"]
+        return {"status": "completed", "output": [{"content": [{"type": "output_text", "text":
+            '{"answer":"उत्तरम्","supporting_passage_ids":["'+passage_id+'"],"enough_evidence":true,"event_match":"direct_answer"}'}]}], "usage": {}}
+    monkeypatch.setattr(module, "_json_post", fake)
+    answer, _ = HostedModels(Settings()).answer("What happened?", [{
+        "id": passage_id, "text": "It happened.", "pdf_page": 2,
+    }], code)
+    assert answer["answer"] == "उत्तरम्" and answer["supporting_passage_ids"] == [passage_id]

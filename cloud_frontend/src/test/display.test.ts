@@ -1,14 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { answerParts, evidencePreview } from "@/lib/chat/display";
+import { displayAnswerText, evidencePreview } from "@/lib/chat/display";
 
 describe("answer and evidence display", () => {
-  it("renders bold markers without showing literal asterisks", () => {
-    expect(answerParts("**Northern Arizona** is first; **Boise State** is strongest for NLP.")).toEqual([
-      { text: "Northern Arizona", bold: true },
-      { text: " is first; ", bold: false },
-      { text: "Boise State", bold: true },
-      { text: " is strongest for NLP.", bold: false },
-    ]);
+  it("removes model emphasis markers and em dashes from displayed answers", () => {
+    expect(displayAnswerText("**Northern Arizona** is first—*Boise State* is strongest for NLP.")).toBe(
+      "Northern Arizona is first, Boise State is strongest for NLP.",
+    );
+    expect(displayAnswerText("The book is *Bhagavad-gita As It Is*, with *Arjuna* as a main character.")).toBe(
+      "The book is Bhagavad-gita As It Is, with Arjuna as a main character.",
+    );
+    expect(displayAnswerText("* First point\n* Second point\n2*3 is 6.")).toBe("• First point\n• Second point\n2*3 is 6.");
   });
 
   it("selects a short matching window from a long cited passage", () => {

@@ -317,6 +317,136 @@
         }
       }
     },
+    "/api/v1/documents/{document_id}/question-preview": {
+      "post": {
+        "summary": "Question Preview",
+        "operationId": "question_preview_api_v1_documents__document_id__question_preview_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionPreviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionPreview"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/transcribe-question": {
+      "post": {
+        "summary": "Transcribe Question",
+        "operationId": "transcribe_question_api_v1_documents__document_id__transcribe_question_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_question_api_v1_documents__document_id__transcribe_question_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/documents/{document_id}/chat": {
       "post": {
         "summary": "Chat",
@@ -417,6 +547,25 @@
             "type": "boolean",
             "title": "Reused Answer",
             "default": false
+          },
+          "answer_language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi",
+              "sa",
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
+            ],
+            "title": "Answer Language",
+            "default": "en"
           }
         },
         "type": "object",
@@ -429,6 +578,39 @@
           "usage"
         ],
         "title": "Answer"
+      },
+      "Body_transcribe_question_api_v1_documents__document_id__transcribe_question_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          },
+          "question_language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi",
+              "sa",
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
+            ],
+            "title": "Question Language"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file",
+          "question_language"
+        ],
+        "title": "Body_transcribe_question_api_v1_documents__document_id__transcribe_question_post"
       },
       "Body_upload_document_api_v1_documents_post": {
         "properties": {
@@ -462,6 +644,56 @@
             "maxLength": 1200,
             "minLength": 8,
             "title": "Question"
+          },
+          "answer_language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi",
+              "sa",
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
+            ],
+            "title": "Answer Language",
+            "default": "en"
+          },
+          "question_language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi",
+              "sa",
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
+            ],
+            "title": "Question Language",
+            "default": "en"
+          },
+          "preview_token": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 16000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preview Token"
           }
         },
         "type": "object",
@@ -506,6 +738,98 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "QuestionPreview": {
+        "properties": {
+          "original_question": {
+            "type": "string",
+            "title": "Original Question"
+          },
+          "question_language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi",
+              "sa",
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
+            ],
+            "title": "Question Language"
+          },
+          "native_script": {
+            "type": "string",
+            "title": "Native Script"
+          },
+          "english_meaning": {
+            "type": "string",
+            "title": "English Meaning"
+          },
+          "needs_clarification": {
+            "type": "boolean",
+            "title": "Needs Clarification"
+          },
+          "preview_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preview Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "original_question",
+          "question_language",
+          "native_script",
+          "english_meaning",
+          "needs_clarification"
+        ],
+        "title": "QuestionPreview"
+      },
+      "QuestionPreviewRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 1200,
+            "minLength": 8,
+            "title": "Question"
+          },
+          "question_language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi",
+              "sa",
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
+            ],
+            "title": "Question Language"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question",
+          "question_language"
+        ],
+        "title": "QuestionPreviewRequest"
       },
       "Timings": {
         "properties": {

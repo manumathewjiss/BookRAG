@@ -2,8 +2,9 @@ import { apiBaseUrl, isMockMode, MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "
 import { BookragApiError, parseApiError } from "@/lib/api/errors";
 import { createMockClient } from "@/lib/api/mock";
 import { isMockAccessToken } from "@/lib/auth/token";
-import type { Answer, BookragClient, Document, HealthResponse, MeResponse } from "@/lib/api/types";
+import type { Answer, BookragClient, Document, HealthResponse, MeResponse, QuestionPreview } from "@/lib/api/types";
 import { isDocumentStatus, isEvidenceStatus } from "@/lib/api/types";
+import { isAnswerLanguage, type AnswerLanguage } from "@/lib/chat/answer-language";
 
 export type { BookragClient } from "@/lib/api/types";
 
@@ -28,6 +29,7 @@ function assertDocument(value: unknown): Document {
   }
   return {
     id: rec.id,
+    is_sample: rec.is_sample === true,
     title: String(rec.title || rec.filename),
     filename: rec.filename,
     status,
@@ -79,6 +81,7 @@ function assertAnswer(value: unknown): Answer {
       estimated_usd: Number(usage.estimated_usd || 0),
     },
     reused_answer: Boolean(rec.reused_answer),
+    answer_language: isAnswerLanguage(rec.answer_language) ? rec.answer_language : "en",
   };
 }
 
@@ -178,7 +181,32 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       if (status === 204 || status === 404) return;
       throw parseApiError(status, body);
     },
-    async chat(documentId: string, question: string) {
+    async prepareQuestion(documentId: string, question: string, language: AnswerLanguage): Promise<QuestionPreview> {
+      const { status, body } = await request(`/api/v1/documents/${encodeURIComponent(documentId)}/question-preview`,
+        { method: "POST", body: JSON.stringify({ question: question.trim(), question_language: language }) });
+      if (status !== 200) throw parseApiError(status, body);
+      const value = body as QuestionPreview;
+      if (typeof value.native_script !== "string" || typeof value.english_meaning !== "string"
+          || typeof value.needs_clarification !== "boolean") {
+        throw new BookragApiError("Unexpected question preview.", "invalid_response", 503);
+      }
+      return value;
+    },
+    async transcribeQuestion(documentId: string, audio: File, language: AnswerLanguage): Promise<string> {
+      const form = new FormData();
+      form.append("file", audio);
+      form.append("question_language", language);
+      const { status, body } = await request(`/api/v1/documents/${encodeURIComponent(documentId)}/transcribe-question`,
+        { method: "POST", body: form });
+      if (status !== 200) throw parseApiError(status, body);
+      const text = (body as { text?: unknown })?.text;
+      if (typeof text !== "string" || !text.trim()) {
+        throw new BookragApiError("Unexpected voice transcript.", "invalid_response", 503);
+      }
+      return text;
+    },
+    async chat(documentId: string, question: string, language: AnswerLanguage = "en",
+               questionLanguage: AnswerLanguage = "en", previewToken: string | null = null) {
       const trimmed = question.trim();
       if (trimmed.length < MIN_QUESTION_CHARS || trimmed.length > MAX_QUESTION_CHARS) {
         throw new BookragApiError(
@@ -189,7 +217,8 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       }
       const { status, body } = await request(
         `/api/v1/documents/${encodeURIComponent(documentId)}/chat`,
-        { method: "POST", body: JSON.stringify({ question: trimmed }) },
+        { method: "POST", body: JSON.stringify({ question: trimmed, answer_language: language,
+          ...(questionLanguage === "en" ? {} : { question_language: questionLanguage, preview_token: previewToken }) }) },
       );
       if (status !== 200) throw parseApiError(status, body);
       return assertAnswer(body);

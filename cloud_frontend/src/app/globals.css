@@ -254,6 +254,14 @@ h1, h2, h3 { font-family: var(--serif); color: var(--navy); font-weight: 600; }
   align-items: start;
 }
 .ask-row { display: flex; gap: 0.5rem; align-items: stretch; }
+.answer-language-picker { display:flex; align-items:center; gap:12px; margin:0 0 12px; color:var(--muted); font-size:.85rem; font-weight:600; }
+.answer-language-picker select { min-width:150px; padding:8px 12px; border:1px solid var(--line); border-radius:7px; background:#fff; color:var(--navy); cursor:pointer; }
+.answer-language-picker select:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
+.answer-language-note { margin:-4px 0 12px; color:var(--muted); font-size:.75rem; }
+.question-language-row { display:flex; flex-wrap:wrap; gap:8px 24px; }
+.question-preview { margin:12px 0; padding:14px 16px; border:1px solid #d8ccb4; border-radius:10px; background:#fffaf0; color:var(--navy); overflow-wrap:anywhere; }
+.question-preview p { margin:10px 0 0; line-height:1.5; }
+.question-preview p span { color:var(--muted); font-size:.8rem; font-weight:600; }
 .ask-row textarea {
   flex: 1;
   min-height: 3.1rem;
@@ -421,13 +429,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .book-ask { display:flex; align-items:center; justify-content:space-between; gap:5px; margin:10px 0 0; padding:9px 10px; border-radius:5px; background:#f6efdf; color:#76561d; font-size:.8rem; font-weight:700; text-decoration:none; }
 .book-ask:hover { text-decoration:underline; }
 .book-remove-row { display:flex; justify-content:flex-end; margin-top:14px; padding-top:9px; border-top:1px solid var(--line); }
+.book-demo-note { color:var(--muted); font-size:.76rem; line-height:1.45; margin:14px 0 0; padding-top:9px; border-top:1px solid var(--line); }
 .book-delete { border:0; background:none; padding:3px 0; color:var(--muted); font-size:.72rem; text-decoration:underline; }.book-delete:hover { color:var(--err); }
 .book-upload { border-style:dashed; border-color:#d4bd8d; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:320px; background:#fffcf5; }
 .book-upload h2 { margin:8px 0; font-size:1rem; }.upload-icon { font-size:2.5rem; color:var(--brass); line-height:1; }
 .book-upload .dropzone { padding:8px; border:0; background:transparent; font-size:.78rem; }.book-upload .dropzone p { margin:4px 0 8px; }
 .book-upload .dropzone .ghost { background:var(--brass); border-color:var(--brass); color:white; min-height:34px; padding:4px 10px; border-radius:5px; }
 .document-detail { display:flex; justify-content:space-between; gap:20px; margin-top:22px; padding:23px 25px; border:1px solid var(--line); background:white; border-radius:8px; box-shadow:var(--shadow); }
-.document-detail h2 { margin:3px 0 5px; }.document-detail p { color:var(--muted); line-height:1.45; }.document-detail-meta { font-size:.82rem; }
+.document-detail > div:first-child { min-width:0; }
+.document-detail h2 { margin:3px 0 5px; overflow-wrap:anywhere; }
+.document-detail p { color:var(--muted); line-height:1.45; }
+.document-detail-meta { font-size:.82rem; overflow-wrap:anywhere; }
 .document-detail-action { display:flex; flex-direction:column; align-items:flex-end; justify-content:space-between; gap:12px; flex-shrink:0; }
 .primary,.ghost,.danger { border-radius:6px; }
 .chat-heading { margin-bottom:20px; }.chat-heading .ghost { font-size:.85rem; border-color:#ccb27e; color:var(--brass-deep); }
@@ -506,3 +518,5 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .landing-footer { display:flex; justify-content:space-between; gap:18px; padding:20px 42px 25px; border-top:1px solid var(--line); color:var(--muted); font-size:.75rem; }.landing-footer span:first-child { color:var(--navy); font-family:var(--serif); font-size:.95rem; font-weight:700; }
 @media(max-width:900px) { .landing-copy h1 { font-size:clamp(3.3rem,9vw,5.5rem); } }
 @media(max-width:600px) { .landing-header { min-height:70px; padding:0 20px; }.landing-brand { font-size:1.4rem; }.landing-main { padding:0 20px; }.landing-hero { min-height:calc(100vh - 135px); padding:62px 0 55px; }.landing-copy h1 { font-size:clamp(3.25rem,12vw,4.4rem); }.landing-intro { margin:24px 0; }.landing-footer { padding:20px; flex-direction:column; gap:4px; } }
+.voice-question-row { display: flex; align-items: center; gap: 0.8rem; margin: 0.65rem 0 1rem; flex-wrap: wrap; }
+.voice-question-row span { color: #64717b; font-size: 0.88rem; }

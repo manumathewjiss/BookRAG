@@ -1,6 +1,7 @@
 import { BookragApiError } from "@/lib/api/errors";
 import type { Answer, BookragClient, Document, MeResponse } from "@/lib/api/types";
 import { MAX_PDF_BYTES, MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "@/lib/config";
+import type { AnswerLanguage } from "@/lib/chat/answer-language";
 
 const READY_ID = "11111111-1111-4111-8111-111111111111";
 const PROCESSING_ID = "22222222-2222-4222-8222-222222222222";
@@ -216,7 +217,15 @@ function buildMockClient(): BookragClient {
       }
       docs.delete(id);
     },
-    async chat(documentId: string, question: string) {
+    async prepareQuestion(_documentId: string, question: string, language: AnswerLanguage) {
+      return { original_question: question.trim(), question_language: language,
+        native_script: question.trim(), english_meaning: question.trim(),
+        needs_clarification: false, preview_token: "mock-preview" };
+    },
+    async transcribeQuestion() {
+      return "What does this book say about Python?";
+    },
+    async chat(documentId: string, question: string, language: AnswerLanguage = "en") {
       maybeAdvance();
       const trimmed = question.trim();
       if (trimmed.length < MIN_QUESTION_CHARS || trimmed.length > MAX_QUESTION_CHARS) {
@@ -235,7 +244,7 @@ function buildMockClient(): BookragClient {
         throw new BookragApiError(doc.error || "This PDF failed to index.", "invalid_input", 400);
       }
       questionsUsed += 1;
-      const cacheKey = `${documentId}::${trimmed.toLowerCase()}`;
+      const cacheKey = `${documentId}::${language}::${trimmed.toLowerCase()}`;
       const prior = savedAnswers.get(cacheKey);
       if (prior) {
         await new Promise((resolve) => window.setTimeout(resolve, 40));
@@ -252,6 +261,36 @@ function buildMockClient(): BookragClient {
         : isRefusal(trimmed)
           ? refusalAnswer()
           : supportedAnswer();
+      next.answer_language = language;
+      if (language !== "en" && next.evidence_status !== "unverified") {
+        next.answer = next.enough_evidence
+          ? {
+              hi: "उच्च स्तरीय भाषा मनुष्यों के लिए पढ़ना और लिखना आसान बनाती है। थिंक पाइथन यह भी बताती है कि पाइथन अलग-अलग कंप्यूटरों पर चल सकती है।",
+              sa: "उच्चस्तरीया भाषा मनुष्याणां पठनलेखनाय सुलभा भवति। थिंक पाइथन इति पुस्तके पाइथन विविधेषु सङ्गणकेषु चलति इति अपि कथ्यते।",
+              es: "Un lenguaje de alto nivel está diseñado para que las personas puedan leerlo y escribirlo con facilidad. Think Python también explica que Python puede ejecutarse en distintos tipos de computadoras.",
+              ta: "உயர்நிலை மொழி மனிதர்கள் எளிதாகப் படிக்கவும் எழுதவும் உதவுகிறது. பல வகை கணினிகளில் பைதான் இயங்கும் என்றும் Think Python விளக்குகிறது.",
+              te: "ఉన్నత స్థాయి భాషను మనుషులు సులభంగా చదవగలరు, రాయగలరు. పైథాన్ వివిధ రకాల కంప్యూటర్లలో పనిచేస్తుందని Think Python కూడా వివరిస్తుంది.",
+              ml: "ഉയർന്ന തലത്തിലുള്ള ഭാഷ മനുഷ്യർക്ക് എളുപ്പത്തിൽ വായിക്കാനും എഴുതാനും സഹായിക്കുന്നു. പൈത്തൺ വിവിധ തരത്തിലുള്ള കമ്പ്യൂട്ടറുകളിൽ പ്രവർത്തിക്കുമെന്ന് Think Python വിശദീകരിക്കുന്നു.",
+              bn: "উচ্চস্তরের ভাষা মানুষের পড়া ও লেখা সহজ করে। Think Python আরও ব্যাখ্যা করে যে পাইথন বিভিন্ন ধরনের কম্পিউটারে চলতে পারে।",
+              fr: "Un langage de haut niveau est plus facile à lire et à écrire pour les humains. Think Python explique aussi que Python fonctionne sur différents ordinateurs.",
+              it: "Un linguaggio di alto livello è più facile da leggere e scrivere per le persone. Think Python spiega anche che Python funziona su diversi computer.",
+              gu: "ઉચ્ચ સ્તરની ભાષા લોકોને વાંચવા અને લખવા માટે સરળ હોય છે. Think Python એ પણ સમજાવે છે કે Python વિવિધ કમ્પ્યુટર પર ચાલી શકે છે.",
+              kn: "ಉನ್ನತ ಮಟ್ಟದ ಭಾಷೆಯನ್ನು ಜನರು ಓದಲು ಮತ್ತು ಬರೆಯಲು ಸುಲಭ. Python ವಿವಿಧ ಕಂಪ್ಯೂಟರ್‌ಗಳಲ್ಲಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ ಎಂದು Think Python ವಿವರಿಸುತ್ತದೆ.",
+            }[language]
+          : {
+              hi: "दिए गए अंशों से इस प्रश्न के उत्तर की पुष्टि नहीं होती।",
+              sa: "प्रदत्ताः पाठांशाः अस्य प्रश्नस्य उत्तरं न पुष्टयन्ति।",
+              es: "Los pasajes proporcionados no confirman la respuesta a esta pregunta.",
+              ta: "கொடுக்கப்பட்ட பகுதிகள் இந்தக் கேள்விக்கான பதிலை உறுதிப்படுத்தவில்லை.",
+              te: "ఇచ్చిన పాఠ్య భాగాలు ఈ ప్రశ్నకు సమాధానాన్ని నిర్ధారించలేదు.",
+              ml: "നൽകിയ ഭാഗങ്ങൾ ഈ ചോദ്യത്തിനുള്ള ഉത്തരം സ്ഥിരീകരിക്കുന്നില്ല.",
+              bn: "দেওয়া অংশগুলো এই প্রশ্নের উত্তর নিশ্চিত করে না।",
+              fr: "Les passages fournis ne confirment pas la réponse à cette question.",
+              it: "I passaggi forniti non confermano la risposta a questa domanda.",
+              gu: "આપેલા અંશો આ પ્રશ્નના જવાબની પુષ્ટિ કરતા નથી.",
+              kn: "ಒದಗಿಸಿದ ಭಾಗಗಳು ಈ ಪ್ರಶ್ನೆಗೆ ಉತ್ತರವನ್ನು ದೃಢೀಕರಿಸುವುದಿಲ್ಲ.",
+            }[language];
+      }
       savedAnswers.set(cacheKey, clone(next));
       return next;
     },

@@ -2,12 +2,12 @@
 from uuid import UUID
 
 import httpx
-from fastapi import Header, HTTPException
+from fastapi import Header, HTTPException, Request
 
 from .config import settings
 
 
-def verify_access_token(authorization: str | None = Header(default=None)) -> UUID:
+def verify_access_token(request: Request, authorization: str | None = Header(default=None)) -> UUID:
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Sign in to continue")
     token = authorization[7:].strip()
@@ -27,6 +27,8 @@ def verify_access_token(authorization: str | None = Header(default=None)) -> UUI
     if response.status_code != 200:
         raise HTTPException(status_code=401, detail="Session expired or invalid")
     try:
-        return UUID(response.json()["id"])
+        user = response.json()
+        request.state.is_guest = user.get("is_anonymous") is True
+        return UUID(user["id"])
     except (KeyError, ValueError, TypeError):
         raise HTTPException(status_code=401, detail="Invalid session") from None

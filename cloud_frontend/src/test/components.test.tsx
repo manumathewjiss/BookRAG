@@ -59,6 +59,17 @@ describe("UI pieces", () => {
     expect(onSelect).toHaveBeenCalledWith(grounded.citations[0]);
   });
 
+  it("shows shared-sample evidence without a page-opening control or full passage", () => {
+    render(
+      <CitationPanel answer={grounded} question="What is a high-level language?"
+        filename="sample.pdf" sampleMode selected={null} onSelect={() => undefined} />,
+    );
+    expect(screen.getByText(/sample\.pdf · p\. 23/)).toBeInTheDocument();
+    expect(screen.getByText(/programming language like Python/)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /sample\.pdf/i })).not.toBeInTheDocument();
+    expect(screen.queryByText("Show full passage")).not.toBeInTheDocument();
+  });
+
   it("labels unverified Sol answers as withheld", () => {
     render(<EvidenceBadge enough={false} status="unverified" />);
     expect(screen.getByText(/Answer withheld/)).toBeInTheDocument();

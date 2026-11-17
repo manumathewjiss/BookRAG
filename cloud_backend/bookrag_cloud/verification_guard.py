@@ -63,12 +63,13 @@ class GuardedModels:
             self._reserve("voyage", estimate)
         return self.delegate.rerank(question, passages)
 
-    def answer(self, question: str, passages: list[dict]):
+    def answer(self, question: str, passages: list[dict], language: str = "en"):
         # Reserve 2x estimated input plus the full 1024-token output limit.
         input_tokens = self._tokens(question) + sum(self._tokens(p["text"]) + 64 for p in passages) + 400
         estimate = (2 * input_tokens * 2 + 1024 * 10) / 1_000_000
         self._reserve("openai", estimate)
-        return self.delegate.answer(question, passages)
+        return (self.delegate.answer(question, passages) if language == "en"
+                else self.delegate.answer(question, passages, language))
 
     def summary(self) -> dict:
         return {"voyage_requests": self.voyage_requests,

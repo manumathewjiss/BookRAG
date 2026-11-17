@@ -20,6 +20,19 @@ describe("live API client", () => {
             daily_uploads_used: 1,
           });
         }
+        if (url.endsWith("/api/v1/documents/doc-1/chat") && init?.method === "POST") {
+          return Response.json({
+            answer: "Respuesta en español.", answer_language: "es",
+            enough_evidence: true, evidence_status: "direct_answer", citations: [],
+            timings_ms: { search: 1, rerank: 1, answer: 1 },
+            usage: { input_tokens: 1, output_tokens: 1, estimated_usd: 0.001 },
+          });
+        }
+        if (url.endsWith("/api/v1/documents/doc-1/question-preview") && init?.method === "POST") {
+          return Response.json({ original_question: "njan poyittu varam", question_language: "ml",
+            native_script: "ഞാൻ പോയിട്ട് വരാം", english_meaning: "I will go and come back",
+            needs_clarification: false, preview_token: "signed-preview" });
+        }
         if (url.endsWith("/api/v1/documents/doc-1/pdf")) {
           return new Response(new Uint8Array([37, 80, 68, 70, 45]), {
             headers: { "content-type": "application/pdf" },
@@ -62,6 +75,31 @@ describe("live API client", () => {
     const headers = new Headers(call[1]?.headers);
     expect(headers.get("Authorization")).toBe("Bearer test-token");
     expect(JSON.stringify(call[1])).not.toMatch(/user_id/);
+  });
+
+  it("sends the selected answer language with the question", async () => {
+    const client = createLiveClient(async () => "test-token");
+    const answer = await client.chat("doc-1", "What happened in this PDF?", "es");
+    expect(answer.answer_language).toBe("es");
+    const call = vi.mocked(fetch).mock.calls[0];
+    expect(JSON.parse(String(call[1]?.body))).toEqual({
+      question: "What happened in this PDF?", answer_language: "es",
+    });
+  });
+
+  it("previews a selected question language and sends its confirmation token", async () => {
+    const client = createLiveClient(async () => "test-token");
+    const preview = await client.prepareQuestion("doc-1", "njan poyittu varam", "ml");
+    expect(preview.native_script).toBe("ഞാൻ പോയിട്ട് വരാം");
+    expect(preview.english_meaning).toBe("I will go and come back");
+    expect(JSON.parse(String(vi.mocked(fetch).mock.calls[0][1]?.body))).toEqual({
+      question: "njan poyittu varam", question_language: "ml",
+    });
+    await client.chat("doc-1", "njan poyittu varam", "en", "ml", preview.preview_token);
+    expect(JSON.parse(String(vi.mocked(fetch).mock.calls[1][1]?.body))).toEqual({
+      question: "njan poyittu varam", answer_language: "en",
+      question_language: "ml", preview_token: "signed-preview",
+    });
   });
 
   it("treats 202 upload as success", async () => {

@@ -21,6 +21,11 @@ class Settings(BaseSettings):
     daily_estimated_usd_limit: float = 5.0
     question_reserve_usd: float = 0.05
     worker_poll_seconds: float = 2.0
+    # An explicitly approved, already-indexed PDF. Empty disables the guest sample.
+    guest_sample_document_id: str = ""
+    guest_sample_sha256: str = ""
+    # Explicitly set this before exposing a sample to public guest traffic.
+    guest_sample_daily_usd_limit: float = 0.0
 
     def origins(self) -> list[str]:
         return [x.strip() for x in self.allowed_origins.split(",") if x.strip()]

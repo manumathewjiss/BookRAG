@@ -70,9 +70,20 @@ class Repository:
 
     def reserve_question(self, owner: UUID, document_id: UUID, daily_limit: int,
                          daily_usd_limit: float = 5.0, reserve_usd: float = 0.05,
-                         minute_limit: int = 10):
+                         minute_limit: int = 10, sample_daily_usd_limit: float | None = None):
         """Serialize daily limit checks across concurrent requests for the same user."""
         with self.connection() as conn:
+            if sample_daily_usd_limit is not None:
+                # One lock across every guest identity prevents simultaneous requests
+                # from bypassing the shared sample's daily spending guard.
+                conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (f"sample:{document_id}",))
+                sample_total = conn.execute("""
+                    select coalesce(sum(estimated_usd),0) as usd
+                    from usage_events where document_id=%s and operation in ('question','question_preview')
+                      and created_at >= date_trunc('day', now() at time zone 'UTC') at time zone 'UTC'
+                """, (document_id,)).fetchone()
+                if float(sample_total["usd"]) + reserve_usd > sample_daily_usd_limit:
+                    return None
             conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (str(owner),))
             totals = conn.execute("""
                 select count(*) filter (where operation='question') as questions,
@@ -109,6 +120,43 @@ class Repository:
                 where id=%s and owner_id=%s and operation='question'
             """, (event_id, owner))
 
+    def reserve_question_preview(self, owner: UUID, document_id: UUID, daily_limit: int,
+                                 daily_usd_limit: float, reserve_usd: float,
+                                 sample_daily_usd_limit: float | None = None):
+        """Bound paid previews per identity and, for the shared sample, across guests."""
+        with self.connection() as conn:
+            if sample_daily_usd_limit is not None:
+                conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (f"sample:{document_id}",))
+                sample = conn.execute("""
+                    select coalesce(sum(estimated_usd),0) as usd from usage_events
+                    where document_id=%s and operation in ('question','question_preview')
+                    and created_at >= date_trunc('day', now() at time zone 'UTC') at time zone 'UTC'
+                """, (document_id,)).fetchone()
+                if float(sample["usd"]) + reserve_usd > sample_daily_usd_limit:
+                    return None
+            conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (str(owner),))
+            totals = conn.execute("""
+                select count(*) filter (where operation='question_preview') as previews,
+                  count(*) filter (where operation='question_preview' and created_at>=now()-interval '1 minute') as recent,
+                  coalesce(sum(estimated_usd),0) as usd from usage_events
+                where owner_id=%s and created_at >= date_trunc('day', now() at time zone 'UTC') at time zone 'UTC'
+            """, (owner,)).fetchone()
+            if (totals["previews"] >= daily_limit or totals["recent"] >= 10
+                    or float(totals["usd"]) + reserve_usd > daily_usd_limit):
+                return None
+            return conn.execute("""
+                insert into usage_events(owner_id,document_id,operation,estimated_usd)
+                values (%s,%s,'question_preview',%s) returning id
+            """, (owner, document_id, reserve_usd)).fetchone()["id"]
+
+    def settle_question_preview(self, owner: UUID, event_id: UUID, input_tokens: int,
+                                output_tokens: int, estimated_usd: float, provider: str):
+        with self.connection() as conn:
+            conn.execute("""
+                update usage_events set provider=%s,input_tokens=%s,output_tokens=%s,estimated_usd=%s
+                where id=%s and owner_id=%s and operation='question_preview'
+            """, (provider, input_tokens, output_tokens, estimated_usd, event_id, owner))
+
     def create_document(self, owner: UUID, document_id: UUID, title: str, filename: str,
                         path: str, digest: str, daily_limit: int = 5):
         with self.connection() as conn:
@@ -137,6 +185,13 @@ class Repository:
         with self.connection() as conn:
             return conn.execute(
                 "select * from documents where owner_id=%s and id=%s and status <> 'deleted'", (owner, document_id)
+            ).fetchone()
+
+    def ready_sample_document(self, document_id: UUID):
+        """Only the configured, ready document may be exposed as a shared sample."""
+        with self.connection() as conn:
+            return conn.execute(
+                "select * from documents where id=%s and status='ready'", (document_id,)
             ).fetchone()
 
     def delete_document(self, owner: UUID, document_id: UUID):
