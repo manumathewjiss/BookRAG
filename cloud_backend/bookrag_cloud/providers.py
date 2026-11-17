@@ -75,6 +75,29 @@ class HostedModels:
     def __init__(self, cfg: Settings):
         self.cfg = cfg
 
+    def transcribe(self, audio: bytes, filename: str, content_type: str, language: AnswerLanguage) -> str:
+        try:
+            response = httpx.post(
+                "https://api.openai.com/v1/audio/transcriptions",
+                headers={"Authorization": f"Bearer {self.cfg.openai_api_key}"},
+                data={"model": "gpt-transcribe", "languages[]": language},
+                files={"file": (filename, audio, content_type)}, timeout=60,
+            )
+        except httpx.HTTPError as exc:
+            raise ProviderUncertainCharge("Audio transcription failed in transit") from exc
+        if response.status_code in (400, 401, 403, 404, 413, 429):
+            raise ProviderRejected(response.status_code)
+        if response.status_code >= 500:
+            raise ProviderUncertainCharge("Audio transcription provider error")
+        try:
+            response.raise_for_status()
+            transcript = response.json()["text"]
+            if not isinstance(transcript, str):
+                raise ValueError
+            return transcript.strip()
+        except (httpx.HTTPError, ValueError, KeyError) as exc:
+            raise ProviderUncertainCharge("Audio transcription response was unusable") from exc
+
     def prepare_question(self, question: str, language: AnswerLanguage) -> tuple[dict, dict]:
         schema = {"type": "object", "properties": {
             "native_script": {"type": "string"}, "english_meaning": {"type": "string"},

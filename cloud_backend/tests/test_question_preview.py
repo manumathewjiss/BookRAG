@@ -8,6 +8,33 @@ from bookrag_cloud.main import app
 from tests.test_api import FakeModels, FakeRepo, OWNER, OTHER, DOC, client_for
 
 
+def test_voice_transcription_requires_document_access_and_returns_editable_text(monkeypatch):
+    import bookrag_cloud.main as main
+    monkeypatch.setattr(main, "settings", lambda: Settings())
+    class Repo(FakeRepo):
+        def reserve_question_preview(self, *args, **kwargs): return uuid4()
+        def settle_question_preview(self, *args, **kwargs): self.counters.append(("voice", args))
+    class Models(FakeModels):
+        def __init__(self): self.calls = 0
+        def transcribe(self, audio, filename, content_type, language):
+            self.calls += 1
+            assert audio == b"a" * 200 and filename == "question.webm"
+            assert content_type == "audio/webm" and language == "ml"
+            return "ആരാണ് അർജുനൻ?"
+    repo, models = Repo(), Models()
+    path = f"/api/v1/documents/{DOC}/transcribe-question"
+    payload = {"file": ("voice.webm", b"a" * 200, "audio/webm")}
+    other, _, _ = client_for(OTHER, repo=repo, models=models)
+    assert other.post(path, files=payload, data={"question_language": "ml"}).status_code == 404
+    assert models.calls == 0
+    owner, _, _ = client_for(OWNER, repo=repo, models=models)
+    assert owner.post(path, files=payload, data={"question_language": "ml"}).json() == {"text": "ആരാണ് അർജുനൻ?"}
+    assert models.calls == 1
+    assert owner.post(path, files={"file": ("voice.webm", b"a" * 1_000_001, "audio/webm")},
+                      data={"question_language": "ml"}).status_code == 400
+    assert models.calls == 1
+
+
 def test_preview_token_binds_user_document_digest_question_and_language():
     owner, other, document = uuid4(), uuid4(), uuid4()
     token = sign_preview("private-key", owner, document, "digest-1", "njan poyittu varam",

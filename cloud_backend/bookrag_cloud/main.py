@@ -328,6 +328,48 @@ def question_preview(document_id: UUID, payload: QuestionPreviewRequest,
                            needs_clarification=unclear, preview_token=token)
 
 
+@app.post("/api/v1/documents/{document_id}/transcribe-question")
+async def transcribe_question(document_id: UUID, file: UploadFile = File(...),
+                              question_language: AnswerLanguage = Form(...),
+                              owner: UUID = Depends(verify_access_token),
+                              repo: Repository = Depends(get_repo),
+                              models: HostedModels = Depends(get_models), request: Request = None):
+    row = _readable_document(repo, owner, document_id, is_guest=_is_guest(request))
+    if not row:
+        raise HTTPException(404, "Document not found")
+    if row["status"] != "ready":
+        raise HTTPException(409, "Document is not ready to answer questions")
+    content_type = (file.content_type or "").split(";")[0].lower()
+    suffix = {"audio/webm": "webm", "audio/ogg": "ogg", "audio/mp4": "mp4"}.get(content_type)
+    if not suffix:
+        raise HTTPException(400, "Record in WebM, Ogg, or MP4 format")
+    audio = await file.read(1_000_001)
+    if len(audio) < 100 or len(audio) > 1_000_000:
+        raise HTTPException(400, "Recording must be under 1 MB")
+    cfg = settings()
+    reserve = min(cfg.question_reserve_usd, 0.01)
+    event_id = repo.reserve_question_preview(
+        owner, document_id, cfg.daily_question_limit, cfg.daily_estimated_usd_limit, reserve,
+        sample_daily_usd_limit=cfg.guest_sample_daily_usd_limit if row.get("is_sample") else None,
+    )
+    if not event_id:
+        raise HTTPException(429, "Daily voice or spending limit reached")
+    try:
+        transcript = models.transcribe(audio, f"question.{suffix}", content_type, question_language)
+    except ProviderUncertainCharge:
+        repo.settle_question_preview(owner, event_id, 0, 0, reserve, "gpt-transcribe-uncertain")
+        raise HTTPException(503, "Voice transcription is temporarily unavailable") from None
+    except ProviderError:
+        repo.settle_question_preview(owner, event_id, 0, 0, 0, "gpt-transcribe-rejected")
+        raise HTTPException(503, "Voice transcription is temporarily unavailable") from None
+    # A conservative hold: the provider does not supply a trustworthy duration
+    # for every response, and the browser's recording duration is untrusted.
+    repo.settle_question_preview(owner, event_id, 0, 0, reserve, "gpt-transcribe-cost-hold")
+    if len(transcript) < 8 or len(transcript) > 1200:
+        raise HTTPException(422, "Could not hear a complete question. Please try again or type it")
+    return {"text": transcript}
+
+
 @app.post("/api/v1/documents/{document_id}/chat", response_model=Answer)
 def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_access_token),
          repo: Repository = Depends(get_repo), models: HostedModels = Depends(get_models), request: Request = None):

@@ -383,6 +383,70 @@
         }
       }
     },
+    "/api/v1/documents/{document_id}/transcribe-question": {
+      "post": {
+        "summary": "Transcribe Question",
+        "operationId": "transcribe_question_api_v1_documents__document_id__transcribe_question_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_question_api_v1_documents__document_id__transcribe_question_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/documents/{document_id}/chat": {
       "post": {
         "summary": "Chat",
@@ -514,6 +578,39 @@
           "usage"
         ],
         "title": "Answer"
+      },
+      "Body_transcribe_question_api_v1_documents__document_id__transcribe_question_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          },
+          "question_language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi",
+              "sa",
+              "es",
+              "ta",
+              "te",
+              "ml",
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
+            ],
+            "title": "Question Language"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file",
+          "question_language"
+        ],
+        "title": "Body_transcribe_question_api_v1_documents__document_id__transcribe_question_post"
       },
       "Body_upload_document_api_v1_documents_post": {
         "properties": {
