@@ -30,6 +30,7 @@ def test_sol_request_does_not_send_gold_or_page_claim(monkeypatch):
     passage_id = str(uuid4())
     def fake(url, key, body, timeout=60):
         assert url.endswith("/responses") and body["store"] is False
+        assert "Write the answer text in English" in body["instructions"]
         assert "gold" not in body["input"].lower()
         assert passage_id in body["input"]
         return {"status": "completed", "output": [{"content": [{"type": "output_text", "text": '{"answer":"yes","supporting_passage_ids":["'+passage_id+'"],"enough_evidence":true,"event_match":"direct_answer"}'}]}], "usage": {"input_tokens": 10, "output_tokens": 2}}

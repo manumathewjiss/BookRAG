@@ -376,7 +376,7 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     document_sha256 = str(row.get("sha256") or "")
     search_question = search_question or question
     cache_question = question if question_language == "en" else f"{question}\n{search_question}"
-    pipeline_version = answer_pipeline_version(language) + ("" if question_language == "en" else f"+question-{question_language}-v1")
+    pipeline_version = answer_pipeline_version(language) + ("" if question_language == "en" else f"+question-{question_language}-v2")
     lookup_started = time.perf_counter()
     cache_owner = row["owner_id"] if row.get("is_sample") else owner
     saved = repo.find_exact_saved_answer(cache_owner, document_id, canonicalize_question(cache_question),

@@ -155,7 +155,8 @@ class HostedModels:
     def answer(self, question: str, passages: list[dict], language: AnswerLanguage = "en") -> tuple[dict, dict]:
         block = "\n\n".join(f"[passage_id={p['id']}; PDF page={p['pdf_page']}]\n{p['text']}" for p in passages)
         language_instruction = (
-            "" if language == "en" else
+            "\nWrite the answer text in English, even if the original question is in another language. "
+            "Keep names and technical terms accurate. Do not translate or alter passage IDs." if language == "en" else
             f"\nWrite the answer text in {LANGUAGE_NAMES[language]}. Keep names and technical terms accurate. "
             "Do not translate or alter passage IDs. The source passages may be in another language; "
             "cite them only when they directly support the answer."
