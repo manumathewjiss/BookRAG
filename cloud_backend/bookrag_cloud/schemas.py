@@ -22,6 +22,22 @@ class Document(BaseModel):
 class ChatRequest(BaseModel):
     question: str = Field(min_length=8, max_length=1200)
     answer_language: AnswerLanguage = "en"
+    question_language: AnswerLanguage = "en"
+    preview_token: str | None = Field(default=None, max_length=16000)
+
+
+class QuestionPreviewRequest(BaseModel):
+    question: str = Field(min_length=8, max_length=1200)
+    question_language: AnswerLanguage
+
+
+class QuestionPreview(BaseModel):
+    original_question: str
+    question_language: AnswerLanguage
+    native_script: str
+    english_meaning: str
+    needs_clarification: bool
+    preview_token: str | None = None
 
 
 class Citation(BaseModel):

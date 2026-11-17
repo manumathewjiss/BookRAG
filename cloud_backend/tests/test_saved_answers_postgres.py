@@ -36,9 +36,9 @@ create table if not exists storage.buckets (
 """
 
 
-def test_release_ships_migrations_001_through_004_only():
+def test_saved_answer_migrations_are_preserved_with_question_preview_extension():
     names = sorted(path.name for path in (ROOT / "migrations").glob("*.sql"))
-    assert names == MIGRATIONS
+    assert names == MIGRATIONS + ["005_question_previews.sql"]
     text = (ROOT / "migrations" / "004_saved_answers.sql").read_text()
     assert "question_embedding" not in text
     assert "match_policy_version" not in text

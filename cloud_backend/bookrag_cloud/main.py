@@ -18,7 +18,8 @@ from .providers import HostedModels, ProviderError, ProviderUncertainCharge
 from .question_match import canonicalize_question, question_signature
 from .repository import AnswerBusy, Repository, UsageLimitReached
 from .retrieval import bm25_top, fuse
-from .schemas import Answer, ChatRequest, Citation, Document, Timings, Usage
+from .schemas import Answer, ChatRequest, Citation, Document, Timings, Usage, QuestionPreviewRequest, QuestionPreview
+from .question_preview import sign_preview, verify_preview
 from .security import verify_access_token
 from .storage import PrivateStorage, StorageError
 
@@ -282,6 +283,51 @@ def delete_document(document_id: UUID, owner: UUID = Depends(verify_access_token
         raise HTTPException(503, "Document is busy; please retry") from None
 
 
+@app.post("/api/v1/documents/{document_id}/question-preview", response_model=QuestionPreview)
+def question_preview(document_id: UUID, payload: QuestionPreviewRequest,
+                     owner: UUID = Depends(verify_access_token),
+                     repo: Repository = Depends(get_repo), models: HostedModels = Depends(get_models),
+                     request: Request = None):
+    if payload.question_language == "en":
+        raise HTTPException(400, "English questions do not need a preview")
+    row = _readable_document(repo, owner, document_id, is_guest=_is_guest(request))
+    if not row:
+        raise HTTPException(404, "Document not found")
+    if row["status"] != "ready":
+        raise HTTPException(409, "Document is not ready to answer questions")
+    cfg = settings()
+    if not cfg.supabase_service_role_key:
+        raise HTTPException(503, "Question preparation is unavailable")
+    event_id = repo.reserve_question_preview(
+        owner, document_id, cfg.daily_question_limit, cfg.daily_estimated_usd_limit,
+        cfg.question_reserve_usd,
+        sample_daily_usd_limit=cfg.guest_sample_daily_usd_limit if row.get("is_sample") else None,
+    )
+    if not event_id:
+        raise HTTPException(429, "Daily question preview or spending limit reached")
+    try:
+        result, usage = models.prepare_question(payload.question.strip(), payload.question_language)
+    except ProviderUncertainCharge:
+        repo.settle_question_preview(owner, event_id, 0, 0, cfg.question_reserve_usd, "openai-uncertain")
+        raise HTTPException(503, "Question preparation is temporarily unavailable") from None
+    except ProviderError:
+        repo.settle_question_preview(owner, event_id, 0, 0, 0, "openai-rejected")
+        raise HTTPException(503, "Question preparation is temporarily unavailable") from None
+    inp, out = _usage_from_provider(usage)
+    estimate = _estimate_usd(0, 0, inp, out) if inp or out else cfg.question_reserve_usd
+    repo.settle_question_preview(owner, event_id, inp, out, estimate, "gpt-6.1-sol-preview")
+    native = result["native_script"].strip()[:1200]
+    english = result["english_meaning"].strip()[:1200]
+    unclear = result["needs_clarification"] or len(native) < 2 or len(english) < 8
+    token = None if unclear else sign_preview(
+        cfg.supabase_service_role_key, owner, document_id, str(row.get("sha256") or ""),
+        payload.question.strip(), payload.question_language, native, english,
+    )
+    return QuestionPreview(original_question=payload.question.strip(), question_language=payload.question_language,
+                           native_script=native, english_meaning=english,
+                           needs_clarification=unclear, preview_token=token)
+
+
 @app.post("/api/v1/documents/{document_id}/chat", response_model=Answer)
 def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_access_token),
          repo: Repository = Depends(get_repo), models: HostedModels = Depends(get_models), request: Request = None):
@@ -294,6 +340,16 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":
         raise HTTPException(409, "Document is not ready to answer questions")
+    search_question = question
+    if payload.question_language != "en":
+        if not settings().supabase_service_role_key:
+            raise HTTPException(503, "Question preparation is unavailable")
+        preview = verify_preview(settings().supabase_service_role_key, payload.preview_token or "",
+                                 owner, document_id, str(row.get("sha256") or ""),
+                                 question, payload.question_language)
+        if not preview:
+            raise HTTPException(400, "Review and confirm the question translation before asking")
+        search_question = preview["english"]
     try:
         # A shared sample uses one lock so identical guest questions cannot
         # launch duplicate paid generations at the same time.
@@ -301,7 +357,8 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
         with repo.answer_lock(lock_owner, document_id):
             # A waiting request must recheck ownership and status after deletion.
             answer = _chat_locked(document_id, question, owner, repo, models, payload.answer_language,
-                                  is_guest=_is_guest(request))
+                                  is_guest=_is_guest(request), search_question=search_question,
+                                  question_language=payload.question_language)
             return _sample_answer_view(answer, question) if row.get("is_sample") else answer
     except AnswerBusy:
         raise HTTPException(503, "An answer is still being prepared; please retry") from None
@@ -309,16 +366,21 @@ def chat(document_id: UUID, payload: ChatRequest, owner: UUID = Depends(verify_a
 
 def _chat_locked(document_id: UUID, question: str, owner: UUID,
                  repo: Repository, models: HostedModels, language: AnswerLanguage = "en",
-                 *, is_guest: bool = False) -> Answer:
+                 *, is_guest: bool = False, search_question: str | None = None,
+                 question_language: AnswerLanguage = "en") -> Answer:
     row = _readable_document(repo, owner, document_id, is_guest=is_guest)
     if not row:
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":
         raise HTTPException(409, "Document is not ready to answer questions")
     document_sha256 = str(row.get("sha256") or "")
+    search_question = search_question or question
+    cache_question = question if question_language == "en" else f"{question}\n{search_question}"
+    pipeline_version = answer_pipeline_version(language) + ("" if question_language == "en" else f"+question-{question_language}-v1")
     lookup_started = time.perf_counter()
     cache_owner = row["owner_id"] if row.get("is_sample") else owner
-    saved = _find_exact_saved_answer(repo, cache_owner, document_id, question, document_sha256, language)
+    saved = repo.find_exact_saved_answer(cache_owner, document_id, canonicalize_question(cache_question),
+                                         document_sha256, pipeline_version)
     lookup_ms = round((time.perf_counter() - lookup_started) * 1000)
     cfg = settings()
     reserve_args = (owner, document_id, cfg.daily_question_limit,
@@ -340,22 +402,25 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     rerank_tokens = 0
     try:
         start = time.perf_counter()
-        vectors, embed_tokens = models.embed([question], "query")
+        vectors, embed_tokens = models.embed([search_question], "query")
         query_vector = vectors[0]
         passage_owner = row["owner_id"] if row.get("is_sample") else owner
         dense = repo.dense_top(passage_owner, document_id, query_vector, 30)
-        lexical = bm25_top(repo.passages(passage_owner, document_id), question, 30)
+        lexical = bm25_top(repo.passages(passage_owner, document_id), search_question, 30)
         pool = fuse(dense, lexical, 20)
         search_ms = round((time.perf_counter() - start) * 1000)
         start = time.perf_counter()
-        reranked, rerank_tokens = models.rerank(question, pool)
+        reranked, rerank_tokens = models.rerank(search_question, pool)
         top_five = reranked[:5]
         rerank_ms = round((time.perf_counter() - start) * 1000)
         start = time.perf_counter()
         # Preserve the established English provider call, including test and
         # verification wrappers that implement its original two-arg interface.
-        raw, usage = (models.answer(question, top_five) if language == "en"
-                      else models.answer(question, top_five, language))
+        answer_question = question if question_language == "en" else (
+            f"Original question ({question_language}): {question}\nConfirmed English meaning: {search_question}"
+        )
+        raw, usage = (models.answer(answer_question, top_five) if language == "en"
+                      else models.answer(answer_question, top_five, language))
         answer_ms = round((time.perf_counter() - start) * 1000)
     except ProviderUncertainCharge:
         # The provider may have billed the in-flight call. Keep at least the hold.
@@ -398,7 +463,7 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     answer_text = raw["answer"] if enough else REFUSALS[language]
     evidence_status = "unverified" if unverified_citation else match
     citation_payload = [c.model_dump(mode="json") for c in citations]
-    signature = question_signature(question)
+    signature = question_signature(cache_question)
     answer_in, answer_out = _usage_from_provider(usage if isinstance(usage, dict) else {})
     estimate = _estimate_usd(embed_tokens, rerank_tokens, answer_in, answer_out)
     repo.settle_question(
@@ -409,7 +474,7 @@ def _chat_locked(document_id: UUID, question: str, owner: UUID,
     try:
         stored = repo.save_answer(
             cache_owner, document_id, question, signature["canonical"], signature,
-            answer_text, enough, evidence_status, citation_payload, document_sha256, answer_pipeline_version(language),
+            answer_text, enough, evidence_status, citation_payload, document_sha256, pipeline_version,
         )
     except DatabaseError as exc:
         # An optional cache write must not discard an answer already paid for.

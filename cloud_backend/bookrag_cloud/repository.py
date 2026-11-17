@@ -79,7 +79,7 @@ class Repository:
                 conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (f"sample:{document_id}",))
                 sample_total = conn.execute("""
                     select coalesce(sum(estimated_usd),0) as usd
-                    from usage_events where document_id=%s and operation='question'
+                    from usage_events where document_id=%s and operation in ('question','question_preview')
                       and created_at >= date_trunc('day', now() at time zone 'UTC') at time zone 'UTC'
                 """, (document_id,)).fetchone()
                 if float(sample_total["usd"]) + reserve_usd > sample_daily_usd_limit:
@@ -119,6 +119,43 @@ class Repository:
                     input_tokens=0,output_tokens=0,estimated_usd=0
                 where id=%s and owner_id=%s and operation='question'
             """, (event_id, owner))
+
+    def reserve_question_preview(self, owner: UUID, document_id: UUID, daily_limit: int,
+                                 daily_usd_limit: float, reserve_usd: float,
+                                 sample_daily_usd_limit: float | None = None):
+        """Bound paid previews per identity and, for the shared sample, across guests."""
+        with self.connection() as conn:
+            if sample_daily_usd_limit is not None:
+                conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (f"sample:{document_id}",))
+                sample = conn.execute("""
+                    select coalesce(sum(estimated_usd),0) as usd from usage_events
+                    where document_id=%s and operation in ('question','question_preview')
+                    and created_at >= date_trunc('day', now() at time zone 'UTC') at time zone 'UTC'
+                """, (document_id,)).fetchone()
+                if float(sample["usd"]) + reserve_usd > sample_daily_usd_limit:
+                    return None
+            conn.execute("select pg_advisory_xact_lock(hashtext(%s))", (str(owner),))
+            totals = conn.execute("""
+                select count(*) filter (where operation='question_preview') as previews,
+                  count(*) filter (where operation='question_preview' and created_at>=now()-interval '1 minute') as recent,
+                  coalesce(sum(estimated_usd),0) as usd from usage_events
+                where owner_id=%s and created_at >= date_trunc('day', now() at time zone 'UTC') at time zone 'UTC'
+            """, (owner,)).fetchone()
+            if (totals["previews"] >= daily_limit or totals["recent"] >= 10
+                    or float(totals["usd"]) + reserve_usd > daily_usd_limit):
+                return None
+            return conn.execute("""
+                insert into usage_events(owner_id,document_id,operation,estimated_usd)
+                values (%s,%s,'question_preview',%s) returning id
+            """, (owner, document_id, reserve_usd)).fetchone()["id"]
+
+    def settle_question_preview(self, owner: UUID, event_id: UUID, input_tokens: int,
+                                output_tokens: int, estimated_usd: float, provider: str):
+        with self.connection() as conn:
+            conn.execute("""
+                update usage_events set provider=%s,input_tokens=%s,output_tokens=%s,estimated_usd=%s
+                where id=%s and owner_id=%s and operation='question_preview'
+            """, (provider, input_tokens, output_tokens, estimated_usd, event_id, owner))
 
     def create_document(self, owner: UUID, document_id: UUID, title: str, filename: str,
                         path: str, digest: str, daily_limit: int = 5):
