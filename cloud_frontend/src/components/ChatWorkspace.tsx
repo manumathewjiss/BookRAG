@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CitationPanel } from "@/components/CitationPanel";
 import { EmptyState } from "@/components/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -32,6 +32,10 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   const [preparing, setPreparing] = useState(false);
   const [waitSeconds, setWaitSeconds] = useState(0);
   const [activeCite, setActiveCite] = useState<Citation | null>(null);
+  const [recording, setRecording] = useState(false);
+  const [transcribing, setTranscribing] = useState(false);
+  const recorderRef = useRef<MediaRecorder | null>(null);
+  const recordTimerRef = useRef<number | null>(null);
 
   const visibleTurns = turns ?? [];
   const newestFirstTurns = [...visibleTurns].reverse();
@@ -48,6 +52,61 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
     const timer = window.setInterval(() => setWaitSeconds(Math.floor((Date.now() - started) / 1000)), 1000);
     return () => window.clearInterval(timer);
   }, [busy]);
+
+  useEffect(() => () => {
+    if (recordTimerRef.current !== null) window.clearTimeout(recordTimerRef.current);
+    const recorder = recorderRef.current;
+    if (recorder && recorder.state !== "inactive") {
+      recorder.onstop = null;
+      recorder.stop();
+      recorder.stream.getTracks().forEach((track) => track.stop());
+    }
+  }, []);
+
+  async function startRecording() {
+    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
+      setError("This browser cannot record audio. Please type your question instead.");
+      return;
+    }
+    const mimeType = ["audio/webm", "audio/ogg", "audio/mp4"].find((type) => MediaRecorder.isTypeSupported(type));
+    if (!mimeType) {
+      setError("This browser has no supported recording format. Please type your question instead.");
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const chunks: Blob[] = [];
+      const recorder = new MediaRecorder(stream, { mimeType });
+      recorderRef.current = recorder;
+      recorder.ondataavailable = (event) => { if (event.data.size) chunks.push(event.data); };
+      recorder.onstop = () => {
+        stream.getTracks().forEach((track) => track.stop());
+        setRecording(false);
+        if (recordTimerRef.current !== null) window.clearTimeout(recordTimerRef.current);
+        const blob = new Blob(chunks, { type: mimeType });
+        if (!blob.size) { setError("No speech was recorded. Please try again."); return; }
+        if (blob.size > 1_000_000) { setError("Recording is too large. Try a shorter question."); return; }
+        setTranscribing(true);
+        const extension = mimeType.split("/")[1];
+        void client.transcribeQuestion(documentId, new File([blob], `question.${extension}`, { type: mimeType }), questionLanguage)
+          .then((text) => { setQuestion(text); setPreview(null); setError(""); })
+          .catch(async (err) => setError(await guard(err)))
+          .finally(() => setTranscribing(false));
+      };
+      recorder.start();
+      setError("");
+      setRecording(true);
+      recordTimerRef.current = window.setTimeout(() => {
+        if (recorder.state === "recording") recorder.stop();
+      }, 60_000);
+    } catch {
+      setError("Microphone access was not available. Please allow it or type your question.");
+    }
+  }
+
+  function stopRecording() {
+    if (recorderRef.current?.state === "recording") recorderRef.current.stop();
+  }
 
   useEffect(() => {
     setTurns(loadHistory(userId, documentId));
@@ -163,7 +222,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
           <div className="question-language-row">
             <label className="answer-language-picker" htmlFor="question-language">
               <span>Question language</span>
-              <select id="question-language" value={questionLanguage} disabled={busy} onChange={(event) => {
+              <select id="question-language" value={questionLanguage} disabled={busy || recording || transcribing} onChange={(event) => {
                 const next = event.target.value as AnswerLanguage;
                 setQuestionLanguage(next);
                 saveQuestionLanguage(userId, next);
@@ -175,7 +234,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
             </label>
           <label className="answer-language-picker" htmlFor="answer-language">
             <span>Answer language</span>
-            <select id="answer-language" value={answerLanguage} disabled={busy} onChange={(event) => {
+            <select id="answer-language" value={answerLanguage} disabled={busy || recording || transcribing} onChange={(event) => {
               const next = event.target.value as AnswerLanguage;
               setAnswerLanguage(next);
               saveAnswerLanguage(userId, next);
@@ -189,13 +248,20 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
             <textarea
               value={question}
               maxLength={MAX_QUESTION_CHARS}
-              disabled={busy || doc?.status !== "ready"}
+              disabled={busy || recording || transcribing || doc?.status !== "ready"}
               placeholder={doc?.status === "ready" ? "What does this PDF say about…?" : "The PDF must finish processing before you can ask"}
               onChange={(e) => { setQuestion(e.target.value); setPreview(null); setError(""); }}
               onKeyDown={(e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void ask(); }}
               aria-label="Question"
             />
-            <button type="button" onClick={() => void ask()} disabled={busy || doc?.status !== "ready"} aria-label={questionLanguage !== "en" && !preview ? "Review question" : "Ask"}>{questionLanguage !== "en" && !preview ? "Review" : "Ask"} <span aria-hidden="true">→</span></button>
+            <button type="button" onClick={() => void ask()} disabled={busy || recording || transcribing || doc?.status !== "ready"} aria-label={questionLanguage !== "en" && !preview ? "Review question" : "Ask"}>{questionLanguage !== "en" && !preview ? "Review" : "Ask"} <span aria-hidden="true">→</span></button>
+          </div>
+          <div className="voice-question-row">
+            <button type="button" className="ghost" onClick={recording ? stopRecording : () => void startRecording()}
+              disabled={busy || transcribing || doc?.status !== "ready"} aria-label={recording ? "Stop recording" : "Record question"}>
+              {recording ? "■ Stop recording" : "🎙 Record question"}
+            </button>
+            <span role="status">{recording ? "Recording… 60 seconds maximum" : transcribing ? "Turning speech into text…" : "Review the text before asking."}</span>
           </div>
           {preview ? <div className="question-preview" role="region" aria-label="Question review">
             <strong>Check what BookRAG understood</strong>

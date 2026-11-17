@@ -117,6 +117,7 @@ export interface BookragClient {
   uploadDocument(file: File, title?: string): Promise<Document>;
   deleteDocument(id: string): Promise<void>;
   prepareQuestion(documentId: string, question: string, language: AnswerLanguage): Promise<QuestionPreview>;
+  transcribeQuestion(documentId: string, audio: File, language: AnswerLanguage): Promise<string>;
   chat(documentId: string, question: string, language?: AnswerLanguage,
        questionLanguage?: AnswerLanguage, previewToken?: string | null): Promise<Answer>;
 }

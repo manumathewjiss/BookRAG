@@ -192,6 +192,19 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       }
       return value;
     },
+    async transcribeQuestion(documentId: string, audio: File, language: AnswerLanguage): Promise<string> {
+      const form = new FormData();
+      form.append("file", audio);
+      form.append("question_language", language);
+      const { status, body } = await request(`/api/v1/documents/${encodeURIComponent(documentId)}/transcribe-question`,
+        { method: "POST", body: form });
+      if (status !== 200) throw parseApiError(status, body);
+      const text = (body as { text?: unknown })?.text;
+      if (typeof text !== "string" || !text.trim()) {
+        throw new BookragApiError("Unexpected voice transcript.", "invalid_response", 503);
+      }
+      return text;
+    },
     async chat(documentId: string, question: string, language: AnswerLanguage = "en",
                questionLanguage: AnswerLanguage = "en", previewToken: string | null = null) {
       const trimmed = question.trim();
