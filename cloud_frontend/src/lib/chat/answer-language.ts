@@ -7,6 +7,10 @@ export const ANSWER_LANGUAGES = {
   te: "Telugu",
   ml: "Malayalam",
   bn: "Bengali",
+  fr: "French",
+  it: "Italian",
+  gu: "Gujarati",
+  kn: "Kannada",
 } as const;
 
 export type AnswerLanguage = keyof typeof ANSWER_LANGUAGES;

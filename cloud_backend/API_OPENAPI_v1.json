@@ -494,7 +494,11 @@
               "ta",
               "te",
               "ml",
-              "bn"
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
             ],
             "title": "Answer Language",
             "default": "en"
@@ -554,7 +558,11 @@
               "ta",
               "te",
               "ml",
-              "bn"
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
             ],
             "title": "Answer Language",
             "default": "en"
@@ -569,7 +577,11 @@
               "ta",
               "te",
               "ml",
-              "bn"
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
             ],
             "title": "Question Language",
             "default": "en"
@@ -646,7 +658,11 @@
               "ta",
               "te",
               "ml",
-              "bn"
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
             ],
             "title": "Question Language"
           },
@@ -702,7 +718,11 @@
               "ta",
               "te",
               "ml",
-              "bn"
+              "bn",
+              "fr",
+              "it",
+              "gu",
+              "kn"
             ],
             "title": "Question Language"
           }

@@ -12,11 +12,11 @@ describe("answer language preference", () => {
   });
 
   it("ignores an unsupported stored language", () => {
-    window.localStorage.setItem("bookrag.answer-language.person-a", "fr");
+    window.localStorage.setItem("bookrag.answer-language.person-a", "xx");
     expect(loadAnswerLanguage("person-a")).toBe("en");
   });
 
-  it.each(["ta", "te", "ml", "bn"] as const)("accepts and remembers %s", (language) => {
+  it.each(["ta", "te", "ml", "bn", "fr", "it", "gu", "kn"] as const)("accepts and remembers %s", (language) => {
     expect(isAnswerLanguage(language)).toBe(true);
     saveAnswerLanguage("person-a", language);
     expect(loadAnswerLanguage("person-a")).toBe(language);

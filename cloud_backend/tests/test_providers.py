@@ -42,6 +42,7 @@ def test_sol_request_does_not_send_gold_or_page_claim(monkeypatch):
 @pytest.mark.parametrize("code,name", [
     ("sa", "Sanskrit"), ("ta", "Tamil"), ("te", "Telugu"),
     ("ml", "Malayalam"), ("bn", "Bengali"),
+    ("fr", "French"), ("it", "Italian"), ("gu", "Gujarati"), ("kn", "Kannada"),
 ])
 def test_sol_is_instructed_to_answer_in_selected_language_without_changing_evidence(monkeypatch, code, name):
     import bookrag_cloud.providers as module

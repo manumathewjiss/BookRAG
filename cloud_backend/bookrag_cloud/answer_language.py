@@ -4,11 +4,12 @@ from typing import Literal
 
 from .question_match import ANSWER_PIPELINE_VERSION
 
-AnswerLanguage = Literal["en", "hi", "sa", "es", "ta", "te", "ml", "bn"]
+AnswerLanguage = Literal["en", "hi", "sa", "es", "ta", "te", "ml", "bn", "fr", "it", "gu", "kn"]
 
 LANGUAGE_NAMES = {
     "en": "English", "hi": "Hindi", "sa": "Sanskrit", "es": "Spanish",
     "ta": "Tamil", "te": "Telugu", "ml": "Malayalam", "bn": "Bengali",
+    "fr": "French", "it": "Italian", "gu": "Gujarati", "kn": "Kannada",
 }
 
 REFUSALS = {
@@ -20,6 +21,10 @@ REFUSALS = {
     "te": "ఇచ్చిన పాఠ్య భాగాలు ఈ ప్రశ్నకు సమాధానాన్ని నిర్ధారించలేదు.",
     "ml": "നൽകിയ ഭാഗങ്ങൾ ഈ ചോദ്യത്തിനുള്ള ഉത്തരം സ്ഥിരീകരിക്കുന്നില്ല.",
     "bn": "দেওয়া অংশগুলো এই প্রশ্নের উত্তর নিশ্চিত করে না।",
+    "fr": "Les passages fournis ne confirment pas la réponse à cette question.",
+    "it": "I passaggi forniti non confermano la risposta a questa domanda.",
+    "gu": "આપેલા અંશો આ પ્રશ્નના જવાબની પુષ્ટિ કરતા નથી.",
+    "kn": "ಒದಗಿಸಿದ ಭಾಗಗಳು ಈ ಪ್ರಶ್ನೆಗೆ ಉತ್ತರವನ್ನು ದೃಢೀಕರಿಸುವುದಿಲ್ಲ.",
 }
 
 

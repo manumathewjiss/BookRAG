@@ -220,7 +220,7 @@ def test_answer_language_separates_saved_answers_without_changing_citations():
     assert models.answer_calls == models.embed_calls == models.rerank_calls == 2
 
 
-@pytest.mark.parametrize("language", ["ta", "te", "ml", "bn"])
+@pytest.mark.parametrize("language", ["ta", "te", "ml", "bn", "fr", "it", "gu", "kn"])
 def test_new_answer_languages_keep_saved_answer_and_citations(language):
     repo, models = MemorySavedRepo(), TrackingModels()
     client = _client(OWNER, repo, models)
@@ -239,7 +239,7 @@ def test_unsupported_answer_language_is_rejected_before_models():
     repo, models = MemorySavedRepo(), TrackingModels()
     client = _client(OWNER, repo, models)
     response = client.post(f"/api/v1/documents/{DOC}/chat", json={
-        "question": "Who is Neil Armstrong?", "answer_language": "fr",
+        "question": "Who is Neil Armstrong?", "answer_language": "xx",
     })
     assert response.status_code == 400 and models.answer_calls == 0
 
