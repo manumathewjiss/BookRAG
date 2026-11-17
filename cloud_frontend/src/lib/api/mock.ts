@@ -217,6 +217,11 @@ function buildMockClient(): BookragClient {
       }
       docs.delete(id);
     },
+    async prepareQuestion(_documentId: string, question: string, language: AnswerLanguage) {
+      return { original_question: question.trim(), question_language: language,
+        native_script: question.trim(), english_meaning: question.trim(),
+        needs_clarification: false, preview_token: "mock-preview" };
+    },
     async chat(documentId: string, question: string, language: AnswerLanguage = "en") {
       maybeAdvance();
       const trimmed = question.trim();

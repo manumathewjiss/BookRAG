@@ -258,6 +258,10 @@ h1, h2, h3 { font-family: var(--serif); color: var(--navy); font-weight: 600; }
 .answer-language-picker select { min-width:150px; padding:8px 12px; border:1px solid var(--line); border-radius:7px; background:#fff; color:var(--navy); cursor:pointer; }
 .answer-language-picker select:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
 .answer-language-note { margin:-4px 0 12px; color:var(--muted); font-size:.75rem; }
+.question-language-row { display:flex; flex-wrap:wrap; gap:8px 24px; }
+.question-preview { margin:12px 0; padding:14px 16px; border:1px solid #d8ccb4; border-radius:10px; background:#fffaf0; color:var(--navy); overflow-wrap:anywhere; }
+.question-preview p { margin:10px 0 0; line-height:1.5; }
+.question-preview p span { color:var(--muted); font-size:.8rem; font-weight:600; }
 .ask-row textarea {
   flex: 1;
   min-height: 3.1rem;

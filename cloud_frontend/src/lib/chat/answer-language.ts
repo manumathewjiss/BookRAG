@@ -32,3 +32,21 @@ export function saveAnswerLanguage(userId: string, language: AnswerLanguage): vo
     // A disabled browser store should not prevent asking a question.
   }
 }
+
+export function loadQuestionLanguage(userId: string): AnswerLanguage {
+  if (typeof window === "undefined") return "en";
+  try {
+    const value = window.localStorage.getItem(`bookrag.question-language.${userId}`);
+    return isAnswerLanguage(value) ? value : "en";
+  } catch {
+    return "en";
+  }
+}
+
+export function saveQuestionLanguage(userId: string, language: AnswerLanguage): void {
+  try {
+    window.localStorage.setItem(`bookrag.question-language.${userId}`, language);
+  } catch {
+    // A disabled browser store should not prevent asking a question.
+  }
+}
