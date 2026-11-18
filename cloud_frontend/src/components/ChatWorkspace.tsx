@@ -171,7 +171,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
       try {
         const prepared = await client.prepareQuestion(documentId, question.trim(), questionLanguage);
         setPreview(prepared);
-        if (prepared.needs_clarification) setError(prepared.language_warning || "Please clarify or reword your question, then review it again.");
+        if (prepared.needs_clarification && !prepared.language_warning) setError("Please clarify or reword your question, then review it again.");
       } catch (err) {
         setError(await guard(err));
       } finally {
@@ -267,7 +267,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
               onKeyDown={(e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void ask(); }}
               aria-label="Question"
             />
-            <button type="button" onClick={() => void ask()} disabled={busy || recording || transcribing || doc?.status !== "ready"} aria-label={voiceReviewPending ? "Confirm transcript" : questionLanguage !== "en" && !preview?.preview_token ? "Review question" : "Ask"}>{voiceReviewPending ? "Confirm text" : questionLanguage !== "en" && !preview?.preview_token ? "Review" : "Ask"} <span aria-hidden="true">→</span></button>
+            <button type="button" onClick={() => void ask()} disabled={busy || recording || transcribing || doc?.status !== "ready" || Boolean(preview?.needs_clarification && preview.original_question === question.trim() && preview.question_language === questionLanguage)} aria-label={voiceReviewPending ? "Confirm transcript" : questionLanguage !== "en" && !preview?.preview_token ? "Review question" : "Ask"}>{voiceReviewPending ? "Confirm text" : questionLanguage !== "en" && !preview?.preview_token ? "Review" : "Ask"} <span aria-hidden="true">→</span></button>
           </div>
           <div className="voice-question-row">
             <button type="button" className={`ghost voice-record-button${recording ? " is-recording" : ""}${transcribing ? " is-transcribing" : ""}`} onClick={recording ? stopRecording : () => void startRecording()}
@@ -289,7 +289,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
               <p><span>{ANSWER_LANGUAGES[questionLanguage]} script</span><br />{preview.native_script || "Unclear"}</p>
               <p><span>English meaning used to search the PDF</span><br />{preview.english_meaning || "Unclear"}</p>
             </>}
-            {preview.needs_clarification && !preview.language_warning ? <p>Please edit your question and review again.</p>
+            {preview.needs_clarification ? !preview.language_warning && <p>Please edit your question and review again.</p>
               : <p>Correct? Press Ask. To change it, edit your original question above.</p>}
           </div> : null}
           {preparing ? <p className="status" role="status">Preparing the script and English meaning for your review…</p> : busy ? (
