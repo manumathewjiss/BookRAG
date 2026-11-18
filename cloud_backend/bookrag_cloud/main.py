@@ -387,7 +387,9 @@ async def transcribe_question(document_id: UUID, file: UploadFile = File(...),
     detected_codes = transcription["detected_languages"]
     if len(transcript) < 8 or len(transcript) > 1200:
         raise HTTPException(422, "Could not hear a complete question. Please try again or type it")
-    detected = next((code for code in detected_codes if code in LANGUAGE_NAMES), None)
+    detected = next((code for code in detected_codes if code in LANGUAGE_NAMES and code != question_language), None)
+    if detected is None:
+        detected = next((code for code in detected_codes if code in LANGUAGE_NAMES), None)
     script = script_language(transcript)
     if not script and question_language not in ("hi", "sa") and any(0x0900 <= ord(c) <= 0x097F for c in transcript):
         script = "hi"

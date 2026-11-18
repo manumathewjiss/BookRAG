@@ -45,7 +45,7 @@ def test_preview_token_binds_user_document_digest_question_and_language():
     assert verify_preview("private-key", token, owner, document, "digest-2", "njan poyittu varam", "ml") is None
     assert verify_preview("private-key", token, owner, document, "digest-1", "njan poyittu varam", "sa") is None
     assert verify_preview("private-key", token, owner, document, "digest-1", "different question", "ml") is None
-    assert verify_preview("private-key", token[:-1] + "0", owner, document, "digest-1", "njan poyittu varam", "ml") is None
+    assert verify_preview("private-key", token[:-1] + ("0" if token[-1] != "0" else "1"), owner, document, "digest-1", "njan poyittu varam", "ml") is None
 
 
 def test_selected_language_guides_script_and_meaning_preview(monkeypatch):
