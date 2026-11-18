@@ -135,14 +135,10 @@ export function DocumentLibrary() {
       ) : null}
 
       {!loading && docs.length > 0 ? <div className="book-grid" role="list" id="books">
-        {visibleDocs.map((doc, index) => (
+        {visibleDocs.map((doc) => (
           <article className={`book-card ${selected === doc.id ? "selected" : ""}`} key={doc.id} role="listitem">
             <button type="button" className="book-select" aria-pressed={selected === doc.id} onClick={() => setSelected(doc.id)}>
-              <span className={`book-cover cover-${index % 4}`} aria-hidden="true">
-                <span className="book-cover-mark">BookRAG</span>
-                <span className="book-cover-title">{doc.title}</span>
-                <span className="book-cover-bottom">PDF</span>
-              </span>
+              <span className="book-card-kind" aria-hidden="true">PDF DOCUMENT</span>
               <span className="book-name">{doc.title}{doc.is_sample ? " · Demo PDF" : ""}</span>
               <span className="book-file">{doc.filename}</span>
             </button>
