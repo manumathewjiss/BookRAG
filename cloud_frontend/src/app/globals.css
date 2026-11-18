@@ -10,12 +10,12 @@
   --line: #e4d9c4;
   --parchment: #f3ead6;
   --highlight: #f6e7a8;
-  --ok: #2d6a3a;
-  --ok-bg: #e7f3ea;
-  --warn: #8a5a12;
-  --warn-bg: #f8eedc;
-  --err: #8b2e2e;
-  --err-bg: #f8e7e5;
+  --ok: #172b39;
+  --ok-bg: #f3efe6;
+  --warn: #916d2b;
+  --warn-bg: #f8f1e3;
+  --err: #172b39;
+  --err-bg: #f3efe6;
   --shadow: 0 10px 30px rgba(28, 45, 90, 0.06);
   --sans: var(--font-sans), "Segoe UI", system-ui, sans-serif;
   --serif: var(--font-serif), "Iowan Old Style", Palatino, Georgia, serif;
@@ -519,4 +519,53 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 @media(max-width:900px) { .landing-copy h1 { font-size:clamp(3.3rem,9vw,5.5rem); } }
 @media(max-width:600px) { .landing-header { min-height:70px; padding:0 20px; }.landing-brand { font-size:1.4rem; }.landing-main { padding:0 20px; }.landing-hero { min-height:calc(100vh - 135px); padding:62px 0 55px; }.landing-copy h1 { font-size:clamp(3.25rem,12vw,4.4rem); }.landing-intro { margin:24px 0; }.landing-footer { padding:20px; flex-direction:column; gap:4px; } }
 .voice-question-row { display: flex; align-items: center; gap: 0.8rem; margin: 0.65rem 0 1rem; flex-wrap: wrap; }
-.voice-question-row span { color: #64717b; font-size: 0.88rem; }
+.voice-question-row span { color: var(--muted); font-size: 0.88rem; }
+
+/* Restrained BookRAG identity: typography, rules, and a single gold accent. */
+:root {
+  --shadow: none;
+}
+body { letter-spacing: -.005em; }
+.sidebar { background: var(--navy); }
+.sidebar .brand, .landing-brand { letter-spacing: -.04em; }
+.page-heading h1, .chat-heading h1, .landing-copy h1 { letter-spacing: -.045em; }
+.hero, .card, .empty, .error-card, .answer-card, .cite-card,
+.book-card, .book-upload, .document-detail, .library-welcome, .turn-card,
+.chat-document-label, .pdf-panel, .ask-row, .question-preview,
+.library-search, .answer-wait { border-radius: 3px; box-shadow: none; }
+.book-card.selected { box-shadow: inset 0 0 0 1px var(--brass); }
+.book-cover, .cover-1, .cover-2, .cover-3 {
+  background: #efe9dd;
+  color: var(--navy);
+  border: 1px solid #ded5c4;
+  border-left: 5px solid var(--brass);
+  border-radius: 1px;
+  box-shadow: none;
+}
+.book-cover-title { font-family: var(--sans); font-size: 1rem; font-weight: 650; line-height: 1.25; }
+.book-cover-mark, .book-cover-bottom { color: var(--brass-deep); }
+.side-nav a, .side-nav-current, .sidebar-logout,
+.primary, .ghost, .danger, .book-ask, .usage span,
+.library-search, .book-upload .dropzone .ghost,
+.answer-language-picker select, .question-preview,
+.ask-row textarea, .ask-row button, .metric,
+.processing-summary li, .welcome-upload .dropzone .ghost { border-radius: 3px; }
+.badge {
+  border-radius: 2px;
+  padding: .24rem .5rem;
+  font-size: .7rem;
+  font-weight: 650;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+}
+.badge.ok, .badge.idle { color: var(--navy); background: #f3efe6; border-color: #d9d2c6; }
+.badge.warn { color: var(--brass-deep); background: #f8f1e3; border-color: #d8bf8c; }
+.badge.err { color: var(--navy); background: #f3efe6; border-color: var(--navy); }
+.processing-summary li.done { color: var(--navy); background: #f3efe6; border-color: var(--line); }
+.processing-summary li.current { color: var(--brass-deep); background: #f8f1e3; }
+.processing-summary li span { border-radius: 2px; background: #e8dfcf; }
+.error-card, .error, .status.error { border-left: 3px solid var(--navy); }
+.book-upload { background: #fffcf5; }
+.book-ask { background: #f3efe6; color: var(--brass-deep); }
+.cite-card .excerpt { background: #f8f1e3; }
