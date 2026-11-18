@@ -35,6 +35,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   const [recording, setRecording] = useState(false);
   const [transcribing, setTranscribing] = useState(false);
   const [voiceReviewPending, setVoiceReviewPending] = useState(false);
+  const [voiceDetectedLanguage, setVoiceDetectedLanguage] = useState<string | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const recordTimerRef = useRef<number | null>(null);
 
@@ -90,7 +91,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
         setTranscribing(true);
         const extension = mimeType.split("/")[1];
         void client.transcribeQuestion(documentId, new File([blob], `question.${extension}`, { type: mimeType }), questionLanguage)
-          .then((text) => { setQuestion(text); setPreview(null); setVoiceReviewPending(true); setError(""); })
+          .then((result) => { setQuestion(result.text); setPreview(null); setVoiceDetectedLanguage(result.detected_language); setVoiceReviewPending(true); setError(""); })
           .catch(async (err) => setError(await guard(err)))
           .finally(() => setTranscribing(false));
       };
@@ -142,6 +143,10 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   }, [doc, guard, loadDoc]);
 
   async function ask() {
+    if (voiceReviewPending && voiceDetectedLanguage && voiceDetectedLanguage !== questionLanguage) {
+      setError(`Your recording sounds like ${ANSWER_LANGUAGES[voiceDetectedLanguage as AnswerLanguage] || "another language"}. Select that question language or record again.`);
+      return;
+    }
     if (voiceReviewPending) {
       const check = validateQuestion(question, MIN_QUESTION_CHARS, MAX_QUESTION_CHARS);
       if (!check.ok) { setError(check.message); return; }
@@ -166,7 +171,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
       try {
         const prepared = await client.prepareQuestion(documentId, question.trim(), questionLanguage);
         setPreview(prepared);
-        if (prepared.needs_clarification) setError("Please clarify or reword your question, then review it again.");
+        if (prepared.needs_clarification) setError(prepared.language_warning || "Please clarify or reword your question, then review it again.");
       } catch (err) {
         setError(await guard(err));
       } finally {
@@ -258,11 +263,11 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
               maxLength={MAX_QUESTION_CHARS}
               disabled={busy || recording || transcribing || doc?.status !== "ready"}
               placeholder={doc?.status === "ready" ? "What does this PDF say about…?" : "The PDF must finish processing before you can ask"}
-              onChange={(e) => { setQuestion(e.target.value); setPreview(null); setError(""); }}
+              onChange={(e) => { setQuestion(e.target.value); setPreview(null); setVoiceDetectedLanguage(null); setError(""); }}
               onKeyDown={(e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void ask(); }}
               aria-label="Question"
             />
-            <button type="button" onClick={() => void ask()} disabled={busy || recording || transcribing || doc?.status !== "ready"} aria-label={voiceReviewPending ? "Confirm transcript" : questionLanguage !== "en" && !preview ? "Review question" : "Ask"}>{voiceReviewPending ? "Confirm text" : questionLanguage !== "en" && !preview ? "Review" : "Ask"} <span aria-hidden="true">→</span></button>
+            <button type="button" onClick={() => void ask()} disabled={busy || recording || transcribing || doc?.status !== "ready"} aria-label={voiceReviewPending ? "Confirm transcript" : questionLanguage !== "en" && !preview?.preview_token ? "Review question" : "Ask"}>{voiceReviewPending ? "Confirm text" : questionLanguage !== "en" && !preview?.preview_token ? "Review" : "Ask"} <span aria-hidden="true">→</span></button>
           </div>
           <div className="voice-question-row">
             <button type="button" className={`ghost voice-record-button${recording ? " is-recording" : ""}${transcribing ? " is-transcribing" : ""}`} onClick={recording ? stopRecording : () => void startRecording()}
@@ -274,13 +279,17 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
           </div>
           {voiceReviewPending ? <div className="voice-review" role="region" aria-label="Recorded question review">
             <strong>Check your recorded question</strong>
-            <p>Edit the text above if anything was heard incorrectly. Press <b>Confirm text</b> to continue. Your question will not be sent yet.</p>
+            <p>{voiceDetectedLanguage && voiceDetectedLanguage !== questionLanguage
+              ? `This sounds like ${ANSWER_LANGUAGES[voiceDetectedLanguage as AnswerLanguage] || "another language"}, but ${ANSWER_LANGUAGES[questionLanguage]} is selected. Change the question language or record again.`
+              : "Edit the text above if anything was heard incorrectly. Press Confirm text to continue. Your question will not be sent yet."}</p>
           </div> : null}
           {preview ? <div className="question-preview" role="region" aria-label="Question review">
             <strong>Check what BookRAG understood</strong>
-            <p><span>{ANSWER_LANGUAGES[questionLanguage]} script</span><br />{preview.native_script || "Unclear"}</p>
-            <p><span>English meaning used to search the PDF</span><br />{preview.english_meaning || "Unclear"}</p>
-            {preview.needs_clarification ? <p>Please edit your question and review again.</p>
+            {preview.language_warning ? <p className="language-warning">{preview.language_warning}</p> : <>
+              <p><span>{ANSWER_LANGUAGES[questionLanguage]} script</span><br />{preview.native_script || "Unclear"}</p>
+              <p><span>English meaning used to search the PDF</span><br />{preview.english_meaning || "Unclear"}</p>
+            </>}
+            {preview.needs_clarification && !preview.language_warning ? <p>Please edit your question and review again.</p>
               : <p>Correct? Press Ask. To change it, edit your original question above.</p>}
           </div> : null}
           {preparing ? <p className="status" role="status">Preparing the script and English meaning for your review…</p> : busy ? (

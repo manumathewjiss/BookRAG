@@ -37,6 +37,8 @@ class QuestionPreview(BaseModel):
     native_script: str
     english_meaning: str
     needs_clarification: bool
+    detected_language: str | None = None
+    language_warning: str | None = None
     preview_token: str | None = None
 
 

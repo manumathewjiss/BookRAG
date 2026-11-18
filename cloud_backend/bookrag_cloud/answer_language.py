@@ -12,6 +12,17 @@ LANGUAGE_NAMES = {
     "fr": "French", "it": "Italian", "gu": "Gujarati", "kn": "Kannada",
 }
 
+
+def script_language(text: str) -> str | None:
+    """Recognize scripts unique to one supported language; Latin and Devanagari need context."""
+    blocks = {
+        "ml": (0x0D00, 0x0D7F), "ta": (0x0B80, 0x0BFF),
+        "te": (0x0C00, 0x0C7F), "bn": (0x0980, 0x09FF),
+        "gu": (0x0A80, 0x0AFF), "kn": (0x0C80, 0x0CFF),
+    }
+    found = {code for char in text for code, (start, end) in blocks.items() if start <= ord(char) <= end}
+    return next(iter(found)) if len(found) == 1 else None
+
 REFUSALS = {
     "en": "The supplied passages do not confirm the answer to this question.",
     "hi": "दिए गए अंशों से इस प्रश्न के उत्तर की पुष्टि नहीं होती।",

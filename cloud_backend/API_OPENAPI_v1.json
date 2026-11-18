@@ -775,6 +775,28 @@
             "type": "boolean",
             "title": "Needs Clarification"
           },
+          "detected_language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detected Language"
+          },
+          "language_warning": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language Warning"
+          },
           "preview_token": {
             "anyOf": [
               {

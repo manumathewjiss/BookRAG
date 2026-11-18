@@ -2,7 +2,7 @@ import { apiBaseUrl, isMockMode, MAX_QUESTION_CHARS, MIN_QUESTION_CHARS } from "
 import { BookragApiError, parseApiError } from "@/lib/api/errors";
 import { createMockClient } from "@/lib/api/mock";
 import { isMockAccessToken } from "@/lib/auth/token";
-import type { Answer, BookragClient, Document, HealthResponse, MeResponse, QuestionPreview } from "@/lib/api/types";
+import type { Answer, BookragClient, Document, HealthResponse, MeResponse, QuestionPreview, VoiceTranscript } from "@/lib/api/types";
 import { isDocumentStatus, isEvidenceStatus } from "@/lib/api/types";
 import { isAnswerLanguage, type AnswerLanguage } from "@/lib/chat/answer-language";
 
@@ -192,7 +192,7 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       }
       return value;
     },
-    async transcribeQuestion(documentId: string, audio: File, language: AnswerLanguage): Promise<string> {
+    async transcribeQuestion(documentId: string, audio: File, language: AnswerLanguage): Promise<VoiceTranscript> {
       const form = new FormData();
       form.append("file", audio);
       form.append("question_language", language);
@@ -203,7 +203,9 @@ export function createLiveClient(getToken: AccessTokenProvider): BookragClient {
       if (typeof text !== "string" || !text.trim()) {
         throw new BookragApiError("Unexpected voice transcript.", "invalid_response", 503);
       }
-      return text;
+      const value = body as Partial<VoiceTranscript>;
+      return { text, detected_language: typeof value.detected_language === "string" ? value.detected_language : null,
+        language_mismatch: value.language_mismatch === true };
     },
     async chat(documentId: string, question: string, language: AnswerLanguage = "en",
                questionLanguage: AnswerLanguage = "en", previewToken: string | null = null) {

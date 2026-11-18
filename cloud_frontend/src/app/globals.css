@@ -584,3 +584,13 @@ body { letter-spacing: -.005em; }
 .book-upload { background: #fffcf5; }
 .book-ask { background: #f3efe6; color: var(--brass-deep); }
 .cite-card .excerpt { background: #f8f1e3; }
+
+/* Neutral controls and review panels; reserve gold for the main Ask action. */
+.question-preview, .voice-review { background:#fff; border:1px solid #cbd5e1; color:var(--navy); border-radius:3px; }
+.voice-review { border-left:3px solid var(--navy); }
+.voice-question-row .voice-record-button { background:#fff; border-color:#cbd5e1; color:var(--navy); }
+.voice-question-row .voice-record-button:hover:not(:disabled), .voice-question-row .voice-record-button.is-recording { background:#f3f4f6; border-color:var(--navy); }
+.voice-question-row .voice-record-icon { color:var(--navy); }
+.voice-stop-icon { background:var(--navy); }
+.is-recording .voice-record-icon::after { border-color:var(--navy); }
+.language-warning { color:var(--navy); font-weight:600; }

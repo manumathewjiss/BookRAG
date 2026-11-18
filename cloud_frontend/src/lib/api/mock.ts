@@ -223,7 +223,7 @@ function buildMockClient(): BookragClient {
         needs_clarification: false, preview_token: "mock-preview" };
     },
     async transcribeQuestion() {
-      return "What does this book say about Python?";
+      return { text: "What does this book say about Python?", detected_language: "en", language_mismatch: false };
     },
     async chat(documentId: string, question: string, language: AnswerLanguage = "en") {
       maybeAdvance();

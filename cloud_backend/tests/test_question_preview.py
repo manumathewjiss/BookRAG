@@ -20,7 +20,7 @@ def test_voice_transcription_requires_document_access_and_returns_editable_text(
             self.calls += 1
             assert audio == b"a" * 200 and filename == "question.webm"
             assert content_type == "audio/webm" and language == "ml"
-            return "ആരാണ് അർജുനൻ?"
+            return {"text": "ആരാണ് അർജുനൻ?", "detected_languages": ["ml"]}
     repo, models = Repo(), Models()
     path = f"/api/v1/documents/{DOC}/transcribe-question"
     payload = {"file": ("voice.webm", b"a" * 200, "audio/webm")}
@@ -28,7 +28,7 @@ def test_voice_transcription_requires_document_access_and_returns_editable_text(
     assert other.post(path, files=payload, data={"question_language": "ml"}).status_code == 404
     assert models.calls == 0
     owner, _, _ = client_for(OWNER, repo=repo, models=models)
-    assert owner.post(path, files=payload, data={"question_language": "ml"}).json() == {"text": "ആരാണ് അർജുനൻ?"}
+    assert owner.post(path, files=payload, data={"question_language": "ml"}).json() == {"text": "ആരാണ് അർജുനൻ?", "detected_language": "ml", "language_mismatch": False}
     assert models.calls == 1
     assert owner.post(path, files={"file": ("voice.webm", b"a" * 1_000_001, "audio/webm")},
                       data={"question_language": "ml"}).status_code == 400
@@ -57,13 +57,64 @@ def test_selected_language_guides_script_and_meaning_preview(monkeypatch):
         assert body["store"] is False
         return {"status": "completed", "output": [{"content": [{"type": "output_text", "text": json.dumps({
             "native_script": "ഞാൻ പോയിട്ട് വരാം", "english_meaning": "I will go and come back",
-            "needs_clarification": False,
+            "detected_language": "ml", "needs_clarification": False,
         })}]}], "usage": {"input_tokens": 20, "output_tokens": 15}}
     monkeypatch.setattr(module, "_json_post", fake)
     preview, usage = HostedModels(Settings()).prepare_question("njan poyittu varam", "ml")
     assert preview["native_script"] == "ഞാൻ പോയിട്ട് വരാം"
     assert preview["english_meaning"] == "I will go and come back"
     assert usage["output_tokens"] == 15
+
+
+def test_preview_rejects_malayalam_script_when_spanish_selected_without_model_call(monkeypatch):
+    import bookrag_cloud.main as main
+    monkeypatch.setattr(main, "settings", lambda: Settings(supabase_service_role_key="private-key"))
+    class Models(FakeModels):
+        def prepare_question(self, *args): raise AssertionError("obvious script mismatch should not call model")
+    owner, _, _ = client_for(OWNER, models=Models())
+    response = owner.post(f"/api/v1/documents/{DOC}/question-preview", json={
+        "question": "എന്താണ് ഈ പുസ്തകം?", "question_language": "es"})
+    assert response.status_code == 200
+    assert response.json()["detected_language"] == "ml"
+    assert response.json()["needs_clarification"] is True
+    assert response.json()["preview_token"] is None
+
+
+def test_preview_rejects_romanized_malayalam_when_spanish_selected(monkeypatch):
+    import bookrag_cloud.main as main
+    monkeypatch.setattr(main, "settings", lambda: Settings(supabase_service_role_key="private-key"))
+    class Repo(FakeRepo):
+        def reserve_question_preview(self, *args, **kwargs): return uuid4()
+        def settle_question_preview(self, *args, **kwargs): pass
+    class Models(FakeModels):
+        def prepare_question(self, question, language):
+            assert language == "es"
+            return {"native_script": "", "english_meaning": "", "detected_language": "ml",
+                    "needs_clarification": True}, {"input_tokens": 10, "output_tokens": 10}
+    owner, _, _ = client_for(OWNER, repo=Repo(), models=Models())
+    response = owner.post(f"/api/v1/documents/{DOC}/question-preview", json={
+        "question": "njan paranjathil enthenkilum karyam undo?", "question_language": "es"})
+    assert response.status_code == 200
+    assert "Malayalam" in response.json()["language_warning"]
+    assert response.json()["preview_token"] is None
+
+
+def test_voice_reports_spoken_hindi_when_malayalam_selected(monkeypatch):
+    import bookrag_cloud.main as main
+    monkeypatch.setattr(main, "settings", lambda: Settings())
+    class Repo(FakeRepo):
+        def reserve_question_preview(self, *args, **kwargs): return uuid4()
+        def settle_question_preview(self, *args, **kwargs): pass
+    class Models(FakeModels):
+        def transcribe(self, audio, filename, content_type, language):
+            return {"text": "इस पुस्तक में क्या लिखा है?", "detected_languages": ["hi"]}
+    owner, _, _ = client_for(OWNER, repo=Repo(), models=Models())
+    response = owner.post(f"/api/v1/documents/{DOC}/transcribe-question",
+                          files={"file": ("voice.webm", b"a" * 200, "audio/webm")},
+                          data={"question_language": "ml"})
+    assert response.status_code == 200
+    assert response.json()["detected_language"] == "hi"
+    assert response.json()["language_mismatch"] is True
 
 
 def test_preview_requires_ownership_and_chat_uses_confirmed_english(monkeypatch):
@@ -77,7 +128,7 @@ def test_preview_requires_ownership_and_chat_uses_confirmed_english(monkeypatch)
         def prepare_question(self, question, language):
             assert question == "njan poyittu varam" and language == "ml"
             return {"native_script": "ഞാൻ പോയിട്ട് വരാം", "english_meaning": "I will go and come back",
-                    "needs_clarification": False}, {"input_tokens": 10, "output_tokens": 10}
+                    "detected_language": "ml", "needs_clarification": False}, {"input_tokens": 10, "output_tokens": 10}
         def embed(self, texts, mode):
             self.searched.append(texts[0])
             return super().embed(texts, mode)
