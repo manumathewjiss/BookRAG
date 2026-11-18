@@ -34,6 +34,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   const [activeCite, setActiveCite] = useState<Citation | null>(null);
   const [recording, setRecording] = useState(false);
   const [transcribing, setTranscribing] = useState(false);
+  const [voiceReviewPending, setVoiceReviewPending] = useState(false);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const recordTimerRef = useRef<number | null>(null);
 
@@ -89,7 +90,7 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
         setTranscribing(true);
         const extension = mimeType.split("/")[1];
         void client.transcribeQuestion(documentId, new File([blob], `question.${extension}`, { type: mimeType }), questionLanguage)
-          .then((text) => { setQuestion(text); setPreview(null); setError(""); })
+          .then((text) => { setQuestion(text); setPreview(null); setVoiceReviewPending(true); setError(""); })
           .catch(async (err) => setError(await guard(err)))
           .finally(() => setTranscribing(false));
       };
@@ -141,6 +142,13 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
   }, [doc, guard, loadDoc]);
 
   async function ask() {
+    if (voiceReviewPending) {
+      const check = validateQuestion(question, MIN_QUESTION_CHARS, MAX_QUESTION_CHARS);
+      if (!check.ok) { setError(check.message); return; }
+      setVoiceReviewPending(false);
+      setError("");
+      return;
+    }
     const check = validateQuestion(question, MIN_QUESTION_CHARS, MAX_QUESTION_CHARS);
     if (!check.ok) {
       setError(check.message);
@@ -254,15 +262,20 @@ export function ChatWorkspace({ documentId }: { documentId: string }) {
               onKeyDown={(e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void ask(); }}
               aria-label="Question"
             />
-            <button type="button" onClick={() => void ask()} disabled={busy || recording || transcribing || doc?.status !== "ready"} aria-label={questionLanguage !== "en" && !preview ? "Review question" : "Ask"}>{questionLanguage !== "en" && !preview ? "Review" : "Ask"} <span aria-hidden="true">→</span></button>
+            <button type="button" onClick={() => void ask()} disabled={busy || recording || transcribing || doc?.status !== "ready"} aria-label={voiceReviewPending ? "Confirm transcript" : questionLanguage !== "en" && !preview ? "Review question" : "Ask"}>{voiceReviewPending ? "Confirm text" : questionLanguage !== "en" && !preview ? "Review" : "Ask"} <span aria-hidden="true">→</span></button>
           </div>
           <div className="voice-question-row">
-            <button type="button" className="ghost" onClick={recording ? stopRecording : () => void startRecording()}
+            <button type="button" className={`ghost voice-record-button${recording ? " is-recording" : ""}${transcribing ? " is-transcribing" : ""}`} onClick={recording ? stopRecording : () => void startRecording()}
               disabled={busy || transcribing || doc?.status !== "ready"} aria-label={recording ? "Stop recording" : "Record question"}>
-              {recording ? "■ Stop recording" : "🎙 Record question"}
+              <span className="voice-record-icon" aria-hidden="true">{recording ? <span className="voice-stop-icon" /> : transcribing ? <span className="voice-spinner" /> : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="2" width="6" height="12" rx="3" /><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8" /></svg>}</span>
+              {recording ? "Stop recording" : transcribing ? "Transcribing" : "Record question"}
             </button>
-            <span role="status">{recording ? "Recording… 60 seconds maximum" : transcribing ? "Turning speech into text…" : "Review the text before asking."}</span>
+            <span role="status">{recording ? "Listening now · up to 60 seconds" : transcribing ? "Turning speech into text…" : voiceReviewPending ? "Check the transcript, then confirm the text." : "Speak your question, then review the text."}</span>
           </div>
+          {voiceReviewPending ? <div className="voice-review" role="region" aria-label="Recorded question review">
+            <strong>Check your recorded question</strong>
+            <p>Edit the text above if anything was heard incorrectly. Press <b>Confirm text</b> to continue. Your question will not be sent yet.</p>
+          </div> : null}
           {preview ? <div className="question-preview" role="region" aria-label="Question review">
             <strong>Check what BookRAG understood</strong>
             <p><span>{ANSWER_LANGUAGES[questionLanguage]} script</span><br />{preview.native_script || "Unclear"}</p>

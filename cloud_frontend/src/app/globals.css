@@ -521,6 +521,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 @media(max-width:600px) { .landing-header { min-height:70px; padding:0 20px; }.landing-brand { font-size:1.4rem; }.landing-main { padding:0 20px; }.landing-hero { min-height:calc(100vh - 135px); padding:62px 0 55px; }.landing-copy h1 { font-size:clamp(3.25rem,12vw,4.4rem); }.landing-intro { margin:24px 0; }.landing-footer { padding:20px; flex-direction:column; gap:4px; } }
 .voice-question-row { display: flex; align-items: center; gap: 0.8rem; margin: 0.65rem 0 1rem; flex-wrap: wrap; }
 .voice-question-row span { color: var(--muted); font-size: 0.88rem; }
+.voice-question-row .voice-record-button { display:inline-flex; align-items:center; gap:9px; min-height:42px; padding:8px 14px; border:1px solid var(--brass); background:#fffaf0; color:var(--navy); font-weight:650; }
+.voice-question-row .voice-record-button:hover:not(:disabled) { background:#f7ecd4; }
+.voice-question-row .voice-record-button.is-recording { border-color:var(--brass-deep); background:#f7ecd4; }
+.voice-question-row .voice-record-icon { position:relative; display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; color:var(--brass-deep); }
+.voice-record-icon svg { width:18px; height:18px; }
+.voice-stop-icon { width:10px; height:10px; background:var(--brass-deep); border-radius:2px; }
+.voice-spinner { width:16px; height:16px; border:2px solid #d9c9aa; border-top-color:var(--brass-deep); border-radius:50%; animation:voice-spin .8s linear infinite; }
+.is-transcribing .voice-record-icon { color:var(--brass-deep); }
+@keyframes voice-spin { to { transform:rotate(360deg); } }
+.is-recording .voice-record-icon::after { content:""; position:absolute; inset:-4px; border:1px solid var(--brass); border-radius:50%; animation:voice-pulse 1.4s ease-out infinite; }
+@keyframes voice-pulse { 0% { transform:scale(.78); opacity:.9; } 100% { transform:scale(1.4); opacity:0; } }
+@media (prefers-reduced-motion:reduce) { .is-recording .voice-record-icon::after, .voice-spinner { animation:none; } }
+.voice-review { margin:0 0 14px; padding:13px 16px; border-left:3px solid var(--brass); background:#fffaf0; color:var(--navy); }
+.voice-review p { margin:5px 0 0; color:var(--muted); line-height:1.5; }
 
 /* Restrained BookRAG identity: typography, rules, and a single gold accent. */
 :root {
