@@ -60,7 +60,7 @@ describe("mock BookRAG client", () => {
     expect(repeatedHindi.answer).toBe(hindi.answer);
   });
 
-  it.each(["ta", "te", "ml", "bn"] as const)("returns a non-empty %s mock answer", async (language) => {
+  it.each(["ta", "te", "ml", "bn", "zh", "pt", "ja"] as const)("returns a non-empty %s mock answer", async (language) => {
     const client = createMockClient();
     const ready = (await client.listDocuments()).find((d) => d.status === "ready")!;
     const answer = await client.chat(ready.id, "What is a high-level language in this book?", language);

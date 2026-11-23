@@ -10,12 +10,12 @@
   --line: #e4d9c4;
   --parchment: #f3ead6;
   --highlight: #f6e7a8;
-  --ok: #2d6a3a;
-  --ok-bg: #e7f3ea;
-  --warn: #8a5a12;
-  --warn-bg: #f8eedc;
-  --err: #8b2e2e;
-  --err-bg: #f8e7e5;
+  --ok: #172b39;
+  --ok-bg: #f3efe6;
+  --warn: #916d2b;
+  --warn-bg: #f8f1e3;
+  --err: #172b39;
+  --err-bg: #f3efe6;
   --shadow: 0 10px 30px rgba(28, 45, 90, 0.06);
   --sans: var(--font-sans), "Segoe UI", system-ui, sans-serif;
   --serif: var(--font-serif), "Iowan Old Style", Palatino, Georgia, serif;
@@ -412,18 +412,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .library-filters { display:flex; flex-wrap:wrap; gap:4px; }
 .library-filters button { border:0; border-bottom:2px solid transparent; background:none; color:var(--muted); padding:10px 12px; font-size:.85rem; }
 .library-filters button.active { color:var(--navy); border-color:var(--brass); font-weight:700; }
-.book-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:16px; }
+.book-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px; }
 .book-card,.book-upload { min-width:0; background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:13px; box-shadow:var(--shadow); }
 .book-card { display:flex; flex-direction:column; }
 .book-card.selected { border-color:#c6aa70; box-shadow:0 0 0 2px rgba(179,138,60,.14); }
-.book-select { display:flex; flex-direction:column; align-items:stretch; width:100%; min-height:265px; border:0; background:transparent; text-align:left; padding:0; color:var(--ink); }
+.book-select { display:flex; flex-direction:column; align-items:stretch; width:100%; min-height:140px; border:0; background:transparent; text-align:left; padding:0; color:var(--ink); }
 .book-cover { width:100%; height:175px; border-radius:3px 7px 7px 3px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:15px 12px; text-align:center; background:radial-gradient(circle at 50% 65%,rgba(255,255,255,.13) 0 21%,transparent 22%),linear-gradient(140deg,#d8b77c,#8a6836); color:#30291d; box-shadow:inset 7px 0 rgba(39,25,12,.13),1px 3px 6px rgba(0,0,0,.15); }
 .cover-1 { background:radial-gradient(circle at center,transparent 0 25%,rgba(48,34,19,.25) 26% 27%,transparent 28%),linear-gradient(135deg,#e0cd9e,#a8803f); }
 .cover-2 { background:radial-gradient(circle at 70% 68%,#34434d 0 14%,transparent 15%),linear-gradient(145deg,#f5f0e8,#d7d1c5); }
 .cover-3 { background:linear-gradient(160deg,#1b3039,#44606a); color:#f9e7b4; }
 .book-cover-mark,.book-cover-bottom { font-size:.56rem; text-transform:uppercase; letter-spacing:.15em; }
 .book-cover-title { font-family:var(--serif); font-size:1.25rem; font-weight:700; line-height:1.08; overflow-wrap:anywhere; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-.book-name { font-family:var(--serif); color:var(--navy); font-weight:700; font-size:1.05rem; margin-top:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.book-card-kind { color:var(--brass-deep); font-size:.68rem; font-weight:700; letter-spacing:.13em; border-bottom:1px solid var(--line); padding:6px 0 14px; }
+.book-name { font-family:var(--serif); color:var(--navy); font-weight:700; font-size:1.05rem; margin-top:14px; overflow-wrap:anywhere; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 .book-file { color:var(--muted); font-size:.74rem; margin-top:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .book-card-footer { display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap; margin:8px 0 5px; font-size:.72rem; color:var(--muted); }
 .book-ask { display:flex; align-items:center; justify-content:space-between; gap:5px; margin:10px 0 0; padding:9px 10px; border-radius:5px; background:#f6efdf; color:#76561d; font-size:.8rem; font-weight:700; text-decoration:none; }
@@ -519,4 +520,77 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 @media(max-width:900px) { .landing-copy h1 { font-size:clamp(3.3rem,9vw,5.5rem); } }
 @media(max-width:600px) { .landing-header { min-height:70px; padding:0 20px; }.landing-brand { font-size:1.4rem; }.landing-main { padding:0 20px; }.landing-hero { min-height:calc(100vh - 135px); padding:62px 0 55px; }.landing-copy h1 { font-size:clamp(3.25rem,12vw,4.4rem); }.landing-intro { margin:24px 0; }.landing-footer { padding:20px; flex-direction:column; gap:4px; } }
 .voice-question-row { display: flex; align-items: center; gap: 0.8rem; margin: 0.65rem 0 1rem; flex-wrap: wrap; }
-.voice-question-row span { color: #64717b; font-size: 0.88rem; }
+.voice-question-row span { color: var(--muted); font-size: 0.88rem; }
+.voice-question-row .voice-record-button { display:inline-flex; align-items:center; gap:9px; min-height:42px; padding:8px 14px; border:1px solid var(--brass); background:#fffaf0; color:var(--navy); font-weight:650; }
+.voice-question-row .voice-record-button:hover:not(:disabled) { background:#f7ecd4; }
+.voice-question-row .voice-record-button.is-recording { border-color:var(--brass-deep); background:#f7ecd4; }
+.voice-question-row .voice-record-icon { position:relative; display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; color:var(--brass-deep); }
+.voice-record-icon svg { width:18px; height:18px; }
+.voice-stop-icon { width:10px; height:10px; background:var(--brass-deep); border-radius:2px; }
+.voice-spinner { width:16px; height:16px; border:2px solid #d9c9aa; border-top-color:var(--brass-deep); border-radius:50%; animation:voice-spin .8s linear infinite; }
+.is-transcribing .voice-record-icon { color:var(--brass-deep); }
+@keyframes voice-spin { to { transform:rotate(360deg); } }
+.is-recording .voice-record-icon::after { content:""; position:absolute; inset:-4px; border:1px solid var(--brass); border-radius:50%; animation:voice-pulse 1.4s ease-out infinite; }
+@keyframes voice-pulse { 0% { transform:scale(.78); opacity:.9; } 100% { transform:scale(1.4); opacity:0; } }
+@media (prefers-reduced-motion:reduce) { .is-recording .voice-record-icon::after, .voice-spinner { animation:none; } }
+.voice-review { margin:0 0 14px; padding:13px 16px; border-left:3px solid var(--brass); background:#fffaf0; color:var(--navy); }
+.voice-review p { margin:5px 0 0; color:var(--muted); line-height:1.5; }
+
+/* Restrained BookRAG identity: typography, rules, and a single gold accent. */
+:root {
+  --shadow: none;
+}
+body { letter-spacing: -.005em; }
+.sidebar { background: var(--navy); }
+.sidebar .brand, .landing-brand { letter-spacing: -.04em; }
+.page-heading h1, .chat-heading h1, .landing-copy h1 { letter-spacing: -.045em; }
+.hero, .card, .empty, .error-card, .answer-card, .cite-card,
+.book-card, .book-upload, .document-detail, .library-welcome, .turn-card,
+.chat-document-label, .pdf-panel, .ask-row, .question-preview,
+.library-search, .answer-wait { border-radius: 3px; box-shadow: none; }
+.book-card.selected { box-shadow: inset 0 0 0 1px var(--brass); }
+.book-cover, .cover-1, .cover-2, .cover-3 {
+  background: #efe9dd;
+  color: var(--navy);
+  border: 1px solid #ded5c4;
+  border-left: 5px solid var(--brass);
+  border-radius: 1px;
+  box-shadow: none;
+}
+.book-cover-title { font-family: var(--sans); font-size: 1rem; font-weight: 650; line-height: 1.25; }
+.book-cover-mark, .book-cover-bottom { color: var(--brass-deep); }
+.side-nav a, .side-nav-current, .sidebar-logout,
+.primary, .ghost, .danger, .book-ask, .usage span,
+.library-search, .book-upload .dropzone .ghost,
+.answer-language-picker select, .question-preview,
+.ask-row textarea, .ask-row button, .metric,
+.processing-summary li, .welcome-upload .dropzone .ghost { border-radius: 3px; }
+.badge {
+  border-radius: 2px;
+  padding: .24rem .5rem;
+  font-size: .7rem;
+  font-weight: 650;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+}
+.badge.ok, .badge.idle { color: var(--navy); background: #f3efe6; border-color: #d9d2c6; }
+.badge.warn { color: var(--brass-deep); background: #f8f1e3; border-color: #d8bf8c; }
+.badge.err { color: var(--navy); background: #f3efe6; border-color: var(--navy); }
+.processing-summary li.done { color: var(--navy); background: #f3efe6; border-color: var(--line); }
+.processing-summary li.current { color: var(--brass-deep); background: #f8f1e3; }
+.processing-summary li span { border-radius: 2px; background: #e8dfcf; }
+.error-card, .error, .status.error { border-left: 3px solid var(--navy); }
+.book-upload { background: #fffcf5; }
+.book-ask { background: #f3efe6; color: var(--brass-deep); }
+.cite-card .excerpt { background: #f8f1e3; }
+
+/* Neutral controls and review panels; reserve gold for the main Ask action. */
+.question-preview, .voice-review { background:#fff; border:1px solid #cbd5e1; color:var(--navy); border-radius:3px; }
+.voice-review { border-left:3px solid var(--navy); }
+.voice-question-row .voice-record-button { background:#fff; border-color:#cbd5e1; color:var(--navy); }
+.voice-question-row .voice-record-button:hover:not(:disabled), .voice-question-row .voice-record-button.is-recording { background:#f3f4f6; border-color:var(--navy); }
+.voice-question-row .voice-record-icon { color:var(--navy); }
+.voice-stop-icon { background:var(--navy); }
+.is-recording .voice-record-icon::after { border-color:var(--navy); }
+.language-warning { color:var(--navy); font-weight:600; }

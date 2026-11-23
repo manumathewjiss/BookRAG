@@ -220,7 +220,7 @@ def test_answer_language_separates_saved_answers_without_changing_citations():
     assert models.answer_calls == models.embed_calls == models.rerank_calls == 2
 
 
-@pytest.mark.parametrize("language", ["ta", "te", "ml", "bn", "fr", "it", "gu", "kn"])
+@pytest.mark.parametrize("language", ["ta", "te", "ml", "bn", "fr", "it", "gu", "kn", "zh", "pt", "ja"])
 def test_new_answer_languages_keep_saved_answer_and_citations(language):
     repo, models = MemorySavedRepo(), TrackingModels()
     client = _client(OWNER, repo, models)

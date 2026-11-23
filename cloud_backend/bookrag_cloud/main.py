@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse, Response
 from psycopg import Error as DatabaseError
 
 from .config import settings
-from .answer_language import AnswerLanguage, REFUSALS, answer_pipeline_version
+from .answer_language import AnswerLanguage, LANGUAGE_NAMES, REFUSALS, answer_pipeline_version, script_language
 from .providers import HostedModels, ProviderError, ProviderUncertainCharge
 from .question_match import canonicalize_question, question_signature
 from .repository import AnswerBusy, Repository, UsageLimitReached
@@ -295,6 +295,14 @@ def question_preview(document_id: UUID, payload: QuestionPreviewRequest,
         raise HTTPException(404, "Document not found")
     if row["status"] != "ready":
         raise HTTPException(409, "Document is not ready to answer questions")
+    script = script_language(payload.question)
+    if not script and payload.question_language not in ("hi", "sa") and any(0x0900 <= ord(c) <= 0x097F for c in payload.question):
+        script = "hi"
+    if script and script != payload.question_language:
+        warning = f"This looks like {LANGUAGE_NAMES[script]}, but {LANGUAGE_NAMES[payload.question_language]} is selected. Change the question language or rewrite your question."
+        return QuestionPreview(original_question=payload.question.strip(), question_language=payload.question_language,
+                               native_script="", english_meaning="", needs_clarification=True,
+                               detected_language=script, language_warning=warning)
     cfg = settings()
     if not cfg.supabase_service_role_key:
         raise HTTPException(503, "Question preparation is unavailable")
@@ -318,14 +326,24 @@ def question_preview(document_id: UUID, payload: QuestionPreviewRequest,
     repo.settle_question_preview(owner, event_id, inp, out, estimate, "gpt-6.1-sol-preview")
     native = result["native_script"].strip()[:1200]
     english = result["english_meaning"].strip()[:1200]
-    unclear = result["needs_clarification"] or len(native) < 2 or len(english) < 8
+    detected = result.get("detected_language", "uncertain")
+    preview_script = script_language(native)
+    mismatch = detected != payload.question_language or (preview_script is not None and preview_script != payload.question_language)
+    if preview_script and preview_script != payload.question_language:
+        detected = preview_script
+    warning = None
+    if mismatch:
+        warning = (f"This looks like {LANGUAGE_NAMES.get(detected, 'another language')}, but {LANGUAGE_NAMES[payload.question_language]} is selected. Change the question language or rewrite your question."
+                   if detected != "uncertain" else "BookRAG could not confirm the question language. Please clarify or reword it before asking.")
+    unclear = mismatch or result["needs_clarification"] or len(native) < 2 or len(english) < 8
     token = None if unclear else sign_preview(
         cfg.supabase_service_role_key, owner, document_id, str(row.get("sha256") or ""),
         payload.question.strip(), payload.question_language, native, english,
     )
     return QuestionPreview(original_question=payload.question.strip(), question_language=payload.question_language,
                            native_script=native, english_meaning=english,
-                           needs_clarification=unclear, preview_token=token)
+                           needs_clarification=unclear, detected_language=detected, language_warning=warning,
+                           preview_token=token)
 
 
 @app.post("/api/v1/documents/{document_id}/transcribe-question")
@@ -355,7 +373,7 @@ async def transcribe_question(document_id: UUID, file: UploadFile = File(...),
     if not event_id:
         raise HTTPException(429, "Daily voice or spending limit reached")
     try:
-        transcript = models.transcribe(audio, f"question.{suffix}", content_type, question_language)
+        transcription = models.transcribe(audio, f"question.{suffix}", content_type, question_language)
     except ProviderUncertainCharge:
         repo.settle_question_preview(owner, event_id, 0, 0, reserve, "gpt-transcribe-uncertain")
         raise HTTPException(503, "Voice transcription is temporarily unavailable") from None
@@ -365,9 +383,20 @@ async def transcribe_question(document_id: UUID, file: UploadFile = File(...),
     # A conservative hold: the provider does not supply a trustworthy duration
     # for every response, and the browser's recording duration is untrusted.
     repo.settle_question_preview(owner, event_id, 0, 0, reserve, "gpt-transcribe-cost-hold")
+    transcript = transcription["text"]
+    detected_codes = transcription["detected_languages"]
     if len(transcript) < 8 or len(transcript) > 1200:
         raise HTTPException(422, "Could not hear a complete question. Please try again or type it")
-    return {"text": transcript}
+    detected = next((code for code in detected_codes if code in LANGUAGE_NAMES and code != question_language), None)
+    if detected is None:
+        detected = next((code for code in detected_codes if code in LANGUAGE_NAMES), None)
+    script = script_language(transcript)
+    if not script and question_language not in ("hi", "sa") and any(0x0900 <= ord(c) <= 0x097F for c in transcript):
+        script = "hi"
+    if script and script != question_language:
+        detected = script
+    mismatch = detected is not None and detected != question_language
+    return {"text": transcript, "detected_language": detected, "language_mismatch": mismatch}
 
 
 @app.post("/api/v1/documents/{document_id}/chat", response_model=Answer)

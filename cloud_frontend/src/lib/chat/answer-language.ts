@@ -11,6 +11,9 @@ export const ANSWER_LANGUAGES = {
   it: "Italian",
   gu: "Gujarati",
   kn: "Kannada",
+  zh: "Chinese (Simplified)",
+  pt: "Portuguese",
+  ja: "Japanese",
 } as const;
 
 export type AnswerLanguage = keyof typeof ANSWER_LANGUAGES;

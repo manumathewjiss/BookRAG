@@ -16,7 +16,7 @@ describe("answer language preference", () => {
     expect(loadAnswerLanguage("person-a")).toBe("en");
   });
 
-  it.each(["ta", "te", "ml", "bn", "fr", "it", "gu", "kn"] as const)("accepts and remembers %s", (language) => {
+  it.each(["ta", "te", "ml", "bn", "fr", "it", "gu", "kn", "zh", "pt", "ja"] as const)("accepts and remembers %s", (language) => {
     expect(isAnswerLanguage(language)).toBe(true);
     saveAnswerLanguage("person-a", language);
     expect(loadAnswerLanguage("person-a")).toBe(language);

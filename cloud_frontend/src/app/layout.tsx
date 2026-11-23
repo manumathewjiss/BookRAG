@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/AuthProvider";
 import { MockBanner } from "@/components/MockBanner";
 import "./globals.css";
 
-const sans = Source_Sans_3({
+const sans = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   variable: "--font-sans",
 });
 

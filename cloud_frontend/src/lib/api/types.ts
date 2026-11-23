@@ -78,7 +78,15 @@ export interface QuestionPreview {
   native_script: string;
   english_meaning: string;
   needs_clarification: boolean;
+  detected_language?: string | null;
+  language_warning?: string | null;
   preview_token: string | null;
+}
+
+export interface VoiceTranscript {
+  text: string;
+  detected_language: string | null;
+  language_mismatch: boolean;
 }
 
 export const DOCUMENT_STATUSES: readonly DocumentStatus[] = [
@@ -117,7 +125,7 @@ export interface BookragClient {
   uploadDocument(file: File, title?: string): Promise<Document>;
   deleteDocument(id: string): Promise<void>;
   prepareQuestion(documentId: string, question: string, language: AnswerLanguage): Promise<QuestionPreview>;
-  transcribeQuestion(documentId: string, audio: File, language: AnswerLanguage): Promise<string>;
+  transcribeQuestion(documentId: string, audio: File, language: AnswerLanguage): Promise<VoiceTranscript>;
   chat(documentId: string, question: string, language?: AnswerLanguage,
        questionLanguage?: AnswerLanguage, previewToken?: string | null): Promise<Answer>;
 }
