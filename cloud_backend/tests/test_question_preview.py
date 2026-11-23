@@ -1,6 +1,9 @@
 import json
 from uuid import uuid4
 
+import pytest
+
+from bookrag_cloud.answer_language import script_language
 from bookrag_cloud.config import Settings
 from bookrag_cloud.providers import HostedModels
 from bookrag_cloud.question_preview import sign_preview, verify_preview
@@ -64,6 +67,31 @@ def test_selected_language_guides_script_and_meaning_preview(monkeypatch):
     assert preview["native_script"] == "ഞാൻ പോയിട്ട് വരാം"
     assert preview["english_meaning"] == "I will go and come back"
     assert usage["output_tokens"] == 15
+
+
+@pytest.mark.parametrize("code,name,native", [
+    ("zh", "Simplified Chinese", "这本书讲什么？"),
+    ("pt", "Portuguese", "Sobre o que é este livro?"),
+    ("ja", "Japanese", "この本は何についてですか？"),
+])
+def test_new_question_languages_prepare_english_search_meaning(monkeypatch, code, name, native):
+    import bookrag_cloud.providers as module
+    def fake(url, key, body, timeout=60):
+        assert name in body["instructions"]
+        assert code in body["text"]["format"]["schema"]["properties"]["detected_language"]["enum"]
+        return {"status": "completed", "output": [{"content": [{"type": "output_text", "text": json.dumps({
+            "native_script": native, "english_meaning": "What is this book about?",
+            "detected_language": code, "needs_clarification": False,
+        })}]}], "usage": {}}
+    monkeypatch.setattr(module, "_json_post", fake)
+    preview, _ = HostedModels(Settings()).prepare_question(native, code)
+    assert preview["detected_language"] == code
+    assert preview["english_meaning"] == "What is this book about?"
+
+
+def test_japanese_kana_is_recognized_without_mistaking_kanji_for_chinese():
+    assert script_language("この本は何ですか？") == "ja"
+    assert script_language("日本語") is None
 
 
 def test_preview_rejects_malayalam_script_when_spanish_selected_without_model_call(monkeypatch):

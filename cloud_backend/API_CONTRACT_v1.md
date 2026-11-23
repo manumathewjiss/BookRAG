@@ -17,8 +17,8 @@ Base path: `/api/v1`. JSON uses UTF-8. This contract is for the Next.js frontend
 | `GET /api/v1/documents/{document_id}` | Bearer token | `{ "document": Document }` |
 | `GET /api/v1/documents/{document_id}/pdf` | Bearer token | `application/pdf` bytes, private/no-store; 404 for another user's or deleted file |
 | `DELETE /api/v1/documents/{document_id}` | Bearer token | 204 on deletion; 404 for deleted, nonexistent, or another user's document |
-| `POST /api/v1/documents/{document_id}/chat` | `{ "question": "8–1200 characters", "answer_language": "en|hi|sa|es|ta|te|ml|bn" }`; language defaults to `en` | 200 `Answer` |
-| `POST /api/v1/documents/{document_id}/question-preview` | `{ "question": "8–1200 characters", "question_language": "hi|sa|es|ta|te|ml|bn|fr|it|gu|kn" }` | 200 native script, English meaning, detected language, optional mismatch warning, and a confirmation token only when the question is clear and matches the selected language |
+| `POST /api/v1/documents/{document_id}/chat` | `{ "question": "8–1200 characters", "answer_language": "en|hi|sa|es|ta|te|ml|bn|fr|it|gu|kn|zh|pt|ja" }`; language defaults to `en` | 200 `Answer` |
+| `POST /api/v1/documents/{document_id}/question-preview` | `{ "question": "8–1200 characters", "question_language": "hi|sa|es|ta|te|ml|bn|fr|it|gu|kn|zh|pt|ja" }` | 200 native script, English meaning, detected language, optional mismatch warning, and a confirmation token only when the question is clear and matches the selected language |
 
 `Document`: `{ "id": "uuid", "title": "string", "filename": "string.pdf", "status": "queued|processing|ready|failed", "is_sample": false, "page_count": 0, "passage_count": 0, "error": null, "created_at": "ISO-8601", "updated_at": "ISO-8601" }`. `error` contains a safe short message only. Poll the document route while status is queued or processing. Chat is allowed only when ready. A configured, ready shared sample has `is_sample=true` for visitors other than its owner; visitors may ask about it and see page numbers with short excerpts, but cannot access the PDF or delete it. It is disabled unless `GUEST_SAMPLE_DOCUMENT_ID` and matching `GUEST_SAMPLE_SHA256` are set.
 
@@ -36,7 +36,7 @@ Auth account creation and sign-in remain in Supabase Auth/Next.js. The backend o
 
 ## Answer language
 
-`answer_language` defaults to `en` for existing clients. Supported choices are `en` (English), `hi` (Hindi), `sa` (Sanskrit), `es` (Spanish), `ta` (Tamil), `te` (Telugu), `ml` (Malayalam), and `bn` (Bengali). The response echoes `answer_language`. The same PDF retrieval and citation validation run for every choice; the model writes only the answer in the requested language. Source excerpts and PDF page numbers remain in their original form. Saved answers use distinct pipeline versions by language, with the existing English version preserved. This needs no database migration. The frontend remembers the choice per user in that browser.
+`answer_language` defaults to `en` for existing clients. Supported choices are `en` (English), `hi` (Hindi), `sa` (Sanskrit), `es` (Spanish), `ta` (Tamil), `te` (Telugu), `ml` (Malayalam), `bn` (Bengali), `fr` (French), `it` (Italian), `gu` (Gujarati), `kn` (Kannada), `zh` (Simplified Chinese), `pt` (Portuguese), and `ja` (Japanese). The response echoes `answer_language`. The same PDF retrieval and citation validation run for every choice; the model writes only the answer in the requested language. Source excerpts and PDF page numbers remain in their original form. Saved answers use distinct pipeline versions by language, with the existing English version preserved. This needs no database migration. The frontend remembers the choice per user in that browser.
 
 ## Question language preview
 

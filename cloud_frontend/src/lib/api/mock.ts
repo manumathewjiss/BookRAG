@@ -276,6 +276,9 @@ function buildMockClient(): BookragClient {
               it: "Un linguaggio di alto livello è più facile da leggere e scrivere per le persone. Think Python spiega anche che Python funziona su diversi computer.",
               gu: "ઉચ્ચ સ્તરની ભાષા લોકોને વાંચવા અને લખવા માટે સરળ હોય છે. Think Python એ પણ સમજાવે છે કે Python વિવિધ કમ્પ્યુટર પર ચાલી શકે છે.",
               kn: "ಉನ್ನತ ಮಟ್ಟದ ಭಾಷೆಯನ್ನು ಜನರು ಓದಲು ಮತ್ತು ಬರೆಯಲು ಸುಲಭ. Python ವಿವಿಧ ಕಂಪ್ಯೂಟರ್‌ಗಳಲ್ಲಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ ಎಂದು Think Python ವಿವರಿಸುತ್ತದೆ.",
+              zh: "高级语言便于人们阅读和编写。Think Python 还解释了 Python 可以在不同类型的计算机上运行。",
+              pt: "Uma linguagem de alto nível é mais fácil para as pessoas lerem e escreverem. Think Python também explica que Python funciona em diferentes computadores.",
+              ja: "高水準言語は人が読み書きしやすい言語です。Think Python は、Python がさまざまなコンピューターで動くことも説明しています。",
             }[language]
           : {
               hi: "दिए गए अंशों से इस प्रश्न के उत्तर की पुष्टि नहीं होती।",
@@ -289,6 +292,9 @@ function buildMockClient(): BookragClient {
               it: "I passaggi forniti non confermano la risposta a questa domanda.",
               gu: "આપેલા અંશો આ પ્રશ્નના જવાબની પુષ્ટિ કરતા નથી.",
               kn: "ಒದಗಿಸಿದ ಭಾಗಗಳು ಈ ಪ್ರಶ್ನೆಗೆ ಉತ್ತರವನ್ನು ದೃಢೀಕರಿಸುವುದಿಲ್ಲ.",
+              zh: "提供的段落无法证实这个问题的答案。",
+              pt: "Os trechos fornecidos não confirmam a resposta a esta pergunta.",
+              ja: "提示された文章からは、この質問の答えを確認できません。",
             }[language];
       }
       savedAnswers.set(cacheKey, clone(next));

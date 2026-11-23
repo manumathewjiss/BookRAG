@@ -562,7 +562,10 @@
               "fr",
               "it",
               "gu",
-              "kn"
+              "kn",
+              "zh",
+              "pt",
+              "ja"
             ],
             "title": "Answer Language",
             "default": "en"
@@ -600,7 +603,10 @@
               "fr",
               "it",
               "gu",
-              "kn"
+              "kn",
+              "zh",
+              "pt",
+              "ja"
             ],
             "title": "Question Language"
           }
@@ -659,7 +665,10 @@
               "fr",
               "it",
               "gu",
-              "kn"
+              "kn",
+              "zh",
+              "pt",
+              "ja"
             ],
             "title": "Answer Language",
             "default": "en"
@@ -678,7 +687,10 @@
               "fr",
               "it",
               "gu",
-              "kn"
+              "kn",
+              "zh",
+              "pt",
+              "ja"
             ],
             "title": "Question Language",
             "default": "en"
@@ -759,7 +771,10 @@
               "fr",
               "it",
               "gu",
-              "kn"
+              "kn",
+              "zh",
+              "pt",
+              "ja"
             ],
             "title": "Question Language"
           },
@@ -841,7 +856,10 @@
               "fr",
               "it",
               "gu",
-              "kn"
+              "kn",
+              "zh",
+              "pt",
+              "ja"
             ],
             "title": "Question Language"
           }
