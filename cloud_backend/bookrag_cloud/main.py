@@ -91,6 +91,12 @@ def _approved_sample(row: dict) -> bool:
     return row["sha256"].lower() == settings().guest_sample_sha256.strip().lower()
 
 
+# Only this professor-provided demo edition may expose its PDF pages to guests.
+# Keeping the digest here prevents the previous restricted Gita sample from
+# becoming downloadable if code deploys before the sample ID is switched.
+VIEWABLE_SAMPLE_SHA256 = "bd88fadccbb3554ee220d92ebfbc1d4fc3674c217fa223868bb8408aefe37a60"
+
+
 def _is_guest(request: Request | None) -> bool:
     return getattr(getattr(request, "state", None), "is_guest", False) is True
 
@@ -244,8 +250,8 @@ def get_document_pdf(document_id: UUID, request: Request, owner: UUID = Depends(
     row = _readable_document(repo, owner, document_id, is_guest=_is_guest(request))
     if not row:
         raise HTTPException(404, "Document not found")
-    if row.get("is_sample"):
-        raise HTTPException(403, "PDF pages are not available for the shared sample")
+    if row.get("is_sample") and row["sha256"].lower() != VIEWABLE_SAMPLE_SHA256:
+        raise HTTPException(403, "PDF pages are not available for this shared sample")
     try:
         data = storage.download(row["storage_path"])
     except StorageError:

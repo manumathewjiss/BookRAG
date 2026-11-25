@@ -167,7 +167,7 @@ export function DocumentLibrary() {
             <h2>{selectedDoc.title}{selectedDoc.is_sample ? " · Demo PDF" : ""}</h2>
             <p className="document-detail-meta">{selectedDoc.filename}{selectedDoc.page_count > 0 ? ` · ${selectedDoc.page_count} PDF pages` : ""}{selectedDoc.passage_count > 0 ? ` · ${selectedDoc.passage_count} passages` : ""}</p>
             {selectedDoc.error ? <p className="error-card">{selectedDoc.error}</p> : null}
-            {selectedDoc.status === "ready" ? <p>{selectedDoc.is_sample ? "This demo PDF is ready to try. You can add and remove your own PDFs. The shared demo book cannot be removed. Answers show page references and short excerpts, without opening the PDF pages." : "Your PDF is ready. Open it to ask a question and check the cited page."}</p> : null}
+            {selectedDoc.status === "ready" ? <p>{selectedDoc.is_sample ? "This demo PDF is ready to try. You can open cited pages and add or remove your own PDFs. The shared demo book cannot be removed." : "Your PDF is ready. Open it to ask a question and check the cited page."}</p> : null}
             {selectedDoc.status === "queued" || selectedDoc.status === "processing" ? (
               <div className="processing-summary" aria-label="PDF processing progress">
                 <p>We are preparing this PDF. You can leave this page and return later; the status updates automatically.</p>
