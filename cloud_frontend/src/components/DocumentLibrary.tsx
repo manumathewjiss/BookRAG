@@ -137,11 +137,6 @@ export function DocumentLibrary() {
             </div>}
           </article>
         ) : null}
-        <div className="book-upload" role="listitem">
-          <span className="upload-icon" aria-hidden="true">＋</span>
-          <h2>Upload another PDF</h2>
-          <UploadDropzone onFile={onUpload} />
-        </div>
       </div> : null}
 
       {selectedDoc ? (
@@ -169,6 +164,17 @@ export function DocumentLibrary() {
             <StatusBadge status={selectedDoc.status} />
             {selectedDoc.status === "ready" ? <Link className="primary" href={`/chat/${selectedDoc.id}`}>Ask a question <span aria-hidden="true">→</span></Link> : null}
           </div>
+        </section>
+      ) : null}
+
+      {!loading && docs.length > 0 ? (
+        <section className="library-upload-section" aria-labelledby="library-upload-title">
+          <div>
+            <p className="eyebrow">EXPAND YOUR LIBRARY</p>
+            <h2 id="library-upload-title">Add another PDF</h2>
+            <p>Bring another document into your private collection. BookRAG will select it and show its preparation progress.</p>
+          </div>
+          <UploadDropzone onFile={onUpload} />
         </section>
       ) : null}
 
