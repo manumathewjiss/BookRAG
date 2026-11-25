@@ -1,0 +1,9 @@
+{
+  "mode": "postgresql_16_migrations_001_to_004",
+  "paid_api_calls": 0,
+  "indexed_hit_ms": 3.612,
+  "indexed_miss_ms": 4.919,
+  "lock_waiter_ms": 265.618,
+  "columns_005_present": false,
+  "columns_006_present": false
+}
