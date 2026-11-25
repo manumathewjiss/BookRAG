@@ -22,8 +22,6 @@ export function DocumentLibrary() {
   const [pendingDelete, setPendingDelete] = useState<Document | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<"all" | "ready" | "processing">("all");
 
   const refresh = useCallback(async () => {
     const [nextDocs, nextMe] = await Promise.all([client.listDocuments(), client.me()]);
@@ -58,20 +56,13 @@ export function DocumentLibrary() {
     return () => window.clearInterval(timer);
   }, [docs, refresh]);
 
-  const visibleDocs = docs.filter((doc) => {
-    const matchesSearch = `${doc.title} ${doc.filename}`.toLowerCase().includes(search.trim().toLowerCase());
-    const matchesFilter = filter === "all" || (filter === "ready" ? doc.status === "ready" : doc.status === "queued" || doc.status === "processing");
-    return matchesSearch && matchesFilter;
-  });
-  const selectedDoc = visibleDocs.find((d) => d.id === selected) || null;
+  const selectedDoc = docs.find((doc) => doc.id === selected) || null;
 
   async function onUpload(file: File) {
     setError("");
     try {
       const created = await client.uploadDocument(file);
       await refresh();
-      setSearch("");
-      setFilter("all");
       setSelected(created.id);
     } catch (err) {
       throw new Error(await guard(err));
@@ -109,17 +100,11 @@ export function DocumentLibrary() {
 
       {error ? <p className="error-card" role="alert">{error}</p> : null}
 
-      {docs.length > 0 ? <div className="library-toolbar">
-        <label className="library-search">
-          <span className="sr-only">Search your library</span>
-          <span aria-hidden="true">⌕</span>
-          <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search your library…" />
-        </label>
-        <div className="library-filters" role="group" aria-label="Filter PDFs">
-          <button type="button" className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>All books ({docs.length})</button>
-          <button type="button" className={filter === "ready" ? "active" : ""} onClick={() => setFilter("ready")}>Ready</button>
-          <button type="button" className={filter === "processing" ? "active" : ""} onClick={() => setFilter("processing")}>Processing</button>
-        </div>
+      {docs.length > 0 ? <div className="library-book-picker">
+        <label htmlFor="library-book-select">Select a book <span>({docs.length})</span></label>
+        <select id="library-book-select" value={selectedDoc?.id || ""} onChange={(event) => setSelected(event.target.value)}>
+          {docs.map((doc) => <option value={doc.id} key={doc.id}>{doc.title}{doc.is_sample ? " · Demo PDF" : ""} — {doc.status}</option>)}
+        </select>
       </div> : null}
 
       {loading ? <p className="status pulse">Loading documents…</p> : null}
@@ -134,31 +119,30 @@ export function DocumentLibrary() {
         </div>
       ) : null}
 
-      {!loading && docs.length > 0 ? <div className="book-grid" role="list" id="books">
-        {visibleDocs.map((doc) => (
-          <article className={`book-card ${selected === doc.id ? "selected" : ""}`} key={doc.id} role="listitem">
-            <button type="button" className="book-select" aria-pressed={selected === doc.id} onClick={() => setSelected(doc.id)}>
+      {!loading && docs.length > 0 ? <div className="book-grid book-grid-selected" role="list" id="books">
+        {selectedDoc ? (
+          <article className="book-card selected" key={selectedDoc.id} role="listitem">
+            <div className="book-select">
               <span className="book-card-kind" aria-hidden="true">PDF DOCUMENT</span>
-              <span className="book-name">{doc.title}{doc.is_sample ? " · Demo PDF" : ""}</span>
-              <span className="book-file">{doc.filename}</span>
-            </button>
-            <div className="book-card-footer">
-              <StatusBadge status={doc.status} />
-              {doc.page_count > 0 ? <span>{doc.page_count} PDF pages</span> : null}
+              <span className="book-name">{selectedDoc.title}{selectedDoc.is_sample ? " · Demo PDF" : ""}</span>
+              <span className="book-file">{selectedDoc.filename}</span>
             </div>
-            {doc.status === "ready" ? <Link className="book-ask" href={`/chat/${doc.id}`}>Ask about this PDF <span aria-hidden="true">→</span></Link> : null}
-            {doc.is_sample ? <p className="book-demo-note">Demo PDF · Ready to try. You can add and remove your own PDFs, but this shared demo book cannot be removed.</p> : <div className="book-remove-row">
-              <button type="button" className="book-delete" aria-label={`Remove ${doc.title}`} onClick={() => setPendingDelete(doc)}>Remove PDF</button>
+            <div className="book-card-footer">
+              <StatusBadge status={selectedDoc.status} />
+              {selectedDoc.page_count > 0 ? <span>{selectedDoc.page_count} PDF pages</span> : null}
+            </div>
+            {selectedDoc.status === "ready" ? <Link className="book-ask" href={`/chat/${selectedDoc.id}`}>Ask about this PDF <span aria-hidden="true">→</span></Link> : null}
+            {selectedDoc.is_sample ? <p className="book-demo-note">Demo PDF · Ready to try. You can add and remove your own PDFs, but this shared demo book cannot be removed.</p> : <div className="book-remove-row">
+              <button type="button" className="book-delete" aria-label={`Remove ${selectedDoc.title}`} onClick={() => setPendingDelete(selectedDoc)}>Remove PDF</button>
             </div>}
           </article>
-        ))}
+        ) : null}
         <div className="book-upload" role="listitem">
           <span className="upload-icon" aria-hidden="true">＋</span>
           <h2>Upload another PDF</h2>
           <UploadDropzone onFile={onUpload} />
         </div>
       </div> : null}
-      {!loading && docs.length > 0 && visibleDocs.length === 0 ? <p className="empty">No PDFs match this search or filter.</p> : null}
 
       {selectedDoc ? (
         <section className="document-detail" aria-label="Selected PDF details">
