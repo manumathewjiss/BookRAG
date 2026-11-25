@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/AuthProvider";
 import { MockBanner } from "@/components/MockBanner";
 import "./globals.css";
@@ -9,9 +9,10 @@ const sans = Inter({
   variable: "--font-sans",
 });
 
-const serif = Source_Serif_4({
+const serif = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-serif",
 });
 
