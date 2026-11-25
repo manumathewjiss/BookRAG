@@ -729,3 +729,30 @@ a,button,select,input,textarea { transition:color .24s ease,background-color .24
   html { scroll-behavior:auto; }
   *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
 }
+
+/* White reading canvas with off-white surfaces. */
+:root { --ivory:#fff; --paper:#faf8f5; }
+body,.landing,.auth-wrap { background:#fff; }
+.book-card,.document-detail,.library-welcome,.turn-card,.chat-document-label,
+.cite-card,.pdf-panel,.auth-card,.ask-row,.empty,.card,.hero,.dialog,
+.library-search,.answer-language-picker select,.field input,.field textarea {
+  background:var(--paper);
+}
+.book-upload,.welcome-upload .dropzone { background:#f7f3ee; }
+.ask-row textarea { background:transparent; }
+.question-preview,.voice-review,.voice-question-row .voice-record-button { background:var(--paper); }
+.cite-card .excerpt {
+  font-family:var(--sans);
+  font-size:.9rem;
+  font-weight:400;
+  line-height:1.6;
+  letter-spacing:normal;
+  text-transform:none;
+}
+.library-book-picker { display:grid; gap:10px; margin:30px 0 20px; max-width:560px; }
+.library-book-picker label { color:var(--brass-deep); font-size:.68rem; font-weight:700; letter-spacing:.17em; text-transform:uppercase; }
+.library-book-picker label span { color:var(--muted); }
+.library-book-picker select { width:100%; min-height:48px; padding:10px 38px 10px 14px; border:1px solid #d9d0c6; border-radius:2px; background:var(--paper); color:var(--ink); cursor:pointer; }
+.library-book-picker select:hover { border-color:var(--brass); }
+.book-grid-selected { grid-template-columns:minmax(0,340px) minmax(0,340px); }
+@media(max-width:760px) { .book-grid-selected { grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); } }
