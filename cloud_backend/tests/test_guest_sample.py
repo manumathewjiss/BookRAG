@@ -39,12 +39,16 @@ def test_shared_sample_is_ready_and_uses_source_passages_but_guest_usage(monkeyp
     monkeypatch.setattr(main, "_approved_sample", lambda row: True)
     monkeypatch.setattr(main, "_is_guest", lambda request: True)
     repo = SampleRepo()
-    guest, _, _ = client_for(OTHER, repo)
+    repo.row["sha256"] = main.VIEWABLE_SAMPLE_SHA256
+    guest, _, storage = client_for(OTHER, repo)
+    storage.download = lambda path: b"%PDF-1.4\nshared demo"
     listed = guest.get("/api/v1/documents")
     assert listed.status_code == 200
     assert listed.json()["documents"][0]["is_sample"] is True
     viewed = guest.get(f"/api/v1/documents/{DOC}/pdf")
-    assert viewed.status_code == 403
+    assert viewed.status_code == 200
+    assert viewed.content.startswith(b"%PDF-")
+    assert viewed.headers["cache-control"] == "private, no-store"
     answered = guest.post(f"/api/v1/documents/{DOC}/chat", json={"question": "What is the answer?"})
     assert answered.status_code == 200
     assert repo.retrieval_owners == [OWNER]
@@ -69,6 +73,16 @@ def test_shared_sample_is_ready_and_uses_source_passages_but_guest_usage(monkeyp
     assert repo.retrieval_owners == [OWNER]
     assert guest.delete(f"/api/v1/documents/{DOC}").status_code == 403
     assert repo.row["status"] == "ready"
+
+
+def test_previous_restricted_sample_pdf_stays_unavailable(monkeypatch):
+    monkeypatch.setattr(main, "_sample_id", lambda: DOC)
+    monkeypatch.setattr(main, "_approved_sample", lambda row: True)
+    monkeypatch.setattr(main, "_is_guest", lambda request: True)
+    repo = SampleRepo()
+    guest, _, storage = client_for(OTHER, repo)
+    storage.download = lambda path: b"%PDF-1.4\nrestricted"
+    assert guest.get(f"/api/v1/documents/{DOC}/pdf").status_code == 403
 
 
 def test_demo_pdf_is_hidden_from_registered_accounts_and_cannot_be_deleted(monkeypatch):
